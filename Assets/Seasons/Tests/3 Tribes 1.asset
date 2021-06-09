@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
+  m_Name: 3 Tribes 1
+  m_EditorClassIdentifier: 
+  nameSeason: Survivor:Epic Island
+  Tribes:
+  - name: Switch Tribe
+    tribeColor: {r: 1, g: 0, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    remove: 0
+  - name: Xbox Tribe
+    tribeColor: {r: 0.20867634, g: 1, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    remove: 0
+  - name: Playstation Tribe
+    tribeColor: {r: 0, g: 0.19270587, b: 1, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    remove: 0
+  - name: Dreamcast Tribe
+    tribeColor: {r: 0.9622642, g: 0.13163051, b: 0.9622642, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    remove: 0
+  mergeAt: 10
+  jury: 7
+  final: 2
+  Episodes: []
+  Tiebreaker: 
+  ReturningPlayers: 
+  MergeTribeColor: {r: 0, g: 1, b: 0.4292453, a: 1}
+  MergeTribeName: Console Tribe
+  swaps:
+  - on: 0
+    swapAt: 15
+    type: RegularShuffle
+    newTribes:
+    - name: Nintendo Tribe
+      tribeColor: {r: 1, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      remove: 0
+    - name: Sega Tribe
+      tribeColor: {r: 0.11792451, g: 0.2751623, b: 1, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      remove: 0
+    - name: Gamer Tribe
+      tribeColor: {r: 0.16816103, g: 1, b: 0.11764705, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      remove: 0
+    text: 
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: Panama
+    exileIsland:
+      on: 1
+      reason: 
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 1
+      two: 0
+    exile: 0
+    redIs: 0
+  - on: 0
+    swapAt: 13
+    type: SchoolyardPick
+    newTribes:
+    - name: Nintendo Tribe
+      tribeColor: {r: 1, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      remove: 0
+    - name: Sega Tribe
+      tribeColor: {r: 0.11792451, g: 0.2751623, b: 1, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      remove: 0
+    text: Leader
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: Random
+    pickingRules: altTribes
+    exileIsland:
+      on: 1
+      reason: 
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 1
+      two: 0
+    exile: 1
+    redIs: 0
+  ExileIslandd: 0
+  RedemptionIsland: 0
+  EdgeOfExtinction: 0
+  Outcasts: 0
+  MedallionOfPower: 0
+  MOPExpire: 4
+  Twists:
+    expireAt: 0
+    epsSkip: 
+    epsSpecialE: 
+    epsSkipRI: 
+    epsSpecialRI: 
+    SpecialEx: []
+    preMergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+    MergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+  oneTimeEvents: []
