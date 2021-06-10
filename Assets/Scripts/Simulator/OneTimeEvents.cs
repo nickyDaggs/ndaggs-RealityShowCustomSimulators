@@ -536,8 +536,11 @@ public class OneTimeEvents : MonoBehaviour
                             }
                         }
                         GameManager.instance.MakeGroup(false, null, "", "", votedOff.nickname + ", the tribe has spoken. \n \n" + votedOff.nickname +" will now go to Redemption Island", new List<Contestant>() { votedOff}, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                        votedOff.placement = "Voted Out Ep. 1 \n Eliminated";
+                        GameManager.instance.Eliminated.Add(votedOff);
                         tribe.members.Remove(votedOff);
                         GameManager.instance.RIsland.Add(votedOff);
+                        GameManager.instance.currentContestants--;
                     }
                     
                 }

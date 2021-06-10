@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace SeasonParts
 {
+    //namespace that includes several classes that are used for the simulator
     [System.Serializable]
     public class Alliance
     {
+        //Alliance are groups of contestants that vote together
         public string name;
         public List<string> teams = new List<string>();
         public List<Contestant> members = new List<Contestant>();
@@ -18,6 +20,7 @@ namespace SeasonParts
         public string name;
         public Color tribeColor;
         public List<Contestant> members = new List<Contestant>();
+        public List<HiddenAdvantage> hiddenAdvantages = new List<HiddenAdvantage>();
         public bool remove;
         //public List<Alliance> alliances = new List<Alliance>();
     }
@@ -99,14 +102,13 @@ namespace SeasonParts
         public List<GameObject> VoteObjs = new List<GameObject>();
     }
     [System.Serializable]
-    public class Advantage
+    public class HiddenAdvantage
     {
         public string name;
-        public string type;
-        public int expiresAt;
-        public int length;
-        public bool temp;
-        public string usedWhen;
+        public Advantage advantage;
+        public int hideAt;
+        public bool reHidden;
+        public bool linkedToExile;
     }
 }
 public class SimulatorParts : MonoBehaviour

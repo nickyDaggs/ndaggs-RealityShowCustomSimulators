@@ -5,6 +5,7 @@ using SeasonParts;
 [CreateAssetMenu(fileName = "newSeasonTemp", menuName = "SeasonTemplate")]
 public class SeasonTemplate : ScriptableObject
 {
+    //Template used to set up what twists and options will be used in a season.
     public string nameSeason;
     public List<Team> Tribes;    
     public float mergeAt;
@@ -15,6 +16,7 @@ public class SeasonTemplate : ScriptableObject
     public string ReturningPlayers;
     public Color MergeTribeColor;
     public string MergeTribeName;
+    public List<HiddenAdvantage> mergeHiddenAdvantages;
     public List<TribeSwap> swaps;
     public bool ExileIslandd;
     public bool RedemptionIsland;

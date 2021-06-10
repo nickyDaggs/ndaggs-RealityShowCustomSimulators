@@ -1120,7 +1120,7 @@ public class Swaps : MonoBehaviour
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
         GameManager.instance.AddGM(SwapContext, true);
         List<Team> DupTribes = new List<Team>(GameManager.instance.Tribes);
-        List<Team> Genders = new List<Team>();
+        List<Team> Genders = new List<Team>() { new Team(), new Team()};
         Team Males = new Team();
         Team Females = new Team();
         List<Contestant> Cast = new List<Contestant>();
@@ -1171,8 +1171,9 @@ public class Swaps : MonoBehaviour
         string etext = "The current tribes are no more. \n \n All of the castaways are asked to stand on two blank lines.";
         if (GameManager.instance.genderEqual)
         {
+            //Debug.Log(Males.members.Count + " " + Females.members.Count);
             Groups = new List<List<Contestant>>();
-            Groups.Add(Males.members); Groups.Add(Females.members);
+            Groups.Add(Genders[0].members); Groups.Add(Genders[1].members);
             etext += "\n \n Each gender will stand together.";
         }
         etext += "\n \n Each group will have two randomly picked captains and a schoolyard pick.";

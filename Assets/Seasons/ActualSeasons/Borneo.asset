@@ -25,6 +25,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    hiddenAdvantages: []
     remove: 0
   - name: Tagi Tribe
     tribeColor: {r: 0.9921569, g: 0.4431373, b: 0, a: 1}
@@ -37,6 +38,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    hiddenAdvantages: []
     remove: 0
   mergeAt: 10
   jury: 7
@@ -91,6 +93,7 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.16981131, g: 1, b: 0.16981131, a: 1}
   MergeTribeName: Rattata Tribe
+  mergeHiddenAdvantages: []
   swaps: []
   ExileIslandd: 0
   RedemptionIsland: 1
@@ -121,8 +124,4 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
-  oneTimeEvents:
-  - type: FirstImpressions
-    context: RI
-    round: 1
-    elim: 0
+  oneTimeEvents: []

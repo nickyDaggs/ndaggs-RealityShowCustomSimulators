@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CB285A00-F573-005D-4E74-0402E6BF24D4}</ProjectGuid>
+    <ProjectGuid>{3F468E3E-4BF0-2711-2945-52115CD09B74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -278,7 +278,7 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/UnityVersions/2019.4.8f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -635,45 +635,45 @@
       <HintPath>D:/UnityVersions/2019.4.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowSimulators/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/Nicky DaGGs/Documents/GitHub/ndaggs-RealityShowCustomSimulators/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{F9C97C67-8737-3DA3-F00D-7FE4A220FAB4}</Project>
+      <Project>{103B621D-B522-64DD-FD94-EA23856A1BF5}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>

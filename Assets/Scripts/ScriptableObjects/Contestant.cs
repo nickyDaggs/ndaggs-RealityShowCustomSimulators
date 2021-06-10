@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newContestant", menuName = "Contestant")]
 public class Contestant : ScriptableObject
 {
+    //Contains the info for a contestant
     public string fullname;
     public string nickname;
     public string gender;
@@ -14,7 +15,7 @@ public class Contestant : ScriptableObject
     public int votesGotten;
     public int immunityWins;
     public int rewardWins;
-    public int advantages;
+    public List<Advantage> advantages;
     public int Age;
     public string voteReason;
     public string placement;

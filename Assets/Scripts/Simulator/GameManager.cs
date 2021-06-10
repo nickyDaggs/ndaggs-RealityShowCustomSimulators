@@ -5,10 +5,13 @@ using UnityEngine.UI;
 using System.Linq;
 using SeasonParts;
 using UnityEngine.UI.Extensions;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //Main script that simulates the season
     public SeasonTemplate seasonTemp;
+    public bool load;
     public List<Team> Tribes = new List<Team>();
     public List<Alliance> Alliances = new List<Alliance>();
     float nextEvent = 1;
@@ -61,6 +64,7 @@ public class GameManager : MonoBehaviour
     public RejoiningTwists reTwists;
     public OneTimeEvents oneTimeEvents;
     public int re;
+    int idols;
     int elimed = 1;
     int jurt;
     [HideInInspector] public bool RIExpired = false, OCExpired = false, e = false;
@@ -76,66 +80,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        //print("<b>Gaming</b>");
-        curSwap.on = false;
-        curExile.on = false;
-        int male = 0;
-        int female = 0;
-        if (instance != null && instance != this)
+        if(load)
         {
-            Destroy(this.gameObject);
-        }
-        else
+            StartCoroutine(SetUp());
+        } else
         {
-            instance = this;
+            PlaySeason();
         }
-        curTribal = 0;
-        currentSeason = Instantiate(baseSeason);
-        foreach(GameObject torch in Torches)
-        {
-            torch.SetActive(false);
-        }
-        sea = Instantiate(seasonTemp);
-        Tribes = new List<Team>(sea.Tribes);
-        mergeAt = sea.mergeAt; juryAt = sea.jury; finaleAt = sea.final;
-        SetSeason();
-        nextButton.onClick.AddListener(NextGM);
-        
-
-        foreach (Team tribe in Tribes)
-        {
-            MakeAlliances(tribe);
-            currentContestants += tribe.members.Count;
-            foreach (Contestant num in tribe.members)
-            {
-                num.teams.Add(tribe.tribeColor);
-                if(num.gender == "M")
-                {
-                    male++;
-                } else if(num.gender == "F")
-                {
-                    female++;
-                }
-            }
-        }
-        if(!sea.Outcasts)
-        {
-            OCExpired = true;
-        }
-        if(male == female)
-        {
-            genderEqual = true;
-        }
-        //lastThing = EpisodeStart;
-        //TieGame();
-        nextEvent = 1;
-        immune = new List<Contestant>();
-        MergedTribe.name = "Merge Tribe";
-        CreateEpisodeSettings();
-        curEp = 0;
-        curEv = 0;
-        currentContestantsOG = currentContestants;
-        NextEvent();
     }
     // Update is called once per frame
     void Update()
@@ -176,6 +127,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    //Function that creates the events for each episode.
     void CreateEpisodeSettings()
     {
         float episodeCount = currentContestants - finaleAt;
@@ -185,10 +137,7 @@ public class GameManager : MonoBehaviour
             {
                 episodeCount--;
             }
-            if(timeEvent.type == "FirstImpressions" && timeEvent.context == "RI")
-            {
-                episodeCount -= 2;
-            }
+            
         }
         if (sea.RedemptionIsland || sea.EdgeOfExtinction)
         {
@@ -199,6 +148,13 @@ public class GameManager : MonoBehaviour
             episodeCount++;
         }
         float curCon = currentContestants;
+        foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
+        {
+            if (timeEvent.type == "FirstImpressions" && timeEvent.context == "RI")
+            {
+                episodeCount-= 2;
+            }
+        }
         float mergeRound = 0;
         float curTeams = sea.Tribes.Count;
         int curSE = 0;
@@ -229,6 +185,10 @@ public class GameManager : MonoBehaviour
                     } else 
                     {
                         ep.events.Add("BeginningTwist");
+                        if(ep.Event.type == "FirstImpressions" && ep.Event.context == "RI")
+                        {
+                            curCon -= 2;
+                        }
                     }
                 }
                 ep.events.Add("NextEp");
@@ -643,6 +603,10 @@ public class GameManager : MonoBehaviour
         {
             curEp++;
             curEv = 0;
+            if(curEp > Episodes.Count)
+            {
+                Quit();
+            }
         }
     }
     void NextEventt()
@@ -1234,7 +1198,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("gg");
             List<Contestant> g = new List<Contestant>() { kidnapped };
             MakeGroup(false, null, "", teams[0].name + " can kidnap someone from the losing tribe.", kidnapped.nickname + " is kidnapped.", g, EpisodeImm.transform.GetChild(0), 20);
-        } else
+        } else if (curEvent.type == "DoubleElim")
         {
             MakeGroup(false, null, "", "", LosingTribes[LosingTribes.Count -1].name + "  receive a message in a bottle to open after tribal council.", new List<Contestant>(), EpisodeImm.transform.GetChild(0), 0);
         }
@@ -1321,6 +1285,7 @@ public class GameManager : MonoBehaviour
         LosingTribe = team;
         lastVoteOff = EpisodeStart.transform.GetChild(0).GetChild(0).gameObject;
         string etext = "";
+        
         if(team.members.Count > 2)
         {
             etext = "It's time to vote. \n \n I'll read the votes.";
@@ -2151,6 +2116,23 @@ public class GameManager : MonoBehaviour
                 vote = vote + "\n Tiebreaker";
                 //Debug.Log(votedOff.nickname + " has been eliminated. " + "Lost tiebreaker challenge");
                 Eliminate();
+            }
+        }
+        void AdvantagePlay(Transform obj, Advantage advantage, Contestant user, Contestant usedOn)
+        {
+            List<Contestant> n = new List<Contestant>() { user };
+            string evetext = user + " uses the " + advantage.nickname;
+            if (usedOn != null)
+            {
+
+            } 
+
+            MakeGroup(false, null, "", "", evetext, n, obj, 0);
+            switch (advantage.type)
+            {
+                case "PreventiveIdol":
+                    immune.Add(user);
+                    break;
             }
         }
     }
@@ -3613,6 +3595,78 @@ public class GameManager : MonoBehaviour
     void BeginningTwist()
     {
         oneTimeEvents.BeginningTwist();
+    }
+    IEnumerator SetUp()
+    {
+        yield return new WaitForSeconds(.01f);
+        seasonTemp = SeasonMenuManager.instance.curSeason;
+        cast = SeasonMenuManager.instance.curCast;
+        PlaySeason();
+    }
+    void PlaySeason()
+    {
+        curSwap.on = false;
+        curExile.on = false;
+        int male = 0;
+        int female = 0;
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        curTribal = 0;
+        currentSeason = Instantiate(baseSeason);
+        foreach (GameObject torch in Torches)
+        {
+            torch.SetActive(false);
+        }
+        sea = Instantiate(seasonTemp);
+        Tribes = new List<Team>(sea.Tribes);
+        mergeAt = sea.mergeAt; juryAt = sea.jury; finaleAt = sea.final;
+        SetSeason();
+        nextButton.onClick.AddListener(NextGM);
+        foreach (Team tribe in Tribes)
+        {
+            MakeAlliances(tribe);
+            currentContestants += tribe.members.Count;
+            foreach (Contestant num in tribe.members)
+            {
+                num.teams.Add(tribe.tribeColor);
+                if (num.gender == "M")
+                {
+                    male++;
+                }
+                else if (num.gender == "F")
+                {
+                    female++;
+                }
+            }
+        }
+        if (!sea.Outcasts)
+        {
+            OCExpired = true;
+        }
+        if (male == female)
+        {
+            genderEqual = true;
+        }
+        //lastThing = EpisodeStart;
+        //TieGame();
+        nextEvent = 1;
+        immune = new List<Contestant>();
+        MergedTribe.name = "Merge Tribe";
+        CreateEpisodeSettings();
+        curEp = 0;
+        curEv = 0;
+        currentContestantsOG = currentContestants;
+        NextEvent();
+    }
+    public void Quit()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void MakeGroup(bool nameEnabled, Team teem, string conText, string aText, string eText, List<Contestant> cons, Transform ep, float spacing)
