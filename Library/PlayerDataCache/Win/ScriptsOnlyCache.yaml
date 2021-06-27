@@ -1,8 +1,10 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Advantage
     - Cast
     - Contestant
+    - ExileIsland
     - GameManager
     - OneTimeEvents
     - RejoiningTwists
@@ -68,37 +70,39 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11200}
+      Script: {instanceID: 11198}
     - Class: 114
-      Script: {instanceID: 11222}
+      Script: {instanceID: 11220}
     - Class: 114
-      Script: {instanceID: 11410}
+      Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11520}
+      Script: {instanceID: 11518}
     - Class: 114
-      Script: {instanceID: 11592}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 11832}
+      Script: {instanceID: 11830}
     - Class: 114
-      Script: {instanceID: 11934}
+      Script: {instanceID: 11932}
     - Class: 114
-      Script: {instanceID: 11966}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12428}
+      Script: {instanceID: 12426}
     - Class: 114
       Script: {instanceID: 12682}
     - Class: 114
       Script: {instanceID: 12700}
     - Class: 114
-      Script: {instanceID: 13000}
+      Script: {instanceID: 12896}
     - Class: 114
-      Script: {instanceID: 13034}
+      Script: {instanceID: 13002}
     - Class: 114
-      Script: {instanceID: 13196}
+      Script: {instanceID: 13036}
     - Class: 114
-      Script: {instanceID: 13442}
+      Script: {instanceID: 13122}
     - Class: 114
-      Script: {instanceID: 15834}
+      Script: {instanceID: 13198}
+    - Class: 114
+      Script: {instanceID: 13444}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -147,49 +151,53 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11200}
     - Class: 114
-      Script: {instanceID: 11202}
+      Script: {instanceID: 11220}
     - Class: 114
-      Script: {instanceID: 11222}
+      Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11410}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 11592}
+      Script: {instanceID: 11810}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11830}
     - Class: 114
-      Script: {instanceID: 11832}
+      Script: {instanceID: 11932}
     - Class: 114
-      Script: {instanceID: 11934}
+      Script: {instanceID: 12170}
     - Class: 114
-      Script: {instanceID: 12172}
+      Script: {instanceID: 12202}
     - Class: 114
-      Script: {instanceID: 12214}
+      Script: {instanceID: 12212}
     - Class: 114
-      Script: {instanceID: 12254}
+      Script: {instanceID: 12252}
     - Class: 114
-      Script: {instanceID: 12334}
+      Script: {instanceID: 12332}
     - Class: 114
-      Script: {instanceID: 12428}
+      Script: {instanceID: 12426}
     - Class: 114
-      Script: {instanceID: 12526}
+      Script: {instanceID: 12524}
+    - Class: 114
+      Script: {instanceID: 12532}
     - Class: 114
       Script: {instanceID: 12682}
     - Class: 114
       Script: {instanceID: 12820}
     - Class: 114
-      Script: {instanceID: 12934}
+      Script: {instanceID: 12936}
     - Class: 114
-      Script: {instanceID: 13000}
+      Script: {instanceID: 13002}
     - Class: 114
-      Script: {instanceID: 13034}
+      Script: {instanceID: 13036}
     - Class: 114
-      Script: {instanceID: 13124}
+      Script: {instanceID: 13122}
     - Class: 114
-      Script: {instanceID: 13174}
+      Script: {instanceID: 13126}
     - Class: 114
-      Script: {instanceID: 13410}
+      Script: {instanceID: 13176}
     - Class: 114
-      Script: {instanceID: 13442}
+      Script: {instanceID: 13412}
+    - Class: 114
+      Script: {instanceID: 13444}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -207,12 +215,6 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
@@ -443,7 +445,7 @@ ScriptsOnlyBuild:
     className: LayoutElement
   - hash:
       serializedVersion: 2
-      Hash: 839bdedcf4bc6d14e15da7ca214e7cc5
+      Hash: 5cf3633c65c5eda1e3c199aceaecb4ad
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SeasonTemplate
@@ -563,7 +565,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 5f707807157c4fbfb71d9b60a92da8b8
+      Hash: cecf64fc62eea2e46fae14bdcdf8b8a0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Contestant
@@ -773,7 +775,7 @@ ScriptsOnlyBuild:
     className: TextPic
   - hash:
       serializedVersion: 2
-      Hash: 6b0976dca9472a462a7612e80fcf945d
+      Hash: c2cd0dfe83e4845eba7e80d88452d9bb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -921,6 +923,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: NonDrawingGraphic
+  - hash:
+      serializedVersion: 2
+      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
       Hash: 7bb02911a4e04d0ebc77cfe0d5bdb3d2
@@ -1097,6 +1105,12 @@ ScriptsOnlyBuild:
     className: TileSizeFitter
   - hash:
       serializedVersion: 2
+      Hash: 05b673e83f845137283b376f3dab9351
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SeasonMenuManager
+  - hash:
+      serializedVersion: 2
       Hash: 9bc44e4f708daaf26cf3adc9512bcc44
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
@@ -1181,7 +1195,7 @@ ScriptsOnlyBuild:
     className: Stepper
   - hash:
       serializedVersion: 2
-      Hash: 05980b3daac69f8080907c7f09f812ae
+      Hash: b42e94393dbfe9c8f642bc7d133d6e5c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Advantage
@@ -1355,7 +1369,7 @@ ScriptsOnlyBuild:
     className: UICornerCut
   - hash:
       serializedVersion: 2
-      Hash: fac5b92b0d7ac8da8569b27e239d7c40
+      Hash: 186050fd73150e8f8b6957ce3b4cd6eb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Season
@@ -1449,14 +1463,8 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 05b673e83f845137283b376f3dab9351
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SeasonMenuManager
   platform: 5
   scenePathNames:
   - Assets/Scenes/SeasonMenu.unity
   - Assets/Scenes/Simulator.unity
-  playerPath: C:/Users/Nicky DaGGs/Desktop/RealityShowSimulators/ndaggs-RealityShowSimulators.exe
+  playerPath: C:/Users/Nicky DaGGs/Desktop/RealityShowSimulatorsCineTribal/ndaggs-RealityShowSimulators.exe

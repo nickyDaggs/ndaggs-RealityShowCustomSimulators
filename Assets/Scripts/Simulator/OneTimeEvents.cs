@@ -8,12 +8,16 @@ public class OneTimeEvents : MonoBehaviour
 {
     public void STribeImmunity()
     {
-        if(GameManager.instance.curEvent.type != "JointTribal" && GameManager.instance.curEvent.type != "MergeSplit")
+        if(GameManager.instance.curEvent.type == "")
+        {
+            GameManager.instance.curEvent.type = "JurorRemoval";
+        }
+        if(GameManager.instance.curEvent.type != "JointTribal" && GameManager.instance.curEvent.type != "MergeSplit" && GameManager.instance.curEvent.type != "JurorRemoval")
         {
             GameManager.instance.curEp--;
             GameManager.instance.curEv = GameManager.instance.Episodes[GameManager.instance.curEp].events.IndexOf("STribeImmunity") + 1;
+            Debug.Log(GameManager.instance.curEvent.type);
         }
-
         
         GameManager.instance.immune = new List<Contestant>();
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[2]);
@@ -178,6 +182,22 @@ public class OneTimeEvents : MonoBehaviour
                 }
                 GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("TribalCouncil");
                 GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("ShowVotes");
+                break;
+            case "JurorRemoval":
+                Contestant winner = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
+                List<Contestant> u = new List<Contestant>() { winner };
+                GameManager.instance.MakeGroup(false, null, winner.nickname + " Wins Reward!\n\nThey win the power to remove a juror.", "", "", u, EpisodeStart.transform.GetChild(0), 20);
+                GameObject EpisodeTribal = Instantiate(GameManager.instance.Prefabs[0]);
+                EpisodeTribal.transform.parent = GameManager.instance.Canvas.transform;
+                EpisodeTribal.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+                EpisodeTribal.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+                EpisodeTribal.name = "Tribal Council";
+                GameManager.instance.AddGM(EpisodeTribal, false);
+                GameManager.instance.MakeGroup(true, GameManager.instance.MergedTribe, "name", "", "No one will be voted out. Instead, one castaway chosen by " + winner.nickname + " will be removed from the jury.", GameManager.instance.MergedTribe.members, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
+                GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.jury, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
+                Contestant elim = GameManager.instance.jury[Random.Range(0, GameManager.instance.jury.Count)];
+                GameManager.instance.jury.Remove(elim);
+                GameManager.instance.MakeGroup(false, null, "", "", elim.nickname + " is removed from the jury.", new List<Contestant>() { elim}, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
                 break;
         }
 
@@ -543,6 +563,35 @@ public class OneTimeEvents : MonoBehaviour
                         GameManager.instance.currentContestants--;
                     }
                     
+                }
+                break;
+            case "MarooningAdvantage":
+                foreach(HiddenAdvantage hid in GameManager.instance.sea.twistHiddenAdvantages)
+                {
+                    foreach(Team tribe in GameManager.instance.Tribes)
+                    {
+                        foreach(Contestant num in tribe.members)
+                        {
+                            if(hid.hidden)
+                            {
+                                int ran = Random.Range(0, 2);
+                                if (ran == 1)
+                                {
+                                    Advantage av = Instantiate(hid.advantage);
+                                    av.name = hid.name;
+                                    if (hid.temp)
+                                    {
+                                        av.temp = true;
+                                        av.length = hid.length;
+                                    }
+                                    num.advantages.Add(av);
+                                    hid.hidden = false;
+                                    List<Contestant> n = new List<Contestant>() { num };
+                                    GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " finds the " + hid.name + "\n\n" + av.description, n, EpisodeStart.transform.GetChild(0), 10);
+                                }
+                            }
+                        }
+                    }
                 }
                 break;
         }

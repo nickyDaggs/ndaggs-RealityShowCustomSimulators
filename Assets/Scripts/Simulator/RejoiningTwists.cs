@@ -178,7 +178,7 @@ public class RejoiningTwists : MonoBehaviour
         if (GameManager.instance.EOE[GameManager.instance.EOE.Count - 1] != GameManager.instance.lastEOE)
         {
             List<Contestant> r = new List<Contestant>() { GameManager.instance.EOE[GameManager.instance.EOE.Count - 1] };
-            GameManager.instance.MakeGroup(false, null, "", "", r[0].nickname + " arrives on the Edge of Extinction", r, EOEStatus.transform.GetChild(0), 20);
+            GameManager.instance.MakeGroup(false, null, "", "", r[0].nickname + " arrives on the Edge of Extinction", r, EOEStatus.transform.GetChild(0).GetChild(0), 20);
             GameManager.instance.lastEOE = null;
         }
 
@@ -191,11 +191,12 @@ public class RejoiningTwists : MonoBehaviour
         }
         
         GameManager.instance.Eliminated.Remove(winner);
+        winner.halfIdols.Add(winner);
         GameManager.instance.MergedTribe.members.Add(winner);
         GameManager.instance.currentContestants++;
 
         List<Contestant> n = new List<Contestant>() { winner };
-        GameManager.instance.MakeGroup(false, null, "", "", winner.nickname + " returns to the game.", n, EOEStatus.transform.GetChild(0), 20);
+        GameManager.instance.MakeGroup(false, null, "", "", winner.nickname + " returns to the game.", n, EOEStatus.transform.GetChild(0).GetChild(0), 20);
         foreach (Contestant num in GameManager.instance.EOE)
         {
             int diff = GameManager.instance.EOE.Count - remove.Count;
@@ -236,7 +237,7 @@ public class RejoiningTwists : MonoBehaviour
                 {
                     etext = etext.Replace(comma + remove[remove.Count - 1].nickname, " and " + remove[remove.Count - 1].nickname);
                 }
-                GameManager.instance.MakeGroup(false, null, "", "", etext, remove, EOEStatus.transform.GetChild(0), 20);
+                GameManager.instance.MakeGroup(false, null, "", "", etext, remove, EOEStatus.transform.GetChild(0).GetChild(0), 20);
             }
             else
             {
@@ -247,6 +248,7 @@ public class RejoiningTwists : MonoBehaviour
     }
     public void OutcastsImmunity()
     {
+        GameManager.instance.immune = new List<Contestant>();
         GameManager.instance.LosingTribes = new List<Team>();
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
         EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
@@ -545,6 +547,7 @@ public class RejoiningTwists : MonoBehaviour
                     foreach (Contestant num in key.Key)
                     {
                         num.teams.Add(new Color());
+                        num.safety++;
                         GameManager.instance.MergedTribe.members.Add(num);
                         GameManager.instance.Eliminated.Remove(num);
                         List<Contestant> n = new List<Contestant>() { num };
@@ -576,15 +579,17 @@ public class RejoiningTwists : MonoBehaviour
                     {
                         int ran1 = Random.Range(0, key.Key.Count);
                         key.Key[ran1].teams.Add(new Color());
+                        key.Key[ran1].safety++;
                         GameManager.instance.MergedTribe.members.Add(key.Key[ran1]);
                         GameManager.instance.Eliminated.Remove(key.Key[ran1]);
 
                         List<Contestant> n = new List<Contestant>() { key.Key[ran1] };
+                        
                         key.Key.Remove(key.Key[ran1]);
+                        
                         if (GameManager.instance.cineTribal)
                         {
                             GameManager.instance.MakeGroup(false, null, n[0].nickname + " will return to the game.", "", "", n, null, 0);
-
                         }
                         else
                         {

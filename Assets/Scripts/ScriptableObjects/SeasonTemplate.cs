@@ -17,8 +17,11 @@ public class SeasonTemplate : ScriptableObject
     public Color MergeTribeColor;
     public string MergeTribeName;
     public List<HiddenAdvantage> mergeHiddenAdvantages;
+    public List<HiddenAdvantage> twistHiddenAdvantages;
     public List<TribeSwap> swaps;
     public bool ExileIslandd;
+    public string IslandType;
+    public List<HiddenAdvantage> islandHiddenAdvantages;
     public bool RedemptionIsland;
     public bool EdgeOfExtinction;
     public bool Outcasts;

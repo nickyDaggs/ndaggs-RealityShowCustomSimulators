@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5160c3df1ab8e240aaa9a6b8466770e, type: 3}
   m_Name: Preventive Idol
   m_EditorClassIdentifier: 
-  nickname: 
+  nickname: Hidden Immunity Idol
   type: PreventiveIdol
   expiresAt: 5
   length: 0

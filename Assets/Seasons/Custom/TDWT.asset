@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
+  m_Name: TDWT
+  m_EditorClassIdentifier: 
+  nameSeason: Total Drama World Tour
+  Tribes:
+  - name: Team Victory
+    tribeColor: {r: 1, g: 0.74509805, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+  - name: Team Amazon
+    tribeColor: {r: 0.9716981, g: 0.35292807, b: 0.87917167, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+  - name: Team Chris Is Really Really Really Really Hot
+    tribeColor: {r: 0, g: 0.72156864, b: 1, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+  mergeAt: 8
+  jury: 7
+  final: 2
+  Episodes: []
+  Tiebreaker: 
+  ReturningPlayers: 
+  MergeTribeColor: {r: 1, g: 1, b: 1, a: 1}
+  MergeTribeName: Merge
+  mergeHiddenAdvantages:
+  - name: Invincibility Statue
+    advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+    hideAt: 0
+    reHidden: 1
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+  twistHiddenAdvantages: []
+  swaps: []
+  ExileIslandd: 0
+  IslandType: 
+  islandHiddenAdvantages: []
+  RedemptionIsland: 0
+  EdgeOfExtinction: 0
+  Outcasts: 0
+  MedallionOfPower: 0
+  MOPExpire: 0
+  Twists:
+    expireAt: 0
+    epsSkipE: 
+    epsSpecialE: 
+    epsSkipRI: 
+    epsSpecialRI: 
+    SpecialEx: []
+    preMergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+    MergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+    IOI:
+      name: 
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members: []
+      hiddenAdvantages: []
+      remove: 0
+  oneTimeEvents:
+  - type: JointTribal
+    context: 
+    round: 2
+    elim: 1

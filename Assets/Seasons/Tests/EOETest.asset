@@ -93,7 +93,20 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.16981131, g: 1, b: 0.16981131, a: 1}
   MergeTribeName: Rattata Tribe
-  mergeHiddenAdvantages: []
+  mergeHiddenAdvantages:
+  - name: Vote Steal
+    advantage: {fileID: 11400000, guid: b09ac9f84ce006145848f34558e8e311, type: 2}
+    hideAt: 0
+    reHidden: 0
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+  twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 14
@@ -138,7 +151,10 @@ MonoBehaviour:
       two: 0
     exile: 0
     redIs: 0
+    refreshAdvantages: 0
   ExileIslandd: 0
+  IslandType: 
+  islandHiddenAdvantages: []
   RedemptionIsland: 0
   EdgeOfExtinction: 1
   Outcasts: 0
@@ -146,7 +162,7 @@ MonoBehaviour:
   MOPExpire: 0
   Twists:
     expireAt: 10
-    epsSkip: 
+    epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
     epsSpecialRI: 
@@ -167,6 +183,12 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+    IOI:
+      name: 
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members: []
+      hiddenAdvantages: []
+      remove: 0
   oneTimeEvents:
   - type: MultiTribalEveryTeamImm
     context: 

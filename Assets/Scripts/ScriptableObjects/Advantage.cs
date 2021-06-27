@@ -9,18 +9,10 @@ public class Advantage : ScriptableObject
     public string type;
     public int expiresAt;
     public int length;
+    public List<int> onlyUsable;
     public bool temp;
     public bool playOnOthers;
     public string usedWhen;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string description;
+    public Contestant otherIdol;
 }

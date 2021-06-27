@@ -706,6 +706,7 @@ GameObject:
   - component: {fileID: 908878649}
   - component: {fileID: 908878650}
   - component: {fileID: 908878651}
+  - component: {fileID: 908878652}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -725,7 +726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f70d57e239a584a96b3987db750b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seasonTemp: {fileID: 11400000, guid: 06e8f606e212c574c94ed66bfeb2a7d1, type: 2}
+  ImmunityNecklace: {fileID: 11400000, guid: 4beb5533543b42c47baeb23d1b0d8cdf, type: 2}
+  HiddenIdol: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+  seasonTemp: {fileID: 11400000, guid: 579fedb08a677d946af3ec32a939499f, type: 2}
   load: 1
   Tribes:
   - name: 0
@@ -753,7 +756,7 @@ MonoBehaviour:
   Eliminated: []
   currentContestants: 0
   merged: 0
-  cineTribal: 0
+  cineTribal: 1
   showVL: 1
   genderEqual: 0
   Episodes: []
@@ -800,6 +803,7 @@ MonoBehaviour:
       two: 0
     exile: 0
     redIs: 0
+    refreshAdvantages: 0
   swapper: {fileID: 908878649}
   curExile:
     on: 0
@@ -816,6 +820,7 @@ MonoBehaviour:
     elim: 0
   reTwists: {fileID: 908878650}
   oneTimeEvents: {fileID: 908878651}
+  exileIsland: {fileID: 908878652}
   re: 0
   RIExpired: 0
   OCExpired: 0
@@ -834,6 +839,8 @@ MonoBehaviour:
   tie: []
   votesRead: []
   votes: []
+  Idols: []
+  Votes: []
   curEv: 0
   curEp: 0
   MergedTribe:
@@ -898,6 +905,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85dddb07214a7714281ecf7422a66e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &908878652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908878646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea2d8072908f484ea20851fbbf252b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &963194225
@@ -2189,7 +2208,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: dAS
 --- !u!222 &2033454028
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -51,6 +51,7 @@ namespace SeasonParts
         public Exile exileIsland;
         public bool exile;
         public bool redIs;
+        public bool refreshAdvantages;
     }
     [System.Serializable]
     public class Episode
@@ -85,13 +86,14 @@ namespace SeasonParts
     public class Twist
     {
         public int expireAt;
-        public List<int> epsSkip = new List<int>();
+        public List<int> epsSkipE = new List<int>();
         public List<int> epsSpecialE = new List<int>();
         public List<int> epsSkipRI = new List<int>();
         public List<int> epsSpecialRI = new List<int>();
         public List<Exile> SpecialEx = new List<Exile>();
         public Exile preMergeEIsland;
         public Exile MergeEIsland;
+        public Team IOI;
     }
     [System.Serializable]
     public class Page
@@ -99,6 +101,7 @@ namespace SeasonParts
         public GameObject obj;
         public List<Contestant> Vote;
         public List<Contestant> VotesRead;
+        public List<Contestant> Idols = new List<Contestant>();
         public List<GameObject> VoteObjs = new List<GameObject>();
     }
     [System.Serializable]
@@ -108,7 +111,21 @@ namespace SeasonParts
         public Advantage advantage;
         public int hideAt;
         public bool reHidden;
+        public bool hidden;
         public bool linkedToExile;
+        public int length;
+        public bool temp;
+        public bool giveAway;
+        public string IOILesson;
+        public List<HiddenAdvantage> options;
+        public bool IOISweetened;
+    }
+    [System.Serializable]
+    public class Vote
+    {
+        public Contestant voter;
+        public Contestant vote;
+        public List<Contestant> revotes = new List<Contestant>();
     }
 }
 public class SimulatorParts : MonoBehaviour
