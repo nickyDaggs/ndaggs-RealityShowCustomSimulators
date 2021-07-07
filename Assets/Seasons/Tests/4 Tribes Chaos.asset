@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
   m_Name: 4 Tribes Chaos
   m_EditorClassIdentifier: 
-  nameSeason: 
+  nameSeason: Survivor 4 Tribes
   Tribes:
   - name: Epic Tribe
     tribeColor: {r: 1, g: 0, b: 0, a: 1}
@@ -63,6 +63,7 @@ MonoBehaviour:
   MergeTribeColor: {r: 0.99876726, g: 1, b: 0, a: 1}
   MergeTribeName: Gaming Tribe
   mergeHiddenAdvantages: []
+  twistHiddenAdvantages: []
   swaps:
   - on: 0
     swapAt: 17
@@ -117,8 +118,10 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
+    orderBySize: 0
   - on: 0
     swapAt: 14
     type: RegularShuffle
@@ -160,8 +163,10 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
+    orderBySize: 0
   - on: 0
     swapAt: 13
     type: RegularShuffle
@@ -206,17 +211,26 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
+    orderBySize: 0
   ExileIslandd: 0
+  IslandType: 
+  islandHiddenAdvantages: []
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
-    epsSkip: 
+    epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
     epsSpecialRI: 
@@ -229,6 +243,7 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 0
       reason: 
@@ -237,4 +252,12 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
+    IOI:
+      name: 
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members: []
+      hiddenAdvantages: []
+      remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\Contestant.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Season.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\SeasonTemplate.cs" />
+    <Compile Include="Assets\Scripts\Simulator\ChallengeScript.cs" />
     <Compile Include="Assets\Scripts\Simulator\ExileIsland.cs" />
     <Compile Include="Assets\Scripts\Simulator\GameManager.cs" />
     <Compile Include="Assets\Scripts\Simulator\OneTimeEvents.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\Simulator\Swaps.cs" />
     <Compile Include="Assets\Scripts\UI\SetupLayout.cs" />
     <Compile Include="Assets\Scripts\UI\UIGroup.cs" />
+    <Compile Include="Assets\Scripts\UI\loadingAnimation.cs" />
     <Compile Include="Assets\SeasonMenuManager.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\Accordion.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\AccordionElement.cs" />

@@ -420,12 +420,17 @@ public class ExileIsland : MonoBehaviour
             {
                 GameManager.instance.MakeGroup(false, null, "", "<b>Advantages</b>", "", new List<Contestant>(), ExileEvent.transform.GetChild(0).GetChild(0), 0);
             }
-            int h = 0;
+            bool adv = false;
+            bool t = false;
             foreach(HiddenAdvantage hid in GameManager.instance.sea.islandHiddenAdvantages)
             {
-                if (hid.hideAt <= GameManager.instance.curEp + 1)
+                bool asdsa = false;
+                if (hid.advantage.type == "HiddenImmunityIdol" && GameManager.instance.idols >= GameManager.instance.sea.idolLimit && hid.hidden)
                 {
-                    h++;
+                    asdsa = true;
+                }
+                if (hid.hideAt <= GameManager.instance.curEp + 1 && GameManager.instance.currentContestants >= hid.advantage.expiresAt && !asdsa)
+                {
                     string nam = hid.name;
                     if (!hid.name.Contains("Immunity Idol"))
                     {
@@ -436,6 +441,7 @@ public class ExileIsland : MonoBehaviour
                     {
                         if (hid.reHidden)
                         {
+                            t = true;
                             atext = "The " + nam + " is not currently hidden.";
                         }
                         else
@@ -452,6 +458,7 @@ public class ExileIsland : MonoBehaviour
                     {
                         if (hid.hidden)
                         {
+                            t = true;
                             int ran = Random.Range(0, 2);
                             if (ran == 1)
                             {
@@ -471,9 +478,10 @@ public class ExileIsland : MonoBehaviour
                     }
                 }
             }
-            if (h == 0)
+            
+            if (GameManager.instance.sea.islandHiddenAdvantages.Count > 0 && !t)
             {
-                GameManager.instance.MakeGroup(false, null, "", "There are no secret advantages hidden.", "", new List<Contestant>(), ExileEvent.transform.GetChild(0).GetChild(0), -40);
+                GameManager.instance.MakeGroup(false, null, "", "There are no secret advantages hidden.", "", new List<Contestant>(), ExileEvent.transform.GetChild(0).GetChild(0), 0);
             }
         }
 
@@ -481,6 +489,68 @@ public class ExileIsland : MonoBehaviour
         {
             case "Nothing":
 
+                break;
+            case "Safety":
+                foreach(Contestant num in GameManager.instance.Exiled)
+                {
+                    foreach(Team tribe in GameManager.instance.LosingTribes)
+                    {
+                        if(tribe.name == num.team)
+                        {
+                            num.safety++;
+                        }
+                    }
+                }
+                break;
+            case "UrnMutiny":
+                Contestant correct = GameManager.instance.Exiled[Random.Range(0, GameManager.instance.Exiled.Count)];
+                Team team = new Team();
+                foreach (Team tribe in GameManager.instance.Tribes)
+                {
+                    if (tribe.name == correct.team)
+                    {
+                        team = tribe;
+                    }
+                }
+                if (Random.Range(0, 1) == 0 && team.members.Count > (GameManager.instance.currentContestants - GameManager.instance.mergeAt))
+                {
+                    //Debug.Log("SUS");
+                    List<Team> TribesV = new List<Team>(GameManager.instance.Tribes);
+                    if (TribesV.Contains(team))
+                    {
+                        TribesV.Remove(team);
+                    }
+
+                    int ran2 = Random.Range(0, TribesV.Count);
+                    correct.team = TribesV[ran2].name;
+                    string extra = "They mutiny to " + TribesV[ran2].name + ".";
+                    GameManager.instance.MakeGroup(false, null, "", "There are two urns.\n\nOne contains an idol clue and the option of mutinying to the other tribe.\n\nThe other contains nothing.", correct.nickname + " chooses the bottle with the clue and the options.\n\nThey mutiny to " + TribesV[ran2].name + ".", new List<Contestant>() { correct }, ExileEvent.transform.GetChild(0).GetChild(0), 0);
+                    foreach (Team tribe in GameManager.instance.Tribes)
+                    {
+                        foreach (Contestant num in tribe.members)
+                        {
+                            num.teams.Add(tribe.tribeColor);
+                        }
+                        foreach (Contestant num in GameManager.instance.Exiled)
+                        {
+                            if (num.team == tribe.name)
+                            {
+                                num.teams.Add(tribe.tribeColor);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (team.members.Count > (GameManager.instance.currentContestants - GameManager.instance.mergeAt))
+                    {
+                        GameManager.instance.MakeGroup(false, null, "", "There are two urns.\n\nOne contains an idol clue and the option of mutinying to the other tribe.\n\nThe other contains nothing.", correct.nickname + " chooses the bottle with the clue and the options.\n\nThey decide not to mutiny.", new List<Contestant>() { correct }, ExileEvent.transform.GetChild(0).GetChild(0), 0);
+                    }
+                    else
+                    {
+                        GameManager.instance.MakeGroup(false, null, "", "There are two urns.\n\nOne contains an idol clue and the option of mutinying to the other tribe.\n\nThe other contains nothing.", correct.nickname + " chooses the bottle with the clue and the options.\n\nTheir tribe is too small to mutiny.", new List<Contestant>() { correct }, ExileEvent.transform.GetChild(0).GetChild(0), 0);
+                    }
+                }
                 break;
         }
         if (!GameManager.instance.curExile.skipTribal)

@@ -7,6 +7,7 @@ using System.Linq;
 
 public class RejoiningTwists : MonoBehaviour
 {
+    Contestant penalizer = null;
     public void RedemptionIsland()
     {
         GameObject RIEvent = Instantiate(GameManager.instance.Prefabs[0]);
@@ -35,6 +36,10 @@ public class RejoiningTwists : MonoBehaviour
             GameManager.instance.Eliminated.Remove(winner);
             GameManager.instance.MergedTribe.members.Add(winner);
             GameManager.instance.RIsland.Remove(winner);
+            if(GameManager.instance.currentContestants == 4)
+            {
+                winner.teams.Add(GameManager.instance.MergedTribe.tribeColor);
+            }
             GameManager.instance.currentContestants++;
             RIEvent.name = "Returning Duel";
         }
@@ -44,26 +49,23 @@ public class RejoiningTwists : MonoBehaviour
             {
                 List<Contestant> RIT = new List<Contestant>(GameManager.instance.RIsland);
                 int ranW1 = Random.Range(0, GameManager.instance.RIsland.Count);
-                Contestant winner1 = GameManager.instance.RIsland[ranW1];
-                RIT.Remove(winner1);
-                int ranW2 = Random.Range(0, RIT.Count);
-                Contestant winner2 = RIT[ranW2];
+                Contestant loser = GameManager.instance.RIsland[ranW1];
+                GameManager.instance.RIsland.Remove(GameManager.instance.RIsland[ranW1]);
+                GameManager.instance.RIsland.Insert(0, loser);
                 for (int i = 0; i < GameManager.instance.RIsland.Count; i++)
                 {
-                    if (GameManager.instance.RIsland[i] != winner1 && GameManager.instance.RIsland[i] != winner2)
+                    List<Contestant> n = new List<Contestant>() { GameManager.instance.RIsland[i] };
+
+                    if (GameManager.instance.RIsland[i] == loser)
                     {
-                        List<Contestant> n = new List<Contestant>() { GameManager.instance.RIsland[i] };
                         GameManager.instance.MakeGroup(false, null, GameManager.instance.RIsland[i].nickname + " loses and leaves the game.", "", "", n, RIEvent.transform.GetChild(0).GetChild(0), 20);
                         remove.Add(GameManager.instance.RIsland[i]);
+                    } else
+                    {
+                        GameManager.instance.MakeGroup(false, null, GameManager.instance.RIsland[i].nickname + " wins and remains on redemption island.", "", "", n, RIEvent.transform.GetChild(0).GetChild(0), 20);
                     }
                 }
 
-
-                List<Contestant> r = new List<Contestant>() { winner1 };
-                GameManager.instance.MakeGroup(false, null, winner1.nickname + " wins and remains on redemption island.", "", "", r, RIEvent.transform.GetChild(0).GetChild(0), 20);
-                
-                List<Contestant> a = new List<Contestant>() { winner2 };
-                GameManager.instance.MakeGroup(false, null, winner2.nickname + " wins and remains on redemption island.", "", "", r, RIEvent.transform.GetChild(0).GetChild(0), 20);
             }
             else
             {
@@ -131,12 +133,84 @@ public class RejoiningTwists : MonoBehaviour
             casta = "castaway";
         }
         GameManager.instance.MakeGroup(false, null, "", "", "There " + are + " " + GameManager.instance.EOE.Count + " " + casta + " on the Edge of Extinction.", GameManager.instance.EOE, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+        foreach(HiddenAdvantage advantage in GameManager.instance.sea.Twists.EOEAdvantages)
+        {
+            if(GameManager.instance.curEp + 1 == advantage.hideAt)
+            {
+                
+                Contestant finder = GameManager.instance.EOE[Random.Range(0, GameManager.instance.EOE.Count)];
+                string a = "a";
+                if("aeiouAEIOU".IndexOf(advantage.name) == 0 )
+                {
+                    a = "an";
+                }
+                if (advantage.giveAway && advantage.name != "ImmunityAdvantage")
+                {
+                    if (GameManager.instance.MergedTribe.members.Count < 1)
+                    {
+                        GameManager.instance.MakeGroup(false, null, "", "", finder.nickname + " finds an advantage and can assign " + a + " " + advantage.name + " to a player attending the next tribal council.", new List<Contestant>() { finder }, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                        GameManager.instance.EOEGiveAway = advantage;
+                        foreach (Team tribe in GameManager.instance.Tribes)
+                        {
+                            GameManager.instance.extraVote.Add(tribe.members[Random.Range(0, tribe.members.Count)]);
+                        }
+                        GameManager.instance.MakeGroup(false, null, "name", "", "They plan on who they will give the advantage to." , GameManager.instance.extraVote, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                    }
+                    else
+                    {
+                        Contestant given = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
+                        string etext = finder.nickname + " finds an advantage and can assign " + a + " " + advantage.name + " to a remaining player in the game and gives it to " + given.nickname + ".";
+                        if (advantage.IOILesson == "Practice")
+                        {
+                            GameManager.instance.MakeGroup(false, null, "", "", finder.nickname + " finds two advantages. They can practice for the next re-entry challenge.", new List<Contestant>() { finder }, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                            etext = finder.nickname + " can also assign " + a + " " + advantage.name + " to a remaining player in the game and gives it to " + given.nickname + ".";
+                            finder.challengeAdvantage = true;
+                        }
+                        Advantage av = Instantiate(advantage.advantage);
+                        av.nickname = advantage.name;
+                        if (advantage.temp)
+                        {
+                            av.temp = true;
+                            av.length = advantage.length;
+                        }
+                        advantage.hidden = false;
+                        if (advantage.advantage.type == "HalfIdol")
+                        {
+                            given.halfIdols.Add(given);
+                        }
+                        else
+                        {
+                            given.advantages.Add(av);
+                        }
+                        
+                        GameManager.instance.MakeGroup(false, null, "", "", etext, new List<Contestant>() { given, finder }, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                    }
+                } else
+                {
+                    if(advantage.name == "Practice")
+                    {
+                        GameManager.instance.MakeGroup(false, null, "", "", finder.nickname + " finds an advantage. They can practice for the next re-entry challenge.", new List<Contestant>() { finder }, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                        finder.challengeAdvantage = true;
+                    } else if (advantage.name == "Penalize")
+                    {
+                        GameManager.instance.MakeGroup(false, null, "", "", finder.nickname + " finds an advantage and can penalize another player for re-entry challenge.", new List<Contestant>() { finder }, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                        penalizer = finder;
+                    } else if(advantage.name == "ImmunityAdvantage")
+                    {
+                        Contestant given = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
+                        GameManager.instance.MakeGroup(false, null, "", "", finder.nickname + " finds an advantage for the next immunity challenge and gives it to " + given.nickname + ".", new List<Contestant>() { given, finder }, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+                        given.challengeAdvantage = true;
+                    }
+                }
+
+            }
+        }
         if (remove.Count > 0)
         {
             foreach (Contestant num in remove)
             {
                 GameManager.instance.EOE.Remove(num);
-                num.placement = num.placement + "\n Raised Flag Ep. " + (GameManager.instance.curEp + 1);
+                num.placement = num.placement + "\n Raised Flag " + GameManager.instance.Episodes[GameManager.instance.curEp].nickname;
                 if (GameManager.instance.Episodes[GameManager.instance.curEp].merged)
                 {
                     num.placement = num.placement.Replace("Pre-Juror", "Juror");
@@ -183,7 +257,34 @@ public class RejoiningTwists : MonoBehaviour
         }
 
         GameManager.instance.MakeGroup(false, null, "", "", "There are " + GameManager.instance.EOE.Count + " castaways on the Edge of Extinction. They will now compete in a challenge to return to the game.", GameManager.instance.EOE, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+
         Contestant winner = GameManager.instance.EOE[Random.Range(0, GameManager.instance.EOE.Count)];
+        if(penalizer != null)
+        {
+            List<Contestant> Edge = new List<Contestant>(GameManager.instance.EOE);
+            Edge.Remove(penalizer);
+            Contestant target = Edge[Random.Range(0, Edge.Count)];
+            
+            GameManager.instance.MakeGroup(false, null, "", "", penalizer.nickname + " penalizes " + target.nickname + ".", new List<Contestant>() { target, penalizer}, EOEStatus.transform.GetChild(0).GetChild(0), 20);
+            Edge.Add(penalizer);
+            if (Random.Range(0, 2) == 0)
+            {
+                Edge.Remove(target);
+                winner = Edge[Random.Range(0, Edge.Count)];
+            }
+            penalizer = null;
+        }
+        foreach(Contestant num in GameManager.instance.EOE)
+        {
+            if(num.challengeAdvantage)
+            {
+                num.challengeAdvantage = false;
+                if (Random.Range(0, 2) == 0)
+                {
+                    winner = num;
+                }
+            }
+        }
         GameManager.instance.EOE.Remove(winner);
         if(!GameManager.instance.Episodes[GameManager.instance.curEp].events.Contains("MergeTribes"))
         {
@@ -582,7 +683,7 @@ public class RejoiningTwists : MonoBehaviour
                         key.Key[ran1].safety++;
                         GameManager.instance.MergedTribe.members.Add(key.Key[ran1]);
                         GameManager.instance.Eliminated.Remove(key.Key[ran1]);
-
+                        GameManager.instance.currentContestants++;
                         List<Contestant> n = new List<Contestant>() { key.Key[ran1] };
                         
                         key.Key.Remove(key.Key[ran1]);

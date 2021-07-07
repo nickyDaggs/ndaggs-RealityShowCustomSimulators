@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
+  m_Name: Tocantins
+  m_EditorClassIdentifier: 
+  nameSeason: Survivor Tocantins
+  Tribes:
+  - name: Jalapao Tribe
+    tribeColor: {r: 0.8117647, g: 0.09411765, b: 0.019607844, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Jalapao Tribe Hidden Immunity Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 0
+      hidden: 0
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+    remove: 0
+  - name: Timbira Tribe
+    tribeColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Timbira Tribe Hidden Immunity Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 0
+      hidden: 0
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+    remove: 0
+  mergeAt: 10
+  jury: 7
+  final: 2
+  Episodes:
+  - name: Episode 1
+    events: []
+    finalVote: []
+  - name: Episode 2
+    events: []
+    finalVote: []
+  - name: Episode 3
+    events: []
+    finalVote: []
+  - name: Episode 4
+    events: []
+    finalVote: []
+  - name: Episode 5
+    events: []
+    finalVote: []
+  - name: Episode 6
+    events: []
+    finalVote: []
+  - name: Episode 7
+    events: []
+    finalVote: []
+  - name: Episode 8
+    events: []
+    finalVote: []
+  - name: Episode 9
+    events: []
+    finalVote: []
+  - name: Episode 10
+    events: []
+    finalVote: []
+  - name: Episode 11
+    events: []
+    finalVote: []
+  - name: Episode 12
+    events: []
+    finalVote: []
+  - name: Finale, Part 1
+    events: []
+    finalVote: []
+  - name: Finale, Part 2
+    events: []
+    finalVote: []
+  - name: The Reunion
+    events: []
+    finalVote: []
+  Tiebreaker: 
+  ReturningPlayers: 
+  MergeTribeColor: {r: 0.3647059, g: 0.80784315, b: 0.3647059, a: 1}
+  MergeTribeName: Forza Tribe
+  mergeHiddenAdvantages: []
+  twistHiddenAdvantages: []
+  swaps: []
+  ExileIslandd: 1
+  IslandType: Exile
+  islandHiddenAdvantages: []
+  RedemptionIsland: 0
+  EdgeOfExtinction: 0
+  Outcasts: 0
+  MedallionOfPower: 0
+  advantages: 1
+  MOPExpire: 0
+  idolLimit: 1
+  twoParts: 
+  threeParts: 
+  Twists:
+    expireAt: 13
+    epsSkipE: 01000000070000000c000000
+    epsSpecialE: 
+    epsSkipRI: 
+    epsSpecialRI: 
+    SpecialEx: []
+    preMergeEIsland:
+      on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: UrnMutiny
+      challenge: Immunity
+      skipTribal: 0
+      two: 1
+      both: 0
+    MergeEIsland:
+      on: 1
+      reason: Winner
+      ownTribe: 1
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
+    IOI:
+      name: Island of The Idols
+      tribeColor: {r: 1, g: 1, b: 1, a: 1}
+      members:
+      - {fileID: 11400000, guid: e78deeb58294cc746a6939cd4d6dfb1c, type: 2}
+      - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
+      hiddenAdvantages: []
+      remove: 0
+  oneTimeEvents:
+  - type: FirstImpressions
+    context: Tocantins
+    round: 1
+    elim: 0

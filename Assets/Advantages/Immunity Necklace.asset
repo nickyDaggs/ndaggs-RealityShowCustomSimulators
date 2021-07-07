@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nickname: Immunity Necklace
   type: ImmunityNecklace
-  expiresAt: 4
+  expiresAt: 0
   length: 0
+  onlyUsable: 
   temp: 0
   playOnOthers: 0
   usedWhen: BeforeVote
+  description: 
+  otherIdol: {fileID: 0}

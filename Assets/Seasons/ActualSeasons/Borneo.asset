@@ -25,19 +25,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    hiddenAdvantages:
-    - name: Pagong Tribe Hidden Immunity Idol
-      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
-      hideAt: 1
-      reHidden: 1
-      hidden: 1
-      linkedToExile: 0
-      length: 0
-      temp: 0
-      giveAway: 0
-      IOILesson: 
-      options: []
-      IOISweetened: 0
+    hiddenAdvantages: []
     remove: 0
   - name: Tagi Tribe
     tribeColor: {r: 0.9921569, g: 0.4431373, b: 0, a: 1}
@@ -50,19 +38,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    hiddenAdvantages:
-    - name: Tagi Tribe Hidden Immunity Idol
-      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
-      hideAt: 1
-      reHidden: 1
-      hidden: 1
-      linkedToExile: 0
-      length: 0
-      temp: 0
-      giveAway: 0
-      IOILesson: 
-      options: []
-      IOISweetened: 0
+    hiddenAdvantages: []
     remove: 0
   mergeAt: 10
   jury: 7
@@ -117,19 +93,7 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.16981131, g: 1, b: 0.16981131, a: 1}
   MergeTribeName: Rattata Tribe
-  mergeHiddenAdvantages:
-  - name: Rattata Tribe Hidden Immunity Idol
-    advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
-    hideAt: 1
-    reHidden: 1
-    hidden: 1
-    linkedToExile: 0
-    length: 0
-    temp: 0
-    giveAway: 0
-    IOILesson: 
-    options: []
-    IOISweetened: 0
+  mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps: []
   ExileIslandd: 0
@@ -139,7 +103,12 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
+  idolLimit: 0
+  twoParts: 0d000000
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -154,6 +123,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -161,6 +131,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -168,6 +139,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     preMergeEIsland:
       on: 1
       reason: Winner
@@ -176,6 +148,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 1
       reason: Winner
@@ -184,6 +157,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: Island of The Idols
       tribeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -192,4 +166,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

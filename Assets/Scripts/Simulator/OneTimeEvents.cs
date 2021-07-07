@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using SeasonParts;
 using System.Linq;
 
@@ -12,11 +13,10 @@ public class OneTimeEvents : MonoBehaviour
         {
             GameManager.instance.curEvent.type = "JurorRemoval";
         }
-        if(GameManager.instance.curEvent.type != "JointTribal" && GameManager.instance.curEvent.type != "MergeSplit" && GameManager.instance.curEvent.type != "JurorRemoval")
+        if(GameManager.instance.curEvent.type != "JointTribal" && GameManager.instance.curEvent.type != "MergeSplit" && GameManager.instance.curEvent.type != "JurorRemoval" && GameManager.instance.curEvent.type != "MergeSplitFiji" && !GameManager.instance.curExile.on)
         {
             GameManager.instance.curEp--;
             GameManager.instance.curEv = GameManager.instance.Episodes[GameManager.instance.curEp].events.IndexOf("STribeImmunity") + 1;
-            Debug.Log(GameManager.instance.curEvent.type);
         }
         
         GameManager.instance.immune = new List<Contestant>();
@@ -61,11 +61,13 @@ public class OneTimeEvents : MonoBehaviour
                     }
                     else
                     {
+                        w[0].advantages.Add(GameManager.instance.ImmunityNecklace);
                         GameManager.instance.MakeGroup(false, null, w[0].nickname + " Wins Immunity!" + te, "", "", w, EpisodeStart.transform.GetChild(0), 0);
                     }
                     GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("TribalCouncil");
                     GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("ShowVotes");
                 }
+                
                 break;
             case "MultiTribalMultiTeam":
                 for(int i = 0; i < GameManager.instance.curEvent.elim; i++)
@@ -104,6 +106,8 @@ public class OneTimeEvents : MonoBehaviour
 
                 List<Contestant> m = new List<Contestant>() { GameManager.instance.immune[0] };
                 GameManager.instance.MakeGroup(false, null, m[0].nickname + " Wins Immunity!", "", "", m, EpisodeImm.transform.GetChild(0), 0);
+                m[0].advantages.Add(GameManager.instance.ImmunityNecklace);
+
                 break;
             case "MultiTribalReward":
                 EpisodeStart.name = "Reward Challenge";
@@ -136,10 +140,10 @@ public class OneTimeEvents : MonoBehaviour
                 {
                     if(i > 0)
                     {
-                        Joint.name += "\n" + Trib[i].name;
+                        Joint.name += "\n" + "<color=#" + ColorUtility.ToHtmlStringRGBA(Trib[i].tribeColor) + ">" + Trib[i].name + "</color>";
                     } else
                     {
-                        Joint.name += Trib[i].name;
+                        Joint.name +="<color=#" + ColorUtility.ToHtmlStringRGBA(Trib[i].tribeColor) + ">" + Trib[i].name + "</color>";
                     }
                     foreach(Contestant num in Trib[i].members)
                     {
@@ -179,9 +183,41 @@ public class OneTimeEvents : MonoBehaviour
                     GameManager.instance.immune.Add(num);
                     List<Contestant> r = new List<Contestant>() { num };
                     GameManager.instance.MakeGroup(false, null, num.nickname + " wins immunity!", "", "", r, EpisodeStart.transform.GetChild(0), 0);
+                    num.advantages.Add(GameManager.instance.ImmunityNecklace);
                 }
                 GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("TribalCouncil");
                 GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("ShowVotes");
+                break;
+            case "MergeSplitFiji":
+                int splitt = (int)Mathf.Round(GameManager.instance.MergedTribe.members.Count / 2);
+                Team MTT = new Team();
+                Team MTT2 = new Team();
+                MTT.members = new List<Contestant>(GameManager.instance.MergedTribe.members); MTT.name = "Team #1"; MTT.tribeColor = GameManager.instance.MergedTribe.tribeColor;
+                MTT2.name = "Team #2"; MTT2.tribeColor = GameManager.instance.MergedTribe.tribeColor;
+                for (int i = 0; i < splitt; i++)
+                {
+                    Contestant num = MTT.members[Random.Range(0, MTT.members.Count)];
+                    MTT2.members.Add(num);
+                    MTT.members.Remove(num);
+                }
+                List<Team> ard = new List<Team>() { MTT, MTT2 };
+                GameManager.instance.LosingTribes = new List<Team>() { MTT, MTT2 };
+                foreach (Team group in GameManager.instance.LosingTribes)
+                {
+                    GameManager.instance.MakeGroup(false, null, "name", group.name, "", group.members, EpisodeStart.transform.GetChild(0), 15);
+                }
+                GameManager.instance.LosingTribes.Remove(GameManager.instance.LosingTribes[Random.Range(0, 2)]);
+                foreach(Team team in ard)
+                {
+                    if(!GameManager.instance.LosingTribes.Contains(team))
+                    {
+                        GameManager.instance.MakeGroup(false, team, "", "", team.name + " Wins Immunity!", team.members, EpisodeStart.transform.GetChild(0), 0);
+
+                    } else
+                    {
+                        team.name = GameManager.instance.MergedTribe.name;
+                    }
+                }
                 break;
             case "JurorRemoval":
                 Contestant winner = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
@@ -198,6 +234,7 @@ public class OneTimeEvents : MonoBehaviour
                 Contestant elim = GameManager.instance.jury[Random.Range(0, GameManager.instance.jury.Count)];
                 GameManager.instance.jury.Remove(elim);
                 GameManager.instance.MakeGroup(false, null, "", "", elim.nickname + " is removed from the jury.", new List<Contestant>() { elim}, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
+                elim.placement = elim.placement.Replace("Juror", "<color=red>Juror</color>");
                 break;
         }
 
@@ -399,7 +436,7 @@ public class OneTimeEvents : MonoBehaviour
         {
             GameManager.instance.MakeGroup(false, null, Imm.nickname + rock + " will have immunity for the vote.", "", "", m, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
         }
-        GameManager.instance.immune.Add(Imm);
+        Imm.safety++;
         GameObject EpisodeVote = Instantiate(GameManager.instance.Prefabs[0]);
         EpisodeVote.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
@@ -419,19 +456,30 @@ public class OneTimeEvents : MonoBehaviour
     }
     public void BeginningTwist()
     {
+        bool altGender = false;
+        if (GameManager.instance.curEvent.elim > 0)
+        {
+            altGender = true;
+        }
+        GameObject EpisodeCast = Instantiate(GameManager.instance.Prefabs[0]);
+        EpisodeCast.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeCast.name = "The Cast";
+        GameManager.instance.AddGM(EpisodeCast, true);
+        GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
         EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, false);
         switch (GameManager.instance.curEvent.type)
         {
             case "SchoolyardPick":
                 List<Contestant> Leaders = new List<Contestant>();
                 if (GameManager.instance.curEvent.context == "FirstLast")
                 {
-                    
                     foreach(Team tribe in GameManager.instance.Tribes)
                     {
                         Leaders.Add(tribe.members[0]);
@@ -462,6 +510,18 @@ public class OneTimeEvents : MonoBehaviour
                 {
                     GameManager.instance.Tribes = new List<Team>(GameManager.instance.sea.Tribes);
                     List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
+                    List<List<Contestant>> Genders = new List<List<Contestant>>() { new List<Contestant>(), new List<Contestant>() };
+                    foreach (Contestant contest in cast)
+                    {
+                        if (contest.gender == "M")
+                        {
+                            Genders[0].Add(contest);
+                        }
+                        else
+                        {
+                            Genders[1].Add(contest);
+                        }
+                    }
                     string etext = "";
                     if(GameManager.instance.curEvent.context == "Oldest")
                     {
@@ -471,7 +531,8 @@ public class OneTimeEvents : MonoBehaviour
                     {
                         cast = cast.OrderBy(x => x.Age).ToList();
                         etext = "The youngest players are chosen to select tribes.";
-                    } else if(GameManager.instance.curEvent.context == "Random")
+                    }
+                    else if(GameManager.instance.curEvent.context == "Random")
                     {
                         for (int i = cast.Count - 1; i > 0; i--)
                         {
@@ -499,9 +560,27 @@ public class OneTimeEvents : MonoBehaviour
                         {
                             //Contestant picker = Leaders[num];
                             //Contestant picked = GameManager.instance.Tribes[num].members[con];\
-                            int ran = Random.Range(0, cast.Count);
-                            GameManager.instance.Tribes[num].members[con] = Instantiate(cast[ran]);
-                            cast.Remove(cast[ran]);
+                            int ran = 0;
+                            if (altGender)
+                            {
+                                int gender = 0;
+                                foreach (List<Contestant> list in Genders)
+                                {
+                                    if (!list.Contains(GameManager.instance.Tribes[num].members[con - 1]))
+                                    {
+                                        gender = Genders.IndexOf(list);
+                                    }
+                                }
+                                ran = Random.Range(0, Genders[gender].Count);
+                                GameManager.instance.Tribes[num].members[con] = Instantiate(Genders[gender][ran]);
+                                cast.Remove(Genders[gender][ran]);
+                            }
+                            else
+                            {
+                                ran = Random.Range(0, cast.Count);
+                                GameManager.instance.Tribes[num].members[con] = Instantiate(cast[ran]);
+                                cast.Remove(cast[ran]);
+                            }
                             List<Contestant> p = new List<Contestant>() { GameManager.instance.Tribes[num].members[con], Leaders[num] };
                             GameManager.instance.MakeGroup(false, null, "", "", p[1].nickname + " chooses " + p[0].nickname + ".", p, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
                         }
@@ -512,6 +591,33 @@ public class OneTimeEvents : MonoBehaviour
                             num = 0;
                             con++;
                         }
+                    }
+                    int male = 0;
+                    int female = 0;
+                    foreach (Team tribe in GameManager.instance.Tribes)
+                    {
+                        GameManager.instance.MakeAlliances(tribe);
+                        foreach (Contestant contest in tribe.members)
+                        {
+                            contest.votes = 1;
+                            contest.teams.Add(tribe.tribeColor);
+                            if (contest.gender == "M")
+                            {
+                                male++;
+                            }
+                            else if (contest.gender == "F")
+                            {
+                                female++;
+                            }
+                        }
+                        if (tribe.hiddenAdvantages.Count > 0)
+                        {
+                            GameManager.instance.advant = true;
+                        }
+                    }
+                    if (male == female)
+                    {
+                        GameManager.instance.genderEqual = true;
                     }
                 }
                 break;
@@ -528,7 +634,9 @@ public class OneTimeEvents : MonoBehaviour
                         EpisodeVote.name = "First Impressions ";
                         GameManager.instance.AddGM(EpisodeVote, false);
                         List<Contestant> votes = new List<Contestant>();
-                        foreach(Contestant num in tribe.members)
+                        List<Contestant> tie = new List<Contestant>();
+
+                        foreach (Contestant num in tribe.members)
                         {
                             List<Contestant> tribeV = new List<Contestant>(tribe.members);
                             tribeV.Remove(num);
@@ -555,6 +663,24 @@ public class OneTimeEvents : MonoBehaviour
                                 dic.Add(votes[i], 1);
                             }
                         }
+                        float maxValue = dic.Values.Max();
+                        foreach (KeyValuePair<Contestant, int> num in dic)
+                        {
+                            if (num.Value == maxValue)
+                            {
+                                tie.Add(num.Key);
+                                num.Key.inTie = true;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        if (tie.Count > 1)
+                        {
+                            GameManager.instance.MakeGroup(false, null, "name", "", "There is a tie.\n\nRocks will determine who is eliminated.", tie, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votedOff = tie[Random.Range(0, tie.Count)];
+                        }
                         GameManager.instance.MakeGroup(false, null, "", "", votedOff.nickname + ", the tribe has spoken. \n \n" + votedOff.nickname +" will now go to Redemption Island", new List<Contestant>() { votedOff}, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
                         votedOff.placement = "Voted Out Ep. 1 \n Eliminated";
                         GameManager.instance.Eliminated.Add(votedOff);
@@ -563,6 +689,92 @@ public class OneTimeEvents : MonoBehaviour
                         GameManager.instance.currentContestants--;
                     }
                     
+                } else if(GameManager.instance.curEvent.context == "Tocantins")
+                {
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each tribe selects who they think will be the biggest liability based on first impressions alone.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                    GameObject EpisodeVote = Instantiate(GameManager.instance.Prefabs[0]);
+                    EpisodeVote.transform.parent = GameManager.instance.Canvas.transform;
+                    EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+                    EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+                    EpisodeVote.name = "First Impressions ";
+                    GameManager.instance.AddGM(EpisodeVote, false);
+                    List<Contestant> liabilities = new List<Contestant>();
+                    foreach (Team tribe in GameManager.instance.Tribes)
+                    {
+                        GameManager.instance.MakeGroup(true, tribe, "name", "", "", tribe.members, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+
+                        List<Contestant> votes = new List<Contestant>();
+                        List<Contestant> tie = new List<Contestant>();
+                        foreach (Contestant num in tribe.members)
+                        {
+                            List<Contestant> tribeV = new List<Contestant>(tribe.members);
+                            tribeV.Remove(num);
+                            num.vote = tribe.members[Random.Range(0, tribe.members.Count)];
+                            List<Contestant> e = new List<Contestant>() { num.vote, num };
+                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " votes for " + num.vote.nickname, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votes.Add(num.vote);
+                        }
+                        Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>();
+                        Contestant votedOff = votes[0];
+                        dic.Add(votes[0], 1);
+                        for (int i = 1; i < votes.Count; i++)
+                        {
+                            if (dic.ContainsKey(votes[i]))
+                            {
+                                dic[votes[i]] += 1;
+                                if (dic[votes[i]] > dic[votedOff])
+                                {
+                                    votedOff = votes[i];
+                                }
+                            }
+                            else if (!dic.ContainsKey(votes[i]))
+                            {
+                                dic.Add(votes[i], 1);
+                            }
+                        }
+                        float maxValue = dic.Values.Max();
+                        foreach (KeyValuePair<Contestant, int> num in dic)
+                        {
+                            if (num.Value == maxValue)
+                            {
+                                tie.Add(num.Key);
+                                num.Key.inTie = true;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        if(tie.Count > 1)
+                        {
+                            GameManager.instance.MakeGroup(false, null, "name", "", "There is a tie for the biggest liability.\n\nRocks will determine who is selected.", tie, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votedOff = tie[Random.Range(0, tie.Count)];
+                        }
+                        liabilities.Add(votedOff);
+                        GameManager.instance.MakeGroup(false, null, "", "", votedOff.nickname + " is the biggest liability.", new List<Contestant>() { votedOff }, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                        
+                    }
+                    GameManager.instance.MakeGroup(false, null, "name", "", "The biggest liabilities will be airlifted to their tribe camps.\n\nAt camp, they have two options.\n\nThey can look for an idol that gives them immunity at their first vote.\n\nOr they can get a head start on their shelter.", liabilities, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                    foreach(Contestant num in liabilities)
+                    {
+                        if(Random.Range(0, 2) == 1)
+                        {
+                            if(Random.Range(0, 2) == 1)
+                            {
+                                GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " chooses to look for the idol and finds it.", new List<Contestant>() { num}, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                                num.safety++;
+                            }
+                            else
+                            {
+                                GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " chooses to look for the idol and doesn't find it.", new List<Contestant>() { num }, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+
+                            }
+                        }
+                        else
+                        {
+                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " chooses to get a head start on their shelter.", new List<Contestant>() { num }, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                        }
+                    }
                 }
                 break;
             case "MarooningAdvantage":
@@ -599,6 +811,377 @@ public class OneTimeEvents : MonoBehaviour
     }
     public void PalauStart()
     {
+        bool altGender = false;
+        if(GameManager.instance.curEvent.elim > 0)
+        {
+            Debug.Log("fdfddd");
+            altGender = true;
+        }
+        GameObject EpisodeCast = Instantiate(GameManager.instance.Prefabs[0]);
+        EpisodeCast.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeCast.name = "The Cast";
+        GameManager.instance.AddGM(EpisodeCast, true);
+        GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+        GameObject EpisodeImm = Instantiate(GameManager.instance.Prefabs[2]);
+        EpisodeImm.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeImm.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeImm.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeImm.name = "Immunity Challenge";
+        GameManager.instance.AddGM(EpisodeImm, false);
+        GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
+        EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeStart.name = "The Twist";
+        GameManager.instance.AddGM(EpisodeStart, false);
+        List<Contestant> Leaders = new List<Contestant>();
+        List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
+        if (GameManager.instance.curEvent.context == "FirstLast")
+        {
+            foreach (Team tribe in GameManager.instance.Tribes)
+            {
+                Leaders.Add(tribe.members[0]);
+                GameManager.instance.MakeGroup(false, null, tribe.members[0].nickname + " wins immunity.", "", "", new List<Contestant>() { tribe.members[0] }, EpisodeImm.transform.GetChild(0), 0);
 
+                foreach (Contestant contest in tribe.members)
+                {
+                    cast.Remove(contest);
+                }
+            }
+            GameManager.instance.MakeGroup(false, null, "name", "", "The winners of the challenge will decide the tribes.", Leaders, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            int con = 1;
+            int num = 0;
+
+            for (int i = 0; i < GameManager.instance.cast.cast.Count - GameManager.instance.Tribes.Count; i++)
+            {
+                if (con < GameManager.instance.Tribes[num].members.Count)
+                {
+                    //Contestant picker = Leaders[num];
+                    //Contestant picked = GameManager.instance.Tribes[num].members[con];
+                    List<Contestant> p = new List<Contestant>() { GameManager.instance.Tribes[num].members[con], Leaders[num] };
+                    GameManager.instance.MakeGroup(false, null, "", "", p[1].nickname + " chooses " + p[0].nickname + ".", p, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                }
+
+                num++;
+                if (num > GameManager.instance.Tribes.Count - 1)
+                {
+                    num = 0;
+                    con++;
+                }
+            }
+            foreach (Contestant contest in cast)
+            {
+                contest.placement = "Pre-Juror\nEliminated";
+                GameManager.instance.Eliminated.Add(contest);
+            }
+            if (cast.Count > 0)
+            {
+                GameManager.instance.MakeGroup(false, null, "name", "", "Those who weren't picked are eliminated.", cast, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            }
+        }
+        else
+        {
+            List<List<Contestant>> Genders = new List<List<Contestant>>() { new List<Contestant>(), new List<Contestant>()};
+            foreach (Contestant contest in cast)
+            {
+                if (contest.gender == "M")
+                {
+                    Genders[0].Add(contest);
+                }
+                else
+                {
+                    Genders[1].Add(contest);
+                }
+            }
+            int rounds = 0;
+            GameManager.instance.Tribes = new List<Team>(GameManager.instance.sea.Tribes);
+            for(int i  = 0; i < GameManager.instance.Tribes.Count; i++)
+            {
+                if(altGender)
+                {
+                    if(i < Genders.Count)
+                    {
+                        Leaders.Add(Genders[i][Random.Range(0, Genders[i].Count)]);
+                        Genders[i].Remove(Leaders[i]);
+                    } else
+                    {
+                        if(i % 2 == 0)
+                        {
+                            Leaders.Add(Genders[1][Random.Range(0, Genders[1].Count)]);
+                            Genders[1].Remove(Leaders[i]);
+                        } else
+                        {
+                            Leaders.Add(Genders[0][Random.Range(0, Genders[0].Count)]);
+                            Genders[0].Remove(Leaders[i]);
+                        }
+                    }
+                    
+
+                } else
+                {
+                    Leaders.Add(cast[Random.Range(0, cast.Count)]);
+                }
+                
+                GameManager.instance.Tribes[i].members[0] = Instantiate(Leaders[i]);
+                GameManager.instance.MakeGroup(false, null, GameManager.instance.Tribes[i].members[0].nickname + " wins immunity.", "", "", new List<Contestant>() { GameManager.instance.Tribes[i].members[0] }, EpisodeImm.transform.GetChild(0), 0);
+
+                cast.Remove(Leaders[i]);
+                
+                Debug.Log(cast.Count);
+                rounds += GameManager.instance.sea.Tribes[i].members.Count;
+            }
+            
+            GameManager.instance.MakeGroup(false, null, "name", "", "The winners of the challenge will decide the tribes.", Leaders, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            int con = 1;
+            int num = 0;
+            
+            for (int i = 0; i < rounds; i++)
+            {
+
+                if (con < GameManager.instance.Tribes[num].members.Count)
+                {
+                    //Contestant picker = Leaders[num];
+                    //Contestant picked = GameManager.instance.Tribes[num].members[con];\
+                    int ran = 0;
+                    if (altGender)
+                    {
+                        int gender = 0;
+                        foreach(List<Contestant> list in Genders)
+                        {
+                            if(GameManager.instance.Tribes[num].members[con - 1].gender == "M")
+                            {
+                                gender = 1;
+                            } else
+                            {
+                                gender = 0;
+                            }
+                        }
+                        if(Genders[gender].Count < 1)
+                        {
+                            foreach (List<Contestant> list in Genders)
+                            {
+                                if (list.Count > 0)
+                                {
+                                    gender = Genders.IndexOf(list);
+                                }
+                            }
+                        }
+                        ran = Random.Range(0, Genders[gender].Count);
+                        GameManager.instance.Tribes[num].members[con] = Instantiate(Genders[gender][ran]);
+                        
+                        cast.Remove(Genders[gender][ran]);
+                        Debug.Log(cast.Count);
+                        Genders[gender].Remove(Genders[gender][ran]);
+                    } else
+                    {
+                        ran = Random.Range(0, cast.Count);
+                        GameManager.instance.Tribes[num].members[con] = Instantiate(cast[ran]);
+                        cast.Remove(cast[ran]);
+                    }
+                    
+                    List<Contestant> p = new List<Contestant>() { GameManager.instance.Tribes[num].members[con], GameManager.instance.Tribes[num].members[con - 1] };
+                    GameManager.instance.MakeGroup(false, null, "", "", p[1].nickname + " chooses " + p[0].nickname + ".", p, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                }
+
+                num++;
+                if (num > GameManager.instance.Tribes.Count - 1)
+                {
+                    num = 0;
+                    con++;
+                }
+            }
+            foreach (Contestant contest in cast)
+            {
+                contest.placement = "Pre-Juror\nEliminated";
+                GameManager.instance.Eliminated.Add(contest);
+            }
+            if (cast.Count > 0)
+            {
+                GameManager.instance.MakeGroup(false, null, "name", "", "Those who weren't picked are eliminated.", cast, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            }
+            int male = 0;
+            int female = 0;
+            
+            foreach (Team tribe in GameManager.instance.Tribes)
+            {
+                GameManager.instance.MakeAlliances(tribe);
+                foreach (Contestant contest in tribe.members)
+                {
+                    contest.votes = 1;
+                    contest.teams.Add(tribe.tribeColor);
+                    if (contest.gender == "M")
+                    {
+                        male++;
+                    }
+                    else if (contest.gender == "F")
+                    {
+                        female++;
+                    }
+                }
+                if (tribe.hiddenAdvantages.Count > 0)
+                {
+                    GameManager.instance.advant = true;
+                }
+            }
+            if (male == female)
+            {
+                GameManager.instance.genderEqual = true;
+            }
+        }
+        GameManager.instance.NextEvent();
+    }
+    public void FijiStart()
+    {
+        bool altGender = false;
+        if (GameManager.instance.curEvent.elim > 0)
+        {
+            altGender = true;
+        }
+        GameObject EpisodeCast = Instantiate(GameManager.instance.Prefabs[0]);
+        EpisodeCast.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeCast.name = "The Cast";
+        GameManager.instance.AddGM(EpisodeCast, true);
+        GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+        GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
+        EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeStart.name = "The Twist";
+        GameManager.instance.AddGM(EpisodeStart, false);
+        Contestant Leader = new Contestant();
+        List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
+        if (GameManager.instance.curEvent.context == "FirstLast")
+        {
+            foreach (Team tribe in GameManager.instance.Tribes)
+            {
+                //Leaders.Add(tribe.members[0]);
+
+                foreach (Contestant contest in tribe.members)
+                {
+                    cast.Remove(contest);
+                }
+            }
+            Leader = Instantiate(cast[0]);
+            GameManager.instance.MakeGroup(false, null, "", "The players select who best represents them as a leader.", Leader.nickname + " is chosen and will select the tribes.", new List<Contestant>() { Leader }, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            int con = 1;
+            int num = 0;
+
+            for (int i = 0; i < GameManager.instance.cast.cast.Count - 1; i++)
+            {
+                if (con < GameManager.instance.Tribes[num].members.Count)
+                {
+                    List<Contestant> p = new List<Contestant>() { GameManager.instance.Tribes[num].members[con], Leader };
+                    GameManager.instance.MakeGroup(false, null, "", "", p[1].nickname + " chooses " + p[0].nickname + " for "+ GameManager.instance.Tribes[num].name + ".", p, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                }
+
+                num++;
+                if (num > GameManager.instance.Tribes.Count - 1)
+                {
+                    num = 0;
+                    con++;
+                }
+            }
+            if (cast.Count > 0)
+            {
+                GameManager.instance.MakeGroup(false, null, "name", "", "Those who weren't picked are eliminated.", cast, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            }
+        }
+        else
+        {
+            List<List<Contestant>> Genders = new List<List<Contestant>>() { new List<Contestant>(), new List<Contestant>() };
+            
+            int rounds = 0;
+            int can = Random.Range(0, cast.Count);
+            GameManager.instance.Tribes = new List<Team>(GameManager.instance.sea.Tribes);
+            Leader = Instantiate(cast[can]);
+            cast.Remove(cast[can]);
+            GameManager.instance.MakeGroup(false, null, "", "The players select who best represents them as a leader.", Leader.nickname + " is chosen and will select the tribes.", new List<Contestant>() { Leader }, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            int con = 0;
+            int num = 0;
+            foreach (Contestant contest in cast)
+            {
+                if (contest.gender == "M")
+                {
+                    Genders[0].Add(contest);
+                }
+                else
+                {
+                    Genders[1].Add(contest);
+                }
+            }
+            rounds = cast.Count;
+            for (int i = 0; i < rounds; i++)
+            {
+                if (con < GameManager.instance.Tribes[num].members.Count)
+                {
+                    //Contestant picker = Leaders[num];
+                    //Contestant picked = GameManager.instance.Tribes[num].members[con];\
+                    int ran = 0;
+                    if (altGender)
+                    {
+                        int gender = 0;
+                        if(Genders[gender].Count < 1)
+                        {
+                            gender = 1;
+                        }
+                        ran = Random.Range(0, Genders[gender].Count);
+                        GameManager.instance.Tribes[num].members[con] = Instantiate(Genders[gender][ran]);
+
+                        cast.Remove(Genders[gender][ran]);
+                        Genders[gender].Remove(Genders[gender][ran]);
+                    }
+                    else
+                    {
+                        ran = Random.Range(0, cast.Count);
+                        GameManager.instance.Tribes[num].members[con] = Instantiate(cast[ran]);
+                        cast.Remove(cast[ran]);
+                    }
+
+                    List<Contestant> p = new List<Contestant>() { GameManager.instance.Tribes[num].members[con], Leader };
+                    GameManager.instance.MakeGroup(false, null, "", "", p[1].nickname + " chooses " + p[0].nickname + " for " + GameManager.instance.Tribes[num].name + ".", p, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                }
+
+                num++;
+                if (num > GameManager.instance.Tribes.Count - 1)
+                {
+                    num = 0;
+                    con++;
+                }
+            }
+            int male = 0;
+            int female = 0;
+            GameManager.instance.MakeGroup(false, null, "", "", Leader.nickname + "  will go to Exile Island and join the losing tribe after Tribal Council.", new List<Contestant>() { Leader }, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            GameManager.instance.Exiled.Add(Leader);
+            foreach (Team tribe in GameManager.instance.Tribes)
+            {
+                GameManager.instance.MakeAlliances(tribe);
+                foreach (Contestant contest in tribe.members)
+                {
+                    contest.votes = 1;
+                    contest.teams.Add(tribe.tribeColor);
+                    if (contest.gender == "M")
+                    {
+                        male++;
+                    }
+                    else if (contest.gender == "F")
+                    {
+                        female++;
+                    }
+                }
+                if (tribe.hiddenAdvantages.Count > 0)
+                {
+                    GameManager.instance.advant = true;
+                }
+            }
+            if (male == female)
+            {
+                GameManager.instance.genderEqual = true;
+            }
+        }
+        GameManager.instance.NextEvent();
     }
 }

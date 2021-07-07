@@ -26,7 +26,12 @@ public class SeasonTemplate : ScriptableObject
     public bool EdgeOfExtinction;
     public bool Outcasts;
     public bool MedallionOfPower;
+    public bool advantages;
+    public bool forcedFireMaking;
     public int MOPExpire;
+    public int idolLimit;
+    public List<int> twoParts;
+    public List<int> threeParts;
     public Twist Twists;
     public List<OneTimeEvent> oneTimeEvents;
 

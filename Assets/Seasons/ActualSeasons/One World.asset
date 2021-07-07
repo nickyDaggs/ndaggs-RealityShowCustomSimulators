@@ -1,0 +1,251 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
+  m_Name: One World
+  m_EditorClassIdentifier: 
+  nameSeason: Survivor One World
+  Tribes:
+  - name: Manono Tribe
+    tribeColor: {r: 0.93333334, g: 0.49411765, b: 0.003921569, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Manono Tribe Hidden Immunity Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 1
+      hidden: 1
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+    remove: 0
+  - name: Salani Tribe
+    tribeColor: {r: 0.42352942, g: 0.7411765, b: 0.7137255, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Salani Tribe Hidden Immunity Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 1
+      hidden: 1
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+    remove: 0
+  mergeAt: 12
+  jury: 9
+  final: 3
+  Episodes:
+  - name: Episode 1
+    events: []
+    finalVote: []
+  - name: Episode 2
+    events: []
+    finalVote: []
+  - name: Episode 3
+    events: []
+    finalVote: []
+  - name: Episode 4
+    events: []
+    finalVote: []
+  - name: Episode 5
+    events: []
+    finalVote: []
+  - name: Episode 6
+    events: []
+    finalVote: []
+  - name: Episode 7
+    events: []
+    finalVote: []
+  - name: Episode 8
+    events: []
+    finalVote: []
+  - name: Episode 9
+    events: []
+    finalVote: []
+  - name: Episode 10
+    events: []
+    finalVote: []
+  - name: Episode 11
+    events: []
+    finalVote: []
+  - name: Episode 12
+    events: []
+    finalVote: []
+  - name: Finale, Part 1
+    events: []
+    finalVote: []
+  - name: Finale, Part 2
+    events: []
+    finalVote: []
+  - name: The Reunion
+    events: []
+    finalVote: []
+  Tiebreaker: 
+  ReturningPlayers: 
+  MergeTribeColor: {r: 0.10980392, g: 0.10980392, b: 0.10980392, a: 1}
+  MergeTribeName: Tikiano Tribe
+  mergeHiddenAdvantages:
+  - name: Tikiano Tribe Hidden Immunity Idol
+    advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+    hideAt: 0
+    reHidden: 1
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+  twistHiddenAdvantages: []
+  swaps:
+  - on: 1
+    swapAt: 14
+    type: RegularShuffle
+    newTribes:
+    - name: Same
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+    - name: Same
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+    text: 
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    exile: 0
+    redIs: 0
+    refreshAdvantages: 0
+  ExileIslandd: 0
+  IslandType: Exile
+  islandHiddenAdvantages: []
+  RedemptionIsland: 0
+  EdgeOfExtinction: 0
+  Outcasts: 0
+  MedallionOfPower: 0
+  advantages: 0
+  MOPExpire: 0
+  idolLimit: 3
+  twoParts: 
+  threeParts: 
+  Twists:
+    expireAt: 0
+    epsSkipE: 
+    epsSpecialE: 
+    epsSkipRI: 
+    epsSpecialRI: 
+    SpecialEx:
+    - on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
+    - on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
+    - on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
+    preMergeEIsland:
+      on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
+    MergeEIsland:
+      on: 1
+      reason: Winner
+      ownTribe: 1
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
+    IOI:
+      name: Island of The Idols
+      tribeColor: {r: 1, g: 1, b: 1, a: 1}
+      members:
+      - {fileID: 11400000, guid: e78deeb58294cc746a6939cd4d6dfb1c, type: 2}
+      - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
+      hiddenAdvantages: []
+      remove: 0
+  oneTimeEvents: []

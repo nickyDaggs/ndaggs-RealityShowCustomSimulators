@@ -152,7 +152,8 @@ public class Swaps : MonoBehaviour
         List<Contestant> curCast = new List<Contestant>();
         List<List<Contestant>> TribesDup = new List<List<Contestant>>();
         List<Team> NewTribes = new List<Team>(GameManager.instance.curSwap.newTribes);
-        GameManager.instance.MakeGroup(false, null, "", "", "As part of a twist, new tribes are randomly assigned. \n \n There will be " + NewTribes.Count + " tribes.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+        
+
         foreach (Team tribe in GameManager.instance.Tribes)
         {
             foreach (Contestant num in tribe.members)
@@ -161,6 +162,33 @@ public class Swaps : MonoBehaviour
             }
             TribesDup.Add(new List<Contestant>(tribe.members));
         }
+        if (GameManager.instance.curSwap.text == "FakeFeast")
+        {
+            GameManager.instance.MakeGroup(false, null, "", "", "A feast occurs.\n\nAn immunity idol is hidden that can only be found now.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+            bool hidden = true;
+            foreach (Contestant num in curCast)
+            {
+                if(hidden)
+                {
+                    if(Random.Range(0, 2) == 0)
+                    {
+                        Advantage av = Instantiate(GameManager.instance.HiddenIdol);
+                        av.nickname = "Feast Hidden Immunity Idol";
+
+                        hidden = false;
+                        num.advantages.Add(av);
+                        List<Contestant> n = new List<Contestant>() { num };
+                        GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " finds the " + av.nickname, n, SwapContext.transform.GetChild(0).GetChild(0), 10);
+                    }
+                }
+            }
+            if(hidden)
+            {
+                GameManager.instance.MakeGroup(false, null, "", "", "The idol is not found.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+            }
+        }
+        GameManager.instance.MakeGroup(false, null, "", "", "As part of a twist, new tribes are randomly assigned. \n \n There will be " + NewTribes.Count + " tribes.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+
         if (GameManager.instance.curSwap.exile == true)
         {
             int ran = Random.Range(0, curCast.Count);
@@ -200,12 +228,21 @@ public class Swaps : MonoBehaviour
         }
         else
         {
+            if(GameManager.instance.curSwap.orderBySize)
+            {
+                GameManager.instance.Tribes = GameManager.instance.Tribes.OrderByDescending(x => x.members.Count).ToList();
+            }
+
             for (int i = 0; i < NewTribes.Count; i++)
             {
                 if (NewTribes[i].name == "Same" || NewTribes[i].name == "same")
                 {
                     NewTribes[i].tribeColor = GameManager.instance.Tribes[i].tribeColor;
                     NewTribes[i].name = GameManager.instance.Tribes[i].name;
+                    
+                }
+                if(i < GameManager.instance.Tribes.Count)
+                {
                     NewTribes[i].hiddenAdvantages = GameManager.instance.Tribes[i].hiddenAdvantages;
                 }
             }
@@ -227,16 +264,16 @@ public class Swaps : MonoBehaviour
                     }
                 }
             }
-            foreach (Team tribe in NewTribes)
-            {
-                foreach (Contestant num in tribe.members)
-                {
-                    num.teams.Add(tribe.tribeColor);
-                }
-            }
+            
             GameManager.instance.Tribes = new List<Team>(NewTribes);
         }
-
+        foreach (Team tribe in GameManager.instance.Tribes)
+        {
+            foreach (Contestant num in tribe.members)
+            {
+                num.teams.Add(tribe.tribeColor);
+            }
+        }
     }
     void ChallengeDissolve()
     {
@@ -381,7 +418,7 @@ public class Swaps : MonoBehaviour
         //int ran = Random.Range(0, Tribes.Count);
         LosingTribee = TribesDup[0];
         GameManager.instance.Tribes.Remove(TribesDup[0]);
-        GameManager.instance.MakeGroup(false, null, "", "", "The tribe with the least amount of members, " + LosingTribee.name + ", will be dissolved.", LosingTribee.members, SwapContext.transform.GetChild(0), 0);
+        GameManager.instance.MakeGroup(false, null, "", "", "The tribe with the least amount of members, " + LosingTribee.name + ", will be dissolved.", LosingTribee.members, SwapContext.transform.GetChild(0).GetChild(0), 0);
         if (GameManager.instance.curSwap.exile == true)
         {
             int rann = Random.Range(0, LosingTribee.members.Count);
@@ -408,10 +445,6 @@ public class Swaps : MonoBehaviour
         int curT = 0;
         for (int i = 0; i < LosingTribee.members.Count; i++)
         {
-            GameObject GRoup = Instantiate(GameManager.instance.GroupPrefab);
-            GRoup.transform.parent = SwapContext.transform.GetChild(0).GetChild(0);
-            GRoup.GetComponent<UIGroup>().tribeName.enabled = false;
-
             bool g = false;
             while (!g)
             {
@@ -429,13 +462,9 @@ public class Swaps : MonoBehaviour
                 }
             }
             NewTribes[curT].members[SpaceLeft[curT]] = LosingTribee.members[i];
-            GameObject mem = Instantiate(GameManager.instance.ContestantPrefab);
-            mem.GetComponentInChildren<Image>().sprite = LosingTribee.members[i].image;
-            mem.GetComponentInChildren<Text>().enabled = false;
-            mem.transform.parent = GRoup.transform.GetChild(2);
-            GRoup.GetComponent<UIGroup>().eventText.text = LosingTribee.members[i].nickname  + " goes to " + NewTribes[curT].name + ".";
+            
             List<Contestant> n = new List<Contestant>() { LosingTribee.members[i] };
-            GameManager.instance.MakeGroup(false, null, "", "", LosingTribee.members[i].nickname + " goes to " + NewTribes[curT].name + ".", n, SwapContext.transform.GetChild(0), 0);
+            GameManager.instance.MakeGroup(false, null, "", "", LosingTribee.members[i].nickname + " goes to " + NewTribes[curT].name + ".", n, SwapContext.transform.GetChild(0).GetChild(0), 0);
             foreach (Alliance alliance in GameManager.instance.Alliances)
             {
                 if (alliance.members.Contains(NewTribes[curT].members[curT]))
@@ -462,7 +491,7 @@ public class Swaps : MonoBehaviour
         }
         if(GameManager.instance.curSwap.exile)
         {
-            GameManager.instance.MakeGroup(false, null, "", "", exiled.nickname + " is sent to exile!", GameManager.instance.Exiled, SwapContext.transform.GetChild(0), 0);
+            GameManager.instance.MakeGroup(false, null, "", "", exiled.nickname + " is sent to exile!", GameManager.instance.Exiled, SwapContext.transform.GetChild(0).GetChild(0), 0);
         }
         GameManager.instance.Tribes = new List<Team>(NewTribes);
     }
@@ -562,8 +591,8 @@ public class Swaps : MonoBehaviour
         }
         else if (GameManager.instance.curSwap.pickingRules == "Panama")
         {
-            NewTribes = new List<Team>();
-            NewTribes.Add(new Team()); NewTribes.Add(new Team());
+            //NewTribes = new List<Team>();
+            //NewTribes.Add(new Team()); NewTribes.Add(new Team());
             for (int i = 0; i < NewTribes.Count; i++)
             {
                 NewTribes[i].name = GameManager.instance.curSwap.newTribes[i].name;
@@ -587,7 +616,7 @@ public class Swaps : MonoBehaviour
                 int a = 1;
                 int ran = Random.Range(0, Groups[i].members.Count);
                 Leaders.Add(Groups[i].members[ran]);
-                NewTribes[i].members.Add(Groups[i].members[ran]);
+                NewTribes[i].members[0] = (Groups[i].members[ran]);
                 Groups[i].members.Remove(Groups[i].members[ran]);
                 curTribe.Add(r);
                 curMem.Add(a);
@@ -773,6 +802,16 @@ public class Swaps : MonoBehaviour
             foreach (Contestant num in tribe.members)
             {
                 num.teams.Add(tribe.tribeColor);
+                foreach (Alliance alliance in GameManager.instance.Alliances)
+                {
+                    if (alliance.members.Contains(num))
+                    {
+                        if (!alliance.teams.Contains(tribe.name))
+                        {
+                            alliance.teams.Add(tribe.name);
+                        }
+                    }
+                }
             }
         }
     }
@@ -1059,6 +1098,16 @@ public class Swaps : MonoBehaviour
             foreach (Contestant num in tribe.members)
             {
                 num.teams.Add(tribe.tribeColor);
+                foreach (Alliance alliance in GameManager.instance.Alliances)
+                {
+                    if (alliance.members.Contains(num))
+                    {
+                        if (!alliance.teams.Contains(tribe.name))
+                        {
+                            alliance.teams.Add(tribe.name);
+                        }
+                    }
+                }
             }
         }
         GameManager.instance.Tribes = new List<Team>(NewTribes);
@@ -1073,36 +1122,33 @@ public class Swaps : MonoBehaviour
         List<Team> DupTribes = new List<Team>(GameManager.instance.Tribes);
         int mutinyLimit = 0;
         GameManager.instance.MakeGroup(false, null, "", "", "Castaways are given the opportunity to mutiny to the other tribe.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+        List<Contestant> cantMut = new List<Contestant>();
         foreach (Team tribe in DupTribes)
         {
             for (int i = 0; i < tribe.members.Count; i++)
             {
-                int ran = Random.Range(0, 4);
-                if (mutinyLimit < 4 && ran == 0)
+                if(!cantMut.Contains(tribe.members[i]))
                 {
-                    List<Team> TribesV = new List<Team>(DupTribes);
-                    if (TribesV.Contains(tribe))
+                    int ran = Random.Range(0, 10);
+                    if (mutinyLimit < 4 && ran == 0)
                     {
-                        TribesV.Remove(tribe);
+                        List<Team> TribesV = new List<Team>(DupTribes);
+                        if (TribesV.Contains(tribe))
+                        {
+                            TribesV.Remove(tribe);
+                        }
+                        int ran2 = Random.Range(0, TribesV.Count);
+                        DupTribes[DupTribes.IndexOf(TribesV[ran2])].members.Add(tribe.members[i]);
+                        List<Contestant> n = new List<Contestant>() { tribe.members[i] };
+                        GameManager.instance.MakeGroup(false, null, "", "", tribe.members[i].nickname + " mutinies from " + tribe.name + " to " + TribesV[ran2].name + ".", n, SwapContext.transform.GetChild(0).GetChild(0), 0);
+                        cantMut.Add(tribe.members[i]);
+                        tribe.members.Remove(tribe.members[i]);
+                        mutinyLimit++;
                     }
-                    int ran2 = Random.Range(0, TribesV.Count);
-                    DupTribes[DupTribes.IndexOf(TribesV[ran2])].members.Add(tribe.members[i]);
-                    GameObject Group = Instantiate(GameManager.instance.GroupPrefab);
-                    Group.transform.parent = SwapContext.transform.GetChild(0).GetChild(0);
-                    Group.GetComponent<UIGroup>().tribeName.enabled = false;
-                    GameObject mem = Instantiate(GameManager.instance.ContestantPrefab);
-                    mem.GetComponentInChildren<Image>().sprite = tribe.members[i].image;
-                    mem.GetComponentInChildren<Text>().enabled = false;
-                    mem.transform.parent = Group.transform.GetChild(2);
-                    Group.GetComponent<UIGroup>().eventText.text = tribe.members[i].nickname + " mutinies from " + tribe.name + " to " + TribesV[ran2].name + ".";
-                    List<Contestant> n = new List<Contestant>() { tribe.members[i]};
-                    GameManager.instance.MakeGroup(false, null, "", "", tribe.members[i].nickname + " mutinies from " + tribe.name + " to " + TribesV[ran2].name + ".", n, SwapContext.transform.GetChild(0).GetChild(0), 0);
-                    tribe.members.Remove(tribe.members[i]);
-                    mutinyLimit++;
-                }
-                else
-                {
+                    else
+                    {
 
+                    }
                 }
             }
         }
@@ -1340,6 +1386,16 @@ public class Swaps : MonoBehaviour
             foreach (Contestant num in tribe.members)
             {
                 num.teams.Add(tribe.tribeColor);
+                foreach (Alliance alliance in GameManager.instance.Alliances)
+                {
+                    if (alliance.members.Contains(num))
+                    {
+                        if (!alliance.teams.Contains(tribe.name))
+                        {
+                            alliance.teams.Add(tribe.name);
+                        }
+                    }
+                }
             }
         }
         GameManager.instance.Tribes = NewTribes; 

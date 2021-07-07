@@ -23,12 +23,14 @@ public class GameManager : MonoBehaviour
     public List<Contestant> Exiled = new List<Contestant>();
     public float mergeAt, finaleAt, juryAt;
     public Button nextButton;
+    public Button lastButton;
     public List<Contestant> immune =  new List<Contestant>();
     List<Contestant> targets;
     public List<Contestant> Eliminated;
     public float currentContestants;
     float currentContestantsOG;
-    public bool merged, cineTribal, showVL, genderEqual;
+    public bool merged, cineTribal, showVL, genderEqual, absorb;
+    public GameObject Loading;
     public List<EpisodeSetting> Episodes;
     int curEpp = 0;
     int curEvv = 0;
@@ -68,14 +70,16 @@ public class GameManager : MonoBehaviour
     public OneTimeEvents oneTimeEvents;
     public ExileIsland exileIsland;
     public int re;
-    int idols;
+    public int idols;
     int elimed = 1;
     int jurt;
     bool what = false;
-    [HideInInspector] public bool RIExpired = false, OCExpired = false, e = false;
+    bool all = false;
+    bool placement = false;
+    [HideInInspector] public bool RIExpired = false, OCExpired = false, e = false, advant = false;
     [HideInInspector] public Contestant lastEOE = null, kidnapped = null;
     [HideInInspector] public Team Outcasts = new Team();
-    [HideInInspector] public List<Contestant> jury = new List<Contestant>(), RIsland = new List<Contestant>(), EOE = new List<Contestant>(), tie = new List<Contestant>(), votesRead = new List<Contestant>(), votes = new List<Contestant>(), Idols = new List<Contestant>();
+    [HideInInspector] public List<Contestant> jury = new List<Contestant>(), RIsland = new List<Contestant>(), EOE = new List<Contestant>(), tie = new List<Contestant>(), votesRead = new List<Contestant>(), votes = new List<Contestant>(), Idols = new List<Contestant>(), extraVote = new List<Contestant>();
     [HideInInspector] public List<Vote> Votes = new List<Vote>();
     [HideInInspector] public int curEv = 0, curEp = 0;
     [HideInInspector] public Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>(), dicVR = new Dictionary<Contestant, int>();
@@ -83,6 +87,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Team LosingTribe = new Team();
     [HideInInspector] public List<Team> LosingTribes = new List<Team>();
     [HideInInspector] public string finalVotes;
+    [HideInInspector] public float mergeRound = 0;
+    [HideInInspector] public HiddenAdvantage EOEGiveAway;
     // Start is called before the first frame update
     public void Start()
     {
@@ -105,6 +111,7 @@ public class GameManager : MonoBehaviour
             tri = 0;
             jurt = jury.Count - 1;
         }
+        
     }
     void TurnOff()
     {
@@ -114,6 +121,10 @@ public class GameManager : MonoBehaviour
             foreach (Page em in epp.events)
             {
                 em.obj.SetActive(false);
+                if(em.obj.name == "Placements")
+                {
+                    em.obj.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1f);
+                }
             }
         }
         curEp = 0;
@@ -137,10 +148,11 @@ public class GameManager : MonoBehaviour
     //Function that creates the events for each episode.
     void CreateEpisodeSettings()
     {
+        float curCon = currentContestants;
         float episodeCount = currentContestants - finaleAt;
         foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
         {
-            if (timeEvent.type.Contains("MultiTribal") || timeEvent.type.Contains("DoubleElim") || timeEvent.type.Contains("MergeSplit"))
+            if (timeEvent.type.Contains("MultiTribal") || timeEvent.type == "DoubleElim" || timeEvent.type == "MergeSplit")
             {
                 episodeCount--;
             }
@@ -151,13 +163,14 @@ public class GameManager : MonoBehaviour
         }
         if (sea.RedemptionIsland || sea.EdgeOfExtinction)
         {
-            episodeCount += 2;
+            episodeCount += 2;         
         }
         if(sea.Outcasts)
         {
             episodeCount++;
         }
-        float curCon = currentContestants;
+        int episodeName = 1;
+        int part = 1;
         foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
         {
             if (timeEvent.type == "FirstImpressions" && timeEvent.context == "RI")
@@ -165,7 +178,20 @@ public class GameManager : MonoBehaviour
                 episodeCount-= 2;
             }
         }
-        float mergeRound = 0;
+        if (sea.forcedFireMaking)
+        {
+            OneTimeEvent timedEvent = new OneTimeEvent();
+            timedEvent.type = "ForcedFireMaking";
+            if (sea.final == 2)
+            {
+                timedEvent.round = (int)episodeCount - 1;
+            }
+            else
+            {
+                timedEvent.round = (int)episodeCount;
+            }
+            sea.oneTimeEvents.Add(timedEvent);
+        }    
         float curTeams = sea.Tribes.Count;
         int curSE = 0;
         bool riE = false;
@@ -173,7 +199,56 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < episodeCount; i++)
         {
             EpisodeSetting ep = new EpisodeSetting();
-            ep.name = "Episode " + (i + 1);
+            ep.name = "Episode " + episodeName;
+            ep.nickname = "Ep. " + episodeName;
+            if(episodeName == episodeCount)
+            {
+                ep.name = "Finale";
+                ep.nickname = "Finale";
+            }
+            episodeName++;
+            foreach (int num in sea.twoParts)
+            {
+                if (num == episodeName - 1)
+                {
+                    episodeName--;
+                    ep.name += ", Part " + part;
+                    ep.nickname = "Ep. " + episodeName + ", Pt. " + part;
+                    
+                    if (episodeName + 1 == episodeCount - 1)
+                    {
+                        ep.name = "Finale, Part " + part;
+                        ep.nickname = "Finale, Pt. " + part;
+                    }
+                    part++;
+                    if (part > 2)
+                    {
+                        part = 1;
+                        episodeName++;
+                    }
+                }
+                
+            }
+            foreach (int num in sea.threeParts)
+            {
+                if (num == episodeName - 1)
+                {
+                    episodeName--;
+                    ep.name += ", Part " + part;
+                    ep.nickname = "Ep. " + episodeName + ", Pt. " + part;
+                    if(episodeName + 2 == episodeCount - 1)
+                    {
+                        ep.name = "Finale, Part " + part;
+                        ep.nickname = "Finale, Pt. " + part;
+                    }
+                    part++;
+                    if (part > 3)
+                    {
+                        part = 1;
+                        episodeName++;
+                    }
+                }
+            }
             ep.swap.on = false;
             ep.exileIsland.on = false;
             if (curCon == currentContestants)
@@ -197,7 +272,6 @@ public class GameManager : MonoBehaviour
                     {
                         if (num == i + 1 && skip == false)
                         {
-                            Debug.Log(i + 1);
                             ep.exileIsland = sea.Twists.SpecialEx[curSE];
                             curSE++;
                             ep.exileIsland.on = true;
@@ -216,10 +290,18 @@ public class GameManager : MonoBehaviour
                     if(ep.Event.type == "PalauStart")
                     {
                         EpisodeSetting episode = new EpisodeSetting();
+                        episode.Event = ep.Event;
                         episode.events.Add("PalauStart");
                         Episodes.Add(episode);
-                    } else 
+                    } else if (ep.Event.type == "FijiStart")
                     {
+                        ep.events.Add("FijiStart");
+                    } else
+                    {
+                        if(ep.Event.type != "SchoolyardPick")
+                        {
+                            ep.events.Add("NextEp");
+                        }
                         ep.events.Add("BeginningTwist");
                         if(ep.Event.type == "FirstImpressions" && ep.Event.context == "RI")
                         {
@@ -281,8 +363,11 @@ public class GameManager : MonoBehaviour
                             ep.exileIsland = swap.exileIsland;
                             ep.exileIsland.on = true;
                         }
-                        if(ep.swap.type != "Mutiny" || ep.swap.type != "RegularSwap" || ep.swap.type != "SplitTribes" || ep.swap.type != "RegularSwap" || (!ep.swap.ResizeTribes &&  ep.swap.type == "RegularShuffle"))
-                        curTeams = ep.swap.newTribes.Count;
+                        if(ep.swap.type != "Mutiny" && ep.swap.type != "RegularSwap" && ep.swap.type != "SplitTribes" && ep.swap.type != "RegularSwap" || (!ep.swap.ResizeTribes &&  ep.swap.type == "RegularShuffle"))
+                        {
+                            curTeams = ep.swap.newTribes.Count;
+                        }
+                        
                     }
                 }
                 foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
@@ -294,7 +379,7 @@ public class GameManager : MonoBehaviour
                 }
                 ep.events.Add("NextEp");
                 ep.events.Add("TribeStatus");
-                if(sea.RedemptionIsland && i + 1 > 2)
+                if((sea.RedemptionIsland && i + 1 > 2) || (Episodes[Episodes.Count - 1].Event.type == "FirstImpressions" && Episodes[Episodes.Count - 1].Event.context == "RI"))
                 {
                     bool skip = false;
                     foreach (int num in sea.Twists.epsSkipRI)
@@ -323,7 +408,8 @@ public class GameManager : MonoBehaviour
                 if(ep.Event.type.Contains("MultiTribal") || ep.Event.type.Contains("JointTribal"))
                 {
                     ep.events.Add("STribeImmunity");
-                } else
+                }
+                else
                 {
                     ep.events.Add("TribeImmunity");
                 }
@@ -402,7 +488,7 @@ public class GameManager : MonoBehaviour
                 }
                 ep.events.Add("MergeTribes");
                 ep.events.Add("MergeStatus");
-                if(ep.Event.type == "MergeSplit")
+                if(ep.Event.type == "MergeSplit" || ep.Event.type == "MergeSplitFiji")
                 {
                     ep.events.Add("STribeImmunity");
                 }
@@ -418,7 +504,7 @@ public class GameManager : MonoBehaviour
                 ep.events.Add("ShowVotes");
                 if (ep.Event.type.Contains("DoubleElim"))
                 {
-                    if (ep.Event.type.Contains("Immunity"))
+                    if (ep.Event.context == "Immunity")
                     {
                         ep.events.Add("MergeImmunity");
                     }
@@ -520,7 +606,7 @@ public class GameManager : MonoBehaviour
                 {
                     ep.events.Add("EOEStatus");
                 }
-                if (ep.Event.type == "MergeSplit" || ep.Event.type == "JurorRemoval")
+                if (ep.Event.type == "MergeSplit" || ep.Event.type == "JurorRemoval" || ep.Event.type == "MergeSplitFiji")
                 {
                     ep.events.Add("STribeImmunity");
                     if(ep.Event.type == "JurorRemoval")
@@ -552,14 +638,15 @@ public class GameManager : MonoBehaviour
                     ep.events.Add("ShowVotes");
                     curCon--;
                 }
-                if (curCon == finaleAt)
+                if (ep.Event.type == "ForcedFireMaking")
                 {
                     ep = new EpisodeSetting();
-                    ep.name = "Episode " + (i + 1);
-                    ep.Event.type = "JurorRemoval";
                     ep.events.Add("NextEpM");
-                    ep.events.Add("STribeImmunity");
-                    curCon++;
+                    ep.events.Add("MergeStatus");
+                    ep.events.Add("MergeImmunity");
+                    ep.events.Add("ForcedFireMaking");
+                    ep.events.Add("ShowVotes");
+                    oc = true;
                 }
             }
             Episodes.Add(ep);
@@ -591,6 +678,7 @@ public class GameManager : MonoBehaviour
         }
         if (curEv == 0)
         {
+            extraVote = new List<Contestant>();
             if(Episodes[curEp].swap.on)
             {
                 curSwap = Episodes[curEp].swap;
@@ -665,9 +753,9 @@ public class GameManager : MonoBehaviour
         {
             curEp++;
             curEv = 0;
-            if(curEp > Episodes.Count)
+            if(curEp > Episodes.Count - 1)
             {
-                Quit();
+                Loading.SetActive(false);
             }
         }
     }
@@ -723,6 +811,10 @@ public class GameManager : MonoBehaviour
         {
             curTribal = 0;
             curGroup = 0;
+            if (curEp > Episodes.Count - 1)
+            {
+                Quit();
+            }
             currentContestants--;
         }
         if (Vote.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("voteRevealed") || tri > 0)
@@ -730,7 +822,7 @@ public class GameManager : MonoBehaviour
             Vote.GetComponent<Animator>().SetTrigger("Reveal");
             for (int i = 0; i < VotedOffCine.transform.GetChild(0).childCount; i++)
             {
-                Destroy(VotedOffCine.transform.GetChild(0).GetChild(i).transform.gameObject);
+                VotedOffCine.transform.GetChild(0).GetChild(i).transform.SetParent(null);
             }
             foreach (GameObject torch in Torches)
             {
@@ -751,7 +843,7 @@ public class GameManager : MonoBehaviour
             
             for (int i = 0; i < VotedOffCine.transform.GetChild(0).childCount; i++)
             {
-                Destroy(VotedOffCine.transform.GetChild(0).GetChild(i).transform.gameObject);
+                VotedOffCine.transform.GetChild(0).GetChild(i).transform.SetParent(null);
             }
             foreach (GameObject torch in Torches)
             {
@@ -797,7 +889,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = 0; i < VotedOffCine.transform.GetChild(0).childCount; i++)
                 {
-                    Destroy(VotedOffCine.transform.GetChild(0).GetChild(i).transform.gameObject);
+                    VotedOffCine.transform.GetChild(0).GetChild(i).transform.SetParent(null);
                 }
             }
             votes = currentSeason.Episodes[curEp].events[curEv].Vote;
@@ -808,23 +900,10 @@ public class GameManager : MonoBehaviour
             {
                 torch.SetActive(true);
             }
-            //nextButton.gameObject.SetActive(false);
+
             VoteButton.SetActive(true);
             lastVoteOff = currentSeason.Episodes[curEp].events[curEv].obj.transform.GetChild(0).GetChild(0).gameObject;
-            //Destroy(VotedOffCine.transform.GetChild(0).gameObject);
-            /*
-            if(curTribal == currentSeason.Episodes[curEp].votes.Count - 1)
-            {
-                for (int i = 0; i < currentSeason.Episodes[curEp].finalVote.Count; i++)
-                {
-                    //GameObject gas = Instantiate();
-                    currentSeason.Episodes[curEp].finalVote[i].transform.parent = VotedOffCine.transform.GetChild(0);
-                }
-                e = true;
-            } else
-            {
-                e = false;
-            } */
+            
             if(currentSeason.Episodes[curEp].events[curEv].VoteObjs.Count > 0)
             {
                 foreach(GameObject vot in currentSeason.Episodes[curEp].events[curEv].VoteObjs)
@@ -895,7 +974,178 @@ public class GameManager : MonoBehaviour
         {
             curEp++;
             curEv = 0;
+            
         }
+    }
+    public void LastGM()
+    {
+        if(curEp != 0 || curEv - 1 > 0)
+        {
+            curEv--;
+            if (Vote.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("voteRevealed") || tri > 0)
+            {
+                Vote.GetComponent<Animator>().SetTrigger("Reveal");
+                for (int i = 0; i < VotedOffCine.transform.GetChild(0).childCount; i++)
+                {
+                    VotedOffCine.transform.GetChild(0).GetChild(i).transform.SetParent(null);
+                }
+                foreach (GameObject torch in Torches)
+                {
+                    torch.SetActive(false);
+                }
+                VotedOffCine.SetActive(false);
+                VoteButton.SetActive(false);
+                VotedOffCine.transform.parent.gameObject.SetActive(false);
+                what = false;
+            }
+            if (what)
+            {
+                if (Vote.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("voteRevealed"))
+                {
+                    Vote.GetComponent<Animator>().SetTrigger("Reveal");
+                    VoteButton.SetActive(false);
+                }
+
+                for (int i = 0; i < VotedOffCine.transform.GetChild(0).childCount; i++)
+                {
+                    VotedOffCine.transform.GetChild(0).GetChild(i).transform.SetParent(null);
+                }
+                foreach (GameObject torch in Torches)
+                {
+                    torch.SetActive(false);
+                }
+                VotedOffCine.SetActive(false);
+                VotedOffCine.transform.parent.gameObject.SetActive(false);
+
+                VoteButton.SetActive(false);
+                what = false;
+            }
+            if (curEv == -1)
+            {
+                curEp--;
+                curEv = currentSeason.Episodes[curEp].events.Count - 1;
+            }
+            if(curEv == 0)
+            {
+
+            }
+            currentSeason.Episodes[curEp].events[curEv].obj.SetActive(false);
+
+            int number = curEv - 1;
+            int ep = curEp;
+            if(curEv != 0)
+            {
+                currentSeason.Episodes[curEp].events[curEv - 1].obj.SetActive(true);
+            } else
+            {
+                currentSeason.Episodes[curEp - 1].events[currentSeason.Episodes[curEp - 1].events.Count - 1].obj.SetActive(true);
+                number = currentSeason.Episodes[curEp - 1].events.Count - 1;
+                ep = curEp - 1;
+            }
+            
+            if (currentSeason.Episodes[ep].events[number].obj.name.Contains("Tribal Council") && cineTribal)
+            {
+                what = true;
+                int numb = currentSeason.Episodes[ep].events.Count - 1;
+                if (VotedOffCine.transform.GetChild(0).childCount > 0)
+                {
+                    for (int i = 0; i < VotedOffCine.transform.GetChild(0).childCount; i++)
+                    {
+                        VotedOffCine.transform.GetChild(0).GetChild(i).transform.SetParent(null);
+                    }
+                }
+                votes = currentSeason.Episodes[ep].events[number].Vote;
+                votesRead = currentSeason.Episodes[ep].events[number].VotesRead;
+                Idols = currentSeason.Episodes[ep].events[number].Idols;
+
+                foreach (GameObject torch in Torches)
+                {
+                    torch.SetActive(true);
+                }
+                //nextButton.gameObject.SetActive(false);
+                VoteButton.SetActive(true);
+                lastVoteOff = currentSeason.Episodes[ep].events[number].obj.transform.GetChild(0).GetChild(0).gameObject;
+                //Destroy(VotedOffCine.transform.GetChild(0).gameObject);
+                /*
+                if(curTribal == currentSeason.Episodes[curEp].votes.Count - 1)
+                {
+                    for (int i = 0; i < currentSeason.Episodes[curEp].finalVote.Count; i++)
+                    {
+                        //GameObject gas = Instantiate();
+                        currentSeason.Episodes[curEp].finalVote[i].transform.parent = VotedOffCine.transform.GetChild(0);
+                    }
+                    e = true;
+                } else
+                {
+                    e = false;
+                } */
+                if (currentSeason.Episodes[ep].events[number].VoteObjs.Count > 0)
+                {
+                    foreach (GameObject vot in currentSeason.Episodes[ep].events[number].VoteObjs)
+                    {
+                        vot.transform.parent = VotedOffCine.transform.GetChild(0);
+                    }
+                }
+                curVot = 0;
+
+                if (votes.Count > 0)
+                {
+                    dic = new Dictionary<Contestant, int>();
+                    votedOff = votes[0];
+                    dic.Add(votes[0], 1);
+                    dicVR = new Dictionary<Contestant, int>();
+                    if (!Idols.Contains(votesRead[0]))
+                    {
+                        dicVR.Add(votesRead[0], 1);
+                    }
+
+                    for (int i = 1; i < votes.Count; i++)
+                    {
+                        if (dic.ContainsKey(votes[i]))
+                        {
+                            dic[votes[i]] += 1;
+                            if (dic[votes[i]] > dic[votedOff])
+                            {
+                                votedOff = votes[i];
+                            }
+                        }
+                        else if (!dic.ContainsKey(votes[i]))
+                        {
+                            dic.Add(votes[i], 1);
+                        }
+                    }
+                    tie = new List<Contestant>();
+                    float maxValue = dic.Values.Max();
+                    foreach (KeyValuePair<Contestant, int> num in dic)
+                    {
+                        if (num.Value == maxValue)
+                        {
+                            tie.Add(num.Key);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    int re = 0;
+                    if (curTribal < currentSeason.Episodes[ep].votes.Count - 1)
+                    {
+                        foreach (Contestant num in currentSeason.Episodes[ep].votes[curTribal + 1])
+                        {
+                            if (tie.Contains(num))
+                            {
+                                re++;
+                            }
+                        }
+                        if (re == currentSeason.Episodes[ep].votes[curTribal + 1].Count)
+                        {
+                            revoteNext = true;
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     public void AddGM(GameObject gm, bool add)
     {
@@ -934,6 +1184,17 @@ public class GameManager : MonoBehaviour
         int num = currentSeason.Episodes[curEpp].events.Count - 1;
         currentSeason.Episodes[curEpp].events[num].VoteObjs.Add(og);
     }
+    void ShowCast()
+    {
+        GameObject EpisodeStart = Instantiate(Prefabs[0]);
+        EpisodeStart.transform.parent = Canvas.transform;
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeStart.name = "The Cast";
+        AddGM(EpisodeStart, true);
+        MakeGroup(false, null, "name", "", "", cast.cast, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+        NextEvent();
+    }
     void NextEp()
     {
         List<Alliance> remove = new List<Alliance>();
@@ -953,7 +1214,7 @@ public class GameManager : MonoBehaviour
                 {
                     foreach(Advantage advantage in num.advantages)
                     {
-                        if(advantage.expiresAt > currentContestants || (advantage.length < 1 && advantage.temp)) 
+                        if(advantage.expiresAt > currentContestants || (advantage.length < 1 && advantage.temp) || (advantage.type == "ImmunityNecklace")) 
                         {
                             Remove.Add(advantage);
                         }
@@ -982,6 +1243,7 @@ public class GameManager : MonoBehaviour
         immune = new List<Contestant>();
         
         nextEvent = 1;
+
         NextEvent();
     }
     void TribeStatuss()
@@ -998,17 +1260,19 @@ public class GameManager : MonoBehaviour
         {
             AddGM(EpisodeStatus, false);
         }
+        bool t = false;
         bool adv = false;
         float ed = 0;
-        if(Tribes[curT].hiddenAdvantages.Count > 0)
+        if(advant)
         {
             MakeGroup(false, null, "", "<b>Advantages</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
         }
-        int h = 0;
+        
         foreach (HiddenAdvantage hid in Tribes[curT].hiddenAdvantages)
         {
             if(hid.hideAt <= curEp + 1 && currentContestants >= hid.advantage.expiresAt)
             {
+                
                 string nam = hid.name;
                 if(!hid.name.Contains("Immunity Idol"))
                 {
@@ -1019,6 +1283,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(hid.reHidden)
                     {
+                        t = true;
                         atext = "The " + nam + " is not currently hidden.";
                     } else
                     {
@@ -1028,13 +1293,13 @@ public class GameManager : MonoBehaviour
                 }
                 if(atext != "")
                 {
-                    h++;
                     MakeGroup(false, null, "", atext, "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
                 }
                 foreach (Contestant num in Tribes[curT].members)
                 {
                     if (hid.hidden)
                     {
+                        t = true;
                         int ran = Random.Range(0, 2);
                         if (ran == 1)
                         {
@@ -1060,17 +1325,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if (h == 0)
-        {
-            MakeGroup(false, null, "", "There are no secret advantages hidden.", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
-        }
+        
         List<Contestant> u = new List<Contestant>();
         foreach (Contestant num in Tribes[curT].members)
         {
-            bool at = false;
             if (!adv && num.advantages.Count > 0 && Tribes[curT].hiddenAdvantages.Count < 1)
             {
-                MakeGroup(false, null, "", "<b>Advantages</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
                 adv = true;
             }
             List<Contestant> w = new List<Contestant>() { num };
@@ -1135,6 +1395,7 @@ public class GameManager : MonoBehaviour
                 {
                     MakeGroup(false, null, "", "", num.nickname + " has the Half Idol.", u, EpisodeStatus.transform.GetChild(0).GetChild(0), 10);
                 }
+                adv = true;
             }
             if(num.halfIdols.Count > 1)
             {
@@ -1177,6 +1438,10 @@ public class GameManager : MonoBehaviour
                 num.halfIdols.Reverse();
             }
         }
+        if (!t && !adv && advant)
+        {
+            MakeGroup(false, null, "", "There are no secret advantages.", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
+        }
         foreach (Alliance alliance in Alliances)
         {
             if (alliance.teams.Contains(Tribes[curT].name))
@@ -1186,6 +1451,7 @@ public class GameManager : MonoBehaviour
         }
         float d = 0;
         MakeGroup(false, null, "", "<b>Alliances</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
+        all = true;
         foreach (Alliance alliance in Alliances)
         {
             if (alliance.teams.Contains(Tribes[curT].name))
@@ -1219,6 +1485,7 @@ public class GameManager : MonoBehaviour
                 d++;
             }
         }
+        all = false;
         if (d == 0)
         {
             MakeGroup(false, null, "", "There are no alliances", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), 0);
@@ -1270,6 +1537,14 @@ public class GameManager : MonoBehaviour
         {
             island = "Exile Island";
         }
+        if(immune.Count > 0)
+        {
+            foreach(Contestant num in immune)
+            {
+                num.advantages.Remove(ImmunityNecklace);
+            }
+            immune = new List<Contestant>();
+        }
         GameObject EpisodeImm = Instantiate(Prefabs[2]);
         EpisodeImm.transform.parent = Canvas.transform;
         EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeImm.GetComponent<RectTransform>().offsetMax.y);
@@ -1291,6 +1566,24 @@ public class GameManager : MonoBehaviour
             List<Contestant> g = new List<Contestant>() { kidnapped };
             MakeGroup(false, null, "", "", kidnapped.nickname + " returns to their tribe.", g, EpisodeImm.transform.GetChild(0), 20);
             kidnapped = null;
+        }
+        if (curExile.on && curExile.challenge == "Immunity" && curExile.reason == "SitOut")
+        {
+            string safe = "";
+            if(curExile.exileEvent == "Safety")
+            {
+                safe = "\n\nIf their tribe loses, they will return for Tribal Council but be immune from the vote.";
+            }
+            MakeGroup(false, null, "", "", "Each tribe must send one player from the opposite to Exile Island. They will sit out the challenge." + safe, new List<Contestant>(), EpisodeImm.transform.GetChild(0), 0);
+            foreach (Team tribe in Tribes)
+            {
+                Contestant bye = tribe.members[Random.Range(0, tribe.members.Count)];
+                bye.team = tribe.name;
+                Exiled.Add(bye);
+                tribe.members.Remove(bye);
+            }
+            MakeGroup(false, null, "nname", "", "The people sitting out are chosen.", Exiled, EpisodeImm.transform.GetChild(0), 0);
+
         }
         foreach (Team tribe in Tribes)
         {
@@ -1321,7 +1614,7 @@ public class GameManager : MonoBehaviour
         }
         LosingTribes = new List<Team>();
         List<Team> TribesV = new List<Team>(Tribes);
-        if(curEp +1 == sea.MOPExpire)
+        if(curEp +1 == sea.MOPExpire && sea.MedallionOfPower)
         {
             MOPExpired = true;
             MakeGroup(false, null, "", "", "The Medallion of Power is no longer usable.", new List<Contestant>(), EpisodeImm.transform.GetChild(0), 0);
@@ -1366,8 +1659,36 @@ public class GameManager : MonoBehaviour
             if (!LosingTribes.Contains(tribe))
             {
                 MakeGroup(false, tribe, "", "", tribe.name + " Wins Immunity!", tribe.members, EpisodeImm.transform.GetChild(0), 20);
+            } else
+            {
+                if(extraVote.Count > 0)
+                {
+                    foreach(Contestant num in tribe.members)
+                    {
+                        if(extraVote.Contains(num))
+                        {
+                            Advantage av = Instantiate(EOEGiveAway.advantage);
+                            av.nickname = EOEGiveAway.name;
+                            if (EOEGiveAway.temp)
+                            {
+                                av.temp = true;
+                                av.length = EOEGiveAway.length;
+                            }
+                            EOEGiveAway.hidden = false;
+                            if (EOEGiveAway.advantage.type == "HalfIdol")
+                            {
+                                num.halfIdols.Add(num);
+                            }
+                            else
+                            {
+                                num.advantages.Add(av);
+                            }
+                        }
+                    }
+                }
             }
         }
+        
         lastThing = EpisodeImm;
         if(curExile.on && curExile.challenge == "Immunity" && curExile.reason != "")
         {
@@ -1375,6 +1696,7 @@ public class GameManager : MonoBehaviour
             {
                 string reason;
                 string reason2;
+                string extra = "";
                 if (curExile.ownTribe)
                 {
                     List<Team> teams = new List<Team>(Tribes);
@@ -1386,6 +1708,10 @@ public class GameManager : MonoBehaviour
                         }
                         reason2 = "The winning team can send someone from their tribe to " + island + ".";
                         reason = " is sent to " + island + " by the winning team.";
+                        if (curExile.both)
+                        {
+                            reason2 = "The winning team can send someone from each tribe to " + island + ".";
+                        }
                     }
                     else
                     {
@@ -1398,21 +1724,37 @@ public class GameManager : MonoBehaviour
                         }
                         reason2 = "The losing tribe can send someone from their tribe to " + island + ".";
                         reason = " is sent to " + island + " by the losing team.";
+                        if (curExile.both)
+                        {
+                            reason2 = "The losing team can send someone from each tribe to " + island + ".";
+                        }
                         if (curExile.skipTribal)
                         {
                             reason2 += "\n\nThis player will not attend tribal council.";
-                        }
+                            if (curExile.both)
+                            {
+                                extra = "\n\nThis player will not attend tribal council.";
+                            }
+                        } 
                     }
+                    
+                    
                     int rann = Random.Range(0, teams[0].members.Count);
                     teams[0].members[rann].team = teams[0].name;
+                    if (curExile.both)
+                    {
+                        reason =  " from " + teams[0].members[rann].team + "." + extra;
+                        extra = "They choose ";
+                    }
                     Exiled.Add(teams[0].members[rann]);
                     List<Contestant> g = new List<Contestant>() { teams[0].members[rann] };
-                    MakeGroup(false, null, "", reason2, teams[0].members[rann].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
+                    MakeGroup(false, null, "", reason2, extra + teams[0].members[rann].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
                     teams[0].members.Remove(teams[0].members[rann]);
 
                     teams = new List<Team>(Tribes);
                     if (curExile.two)
                     {
+                        extra = "";
                         if (curExile.reason == "Winner")
                         {
                             foreach (Team t in Tribes)
@@ -1422,11 +1764,17 @@ public class GameManager : MonoBehaviour
                                     teams.Remove(t);
                                 }
                             }
+                            
                             reason2 = Exiled[0].nickname + " can send someone from the losing tribe to " + island + ".";
                             reason = " is sent to " + island + " by " + Exiled[0].nickname;
+                            
                             if (curExile.skipTribal)
                             {
                                 reason2 += "\n\nThis player will not attend tribal council.";
+                                if(curExile.both)
+                                {
+                                    extra = "\n\nThis player will not attend tribal council.";
+                                }
                             }
                         }
                         else
@@ -1440,9 +1788,15 @@ public class GameManager : MonoBehaviour
                         }
                         int rannn = Random.Range(0, teams[0].members.Count);
                         teams[0].members[rannn].team = teams[0].name;
+                        if (curExile.both)
+                        {
+                            reason2 = "";
+                            reason = " from " + teams[0].members[rannn].team + "." + extra;
+                            extra = "They choose ";
+                        }
                         Exiled.Add(teams[0].members[rannn]);
                         g = new List<Contestant>() { teams[0].members[rannn] };
-                        MakeGroup(false, null, "", reason2, teams[0].members[rannn].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
+                        MakeGroup(false, null, "", reason2, extra + teams[0].members[rannn].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
                         teams[0].members.Remove(teams[0].members[rannn]);
                     }
                 }
@@ -1460,6 +1814,7 @@ public class GameManager : MonoBehaviour
                         }
                         reason2 = "The winning team can send someone from the losing tribe to " + island + ".";
                         reason = " is sent to " + island + " by the winning team.";
+
                         if (curExile.skipTribal)
                         {
                             reason2 += "\n\nThis player will not attend tribal council.";
@@ -1473,10 +1828,12 @@ public class GameManager : MonoBehaviour
                         }
                         reason2 = "The losing team can send someone from the winning tribe to " + island + ".";
                         reason = " is sent to " + island + " by the losing team.";
+
                     }
                     int rann = Random.Range(0, teams[0].members.Count);
                     teams[0].members[rann].team = teams[0].name;
                     Exiled.Add(teams[0].members[rann]);
+
                     List<Contestant> g = new List<Contestant>() { teams[0].members[rann] };
                     MakeGroup(false, null, "", reason2, teams[0].members[rann].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
                     teams[0].members.Remove(teams[0].members[rann]);
@@ -1510,20 +1867,26 @@ public class GameManager : MonoBehaviour
                         }
 
                         int rannn = Random.Range(0, LosingTribes[LosingTribes.Count - 1].members.Count);
+                        
                         LosingTribes[LosingTribes.Count - 1].members[rannn].team = LosingTribes[LosingTribes.Count - 1].name;
+
                         Exiled.Add(LosingTribes[LosingTribes.Count - 1].members[rannn]);
-                        g = new List<Contestant>() { teams[0].members[rannn] };
-                        MakeGroup(false, null, "", reason2, teams[0].members[rannn].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
-                        LosingTribes[LosingTribes.Count - 1].members.Remove(LosingTribes[LosingTribes.Count - 1].members[rann]);
+                        g = new List<Contestant>() { LosingTribes[LosingTribes.Count - 1].members[rannn] };
+                        MakeGroup(false, null, "", reason2, LosingTribes[LosingTribes.Count - 1].members[rannn].nickname + reason, g, EpisodeImm.transform.GetChild(0), 20);
+                        LosingTribes[LosingTribes.Count - 1].members.Remove(LosingTribes[LosingTribes.Count - 1].members[rannn]);
                     }
                 }
             }
         }
         else
         {
-            if (curSwap.on && curExile.on && curExile.reason == "")
+            if ((curSwap.on || curEvent.type == "FijiStart") && curExile.on && curExile.reason == "")
             {
                 Exiled[0].team = LosingTribes[LosingTribes.Count - 1].name;
+                if(curEvent.type == "FijiStart")
+                {
+                    Exiled[0].teams.Add(LosingTribes[LosingTribes.Count - 1].tribeColor);
+                }
             }
         }
         if(curEvent.type == "KidnappingImmunity")
@@ -1544,9 +1907,8 @@ public class GameManager : MonoBehaviour
                 teams.Remove(tt);
             }
             teams[0].members.Add(kidnapped);
-            Debug.Log("gg");
             List<Contestant> g = new List<Contestant>() { kidnapped };
-            MakeGroup(false, null, "", teams[0].name + " can kidnap someone from the losing tribe.", kidnapped.nickname + " is kidnapped.", g, EpisodeImm.transform.GetChild(0), 20);
+            MakeGroup(false, null, "", teams[0].name + " can kidnap someone from the losing tribe.\n\nThis person will skip Tribal Council.", kidnapped.nickname + " is kidnapped.", g, EpisodeImm.transform.GetChild(0), 20);
         }
         else if (curEvent.type == "DoubleElim")
         {
@@ -1591,7 +1953,7 @@ public class GameManager : MonoBehaviour
             Final3Tribal(MergedTribe);
         }else if(MergedTribe.members.Count > 3)
         {
-            if(curEvent.type == "MergeSplit")
+            if(curEvent.type == "MergeSplit" || curEvent.type == "MergeSplitFiji")
             {
                 Tribal(LosingTribes[curTTT]);
                 curTTT++;
@@ -1620,9 +1982,11 @@ public class GameManager : MonoBehaviour
         e = false;
         int tieNum = 2;
         Idols = new List<Contestant>();
+        List<Contestant> nullIdols = new List<Contestant>();
         Votes = new List<Vote>();
         votes = new List<Contestant>();
         votesRead = new List<Contestant>();
+        tie = new List<Contestant>();
         bool what = false;
         string conPlacement = "";
         string vote = "";
@@ -1676,6 +2040,7 @@ public class GameManager : MonoBehaviour
             etext = "It's time to vote.";
             MakeGroup(true, team, "name", "", "", team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
             List<Contestant> RRemove = new List<Contestant>();
+            
             foreach (Contestant num in team.members)
             {
                 if(num.safety > 0)
@@ -1689,7 +2054,7 @@ public class GameManager : MonoBehaviour
                 if (num.advantages.Count > 0)
                 {
                     List<Advantage> remove = new List<Advantage>();
-                    
+                    List<Advantage> Add = new List<Advantage>();
                     foreach (Advantage advantage in num.advantages)
                     {
                         string extra = "";
@@ -1698,7 +2063,7 @@ public class GameManager : MonoBehaviour
                             extra = "\n \nThis is the last round to use it.";
                         }
                         List<Contestant> w = new List<Contestant>() { num };
-
+                        bool playable;
                         MakeGroup(false, null, "", "", num.nickname + " has the " + advantage.nickname + extra, w, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
                         Contestant usedOn = null;
                         if (advantage.type == "ImmunityNecklace" || advantage.type == "VoteSteal" || advantage.type == "VoteBlocker")
@@ -1715,19 +2080,30 @@ public class GameManager : MonoBehaviour
                             
                             usedOn = teamV[Random.Range(0, teamV.Count)];
                         }
-                        if (advantage.usedWhen == "BeforeVote" && Random.Range(0, 10) == 1)
+                        if (advantage.usedWhen == "BeforeVote" && (Random.Range(0, 10) == 1 || currentContestants == advantage.expiresAt || advantage.length == 1 || advantage.type == "VoteSacrifice"))
                         {
                             AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
                             remove.Add(advantage);
                             if(advantage.type == "SafetyWithoutPower")
                             {
                                 RRemove.Add(num);
+                            } else if(advantage.type == "VoteSacrifice")
+                            {
+                                Advantage av = new Advantage();
+                                av.expiresAt = 6;
+                                av.nickname = "Extra Vote";
+                                av.type = "ExtraVote";
+                                Add.Add(av);
                             }
                         }
                     }
                     foreach (Advantage advantage in remove)
                     {
                         num.advantages.Remove(advantage);
+                    }
+                    foreach (Advantage advantage in Add)
+                    {
+                        num.advantages.Add(advantage);
                     }
                 }
                 
@@ -1784,7 +2160,7 @@ public class GameManager : MonoBehaviour
                     tri++;
                     if(tri == 2)
                     {
-                        Debug.Log("dfsa");
+                        //Debug.Log("dfsa");
                     }
                     rea = RE();
                 }
@@ -1792,6 +2168,8 @@ public class GameManager : MonoBehaviour
         }
         else if(team.members.Count == 2)
         {
+            MakeGroup(true, team, "name", "", "", team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
+            
             votes = new List<Contestant>();
             votesRead = new List<Contestant>();
             //Debug.Log("gg");
@@ -1811,7 +2189,7 @@ public class GameManager : MonoBehaviour
             votes.Add(votedOff);
             votesRead.Add(votedOff);
             AddVote(votes, votesRead);
-            vote = "Auto-Elimination";
+            vote = "Eliminated by Default";
             etext = "Sorry, " + votedOff.nickname + ", you're the only castaway left so you're automatically eliminated.";
             MakeGroup(true, team, "name", "", etext, team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
             Eliminate();
@@ -1883,24 +2261,16 @@ public class GameManager : MonoBehaviour
                         {
                             if (team.members.Count > Alliances[j].members.Count)
                             {
-                                if (Alliances[j].members.Contains(v.voter) && team.members.Contains(Alliances[j].target))
+                                if (Alliances[j].members.Contains(v.voter) && team.members.Contains(Alliances[j].target) && Random.Range(0, 5) != 0)
                                 {
                                     v.vote = Alliances[j].target;
                                 }
                             }
                         }
                     }
-
-                    if (team.members[i].vote != team.members[i])
-                    {
-                        endVote++;
-                    }
-                    else if (team.members[i].vote == team.members[i])
-                    {
-
-                    }
                 }
             }
+
             return true;
         }
         bool Revote(List<Contestant> tie)
@@ -1953,13 +2323,13 @@ public class GameManager : MonoBehaviour
                                 {
                                     if (Alliances[j].members.Contains(Votes[i].voter))
                                     {
-                                        if (tie.Contains(Alliances[j].target))
+                                        if (tie.Contains(Alliances[j].target) && Random.Range(0, 5) != 0)
                                         {
                                             rvote = Alliances[j].target;
                                         }
                                         else
                                         {
-                                            if (Alliances[j].altTargets.Count > 0)
+                                            if (Alliances[j].altTargets.Count > 0 && Random.Range(0, 5) != 0)
                                             {
                                                 rvote = Alliances[j].altTargets[0];
                                             }
@@ -1970,14 +2340,6 @@ public class GameManager : MonoBehaviour
                         }
                         Votes[i].revotes.Add(rvote);
 
-                        if (rvote != team.members[i])
-                        {
-                            endVote++;
-                        }
-                        else if (rvote == team.members[i])
-                        {
-
-                        }
                     }
                 }
                 else
@@ -2082,19 +2444,9 @@ public class GameManager : MonoBehaviour
                     {
                         if (team.members.Count > Alliances[j].members.Count)
                         {
-                            if (Alliances[j].members.Contains(Votes[i].voter))
+                            if (Alliances[j].members.Contains(Votes[i].voter) && team.members.Contains(Alliances[j].target) && Random.Range(0, 5) != 0)
                             {
-                                if (tie.Contains(Alliances[j].target))
-                                {
-                                    rvote = Alliances[j].target;
-                                }
-                                else
-                                {
-                                    if (Alliances[j].altTargets.Count > 0)
-                                    {
-                                        rvote = Alliances[j].altTargets[0];
-                                    }
-                                }
+                                rvote = Alliances[j].target;
                             }
                         }
                     }
@@ -2116,8 +2468,10 @@ public class GameManager : MonoBehaviour
         void CountVotes()
         {
             string eventext = "";
+            
             foreach (Vote num in Votes)
             {
+                
                 if (tie.Count > 1)
                 {
                     if (team.members.Count > tie.Count)
@@ -2140,7 +2494,6 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     votes.Add(num.vote);
-                    
                 }
             }
             dic = new Dictionary<Contestant, int>();
@@ -2161,16 +2514,7 @@ public class GameManager : MonoBehaviour
                     dic.Add(votes[i], 1);
                 }
             }
-            List<int> vot = new List<int>(dic.Values).OrderBy(x => x).ToList();
-            vot.Reverse();
-            if (tie.Count > 1)
-            {
-                vote = vote + "\n" + string.Join("-", vot) + " Revote";
-            }
-            else
-            {
-                vote += string.Join("-", vot) + " Vote";
-            }
+            
             
             float maxValuee = dic.Values.Max();
             tie = new List<Contestant>();
@@ -2185,8 +2529,34 @@ public class GameManager : MonoBehaviour
                     
                 }
             }
+            List<Contestant> superIdols = new List<Contestant>();
             foreach (Contestant num in team.members)
             {
+                foreach(Advantage advantage in num.advantages)
+                {
+                    List<Contestant> w = new List<Contestant>() { num };
+
+                    Contestant usedOn = null;
+                    List<Contestant> hasIdol = new List<Contestant>();
+                    foreach (Contestant con in team.members)
+                    {
+                        foreach(Advantage ad in num.advantages)
+                        {
+                            if(ad.type == "HiddenImmunityIdol" && con != num)
+                            {
+                                hasIdol.Add(con);
+                            }
+                        }
+                    }
+                    if(hasIdol.Count > 0)
+                    {
+                        usedOn = hasIdol[Random.Range(0, hasIdol.Count)];
+                    }
+                    if (advantage.usedWhen == "AfterVotes" && advantage.type == "IdolNullifier" && Random.Range(0, 10) == 0 && hasIdol.Count > 0 && !aa)
+                    {
+                        AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                    }
+                }
                 if (num.advantages.Count > 0 && !aa)
                 {
                     List<Advantage> remove = new List<Advantage>();
@@ -2196,23 +2566,49 @@ public class GameManager : MonoBehaviour
                         List<Contestant> w = new List<Contestant>() { num };
 
                         Contestant usedOn = null;
-                        
-                        if (advantage.name == "Ally Idol")
+                        bool playable = false;
+                        if (advantage.usedWhen == "AfterVotes")
+                        {
+                            playable = true;
+                        }
+                        if(advantage.type == "SuperIdol")
+                        {
+                            superIdols.Add(num);
+                        }
+                        if (advantage.name == "Ally Idol" || immune.Contains(num) || Idols.Contains(num))
                         {
                             List<Contestant> teamV = new List<Contestant>(team.members);
                             teamV.Remove(num);
+                            foreach(Contestant con in immune)
+                            {
+                                if (teamV.Contains(con))
+                                    teamV.Remove(con);
+                            }
+                            foreach (Contestant con in Idols)
+                            {
+                                if (teamV.Contains(con))
+                                    teamV.Remove(con);
+                            }
                             usedOn = teamV[Random.Range(0, teamV.Count)];
-                        }
+                            
+                        } 
                         int ran = Random.Range(0, 10);
-                        if(tie.Contains(num) && advantage.name != "Ally Idol")
+                        if(tie.Contains(num) && usedOn == null)
                         {
                             ran = Random.Range(0, 5);
                         }
-                        if(tie.Contains(usedOn) && advantage.name == "Ally Idol")
+                        if(usedOn != null)
                         {
+                            if (tie.Contains(usedOn))
                             ran = Random.Range(0, 5);
                         }
-                        if (advantage.usedWhen == "AfterVotes" && tie.Contains(num) && !Idols.Contains(num) && ran == 1)
+                        if((immune.Contains(num) || Idols.Contains(num)) && usedOn == null)
+                        {
+                            playable = false;
+                        }
+                        /*&& ran == 1* && tie.Contains(num)*/
+                        
+                        if (playable && (ran == 1 || currentContestants == advantage.expiresAt || advantage.length == 1))
                         {
                             bool a = false;
                             if (advantage.onlyUsable.Count > 0)
@@ -2242,14 +2638,15 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            if(!e)
+            
+            if (!aa)
             {
                 MakeGroup(false, null, "", "", "I'll read the votes.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
             }
-            
+
             tie = new List<Contestant>();
             float enoughVotes = 0;
-            if (dic.Count > 1)
+            if (dic.Count > 0)
             {
                 maxValuee = dic.Values.Max();
                 List<float> votesSpread = new List<float>();
@@ -2265,7 +2662,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
-                
+
                 if (votesSpread.Count > 0)
                 {
                     for (int i = votes.Count - 1; i > 0; i--)
@@ -2311,8 +2708,8 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            
-            
+
+
             //Sort votes then generate each vote for UI 
             votesRead = votes.OrderBy(go => dic[go]).ToList();
             if (tie.Count < 2 && enoughVotes < votesRead.Count)
@@ -2322,7 +2719,7 @@ public class GameManager : MonoBehaviour
                     votesRead.Remove(votesRead[votesRead.Count - 1]);
                 }
             }
-            if (tie.Count == tieNum)
+            if (tie.Count == tieNum && aa)
             {
                 e = true;
             }
@@ -2330,11 +2727,13 @@ public class GameManager : MonoBehaviour
             {
                 e = false;
             }
-
+            
             ShuffleVotes(votesRead);
 
             Dictionary<Contestant, int> dicIdol = new Dictionary<Contestant, int>();
-            if(!e && Idols.Count > 0)
+            Contestant immunity = team.members[Random.Range(0, team.members.Count)];
+            
+            if (!aa && Idols.Count > 0)
             {
                 
                 dicIdol.Add(Idols[0], 1);
@@ -2354,6 +2753,66 @@ public class GameManager : MonoBehaviour
                 {
                     votesRead.Insert(0, num);
                 }
+            }
+            Dictionary<Contestant, int> vot = new Dictionary<Contestant, int>(dic.Concat(dicIdol).OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value));
+            
+            if (aa)
+            {
+                vote = vote + "\n" + string.Join("-", vot.Values) + " Revote";
+            }
+            else
+            {
+                foreach(KeyValuePair<Contestant, int> num in vot)
+                {
+                    if(vot.Keys.ToList().IndexOf(num.Key) < vot.Count - 1)
+                    {
+                        if (dicIdol.Contains(num))
+                        {
+                            vote += "<color=red>" + dicIdol[num.Key] + "*</color>-"; 
+                        } else
+                        {
+                            if (MergedTribe.members.Count < 1)
+                            {
+                                if (team != LosingTribes[0] && curEvent.context == "TribalImmAV" && !aa && immunity == num.Key || (num.Value == dic.Values.Max() && superIdols.Contains(num.Key)))
+                                {
+                                    vote += "<color=red>" + dic[num.Key] + "*</color>-";
+                                } else
+                                {
+                                    vote += dic[num.Key] + "-";
+                                }
+                            } else
+                            {
+                                if(num.Value == dic.Values.Max() && superIdols.Contains(num.Key))
+                                {
+                                    vote += "<color=red>" + dic[num.Key] + "*</color>-";
+                                }
+                                else
+                                {
+                                    vote += dic[num.Key] + "-";
+                                }
+                            }
+                        }
+                    } else
+                    {
+                        if (dicIdol.Contains(num) || (num.Value == dic.Values.Max() && superIdols.Contains(num.Key)))
+                        {
+                            if (num.Value == dic.Values.Max() && superIdols.Contains(num.Key))
+                            {
+                                vote += "<color=red>" + dic[num.Key] + "*</color>";
+                            }
+                            else
+                            {
+                                vote += "<color=red>" + dicIdol[num.Key] + "*</color>";
+                            }
+                        }
+                        else
+                        {
+                            vote += dic[num.Key] + " Vote";
+                        }
+                    }
+                }
+                //vote += string.Join("-", vot) + " Vote";
+                
             }
             
 
@@ -2429,7 +2888,12 @@ public class GameManager : MonoBehaviour
                     votesLeft = "";
                     if (showVL == true)
                     {
+                        
                         float vl = votes.Count - i - 1 + Idols.Count;
+                        if (aa)
+                        {
+                            vl = votes.Count - i - 1;
+                        }
                         if (vl > 0)
                         {
                             if (vl > 1)
@@ -2497,9 +2961,9 @@ public class GameManager : MonoBehaviour
                         MakeGroup(false, null, "nname", atext, "", g, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
                         if (e == false)
                         {
-                            string firstline = "There is a tie and a revote. Those in in the tie will not revote, unless no one received votes on the original vote.";
+                            string firstline = "There is a tie and a revote. Those in in the tie will not revote, unless no one received votes on the original vote.\n\n\n";
                             string secondline = "Final vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".";
-                            eventext = firstline + "\n" + "\n" + "\n" + secondline;
+                            eventext = firstline + secondline;
                         }
                         else 
                         {
@@ -2524,9 +2988,9 @@ public class GameManager : MonoBehaviour
             
             if(MergedTribe.members.Count < 1)
             {
-                if (team != LosingTribes[0] && curEvent.context == "TribalImmAV" && !e)
+                if (team != LosingTribes[0] && curEvent.context == "TribalImmAV" && !aa)
                 {
-                    Contestant immunity = team.members[Random.Range(0, team.members.Count)];
+                    
                     List<Contestant> g = new List<Contestant>() { immunity, immune[0] };
                     List<Contestant> w = new List<Contestant>() { immune[0] };
 
@@ -2545,12 +3009,6 @@ public class GameManager : MonoBehaviour
                                 votedOff = num.Key;
                             }
                         }
-                        int a = vote.IndexOf(dic[immunity].ToString());
-                        StringBuilder sb = new StringBuilder(vote);
-                        sb.Remove(a, 1);
-                        sb.Insert(a, "<color=red>" + dic[immunity] + "*</color>");
-                        vote = sb.ToString();
-                        dic = dic2;
                     }
                 }
             }
@@ -2578,7 +3036,10 @@ public class GameManager : MonoBehaviour
                             {
                                 AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
                                 remove.Add(advantage);
-
+                                if(tie.Count > 1)
+                                {
+                                    eventext = "There is a tie and a revote. Those in in the tie will not revote, unless no one received votes on the original vote.\n\n\nFinal vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".";
+                                }
                             }
                             
                         }
@@ -2591,12 +3052,65 @@ public class GameManager : MonoBehaviour
             }
             if(eventext != "")
             {
-                MakeGroup(false, null, "name", "", eventext, tie, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                if(tie.Count < 2)
+                {
+                    MakeGroup(false, null, "name", "", "Final vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                } else
+                {
+                    MakeGroup(false, null, "name", "", eventext , tie, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                }
             }
             AddIdols(Idols);
         }
         void Eliminate()
         {
+            foreach (Advantage advantage in votedOff.advantages)
+            {
+                foreach (HiddenAdvantage hid in sea.islandHiddenAdvantages)
+                {
+                    if (advantage.nickname == hid.name && hid.reHidden)
+                    {
+                        hid.hidden = true;
+                    }
+                }
+                foreach (Team tribe in Tribes)
+                {
+                    foreach (HiddenAdvantage hid in tribe.hiddenAdvantages)
+                    {
+                        if (advantage.nickname == hid.name && hid.reHidden)
+                        {
+                            hid.hidden = true;
+                        }
+                    }
+                }
+                if (MergedTribe.members.Count > 0)
+                {
+                    foreach (HiddenAdvantage hid in MergedTribe.hiddenAdvantages)
+                    {
+                        if (advantage.nickname == hid.name && hid.reHidden)
+                        {
+                            hid.hidden = true;
+                        }
+                        foreach (HiddenAdvantage hidden in sea.islandHiddenAdvantages)
+                        {
+                            if (advantage.nickname == hid.name && hidden.hidden && hid.name == hidden.name && hidden.linkedToExile && hidden.hideAt <= curEp + 1)
+                            {
+                                if (hid.length == 0)
+                                {
+                                    hid.hidden = true;
+                                    hid.length++;
+                                    hidden.hidden = false;
+                                }
+                                else
+                                {
+                                    hid.hidden = false;
+                                    hidden.hidden = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             foreach (Alliance alliance in Alliances)
             {
                 if (alliance.members.Contains(votedOff))
@@ -2636,13 +3150,15 @@ public class GameManager : MonoBehaviour
                     jury.Add(votedOff);
                 } else
                 {
-                    conPlacement = "Voted Off Ep. " + (curEp + 1);
+                    conPlacement = "Voted Off " + Episodes[curEp].nickname;
+
                     votedOff.placement = conPlacement + "\n" + juror + "\n" + vote;
                     RIsland.Add(votedOff);
                 }
             }
             if(sea.EdgeOfExtinction)
             {
+                votedOff.advantages = new List<Advantage>();
                 juror = "Pre-Juror";
                 votedOff.placement = juror + vote;
                 if (currentContestants <= 6 && RIExpired)
@@ -2653,12 +3169,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    conPlacement = "Voted Off Ep. " + (curEp + 1);
+                    conPlacement = "Voted Off " + Episodes[curEp].nickname;
                     votedOff.placement = conPlacement + "\n" + juror + "\n" + vote;
                     votedOff.teams.Add(new Color());
                     EOE.Add(votedOff);
                 }
             }
+            
+            
             Eliminated.Add(votedOff);
             if(curEvent.type == "JointTribal")
             {
@@ -2669,7 +3187,7 @@ public class GameManager : MonoBehaviour
                         t.members.Remove(votedOff);
                     }
                 }
-            } else if(curEvent.type == "MergeSplit")
+            } else if(curEvent.type == "MergeSplit" || curEvent.type == "MergeSplitFiji")
             {
                 MergedTribe.members.Remove(votedOff);
             } else
@@ -2828,13 +3346,33 @@ public class GameManager : MonoBehaviour
             Dictionary<Contestant, int> dic2 = new Dictionary<Contestant, int>(dic);
             List<Contestant> n = new List<Contestant>() { user };
             string evetext = user.nickname + " uses the " + advantage.nickname;
+            
             if (usedOn != null)
             {
                 evetext += " on " + usedOn.nickname;
+                if (advantage.type == "IdolNullifier")
+                {
+                    evetext = user.nickname + " secretly uses the " + advantage.nickname + " on " + usedOn.nickname + "\n\nThe first idol played on " + usedOn.nickname + " will be negated.";
+                } 
                 n.Add(usedOn); n.Reverse();
                 if(advantage.type != "ImmunityNecklace" && advantage.type != "VoteSteal" && advantage.type != "VoteBlocker")
                 {
                     user = usedOn;
+                }
+            }
+            if (advantage.type == "HiddenImmunityIdol")
+            {
+                evetext += "\n\nAny votes cast against " + user.nickname + " will not count.";
+                if (nullIdols.Contains(user))
+                {
+                    evetext += "\n\nBecause of the Idol Nullifier, this idol is negated.";
+                }
+            }    
+            foreach (HiddenAdvantage hid in sea.islandHiddenAdvantages)
+            {
+                if (advantage.nickname == hid.name && hid.reHidden && sea.IslandType == "Exile")
+                {
+                    hid.hidden = true;
                 }
             }
             foreach (Team tribe in Tribes)
@@ -2847,6 +3385,35 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            
+            if (MergedTribe.members.Count > 0)
+            {
+                foreach (HiddenAdvantage hid in MergedTribe.hiddenAdvantages)
+                {
+                    if (advantage.nickname == hid.name && hid.reHidden)
+                    {
+                        hid.hidden = true;
+                    }
+                    foreach (HiddenAdvantage hidden in sea.islandHiddenAdvantages)
+                    {
+                        if (advantage.name == hid.name && hidden.name == hid.name && hid.linkedToExile && hid.hideAt <= curEp + 2)
+                        {
+                            if (hid.length == 0)
+                            {
+                                hid.hidden = true;
+                                hid.length++;
+                                hidden.hidden = false;
+                            }
+                            else
+                            {
+                                hid.hidden = false;
+                                hidden.hidden = true;
+                            }
+                        }
+                    }
+                }
+            }
+            
             switch (advantage.type)
             {
                 case "PreventiveIdol":
@@ -2882,45 +3449,8 @@ public class GameManager : MonoBehaviour
                     if (dic2.ContainsKey(user))
                     {
                         dic2.Remove(user);
-                        int maxValue = dic2.Values.Max();
-                        foreach (KeyValuePair<Contestant, int> num in dic2)
-                        {
-                            if (num.Value == maxValue)
-                            {
-                                votedOff = num.Key;
-                            }
-                        }
-
-                        int a = vote.IndexOf(dic[user].ToString());
-                        StringBuilder sb = new StringBuilder(vote);
-                        sb.Remove(a, 1);
-                        sb.Insert(a, "<color=red>" + dic[user] + "*</color>");
-                        vote = sb.ToString();
-                        dic = dic2;
-                    }
-                    break;
-                case "HiddenImmunityIdol":
-                    immune.Add(user);
-                    if (dic2.ContainsKey(user))
-                    {
-                        dic2.Remove(user);
-                        
-                        foreach(Contestant num in votes)
-                        {
-                            if(num == user)
-                            {
-                                Idols.Add(num);
-                            }
-                        }
-                        foreach(Contestant num in Idols)
-                        {
-                            if(votes.Contains(num))
-                            {
-                                votes.Remove(num);
-                            } 
-                        }
                         tie = new List<Contestant>();
-                        if(dic2.Count > 0)
+                        if (dic2.Count > 0)
                         {
                             int maxValue = dic2.Values.Max();
                             foreach (KeyValuePair<Contestant, int> num in dic2)
@@ -2931,19 +3461,68 @@ public class GameManager : MonoBehaviour
                                     tie.Add(num.Key);
                                 }
                             }
-                        } else
+                        }
+                        else
                         {
                             Debug.Log("ff");
                         }
-                        
-                        int a = vote.IndexOf(dic[user].ToString());
+                        /*int a = vote.IndexOf(dic[user].ToString());
                         StringBuilder sb = new StringBuilder(vote);
-                        sb.Remove(a, a.ToString().Length);
+                        sb.Remove(a, dic[user].ToString().Length);
+                        Debug.Log(a.ToString().Length);
                         sb.Insert(a, "<color=red>" + dic[user] + "*</color>");
-                        vote = sb.ToString();
+                        vote = sb.ToString();*/
                         dic = dic2;
                     }
-                    
+                    break;
+                case "VoteSacrifice":
+                    user.votes--;
+                    break;
+                case "IdolNullifier":
+                    nullIdols.Add(user);
+                    break;
+                case "HiddenImmunityIdol":
+                    if(!nullIdols.Contains(user))
+                    {
+                        immune.Add(user);
+                        if (dic2.ContainsKey(user))
+                        {
+                            dic2.Remove(user);
+
+                            foreach (Contestant num in votes)
+                            {
+                                if (num == user)
+                                {
+                                    Idols.Add(num);
+                                }
+                            }
+                            foreach (Contestant num in Idols)
+                            {
+                                if (votes.Contains(num))
+                                {
+                                    votes.Remove(num);
+                                }
+                            }
+                            tie = new List<Contestant>();
+                            if (dic2.Count > 0)
+                            {
+                                int maxValue = dic2.Values.Max();
+                                foreach (KeyValuePair<Contestant, int> num in dic2)
+                                {
+                                    if (num.Value == maxValue)
+                                    {
+                                        votedOff = num.Key;
+                                        tie.Add(num.Key);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("ff");
+                            }
+                            dic = dic2;
+                        }
+                    }
                     break;
             }
             MakeGroup(false, null, "", "", evetext + ".", n, obj, 0);
@@ -2951,7 +3530,6 @@ public class GameManager : MonoBehaviour
         bool RE()
         {
             tieNum = tie.Count;
-            Idols = new List<Contestant>();
             votes = new List<Contestant>();
             votesRead = new List<Contestant>();
 
@@ -2967,7 +3545,7 @@ public class GameManager : MonoBehaviour
             if (teamV.Count == 1)
             {
                 votedOff = teamV[0];
-                vote = vote + "\nAuto-Elimination";
+                vote = vote + "\nEliminated by Default";
                 Eliminate();
                 tri = 0;
                 return true;
@@ -2993,8 +3571,6 @@ public class GameManager : MonoBehaviour
             if(tie.Count < 1)
             {
                 rev = VoteRestart();
-                
-
             } else
             {
                 rev = Revote(tie);
@@ -3058,7 +3634,7 @@ public class GameManager : MonoBehaviour
 
         curVot = 0;
     }
-    void MakeAlliances(Team team)
+    public void MakeAlliances(Team team)
     {
         Alliance alliance1 = new Alliance();
         Alliance alliance2 = new Alliance();
@@ -3151,7 +3727,7 @@ public class GameManager : MonoBehaviour
                 lso = tribe;
             }
         }
-        if(r && Tribes.Count == 2)
+        if(r && Tribes.Count == 2 && absorb)
         {
             foreach (Team tribe in Tribes)
             {
@@ -3203,6 +3779,21 @@ public class GameManager : MonoBehaviour
         LosingTribe = MergedTribe;
         nextEvent = 1;
         immune = new List<Contestant>();
+        idols = 0;
+        foreach (Contestant num in MergedTribe.members)
+        {
+            if (num.advantages.Count > 0)
+            {
+                foreach (Advantage advantage in num.advantages)
+                {
+                    if (advantage.type == "HiddenImmunityIdol" && !advantage.temp)
+                    {
+                        idols++;
+                    }
+                }
+
+            }
+        }
         NextEvent();
     }
     void MergeStatus()
@@ -3214,15 +3805,30 @@ public class GameManager : MonoBehaviour
         EpisodeStatus.name = "TribeStatus";
         AddGM(EpisodeStatus, true);
         bool adv = false;
-        int h = 0;
-        if (MergedTribe.hiddenAdvantages.Count > 0)
+        bool t = false;
+        if (advant)
         {
             MakeGroup(false, null, "", "<b>Advantages</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
         }
         foreach (HiddenAdvantage hid in MergedTribe.hiddenAdvantages)
         {
-            if (hid.hideAt <= curEp + 1 && currentContestants >= hid.advantage.expiresAt)
+            bool asdsa = false; 
+            if(hid.advantage.type == "HiddenImmunityIdol" && idols >= sea.idolLimit)
             {
+                asdsa = true;
+            }
+            if (hid.linkedToExile)
+            {
+                asdsa = true;
+                if(hid.hidden)
+                {
+                    asdsa = false;
+                }
+            }
+            
+            if (hid.hideAt <= curEp + 1 && currentContestants >= hid.advantage.expiresAt && !asdsa)
+            {
+                adv = true;
                 string nam = hid.name;
                 if (!hid.name.Contains("Immunity Idol"))
                 {
@@ -3233,11 +3839,11 @@ public class GameManager : MonoBehaviour
                 {
                     if (hid.reHidden)
                     {
+                        t = true;
                         atext = "The " + nam + " is not currently hidden.";
                     }
                     else
                     {
-                        h++;
                         atext = "";
                     }
                 }
@@ -3245,10 +3851,11 @@ public class GameManager : MonoBehaviour
                 {
                     MakeGroup(false, null, "", atext, "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
                 }
-                foreach (Contestant num in Tribes[curT].members)
+                foreach (Contestant num in MergedTribe.members)
                 {
                     if (hid.hidden)
                     {
+                        t = true;
                         int ran = Random.Range(0, 2);
                         if (ran == 1)
                         {
@@ -3275,16 +3882,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        
+        
         foreach (Contestant num in MergedTribe.members)
         {
-            
             if (num.advantages.Count > 0)
             {
-                if (!adv && MergedTribe.hiddenAdvantages.Count < 1)
-                {
-                    MakeGroup(false, null, "", "<b>Advantages</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
-                    adv = true;
-                }
+                adv = true;
                 List<Contestant> w = new List<Contestant>() { num };
                 foreach (Advantage advantage in num.advantages)
                 {
@@ -3294,11 +3898,7 @@ public class GameManager : MonoBehaviour
             int comb = 0;
             foreach (Contestant half in num.halfIdols)
             {
-                if (!adv && MergedTribe.hiddenAdvantages.Count < 1)
-                {
-                    MakeGroup(false, null, "", "<b>Advantages</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
-                    adv = true;
-                }
+                adv = true;
                 List<Contestant> u = new List<Contestant>() { half };
                 if (num.halfIdols.Count > 1)
                 {
@@ -3353,6 +3953,10 @@ public class GameManager : MonoBehaviour
                 MakeGroup(false, null, "", "", num.nickname + " transfers the half idol to " + num.halfIdols[0].nickname, num.halfIdols, EpisodeStatus.transform.GetChild(0).GetChild(0), 10);
                 num.halfIdols.Reverse();
             }
+        }
+        if (!t && !adv && advant)
+        {
+            MakeGroup(false, null, "", "There are no secret advantages.", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
         }
         MakeGroup(false, null, "", "<b>Alliances</b>", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), -10);
         foreach (Alliance alliance in Alliances)
@@ -3468,6 +4072,7 @@ public class GameManager : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         lastThing = EpisodeStart;
         AddGM(EpisodeStart, true);
+        idols = 0;
         foreach (Contestant num in MergedTribe.members)
         {
             List<Advantage> Remove = new List<Advantage>();
@@ -3475,11 +4080,16 @@ public class GameManager : MonoBehaviour
             {
                 foreach (Advantage advantage in num.advantages)
                 {
+                    if(advantage.type == "HiddenImmunityIdol" && !advantage.temp)
+                    {
+                        idols++;
+                    }
                     if (advantage.expiresAt > currentContestants || (advantage.length < 1 && advantage.temp))
                     {
                         Remove.Add(advantage);
                     }
                 }
+                
             }
             foreach (Advantage advantage in Remove)
             {
@@ -3521,6 +4131,7 @@ public class GameManager : MonoBehaviour
     void WinnerReveal()
     {
         //Debug.Log(curEpp);
+        Idols = new List<Contestant>();
         GameObject EpisodeStart = Instantiate(Prefabs[0]);
         EpisodeStart.transform.parent = Canvas.transform;
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
@@ -3671,10 +4282,7 @@ public class GameManager : MonoBehaviour
             }
             ShuffleVotes(votesRead);
             dicVR = new Dictionary<Contestant, int>();
-            if (!Idols.Contains(votesRead[curVot]))
-            {
-                dicVR.Add(votesRead[0], 1);
-            }
+            dicVR.Add(votesRead[0], 1);
             
             string votess;
             votess = " vote ";
@@ -3981,20 +4589,89 @@ public class GameManager : MonoBehaviour
         currentContestants--;
         NextEvent();
     }
-    void FanFavorite()
+    void ForcedFireMaking()
     {
-        Contestant fav = cast.cast[Random.Range(0, cast.cast.Count)];
-        //Debug.Log("Fan Favorite:" + fav.nickname);
         GameObject EpisodeStart = Instantiate(Prefabs[0]);
         EpisodeStart.transform.parent = Canvas.transform;
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
-        //curEpp--;
+        EpisodeStart.name = "Tribal Council";
+        AddGM(EpisodeStart, true);
+        string giveUp = "";
+        Contestant immunity = immune[0];
+        List<Contestant> TeamV = new List<Contestant>(MergedTribe.members);
+        TeamV.Remove(immunity);
+        Contestant safe = TeamV[Random.Range(0, TeamV.Count)];
+        TeamV.Remove(safe);
+        Contestant otherSafe = TeamV[Random.Range(0, TeamV.Count)];
+        if (Random.Range(0, 10) == 0)
+        {
+            TeamV.Remove(otherSafe);
+            TeamV.Add(immunity);
+            giveUp = "\n\nHowever, they decide to give up individual immunity and compete in fire.";
+        }
+
+        Votes = new List<Vote>();
+        votedOff = TeamV[Random.Range(0, TeamV.Count)];
+        votes = new List<Contestant>() { votedOff };
+        AddVote(votes, votes);
+
+        MakeGroup(false, null, "", "", immunity.nickname + " must grant safety to one other castaway." + giveUp, new List<Contestant>() { immunity}, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
+        if(giveUp == "")
+        {
+            MakeGroup(false, null, "", "", "They grant safety to " + safe.nickname + ".", new List<Contestant>() { safe}, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
+        }
+        else
+        {
+            MakeGroup(false, null, "", "", "They give immunity to " + otherSafe.nickname + " and grants safety to " + safe.nickname + ".", new List<Contestant>() { safe, otherSafe}, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
+        }
+
+        MakeGroup(false, null, "name", "", "The remaining castaways compete in a fire-making challenge for a place in the final three.", TeamV, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+        string juryPM = "";
+        if (currentContestants - finaleAt <= juryAt && !sea.RedemptionIsland && !sea.EdgeOfExtinction)
+        {
+            float juryy = jury.Count + 1;
+            juryPM = " and " + Oridinal(juryy) + " member of the jury";
+        }
+        float placement = elimed;
+        string placementt = "";
+        placementt = Oridinal(placement);
+        string etext = votes[0].nickname + ", the tribe has spoken.";
+        MakeGroup(false, null, "name", "", etext, votes, EpisodeStart.transform.GetChild(0).GetChild(0), 20);
+        foreach (Alliance alliance in Alliances)
+        {
+            if (alliance.members.Contains(votedOff))
+            {
+                alliance.members.Remove(votedOff);
+            }
+        }
+        MergedTribe.members.Remove(votedOff);
+        votedOff.placement = "Juror" + "\n" + "Lost Fire-Making";
+        Eliminated.Add(votedOff);
+        if (currentContestants <= juryAt)
+        {
+            jury.Add(votedOff);
+        }
+        currentContestants--;
+        NextEvent();
+    }
+    void FanFavorite()
+    {
+        Contestant fav = cast.cast[Random.Range(0, cast.cast.Count)];
+        //Debug.Log("Fan Favorite:" + fav.nickname);
+
+        GameObject EpisodeStart = Instantiate(Prefabs[0]);
+        
+        EpisodeStart.transform.parent = Canvas.transform;
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeStart.name = "Fan Favorite";
+
 
         AddGM(EpisodeStart, true);
-        //curEpp++;
+
         List<Contestant> a = new List<Contestant>() { fav };
-        MakeGroup(false, null, "name", "The fan favorite is...", "", a, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+        MakeGroup(false, null, "name", "The fan favorite is...", "", a, EpisodeStart.transform.GetChild(0).GetChild(0), 10);
         NextEvent();
     }
     void Placements()
@@ -4005,80 +4682,11 @@ public class GameManager : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "Placements";
         AddGM(EpisodeStart, true);
-        GameObject group = Instantiate(GroupPrefab);
-        group.GetComponent<UIGroup>().tribeName.enabled = false;
-        //group.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingY = 30;
-        
-        group.transform.parent = EpisodeStart.transform.GetChild(0).GetChild(0);
-        int highestLength = 0;
-        int er = Eliminated.Count;
-        if (er % 6 == 0)
-        {
-            er = 5;
-        }
-        else if (Eliminated.Count % 5 == 0)
-        {
-            er = 4;
-        }
-        else if (Eliminated.Count % 4 == 0)
-        {
-            er = 3;
-        }
-        else
-        {
-            er++;
-            if (er % 6 == 0)
-            {
-                er = 5;
-            }
-            else if (er % 5 == 0)
-            {
-                er = 4;
-            }
-            else if (er % 4 == 0)
-            {
-                er = 3;
-            }
-            else
-            {
-                er = 5;
-            }
-        }
-        foreach (Contestant num in Eliminated)
-        {
-            string place = Oridinal(Eliminated.Count - Eliminated.IndexOf(num)) + " Place";
-            if(Eliminated.Count - Eliminated.IndexOf(num) == 1)
-            {
-                place = "Winner";
-            }
-            num.placement = place + "\n" + num.placement;
-            GameObject mem = Instantiate(ContestantPrefab);
-            mem.GetComponentInChildren<Image>().sprite = num.image;
-            mem.GetComponentInChildren<Text>().text = num.fullname + "\n "+ num.placement;
-            mem.transform.GetChild(1).gameObject.SetActive(true);
-            for (int j = 0; j < num.teams.Count; j++)
-            {
-                GameObject image = Instantiate(imagePrefab);
-                image.GetComponent<Image>().color = num.teams[j];
-                image.transform.parent = mem.transform.GetChild(1);
-            }
-            int ee = mem.GetComponentInChildren<Text>().text.Split('\n').Length - 4;
-            if (ee > highestLength && Eliminated.IndexOf(num) > er)
-            {
-                highestLength = ee;
-            }
-            if(ee > 0)
-            {
-                mem.GetComponentInChildren<VerticalLayoutGroup>().padding.bottom -= 16*ee;
-            }
-            mem.transform.parent = group.transform.GetChild(2);
-        }
-        group.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingY = (16*highestLength) + 2;
-        group.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingX = 38;
-        float teamWidth = ConListWidth(group.transform.GetChild(2).childCount);
-        group.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(teamWidth, group.transform.GetChild(1).GetComponent<RectTransform>().sizeDelta.y);
-        group.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1f);
-        group.GetComponent<SetupLayout>().Start();
+        placement = true;
+        //Eliminated.Reverse();
+        MakeGroup(false, null, "placement", "", "", Eliminated, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+        placement = false;
+
         h = false;
     }
     void Statistics()
@@ -4508,7 +5116,30 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                return 800f;
+                if(contestants > 10)
+                {
+                    contestants = Mathf.Round(contestants / 10) * 10;
+                    if (contestants % 6 == 0)
+                    {
+                        return 800f;
+                    }
+                    else if (contestants % 5 == 0)
+                    {
+                        return 700f;
+                    }
+                    else if (contestants % 4 == 0)
+                    {
+                        return 550f;
+                    }
+                    else
+                    {
+                        return 800f;
+                    }
+                }
+                else
+                {
+                    return 800f;
+                }
             }
         }
     }
@@ -4591,9 +5222,19 @@ public class GameManager : MonoBehaviour
     {
         oneTimeEvents.BeginningTwist();
     }
+    void PalauStart()
+    {
+        oneTimeEvents.PalauStart();
+    }
+    void FijiStart()
+    {
+        oneTimeEvents.FijiStart();
+    }
     IEnumerator SetUp()
     {
         yield return new WaitForSeconds(.01f);
+        cineTribal = SeasonMenuManager.instance.cineTribal;
+        absorb = SeasonMenuManager.instance.absorb;
         seasonTemp = SeasonMenuManager.instance.curSeason;
         cast = SeasonMenuManager.instance.curCast;
         PlaySeason();
@@ -4602,8 +5243,7 @@ public class GameManager : MonoBehaviour
     {
         curSwap.on = false;
         curExile.on = false;
-        int male = 0;
-        int female = 0;
+        
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -4621,33 +5261,72 @@ public class GameManager : MonoBehaviour
         sea = Instantiate(seasonTemp);
         Tribes = new List<Team>(sea.Tribes);
         mergeAt = sea.mergeAt; juryAt = sea.jury; finaleAt = sea.final;
-        SetSeason();
-        nextButton.onClick.AddListener(NextGM);
-        foreach (Team tribe in Tribes)
+        bool oneEv = false;
+        foreach (OneTimeEvent one in sea.oneTimeEvents)
         {
-            MakeAlliances(tribe);
-            currentContestants += tribe.members.Count;
-            foreach (Contestant num in tribe.members)
+            if((one.type == "SchoolyardPick" || one.type == "PalauStart" || one.type == "FijiStart") && one.context != "FirstLast" )
             {
-                num.teams.Add(tribe.tribeColor);
-                if (num.gender == "M")
+                oneEv = true;
+                if(one.type == "FijiStart")
                 {
-                    male++;
-                }
-                else if (num.gender == "F")
-                {
-                    female++;
+                    currentContestants++;
                 }
             }
+        }
+        if(!oneEv)
+        {
+            SetSeason();
+            int male = 0;
+            int female = 0;
+            foreach (Team tribe in Tribes)
+            {
+                MakeAlliances(tribe);
+                currentContestants += tribe.members.Count;
+                foreach (Contestant num in tribe.members)
+                {
+                    num.teams.Add(tribe.tribeColor);
+                    if (num.gender == "M")
+                    {
+                        male++;
+                    }
+                    else if (num.gender == "F")
+                    {
+                        female++;
+                    }
+                }
+                if (tribe.hiddenAdvantages.Count > 0)
+                {
+                    advant = true;
+                }
+            }
+            if (male == female)
+            {
+                genderEqual = true;
+            }
+        } else
+        {
+            foreach (Team tribe in sea.Tribes)
+            {
+                currentContestants += tribe.members.Count;
+            }
+
+        }
+        nextButton.onClick.AddListener(NextGM);
+        lastButton.onClick.AddListener(LastGM);
+        
+        if (sea.mergeHiddenAdvantages.Count > 0)
+        {
+            advant = true;
+        }
+        if (sea.islandHiddenAdvantages.Count > 0)
+        {
+            advant = true;
         }
         if (!sea.Outcasts)
         {
             OCExpired = true;
         }
-        if (male == female)
-        {
-            genderEqual = true;
-        }
+        
         //lastThing = EpisodeStart;
         //TieGame();
         nextEvent = 1;
@@ -4677,6 +5356,43 @@ public class GameManager : MonoBehaviour
         {
             team.GetComponent<UIGroup>().tribeName.gameObject.SetActive(false);
         }
+        int highestLength = 0;
+        int er = Eliminated.Count;
+        if (placement)
+        {
+            if (Eliminated.Count % 6 == 0)
+            {
+                er = 5;
+            }
+            else if (Eliminated.Count % 5 == 0)
+            {
+                er = 4;
+            }
+            else if (Eliminated.Count % 4 == 0)
+            {
+                er = 3;
+            }
+            else
+            {
+                er++;
+                if (er % 6 == 0)
+                {
+                    er = 5;
+                }
+                else if (er % 5 == 0)
+                {
+                    er = 4;
+                }
+                else if (er % 4 == 0)
+                {
+                    er = 3;
+                }
+                else
+                {
+                    er = 5;
+                }
+            }
+        }
         if(cons.Count > 0)
         {
             foreach(Contestant num in cons)
@@ -4690,14 +5406,29 @@ public class GameManager : MonoBehaviour
                 else if (conText == "nname")
                 {
                     mem.GetComponentInChildren<Text>().text = num.nickname;
+                } 
+                else if (conText == "placement")
+                {
+                    string place = Oridinal(Eliminated.Count - Eliminated.IndexOf(num)) + " Place";
+                    if (Eliminated.Count - Eliminated.IndexOf(num) == 1)
+                    {
+                        place = "Winner";
+                    }
+                    num.placement = place + "\n" + num.placement;
+                    mem.GetComponentInChildren<Text>().text = num.fullname + "\n " + num.placement;
                 }
-                else
+                else 
                 {
                     mem.GetComponentInChildren<Text>().fontStyle = FontStyle.Normal;
                     mem.GetComponentInChildren<Text>().text = conText;
                 }
+                if(all && !Tribes[curT].members.Contains(num))
+                {
+                    mem.GetComponentInChildren<Image>().material = grayScale;
+                }
+
                 mem.transform.parent = team.transform.GetChild(2);
-                if(nameEnabled && num.teams.Count > 1)
+                if((nameEnabled || all) && num.teams.Count > 1)
                 {
                     mem.transform.GetChild(1).gameObject.SetActive(true);
                     for (int j = 0; j < num.teams.Count - 1; j++)
@@ -4705,6 +5436,25 @@ public class GameManager : MonoBehaviour
                         GameObject image = Instantiate(imagePrefab);
                         image.GetComponent<Image>().color = num.teams[j];
                         image.transform.parent = mem.transform.GetChild(1);
+                    }
+                }
+                if (placement)
+                {
+                    mem.transform.GetChild(1).gameObject.SetActive(true);
+                    for (int j = 0; j < num.teams.Count; j++)
+                    {
+                        GameObject image = Instantiate(imagePrefab);
+                        image.GetComponent<Image>().color = num.teams[j];
+                        image.transform.parent = mem.transform.GetChild(1);
+                    }
+                    int ee = mem.GetComponentInChildren<Text>().text.Split('\n').Length - 4;
+                    if (ee > highestLength && Eliminated.IndexOf(num) > er)
+                    {
+                        highestLength = ee;
+                    }
+                    if (ee > 0)
+                    {
+                        mem.GetComponentInChildren<VerticalLayoutGroup>().padding.bottom -= 16 * ee;
                     }
                 }
             }
@@ -4717,8 +5467,14 @@ public class GameManager : MonoBehaviour
             AddFinalVote(team);
         }
         float teamWidth = ConListWidth(team.transform.GetChild(2).childCount);
+        if (placement)
+        {
+            team.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingY = (16 * highestLength) + 2;
+            team.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingX = 40;
+        }
         team.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(teamWidth, team.transform.GetChild(1).GetComponent<RectTransform>().sizeDelta.y);
         team.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1f);
+        
         team.GetComponent<UIGroup>().allianceText.text = aText;
         team.GetComponent<UIGroup>().eventText.text = eText;
         if(spacing != 0)

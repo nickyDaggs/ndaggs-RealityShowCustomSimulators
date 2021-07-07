@@ -19,15 +19,32 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 7537b8c03dc215e46a5d2aba2887b528, type: 3}
   vote: {fileID: 0}
   altVotes: []
+  halfIdols: []
   votesGotten: 0
   immunityWins: 0
   rewardWins: 0
   advantages: []
-  Age: 0
+  Age: 24
   voteReason: 
   placement: 
   inTie: 0
   idolPlayed: 0
+  challengeAdvantage: 0
+  combineIdol: 0
   safety: 0
   votes: 0
+  IOIEvent: 
   teams: []
+  savedAdv:
+    name: 
+    advantage: {fileID: 0}
+    hideAt: 0
+    reHidden: 0
+    hidden: 0
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
