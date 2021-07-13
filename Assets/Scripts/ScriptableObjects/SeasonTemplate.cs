@@ -16,6 +16,9 @@ public class SeasonTemplate : ScriptableObject
     public string ReturningPlayers;
     public Color MergeTribeColor;
     public string MergeTribeName;
+    public List<Challenge> ImmunityChallenges;
+    public List<Challenge> RewardChallenges;
+    public List<int> rewardSkips;
     public List<HiddenAdvantage> mergeHiddenAdvantages;
     public List<HiddenAdvantage> twistHiddenAdvantages;
     public List<TribeSwap> swaps;
@@ -34,6 +37,7 @@ public class SeasonTemplate : ScriptableObject
     public List<int> threeParts;
     public Twist Twists;
     public List<OneTimeEvent> oneTimeEvents;
+    
 
     // Start is called before the first frame update
     void Start()

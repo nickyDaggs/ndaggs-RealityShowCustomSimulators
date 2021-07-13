@@ -130,6 +130,42 @@ namespace SeasonParts
         public Contestant vote;
         public List<Contestant> revotes = new List<Contestant>();
     }
+    [System.Serializable]
+    public class Stats
+    {
+        public int Physical = 3;
+        public int Endurance = 3;
+        public int Mental = 3;
+        public int Stamina = 3;
+        public int SocialSkills = 3;
+        public int Temperament = 3;
+        public int Strategic = 3;
+        public int Loyalty = 3;
+        public int Forgivingness = 3;
+        public int Boldness = 3;
+        public int Influence = 3;
+        public int Intuition = 3;
+    }
+    [System.Serializable]
+    public class Challenge
+    {
+        public string name;
+        public string description;
+        public List<string> rewards = new List<string>();
+        public int rewardStamina;
+        public List<Contestant> Groups = new List<Contestant>();
+        public bool sitout;
+        public List<string> stats = new List<string>();
+    }
+    [System.Serializable]
+    public class ContestantEvent
+    {
+        public string type;
+        public string eventText;
+        public int contestants;
+        public int relationshipAffect;
+        public int staminaAffect;
+    }
 }
 public class SimulatorParts : MonoBehaviour
 {

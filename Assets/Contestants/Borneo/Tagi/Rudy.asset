@@ -16,24 +16,36 @@ MonoBehaviour:
   nickname: Rudy
   gender: M
   team: 
+  Age: 72
   image: {fileID: 21300000, guid: c32e50d8d7caa8e48a6a4a7443421ad2, type: 3}
-  vote: {fileID: 0}
-  altVotes: []
-  halfIdols: []
+  stats:
+    Physical: 3
+    Endurance: 3
+    Mental: 3
+    Stamina: 3
+    SocialSkills: 3
+    Temperament: 3
+    Strategic: 3
+    Loyalty: 3
+    Forgivingness: 3
+    Boldness: 3
+    Influence: 3
+    Intuition: 3
   votesGotten: 0
   immunityWins: 0
   rewardWins: 0
-  advantages: []
-  Age: 72
   voteReason: 
   placement: 
+  vote: {fileID: 0}
+  altVotes: []
+  halfIdols: []
   inTie: 0
-  idolPlayed: 0
   challengeAdvantage: 0
   combineIdol: 0
   safety: 0
   votes: 0
   IOIEvent: 
+  advantages: []
   teams: []
   savedAdv:
     name: 

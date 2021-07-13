@@ -609,6 +609,7 @@ public class OneTimeEvents : MonoBehaviour
                             {
                                 female++;
                             }
+                            GameManager.instance.challenge.RandomizeStats(contest);
                         }
                         if (tribe.hiddenAdvantages.Count > 0)
                         {
@@ -814,7 +815,6 @@ public class OneTimeEvents : MonoBehaviour
         bool altGender = false;
         if(GameManager.instance.curEvent.elim > 0)
         {
-            Debug.Log("fdfddd");
             altGender = true;
         }
         GameObject EpisodeCast = Instantiate(GameManager.instance.Prefabs[0]);
@@ -822,7 +822,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeCast.name = "The Cast";
-        GameManager.instance.AddGM(EpisodeCast, true);
+        GameManager.instance.AddGM(EpisodeCast, false);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
         GameObject EpisodeImm = Instantiate(GameManager.instance.Prefabs[2]);
         EpisodeImm.transform.parent = GameManager.instance.Canvas.transform;
@@ -835,7 +835,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, false);
+        GameManager.instance.AddGM(EpisodeStart, true);
         List<Contestant> Leaders = new List<Contestant>();
         List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
         if (GameManager.instance.curEvent.context == "FirstLast")
@@ -929,7 +929,6 @@ public class OneTimeEvents : MonoBehaviour
 
                 cast.Remove(Leaders[i]);
                 
-                Debug.Log(cast.Count);
                 rounds += GameManager.instance.sea.Tribes[i].members.Count;
             }
             
@@ -972,7 +971,6 @@ public class OneTimeEvents : MonoBehaviour
                         GameManager.instance.Tribes[num].members[con] = Instantiate(Genders[gender][ran]);
                         
                         cast.Remove(Genders[gender][ran]);
-                        Debug.Log(cast.Count);
                         Genders[gender].Remove(Genders[gender][ran]);
                     } else
                     {
@@ -1019,6 +1017,7 @@ public class OneTimeEvents : MonoBehaviour
                     {
                         female++;
                     }
+                    GameManager.instance.challenge.RandomizeStats(contest);
                 }
                 if (tribe.hiddenAdvantages.Count > 0)
                 {
@@ -1171,6 +1170,7 @@ public class OneTimeEvents : MonoBehaviour
                     {
                         female++;
                     }
+                    GameManager.instance.challenge.RandomizeStats(contest);
                 }
                 if (tribe.hiddenAdvantages.Count > 0)
                 {

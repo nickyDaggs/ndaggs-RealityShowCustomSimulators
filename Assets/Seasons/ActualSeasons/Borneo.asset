@@ -93,6 +93,123 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.16981131, g: 1, b: 0.16981131, a: 1}
   MergeTribeName: Rattata Tribe
+  ImmunityChallenges:
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Endurance
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Endurance
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Mental
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Endurance
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Physical
+    - Mental
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Mental
+  - name: 
+    description: 
+    rewards: []
+    rewardStamina: 0
+    Groups: []
+    sitout: 0
+    stats:
+    - Endurance
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps: []

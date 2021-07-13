@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\Season.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\SeasonTemplate.cs" />
     <Compile Include="Assets\Scripts\Simulator\ChallengeScript.cs" />
+    <Compile Include="Assets\Scripts\Simulator\ContestantEvents.cs" />
     <Compile Include="Assets\Scripts\Simulator\ExileIsland.cs" />
     <Compile Include="Assets\Scripts\Simulator\GameManager.cs" />
     <Compile Include="Assets\Scripts\Simulator\OneTimeEvents.cs" />

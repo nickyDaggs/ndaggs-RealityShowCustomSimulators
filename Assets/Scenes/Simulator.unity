@@ -917,6 +917,7 @@ GameObject:
   - component: {fileID: 908878650}
   - component: {fileID: 908878651}
   - component: {fileID: 908878652}
+  - component: {fileID: 908878653}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -938,8 +939,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImmunityNecklace: {fileID: 11400000, guid: 4beb5533543b42c47baeb23d1b0d8cdf, type: 2}
   HiddenIdol: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
-  seasonTemp: {fileID: 11400000, guid: 89da8ff94248cbd489762f7c573e14c8, type: 2}
-  load: 1
+  seasonTemp: {fileID: 11400000, guid: 451ed3aff2c9f6749a210c12aa21fb5c, type: 2}
+  load: 0
   Tribes:
   - name: 0
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -973,7 +974,7 @@ MonoBehaviour:
   absorb: 1
   Loading: {fileID: 1083174855}
   Episodes: []
-  cast: {fileID: 11400000, guid: 630f1fa49ce22b640b435923e672b27b, type: 2}
+  cast: {fileID: 11400000, guid: 344222f0780b9d741a18945100fb887e, type: 2}
   sea: {fileID: 0}
   Prefabs:
   - {fileID: 3793673663094982860, guid: 10e27cc69eaaee443a0801e6f724d60e, type: 3}
@@ -1036,8 +1037,11 @@ MonoBehaviour:
   reTwists: {fileID: 908878650}
   oneTimeEvents: {fileID: 908878651}
   exileIsland: {fileID: 908878652}
+  challenge: {fileID: 908878653}
   re: 0
   idols: 0
+  curReward: 0
+  curImm: 0
   RIExpired: 0
   OCExpired: 0
   e: 0
@@ -1149,6 +1153,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cea2d8072908f484ea20851fbbf252b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &908878653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908878646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a249c954764b2784d9f6d98a50d6a9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &963194225

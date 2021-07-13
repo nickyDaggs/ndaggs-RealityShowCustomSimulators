@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SeasonParts; 
+using SeasonParts;
+using System.Linq;
 
 public class ChallengeScript : MonoBehaviour
 {
@@ -18,17 +19,173 @@ public class ChallengeScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void TribeChallenge(List<Team> tribes, List<string> stats)
+    public void TribeChallenge(List<Team> tribes, List<string> stats, int winner)
     {
+        List<Team> Tribes = new List<Team>(tribes);
+        Dictionary<Team, int> teamSum = new Dictionary<Team, int>();
+        int Overall = 0;
+        Tribes = Tribes.OrderBy(x => x.members.Count).ToList();
+        foreach (Team tribe in Tribes)
+        {
+            int sum = 0;
+            List<int> sumMembers = new List<int>();
+            foreach (Contestant num in tribe.members)
+            {
+                //Get an average from a player's stats
+                sumMembers.Add(GetPoints(num, stats, true));
+                num.stats.Stamina -= 3;
+            }
+            //Get sum of all players in the team
+            sum = (int)Mathf.Round((float)sumMembers.Sum() / 10 );
+            //+ (float)sumMembers.Average()
+            teamSum.Add(tribe, Overall + sum);
+            Overall += sum;
+            
+        }
+        teamSum = teamSum.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        //Randomize a number then go through each team and see if their average is greater than or equal to the random number
+        for (int i = 0; i < winner; i++)
+        {
+            bool found = false;
+            int ran = Random.Range(1, Overall);
+            int rolls = 0;
+            while(!found)
+            {
+                
+                int lastNum = 0;
+                foreach (KeyValuePair<Team, int> tribe in teamSum)
+                {
+                    ran = Random.Range(1, Overall);
+                    if (rolls == 0)
+                    {
+                        Debug.Log(tribe.Value - lastNum);
+                    }
+                    if (!found && Tribes.Contains(tribe.Key))
+                    {
+                        if (lastNum < ran && ran <= tribe.Value)
+                        {
+                            Tribes.Remove(tribe.Key);
 
+                            //Debug.Log("Ran:" + ran);
+                            found = true;
+                        }
+                        lastNum = tribe.Value;
+                        if(rolls > 10)
+                        {
+                            lastNum = 0;
+                            //Debug.Log("ffff");
+                        }
+                    }
+                }
+                rolls++;
+            }
+        }
+        Debug.Log("End");
+        GameManager.instance.LosingTribes = new List<Team>(Tribes);
     }
-
-    public void IndividualChallenge(Team tribe, List<string> stats)
+    public void IndividualChallenge(Team tribe, List<string> stats, int winner)
     {
-
+        Dictionary<Contestant, int> members = new Dictionary<Contestant, int>();
+        int Overall = 0; 
+        foreach (Contestant num in tribe.members)
+        {
+            List<int> sumMembers = new List<int>();
+            //Get an average from a player's stats and add it to dictionary
+            members.Add(num, Overall + GetPoints(num, stats, true));
+            Overall += GetPoints(num, stats, true);
+            num.stats.Stamina -= 3;
+        }
+        members = members.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+        for (int i = 0; i < winner; i++)
+        {
+            bool found = false;
+            int ran = Random.Range(1, Overall);
+            int rolls = 0;
+            while (!found)
+            {
+                int lastNum = 0;
+                foreach (KeyValuePair<Contestant, int> num in members)
+                {
+                    if (!found)
+                    {
+                        if (lastNum < ran && ran <= num.Value)
+                        {
+                            GameManager.instance.immune.Add(num.Key);
+                            num.Key.advantages.Add(GameManager.instance.ImmunityNecklace);
+                            //LogStats(num.Key, stats);
+                            //Debug.Log("Stat Average:" + GetPoints(num.Key, stats));
+                            found = true;
+                        }
+                        lastNum = num.Value;
+                        if (rolls > 10)
+                        {
+                            lastNum = 0;
+                            //Debug.Log("ffff");
+                        }
+                        ran = Random.Range(1, Overall);
+                    }
+                }
+                rolls++;
+            }
+        }
     }
-    private int GetPoints(Contestant num, string stat)
+    private int GetPoints(Contestant num, List<string> stats, bool challenge)
     {
-        return 0;
+        List<float> statsNeeded = new List<float>();
+        foreach (string stat in stats)
+        {
+            switch (stat)
+            {
+                case "Physical":
+                    statsNeeded.Add(num.stats.Physical);
+                    break;
+                case "Mental":
+                    statsNeeded.Add(num.stats.Mental);
+                    break;
+                case "Endurance":
+                    statsNeeded.Add(num.stats.Endurance);
+                    break;
+            }
+        }
+        if(challenge)
+        {
+            //statsNeeded.Add(num.stats.Stamina / 10);
+        }
+        return (int)Mathf.Round(statsNeeded.Average() * 10);
+    }
+    public void RandomizeStats(Contestant num)
+    {
+        num.stats.Physical = Random.Range(1, 6);
+        num.stats.Endurance = Random.Range(1, 6);
+        num.stats.Mental = Random.Range(1, 6);
+        num.stats.Stamina = Random.Range(1, 6);
+        num.stats.SocialSkills = Random.Range(1, 6);
+        num.stats.Temperament = Random.Range(1, 6);
+        num.stats.Strategic = Random.Range(1, 6);
+        num.stats.Loyalty = Random.Range(1, 6);
+        num.stats.Forgivingness = Random.Range(1, 6);
+        num.stats.Boldness = Random.Range(1, 6);
+        num.stats.Influence = Random.Range(1, 6);
+        num.stats.Intuition = Random.Range(1, 6);
+    }
+    public void LogStats(Contestant num, List<string> stats)
+    {
+        string log = "";
+        foreach (string stat in stats)
+        {
+            switch (stat)
+            {
+                case "Physical":
+                    log += "Physical:" + num.stats.Physical + " ";
+                    break;
+                case "Mental":
+                    log += "Mental:" + num.stats.Mental + " ";
+                    break;
+                case "Endurance":
+                    log += "Endurance:" + num.stats.Endurance + " ";
+                    break;
+            }
+        }
+        Debug.Log(log);
     }
 }
