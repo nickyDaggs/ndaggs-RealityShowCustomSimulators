@@ -1157,7 +1157,7 @@ public class OneTimeEvents : MonoBehaviour
             GameManager.instance.Exiled.Add(Leader);
             foreach (Team tribe in GameManager.instance.Tribes)
             {
-                GameManager.instance.MakeAlliances(tribe);
+                //GameManager.instance.MakeAlliances(tribe);
                 foreach (Contestant contest in tribe.members)
                 {
                     contest.votes = 1;

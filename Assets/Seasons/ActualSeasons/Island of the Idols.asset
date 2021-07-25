@@ -121,6 +121,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.1882353, g: 0.69803923, b: 0.8235294, a: 1}
   MergeTribeName: Lumuwaku Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Lumuwaku Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -138,7 +141,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 16
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}

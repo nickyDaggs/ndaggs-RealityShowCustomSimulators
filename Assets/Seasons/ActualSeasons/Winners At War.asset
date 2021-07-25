@@ -121,6 +121,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.09803922, g: 0.019607844, b: 0.003921569, a: 1}
   MergeTribeName: Koru Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Koru Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -138,7 +141,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 15
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0.9882353, g: 0.5647059, b: 0.18039216, a: 1}

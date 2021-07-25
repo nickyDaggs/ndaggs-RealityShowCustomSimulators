@@ -136,12 +136,15 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.09803922, g: 0.09019608, b: 0.09411765, a: 1}
   MergeTribeName: Dara Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 13
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}

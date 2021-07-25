@@ -19,8 +19,9 @@ public class ChallengeScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void TribeChallenge(List<Team> tribes, List<string> stats, int winner)
+    public void TribeChallenge(List<Team> tribes, List<StatChoice> stats, int winner)
     {
+        stats.Add(StatChoice.Stamina);
         List<Team> Tribes = new List<Team>(tribes);
         Dictionary<Team, int> teamSum = new Dictionary<Team, int>();
         int Overall = 0;
@@ -32,11 +33,11 @@ public class ChallengeScript : MonoBehaviour
             foreach (Contestant num in tribe.members)
             {
                 //Get an average from a player's stats
-                sumMembers.Add(GetPoints(num, stats, true));
+                sumMembers.Add(GetPoints(num, stats));
                 num.stats.Stamina -= 3;
             }
             //Get sum of all players in the team
-            sum = (int)Mathf.Round((float)sumMembers.Sum() / 10 );
+            sum = sumMembers.Sum();
             //+ (float)sumMembers.Average()
             teamSum.Add(tribe, Overall + sum);
             Overall += sum;
@@ -58,7 +59,7 @@ public class ChallengeScript : MonoBehaviour
                     ran = Random.Range(1, Overall);
                     if (rolls == 0)
                     {
-                        Debug.Log(tribe.Value - lastNum);
+                        //Debug.Log(tribe.Value - lastNum);
                     }
                     if (!found && Tribes.Contains(tribe.Key))
                     {
@@ -80,19 +81,20 @@ public class ChallengeScript : MonoBehaviour
                 rolls++;
             }
         }
-        Debug.Log("End");
+        //Debug.Log("End");
         GameManager.instance.LosingTribes = new List<Team>(Tribes);
     }
-    public void IndividualChallenge(Team tribe, List<string> stats, int winner)
+    public void IndividualChallenge(Team tribe, List<StatChoice> stats, int winner)
     {
+        stats.Add(StatChoice.Stamina);
         Dictionary<Contestant, int> members = new Dictionary<Contestant, int>();
         int Overall = 0; 
         foreach (Contestant num in tribe.members)
         {
             List<int> sumMembers = new List<int>();
             //Get an average from a player's stats and add it to dictionary
-            members.Add(num, Overall + GetPoints(num, stats, true));
-            Overall += GetPoints(num, stats, true);
+            members.Add(num, Overall + GetPoints(num, stats));
+            Overall += GetPoints(num, stats);
             num.stats.Stamina -= 3;
         }
         members = members.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
@@ -129,29 +131,54 @@ public class ChallengeScript : MonoBehaviour
             }
         }
     }
-    private int GetPoints(Contestant num, List<string> stats, bool challenge)
+    public int GetPoints(Contestant num, List<StatChoice> stats)
     {
         List<float> statsNeeded = new List<float>();
-        foreach (string stat in stats)
+        foreach (StatChoice stat in stats)
         {
             switch (stat)
             {
-                case "Physical":
+                case StatChoice.Physical:
                     statsNeeded.Add(num.stats.Physical);
                     break;
-                case "Mental":
+                case StatChoice.Mental:
                     statsNeeded.Add(num.stats.Mental);
                     break;
-                case "Endurance":
+                case StatChoice.Endurance:
                     statsNeeded.Add(num.stats.Endurance);
+                    break;
+                case StatChoice.SocialSkills:
+                    statsNeeded.Add(num.stats.SocialSkills);
+                    break;
+                case StatChoice.Temperament:
+                    statsNeeded.Add(num.stats.Temperament);
+                    break;
+                case StatChoice.Strategic:
+                    statsNeeded.Add(num.stats.Strategic);
+                    break;
+                case StatChoice.Loyalty:
+                    statsNeeded.Add(num.stats.Loyalty);
+                    break;
+                case StatChoice.Forgivingness:
+                    statsNeeded.Add(num.stats.Forgivingness);
+                    break;
+                case StatChoice.Boldness:
+                    statsNeeded.Add(num.stats.Boldness);
+                    break;
+                case StatChoice.Influence:
+                    statsNeeded.Add(num.stats.Influence);
+                    break;
+                case StatChoice.Intuition:
+                    statsNeeded.Add(num.stats.Intuition);
+                    break;
+                case StatChoice.Stamina:
+                    statsNeeded.Add(num.stats.Stamina / 10);
                     break;
             }
         }
-        if(challenge)
-        {
-            //statsNeeded.Add(num.stats.Stamina / 10);
-        }
-        return (int)Mathf.Round(statsNeeded.Average() * 10);
+        float numb = statsNeeded.Average();
+
+        return (int)Mathf.Round(statsNeeded.Average());
     }
     public void RandomizeStats(Contestant num)
     {
@@ -168,20 +195,20 @@ public class ChallengeScript : MonoBehaviour
         num.stats.Influence = Random.Range(1, 6);
         num.stats.Intuition = Random.Range(1, 6);
     }
-    public void LogStats(Contestant num, List<string> stats)
+    public void LogStats(Contestant num, List<StatChoice> stats)
     {
         string log = "";
-        foreach (string stat in stats)
+        foreach (StatChoice stat in stats)
         {
             switch (stat)
             {
-                case "Physical":
+                case StatChoice.Physical:
                     log += "Physical:" + num.stats.Physical + " ";
                     break;
-                case "Mental":
+                case StatChoice.Mental:
                     log += "Mental:" + num.stats.Mental + " ";
                     break;
-                case "Endurance":
+                case StatChoice.Endurance:
                     log += "Endurance:" + num.stats.Endurance + " ";
                     break;
             }

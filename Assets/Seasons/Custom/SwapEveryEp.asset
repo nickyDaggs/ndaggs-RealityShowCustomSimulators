@@ -29,6 +29,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: Patrick Tribe
     tribeColor: {r: 1, g: 0.5176471, b: 0.98039216, a: 1}
     members:
@@ -44,6 +45,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   mergeAt: 10
   jury: 7
   final: 3
@@ -52,6 +54,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.7176471, g: 0.33333334, b: 0, a: 1}
   MergeTribeName: Tenders Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -69,7 +74,7 @@ MonoBehaviour:
   swaps:
   - on: 0
     swapAt: 19
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Mr. Krabs Tribe
       tribeColor: {r: 1, g: 0.24056602, b: 0.24056602, a: 1}
@@ -82,6 +87,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Squidward Tribe
       tribeColor: {r: 0.3443396, g: 1, b: 0.9492596, a: 1}
       members:
@@ -93,6 +99,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Plankton Tribe
       tribeColor: {r: 0, g: 0.47843137, b: 0, a: 1}
       members:
@@ -104,6 +111,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -117,12 +125,13 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 18
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: College Dropout Tribe
       tribeColor: {r: 1, g: 0.5240265, b: 0, a: 1}
@@ -135,6 +144,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Late Registration Tribe
       tribeColor: {r: 0, g: 0.14731418, b: 0.4528302, a: 1}
       members:
@@ -146,6 +156,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Graduation Tribe
       tribeColor: {r: 0.9382992, g: 0.3137255, b: 0.23921569, a: 1}
       members:
@@ -157,6 +168,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -170,12 +182,13 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 17
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Mario Tribe
       tribeColor: {r: 1, g: 0, b: 0, a: 1}
@@ -186,6 +199,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Luigi Tribe
       tribeColor: {r: 0, g: 0.87058824, b: 0.08923626, a: 1}
       members:
@@ -195,6 +209,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Wario Tribe
       tribeColor: {r: 0.6152757, g: 0.6698113, b: 0, a: 1}
       members:
@@ -204,6 +219,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Waluigi Tribe
       tribeColor: {r: 0.5251236, g: 0, b: 1, a: 1}
       members:
@@ -213,6 +229,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -226,12 +243,13 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 16
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: X Tribe
       tribeColor: {r: 0.9716981, g: 0.6691883, b: 0.64627093, a: 1}
@@ -243,6 +261,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Y Tribe
       tribeColor: {r: 0.6226415, g: 0.5154414, b: 0.4493592, a: 1}
       members:
@@ -253,6 +272,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Z Tribe
       tribeColor: {r: 0.4339623, g: 0, b: 0.027817098, a: 1}
       members:
@@ -264,6 +284,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -277,12 +298,13 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 15
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Walter Tribe
       tribeColor: {r: 0, g: 1, b: 0.5529412, a: 1}
@@ -296,6 +318,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Jesse Tribe
       tribeColor: {r: 1, g: 0, b: 1, a: 1}
       members:
@@ -308,6 +331,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -321,12 +345,13 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 14
-    type: RegularSwap
+    type: 0
     newTribes: []
     text: Africa
     ResizeTribes: 0
@@ -341,12 +366,13 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 13
-    type: Mutiny
+    type: 7
     newTribes: []
     text: 
     ResizeTribes: 0
@@ -361,12 +387,13 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 12
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Money Tribe
       tribeColor: {r: 0.15979885, g: 0.5377358, b: 0.15979885, a: 1}
@@ -376,6 +403,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Orang Tribe
       tribeColor: {r: 1, g: 0.55620337, b: 0, a: 1}
       members:
@@ -384,6 +412,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Gorilla Tribe
       tribeColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
       members:
@@ -392,6 +421,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: a tribe
       tribeColor: {r: 1, g: 1, b: 1, a: 1}
       members:
@@ -400,6 +430,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -413,12 +444,13 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   - on: 0
     swapAt: 11
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Spongebob Tribe
       tribeColor: {r: 0.9411765, g: 1, b: 0, a: 1}
@@ -430,6 +462,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Patrick Tribe
       tribeColor: {r: 1, g: 0.5176471, b: 0.98039216, a: 1}
       members:
@@ -440,6 +473,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -453,9 +487,10 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: 
   islandHiddenAdvantages: []
@@ -463,7 +498,12 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -479,6 +519,7 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 0
       reason: 
@@ -487,10 +528,13 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: 
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+    EOEAdvantages: []
   oneTimeEvents: []

@@ -121,6 +121,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.6745098, g: 0.09803922, b: 0.16862746, a: 1}
   MergeTribeName: Libertad Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Libertad Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -138,7 +141,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 16
-    type: SchoolyardPick
+    type: 4
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -182,7 +185,7 @@ MonoBehaviour:
       both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: Exile
   islandHiddenAdvantages: []
@@ -191,6 +194,7 @@ MonoBehaviour:
   Outcasts: 0
   MedallionOfPower: 1
   advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 5
   idolLimit: 1
   twoParts: 
@@ -252,4 +256,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

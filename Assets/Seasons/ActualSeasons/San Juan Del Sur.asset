@@ -119,12 +119,15 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.43137255, g: 0.7647059, b: 0.6745098, a: 1}
   MergeTribeName: Huyopa Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 14
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -187,6 +190,7 @@ MonoBehaviour:
   Outcasts: 0
   MedallionOfPower: 0
   advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
   idolLimit: 3
   twoParts: 
@@ -224,4 +228,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

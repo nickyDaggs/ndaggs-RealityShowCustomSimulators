@@ -918,6 +918,7 @@ GameObject:
   - component: {fileID: 908878651}
   - component: {fileID: 908878652}
   - component: {fileID: 908878653}
+  - component: {fileID: 908878654}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -939,7 +940,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImmunityNecklace: {fileID: 11400000, guid: 4beb5533543b42c47baeb23d1b0d8cdf, type: 2}
   HiddenIdol: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
-  seasonTemp: {fileID: 11400000, guid: 451ed3aff2c9f6749a210c12aa21fb5c, type: 2}
+  seasonTemp: {fileID: 11400000, guid: 29896eb724e24dc469e0b575472f4e88, type: 2}
+  events:
+  - type: 1
+    eventText: Player1 rests at camp to restore their energy.
+    allianceEvent: 0
+    contestants: 0
+    relationshipAffect: 0
+    staminaAffect: 8
+    limit: 35
+    overall: 0
+    stats: 03000000
+  - type: 1
+    eventText: Player1 works hard at camp and becomes tired.
+    allianceEvent: 0
+    contestants: 0
+    relationshipAffect: 0
+    staminaAffect: -7
+    limit: 100
+    overall: 0
+    stats: 03000000
+  - type: 0
+    eventText: Player1 is impressing the rest of the team.
+    allianceEvent: 0
+    contestants: 0
+    relationshipAffect: 8
+    staminaAffect: 0
+    limit: 5
+    overall: 1
+    stats: 04000000
+  - type: 0
+    eventText: Player1 have a major fight.
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: -15
+    staminaAffect: 0
+    limit: 3
+    overall: 0
+    stats: 05000000
+  - type: 0
+    eventText: Player1 has a major meltdown.
+    allianceEvent: 0
+    contestants: 0
+    relationshipAffect: -8
+    staminaAffect: 0
+    limit: 3
+    overall: 1
+    stats: 05000000
+  - type: 0
+    eventText: Player1 have a minor disagreement.
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: -5
+    staminaAffect: 0
+    limit: 3
+    overall: 0
+    stats: 05000000
+  - type: 0
+    eventText: Player1 bond strongly.
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: 15
+    staminaAffect: 0
+    limit: 5
+    overall: 0
+    stats: 04000000
+  - type: 0
+    eventText: Player1 have a minor fight.
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: -10
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 05000000
+  - type: 0
+    eventText: Player1 bond slightly.
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: 10
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 04000000
+  - type: 0
+    eventText: Player1 find something in common.
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: 5
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 04000000
+  - type: 2
+    eventText: Alliance dissolves.
+    allianceEvent: 2
+    contestants: 2
+    relationshipAffect: 5
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 
+  - type: 2
+    eventText: Player1 leaves the alliance.
+    allianceEvent: 1
+    contestants: 2
+    relationshipAffect: 5
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 07000000
+  - type: 2
+    eventText: Alliance forms
+    allianceEvent: 0
+    contestants: 2
+    relationshipAffect: 5
+    staminaAffect: 0
+    limit: 5
+    overall: 0
+    stats: 06000000
   load: 0
   Tribes:
   - name: 0
@@ -947,16 +1066,19 @@ MonoBehaviour:
     members: []
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: 0
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
     members: []
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: 0
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
     members: []
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   Alliances: []
   Exiled: []
   mergeAt: 10
@@ -974,8 +1096,8 @@ MonoBehaviour:
   absorb: 1
   Loading: {fileID: 1083174855}
   Episodes: []
-  cast: {fileID: 11400000, guid: 344222f0780b9d741a18945100fb887e, type: 2}
-  sea: {fileID: 0}
+  cast: {fileID: 11400000, guid: cd6ecfa7ea4c9f5428260924b759c5bc, type: 2}
+  sea: {fileID: 11400000, guid: 06e8f606e212c574c94ed66bfeb2a7d1, type: 2}
   Prefabs:
   - {fileID: 3793673663094982860, guid: 10e27cc69eaaee443a0801e6f724d60e, type: 3}
   - {fileID: 976976694927294005, guid: e081bd5809e4a204e8da2b6546ffcd4a, type: 3}
@@ -1000,7 +1122,7 @@ MonoBehaviour:
   curSwap:
     on: 0
     swapAt: 0
-    type: 
+    type: 0
     newTribes: []
     text: 
     ResizeTribes: 0
@@ -1054,6 +1176,7 @@ MonoBehaviour:
     members: []
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   jury: []
   RIsland: []
   EOE: []
@@ -1071,12 +1194,14 @@ MonoBehaviour:
     members: []
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   LosingTribe:
     name: 
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
     members: []
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   LosingTribes: []
   finalVotes: 
   mergeRound: 0
@@ -1167,6 +1292,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a249c954764b2784d9f6d98a50d6a9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &908878654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908878646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8c2969e6b5cc1418ee029ce2faceb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  join: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

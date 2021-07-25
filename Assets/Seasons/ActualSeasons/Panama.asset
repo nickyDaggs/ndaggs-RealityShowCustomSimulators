@@ -58,12 +58,15 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.03137255, g: 0.03137255, b: 0.03137255, a: 1}
   MergeTribeName: Gitanos Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 15
-    type: SchoolyardPick
+    type: 4
     newTribes:
     - name: Casaya Tribe
       tribeColor: {r: 0.47058824, g: 0, b: 0.6666667, a: 1}
@@ -102,9 +105,10 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 1
   IslandType: Exile
   islandHiddenAdvantages:
@@ -124,8 +128,12 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
   idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 14
     epsSkipE: 07000000
@@ -140,6 +148,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -147,6 +156,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     preMergeEIsland:
       on: 1
       reason: Winner
@@ -155,6 +165,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 1
       reason: Winner
@@ -163,10 +174,12 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: 
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members: []
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

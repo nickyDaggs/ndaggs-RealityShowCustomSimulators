@@ -95,6 +95,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.8627451, g: 0.078431375, b: 0.23529412, a: 1}
   MergeTribeName: "Xhak\xFAm Tribe"
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: b1922a1acbdf9bc4a99fb9acb5dd3464, type: 2}
@@ -112,7 +115,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 15
-    type: SplitTribes
+    type: 5
     newTribes: []
     text: 
     ResizeTribes: 0
@@ -130,7 +133,7 @@ MonoBehaviour:
       both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: Exile
   islandHiddenAdvantages: []
@@ -138,8 +141,12 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
   idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -197,6 +204,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents:
   - type: MultiTribalOneImm
     context: TribalImmAV

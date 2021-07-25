@@ -136,6 +136,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.14117648, g: 0.1254902, b: 0.14901961, a: 1}
   MergeTribeName: Merica Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Merica Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -153,7 +156,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 14
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Escameca Tribe
       tribeColor: {r: 0.043137256, g: 0.34509805, b: 0.627451, a: 1}
@@ -204,6 +207,7 @@ MonoBehaviour:
   Outcasts: 0
   MedallionOfPower: 0
   advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
   idolLimit: 3
   twoParts: 
@@ -265,4 +269,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

@@ -93,12 +93,15 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 1, g: 0, b: 0, a: 1}
   MergeTribeName: "Jacar\xE9 Tribe"
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 12
-    type: SchoolyardPick
+    type: 4
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -135,9 +138,10 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: Exile
   islandHiddenAdvantages: []
@@ -145,7 +149,12 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -160,6 +169,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -167,6 +177,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -174,6 +185,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     preMergeEIsland:
       on: 1
       reason: Winner
@@ -182,6 +194,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 1
       reason: Winner
@@ -190,6 +203,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: Island of The Idols
       tribeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -198,4 +212,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

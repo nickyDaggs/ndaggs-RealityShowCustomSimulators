@@ -1,0 +1,336 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
+  m_Name: 5 Tribes
+  m_EditorClassIdentifier: 
+  nameSeason: Survivor 4 Tribes
+  Tribes:
+  - name: Epic Tribe
+    tribeColor: {r: 1, g: 0, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+    allianceCount: 0
+  - name: Awesome Tribe
+    tribeColor: {r: 0.33490568, g: 1, b: 0.97505903, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+    allianceCount: 0
+  - name: Super Tribe
+    tribeColor: {r: 0, g: 1, b: 0.40986538, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+    allianceCount: 0
+  - name: Swag Tribe
+    tribeColor: {r: 1, g: 0, b: 0.31182766, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+    allianceCount: 0
+  - name: Cool Tribe
+    tribeColor: {r: 1, g: 0.63512623, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages: []
+    remove: 0
+    allianceCount: 0
+  mergeAt: 10
+  jury: 7
+  final: 2
+  Episodes: []
+  Tiebreaker: 
+  ReturningPlayers: 
+  MergeTribeColor: {r: 0.99876726, g: 1, b: 0, a: 1}
+  MergeTribeName: Gaming Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  mergeHiddenAdvantages: []
+  twistHiddenAdvantages: []
+  swaps:
+  - on: 0
+    swapAt: 17
+    type: 1
+    newTribes:
+    - name: Same
+      tribeColor: {r: 0, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Same
+      tribeColor: {r: 1, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Same
+      tribeColor: {r: 1, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Same
+      tribeColor: {r: 1, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    text: 
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 1
+      reason: 
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 1
+      two: 0
+      both: 0
+    exile: 1
+    redIs: 0
+    orderBySize: 0
+  - on: 0
+    swapAt: 15
+    type: 1
+    newTribes:
+    - name: Super Swag Tribe
+      tribeColor: {r: 0.9155525, g: 0.24056602, b: 1, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Awesome Epic Tribe
+      tribeColor: {r: 0.5777803, g: 0.43867922, b: 1, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Super Swag Awesome Epic Cool Tribe
+      tribeColor: {r: 1, g: 0.43921566, b: 0.9498093, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    text: 
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    exile: 0
+    redIs: 0
+    orderBySize: 0
+  - on: 0
+    swapAt: 13
+    type: 1
+    newTribes:
+    - name: Based Tribe
+      tribeColor: {r: 0.4956987, g: 1, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Chad Tribe
+      tribeColor: {r: 0, g: 0.6792453, b: 0.007843138, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Fresh Tribe
+      tribeColor: {r: 0.5855287, g: 0.9622642, b: 0.589884, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    text: Reward
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 1
+      reason: 
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 1
+      two: 0
+      both: 0
+    exile: 1
+    redIs: 0
+    orderBySize: 0
+  - on: 1
+    swapAt: 11
+    type: 1
+    newTribes:
+    - name: Chill Tribe
+      tribeColor: {r: 0.5904843, g: 0.8301887, b: 1, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: Radical Tribe
+      tribeColor: {r: 0.42346027, g: 0, b: 0.42924526, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    text: Reward
+    ResizeTribes: 1
+    numberSwap: 1
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 1
+      reason: 
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 1
+      two: 0
+      both: 0
+    exile: 1
+    redIs: 0
+    orderBySize: 0
+  ExileIslandd: 0
+  IslandType: 
+  islandHiddenAdvantages: []
+  RedemptionIsland: 0
+  EdgeOfExtinction: 0
+  Outcasts: 0
+  MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 1
+  MOPExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
+  Twists:
+    expireAt: 0
+    epsSkipE: 
+    epsSpecialE: 
+    epsSkipRI: 
+    epsSpecialRI: 
+    SpecialEx: []
+    preMergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    MergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    IOI:
+      name: 
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members: []
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    EOEAdvantages: []
+  oneTimeEvents: []

@@ -12,35 +12,35 @@ public class Swaps : MonoBehaviour
         Contestant con;
         int curTribe;
     }
-    public void DoSwap(string swapType)
+    public void DoSwap(SwapType swapType)
     {
         switch (swapType)
         {
-            case "RegularSwap":
+            case SwapType.RegularSwap:
                 RegularSwap();
                 break;
-            case "RegularShuffle":
+            case SwapType.RegularShuffle:
                 RegularShuffle();
                 break;
-            case "ChallengeDissolve":
+            case SwapType.ChallengeDissolve:
                 ChallengeDissolve();
                 break;
-            case "DissolveLeastMembers":
+            case SwapType.DissolveLeastMembers:
                 DissolveLeastMembers();
                 break;
-            case "SchoolyardPick":
+            case SwapType.SchoolyardPick:
                 SchoolyardPick();
                 break;
-            case "SplitTribes":
+            case SwapType.SplitTribes:
                 SplitTribes();
                 break;
-            case "TribeChiefs":
+            case SwapType.TribeChiefs:
                 TribeChiefs();
                 break;
-            case "Mutiny":
+            case SwapType.Mutiny:
                 Mutiny();
                 break;
-            case "CISchoolyardPick":
+            case SwapType.CISchoolyardPick:
                 CISchoolyardPick();
                 break;
         }

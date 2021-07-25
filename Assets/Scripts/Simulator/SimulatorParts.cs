@@ -1,9 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public enum EventType { Relationship, Stamina, Alliance}
+public enum AllianceEventType { Create, Leave, Dissolve }
+public enum SwapType { RegularSwap, RegularShuffle, ChallengeDissolve, DissolveLeastMembers, SchoolyardPick, SplitTribes, TribeChiefs, Mutiny, CISchoolyardPick }
+public enum StatChoice { Physical, Endurance, Mental, Stamina, SocialSkills, Temperament, Strategic, Loyalty, Forgivingness, Boldness, Influence, Intuition }
+public enum RelationshipType { Dislike, Neutral, Like }
+public enum RelationshipStatus { Slight, Small, Medium, Strong, Extreme }
 namespace SeasonParts
 {
     //namespace that includes several classes that are used for the simulator
+    
     [System.Serializable]
     public class Alliance
     {
@@ -22,6 +31,7 @@ namespace SeasonParts
         public List<Contestant> members = new List<Contestant>();
         public List<HiddenAdvantage> hiddenAdvantages = new List<HiddenAdvantage>();
         public bool remove;
+        public int allianceCount;
         //public List<Alliance> alliances = new List<Alliance>();
     }
     [System.Serializable]
@@ -42,7 +52,7 @@ namespace SeasonParts
     {
         public bool on = false;
         public float swapAt;
-        public string type;
+        public SwapType type;
         public List<Team> newTribes;
         public string text;
         public bool ResizeTribes;
@@ -155,18 +165,69 @@ namespace SeasonParts
         public int rewardStamina;
         public List<Contestant> Groups = new List<Contestant>();
         public bool sitout;
-        public List<string> stats = new List<string>();
+        public List<StatChoice> stats = new List<StatChoice>() { StatChoice.Stamina};
     }
     [System.Serializable]
     public class ContestantEvent
     {
-        public string type;
+        public EventType type;
         public string eventText;
+        public AllianceEventType allianceEvent;
         public int contestants;
         public int relationshipAffect;
         public int staminaAffect;
+        public int limit;
+        public bool overall;
+        public List<StatChoice> stats;
+    }
+    [System.Serializable]
+    public class Relationship
+    {
+        public Contestant person;
+        public RelationshipType Type;
+        public RelationshipStatus Status;
+        public int Extra;
+        public int changeChance;
+        public override string ToString()
+        {
+            string type = "";
+            string small = "small";
+            if(Type == RelationshipType.Like)
+            {
+                type = " bond";
+                if (Status == RelationshipStatus.Extreme)
+                {
+                    return "unbreakable bond";
+                }
+            } else if (Type == RelationshipType.Dislike)
+            {
+                type = " dislike";
+                small = "mild";
+                if(Status == RelationshipStatus.Extreme)
+                {
+                    return "extreme hatred";
+                }
+            } else
+            {
+                return "";
+            }
+
+            switch(Status)
+            {
+                case RelationshipStatus.Slight:
+                    return "slight" + type;
+                case RelationshipStatus.Small:
+                    return small + type;
+                case RelationshipStatus.Medium:
+                    return "medium" + type;
+                case RelationshipStatus.Strong:
+                    return "strong" + type;
+            }
+            return "";
+        }
     }
 }
+
 public class SimulatorParts : MonoBehaviour
 {
     /*

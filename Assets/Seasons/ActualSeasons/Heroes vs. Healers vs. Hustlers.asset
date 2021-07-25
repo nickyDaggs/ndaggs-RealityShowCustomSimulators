@@ -136,6 +136,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.5686275, g: 0.18039216, b: 0.5529412, a: 1}
   MergeTribeName: Solewa Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Solewa Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -165,7 +168,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 15
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -284,4 +287,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

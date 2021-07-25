@@ -136,12 +136,15 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0, g: 0, b: 0, a: 1}
   MergeTribeName: Dangrayne Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 14
-    type: DissolveLeastMembers
+    type: 3
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -183,7 +186,7 @@ MonoBehaviour:
       both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: Exile
   islandHiddenAdvantages: []
@@ -192,6 +195,7 @@ MonoBehaviour:
   Outcasts: 0
   MedallionOfPower: 0
   advantages: 0
+  forcedFireMaking: 0
   MOPExpire: 0
   idolLimit: 0
   twoParts: 
@@ -253,4 +257,5 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+    EOEAdvantages: []
   oneTimeEvents: []

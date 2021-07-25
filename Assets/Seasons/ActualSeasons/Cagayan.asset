@@ -136,6 +136,9 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0, g: 0, b: 0, a: 1}
   MergeTribeName: Solarrion Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
   mergeHiddenAdvantages:
   - name: Solarrion Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -165,7 +168,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 14
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
