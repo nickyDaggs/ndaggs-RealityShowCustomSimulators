@@ -19,6 +19,7 @@ public class SeasonTemplate : ScriptableObject
     public List<Challenge> ImmunityChallenges;
     public List<Challenge> RewardChallenges;
     public List<int> rewardSkips;
+    public bool NoRewards;
     public List<HiddenAdvantage> mergeHiddenAdvantages;
     public List<HiddenAdvantage> twistHiddenAdvantages;
     public List<TribeSwap> swaps;
@@ -31,6 +32,7 @@ public class SeasonTemplate : ScriptableObject
     public bool MedallionOfPower;
     public bool advantages;
     public bool forcedFireMaking;
+    public bool idolsInPlay;
     public int MOPExpire;
     public int idolLimit;
     public List<int> twoParts;

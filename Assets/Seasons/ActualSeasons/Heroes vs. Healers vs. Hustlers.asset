@@ -37,6 +37,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   - name: Soko Tribe
     tribeColor: {r: 0.9764706, g: 0.827451, b: 0.10980392, a: 1}
     members:
@@ -60,6 +61,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   - name: Yawa Tribe
     tribeColor: {r: 0.8235294, g: 0.09019608, b: 0.16078432, a: 1}
     members:
@@ -83,6 +85,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   mergeAt: 12
   jury: 8
   final: 3
@@ -139,6 +142,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Solewa Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -180,6 +184,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -190,6 +195,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -200,6 +206,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -226,6 +233,7 @@ MonoBehaviour:
   MedallionOfPower: 0
   advantages: 0
   forcedFireMaking: 1
+  idolsInPlay: 0
   MOPExpire: 0
   idolLimit: 2
   twoParts: 
@@ -287,5 +295,6 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     EOEAdvantages: []
   oneTimeEvents: []

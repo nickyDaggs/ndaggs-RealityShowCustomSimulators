@@ -20,8 +20,9 @@ namespace SeasonParts
         public string name;
         public List<string> teams = new List<string>();
         public List<Contestant> members = new List<Contestant>();
-        public Contestant target;
+        public List<Contestant> mainTargets = new List<Contestant>();
         public List<Contestant> altTargets = new List<Contestant>();
+        public List<Contestant> splitVoters = new List<Contestant>();
     }
     [System.Serializable]
     public class Team
@@ -139,6 +140,7 @@ namespace SeasonParts
         public Contestant voter;
         public Contestant vote;
         public List<Contestant> revotes = new List<Contestant>();
+        public bool extra = false;
     }
     [System.Serializable]
     public class Stats

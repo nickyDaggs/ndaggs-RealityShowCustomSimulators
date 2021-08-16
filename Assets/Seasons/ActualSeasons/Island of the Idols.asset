@@ -41,6 +41,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   - name: Vokai Tribe
     tribeColor: {r: 0.8, g: 0.69411767, b: 0.83137256, a: 1}
     members:
@@ -68,6 +69,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   mergeAt: 13
   jury: 11
   final: 3
@@ -124,6 +126,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Lumuwaku Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -156,6 +159,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -169,6 +173,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -339,6 +344,7 @@ MonoBehaviour:
   MedallionOfPower: 0
   advantages: 0
   forcedFireMaking: 1
+  idolsInPlay: 0
   MOPExpire: 0
   idolLimit: 0
   twoParts: 080000000c0000000d000000
@@ -400,6 +406,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     EOEAdvantages: []
   oneTimeEvents:
   - type: MergeSplit

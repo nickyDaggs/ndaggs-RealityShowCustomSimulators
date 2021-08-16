@@ -36,6 +36,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   - name: Xbox Tribe
     tribeColor: {r: 0.20867634, g: 1, b: 0, a: 1}
     members:
@@ -58,6 +59,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   - name: Playstation Tribe
     tribeColor: {r: 0, g: 0.19270587, b: 1, a: 1}
     members:
@@ -80,6 +82,7 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
   mergeAt: 11
   jury: 7
   final: 2
@@ -88,6 +91,10 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.9245283, g: 0.84705883, b: 0.23113208, a: 1}
   MergeTribeName: Console Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Console Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -117,7 +124,7 @@ MonoBehaviour:
   swaps:
   - on: 1
     swapAt: 13
-    type: RegularShuffle
+    type: 1
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -130,6 +137,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -141,6 +149,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -154,9 +163,10 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 1
       two: 0
+      both: 0
     exile: 1
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: 
   islandHiddenAdvantages: []
@@ -164,7 +174,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -180,6 +196,7 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 0
       reason: 
@@ -188,12 +205,15 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: 
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+    EOEAdvantages: []
   oneTimeEvents:
   - type: JointTribal
     context: 

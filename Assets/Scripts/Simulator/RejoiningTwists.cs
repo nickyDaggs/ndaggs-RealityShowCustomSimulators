@@ -385,11 +385,7 @@ public class RejoiningTwists : MonoBehaviour
             {
                 if (members == tribe)
                 {
-                    if (!oWin)
-                    {
-                        GameManager.instance.curEp--;
-                        GameManager.instance.curEv = GameManager.instance.Episodes[GameManager.instance.curEp].events.Count;
-                    }
+                    
                     GameManager.instance.LosingTribes.Add(tribe);
                     GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("TribalCouncil");
                     GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("ShowVotes");
@@ -425,11 +421,13 @@ public class RejoiningTwists : MonoBehaviour
         Team OutCasts = new Team();
         OutCasts = GameManager.instance.Outcasts;
         GameManager.instance.LosingTribe = GameManager.instance.Outcasts;
+        OutCasts.name = "The Outcasts"; OutCasts.tribeColor.a = 1;
+        GameManager.instance.MakeGroup(true, OutCasts, "name", "", "", OutCasts.members, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
         foreach (Contestant num in GameManager.instance.Outcasts.members)
         {
             List<Contestant> OC = new List<Contestant>(GameManager.instance.Outcasts.members);
             OC.Remove(num);
-            num.vote = OC[Random.Range(0, OC.Count)];
+            num.target = OC.OrderBy(x => num.goodValue(x)).First();
             num.altVotes = new List<Contestant>();
         }
         if (GameManager.instance.LosingTribes.Count > 1)
@@ -440,7 +438,9 @@ public class RejoiningTwists : MonoBehaviour
                 {
                     List<Contestant> OC = new List<Contestant>(GameManager.instance.Outcasts.members);
                     OC.Remove(num);
-                    num.altVotes.Add(OC[Random.Range(0, OC.Count)]);
+                    OC.Remove(num.target);
+                    OC = OC.Except(num.altVotes).ToList();
+                    num.altVotes.Add(OC.OrderBy(x => num.goodValue(x)).First());
                 }
             }
         }
@@ -449,9 +449,9 @@ public class RejoiningTwists : MonoBehaviour
         GameManager.instance.e = false;
         foreach (Contestant num in GameManager.instance.Outcasts.members)
         {
-            if (num.vote != null)
+            if (num.target != null)
             {
-                GameManager.instance.votes.Add(num.vote);
+                GameManager.instance.votes.Add(num.target);
                 if (num.altVotes.Count > 0)
                 {
                     GameManager.instance.votes.Add(num.altVotes[0]);

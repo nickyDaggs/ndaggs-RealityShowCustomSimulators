@@ -13,11 +13,11 @@ public class OneTimeEvents : MonoBehaviour
         {
             GameManager.instance.curEvent.type = "JurorRemoval";
         }
-        if(GameManager.instance.curEvent.type != "JointTribal" && GameManager.instance.curEvent.type != "MergeSplit" && GameManager.instance.curEvent.type != "JurorRemoval" && GameManager.instance.curEvent.type != "MergeSplitFiji" && !GameManager.instance.curExile.on)
+        /*if(GameManager.instance.curEvent.type != "JointTribal" && GameManager.instance.curEvent.type != "MergeSplit" && GameManager.instance.curEvent.type != "JurorRemoval" && GameManager.instance.curEvent.type != "MergeSplitFiji" && !GameManager.instance.curExile.on)
         {
             GameManager.instance.curEp--;
             GameManager.instance.curEv = GameManager.instance.Episodes[GameManager.instance.curEp].events.IndexOf("STribeImmunity") + 1;
-        }
+        }*/
         
         GameManager.instance.immune = new List<Contestant>();
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[2]);
@@ -253,15 +253,15 @@ public class OneTimeEvents : MonoBehaviour
         Contestant Imm = new Contestant();
         foreach(Contestant num in teamVoting.members)
         {
-            num.vote = kid.members[Random.Range(0, kid.members.Count)];
+            num.target = kid.members[Random.Range(0, kid.members.Count)];
         }
         List<Contestant> votes = new List<Contestant>();
         //e = false;
         foreach (Contestant num in teamVoting.members)
         {
-            if (num.vote != null)
+            if (num.target != null)
             {
-                votes.Add(num.vote);
+                votes.Add(num.target);
             }
         }
         Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>();
@@ -445,11 +445,11 @@ public class OneTimeEvents : MonoBehaviour
         GameManager.instance.AddGM(EpisodeVote, false);
         foreach(Contestant num in teamVoting.members)
         {
-            if(num.vote != null)
+            if(num.target != null)
             {
                 num.voteReason = "They like them.";
-                List<Contestant> e = new List<Contestant>() { num.vote, num };
-                GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " voted for " + num.vote.nickname + "\n" + "\n" + num.voteReason, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                List<Contestant> e = new List<Contestant>() { num.target, num };
+                GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " voted for " + num.target.nickname + "\n" + "\n" + num.voteReason, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
             }
         }
         GameManager.instance.NextEvent();
@@ -641,10 +641,10 @@ public class OneTimeEvents : MonoBehaviour
                         {
                             List<Contestant> tribeV = new List<Contestant>(tribe.members);
                             tribeV.Remove(num);
-                            num.vote = tribe.members[Random.Range(0, tribe.members.Count)];
-                            List<Contestant> e = new List<Contestant>() { num.vote, num };
-                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " voted for " + num.vote.nickname, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
-                            votes.Add(num.vote);
+                            num.target = tribe.members[Random.Range(0, tribe.members.Count)];
+                            List<Contestant> e = new List<Contestant>() { num.target, num };
+                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " voted for " + num.target.nickname, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votes.Add(num.target);
                         }
                         Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>();
                         Contestant votedOff = votes[0];
@@ -710,10 +710,10 @@ public class OneTimeEvents : MonoBehaviour
                         {
                             List<Contestant> tribeV = new List<Contestant>(tribe.members);
                             tribeV.Remove(num);
-                            num.vote = tribe.members[Random.Range(0, tribe.members.Count)];
-                            List<Contestant> e = new List<Contestant>() { num.vote, num };
-                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " votes for " + num.vote.nickname, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
-                            votes.Add(num.vote);
+                            num.target = tribe.members[Random.Range(0, tribe.members.Count)];
+                            List<Contestant> e = new List<Contestant>() { num.target, num };
+                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " votes for " + num.target.nickname, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votes.Add(num.target);
                         }
                         Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>();
                         Contestant votedOff = votes[0];

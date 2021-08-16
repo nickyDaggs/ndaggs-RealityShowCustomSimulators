@@ -265,7 +265,7 @@ public class ExileIsland : MonoBehaviour
                                     etext += "They decide to play.";
                                     num.savedAdv = hid;
                                     num.IOIEvent = "PredictImmunity";
-                                    num.vote = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
+                                    num.target = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
                                 }
                                 else
                                 {
@@ -406,8 +406,8 @@ public class ExileIsland : MonoBehaviour
                         GameManager.instance.MakeGroup(false, null, "", atext, etext, new List<Contestant>() { num }, ExileEvent.transform.GetChild(0).GetChild(0), 0);
                         if(num.IOIEvent == "PredictImmunity")
                         {
-                            List<Contestant> n = new List<Contestant>() {num.vote};
-                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname  + " predicts " + num.vote.nickname + " will win immunity.", n, ExileEvent.transform.GetChild(0).GetChild(0), 0);
+                            List<Contestant> n = new List<Contestant>() {num.target};
+                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname  + " predicts " + num.target.nickname + " will win immunity.", n, ExileEvent.transform.GetChild(0).GetChild(0), 0);
                         }
                     }
                     

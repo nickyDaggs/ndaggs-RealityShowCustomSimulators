@@ -124,33 +124,38 @@ public class ContestantEvents : MonoBehaviour
                 }
                 break;
             case EventType.Alliance:
-
+                string strength = " ("+ Mathf.Round((float)alliance.members.ConvertAll(x => GetLoyalty(x, alliance.members)).Average()) + " Strength)";
+                if(Mathf.Round((float)alliance.members.ConvertAll(x => GetLoyalty(x, alliance.members)).Average()) < 1)
+                {
+                    strength = " (1 Strength)";
+                }
                 text = Event.eventText.Replace("Alliance", alliance.name);
                 if (Event.allianceEvent == AllianceEventType.Create)
                 {
-                    Debug.Log("Gaming" + (GameManager.instance.curEp + 1));
+                    //Debug.Log("Gaming" + (GameManager.instance.curEp + 1));
                 }
+                GameManager.instance.all = true;
                 if (Event.allianceEvent == AllianceEventType.Leave || join)
                 {
                     if(join)
                     {
                         text = main.nickname + " joins the alliance.";
                         //Debug.Log(Event.allianceEvent);
-                        GameManager.Instance.MakeGroup(false, null, "", "<b>" + alliance.name + "</b>", "", nums.Except(new List<Contestant>() { main}).ToList(), parent, 0);
-
+                        GameManager.Instance.MakeGroup(false, null, "name", "<b>" + alliance.name + strength + "</b>", "", nums.Except(new List<Contestant>() { main}).ToList(), parent, 0);
+                        //Debug.Log("Join" + (GameManager.instance.curEp + 1));
                     }  else
                     {
                         text = Event.eventText.Replace("Player1", main.nickname);
-                        GameManager.Instance.MakeGroup(false, null, "", "<b>" + alliance.name + "</b>", "", nums, parent, 0);
+                        GameManager.Instance.MakeGroup(false, null, "name", "<b>" + alliance.name + strength + "</b>", "", nums, parent, 0);
                     }
-                    
+                    GameManager.instance.all = false;
                     GameManager.Instance.MakeGroup(false, null, "", "", text, new List<Contestant>() { main}, parent, 0);
                     
                 } else
                 {
-                    GameManager.Instance.MakeGroup(false, null, "", "", text, nums, parent, 0);
+                    GameManager.Instance.MakeGroup(false, null, "name", "<b>" + alliance.name + strength + "</b>", text, nums, parent, 0);
                 }
-                
+                GameManager.instance.all = false;
                 break;
             case EventType.Stamina:
                 
@@ -173,7 +178,6 @@ public class ContestantEvents : MonoBehaviour
     }
     public bool EventChance(ContestantEvent Event, List<Contestant> cons, Contestant main)
     {
-        
         bool chance = false;
         int stat = 0;
         if(main != null && Event.stats.Count > 0)
@@ -185,16 +189,17 @@ public class ContestantEvents : MonoBehaviour
         switch (Event.type)
         {
             case EventType.Relationship:
+                // && stat <= Event.limit
                 if (Event.relationshipAffect > 0)
                 {
-                    if (stat <= Random.Range(1, 7) && stat <= Event.limit)
+                    if (stat <= Random.Range(1, 7) )
                     {
                         chance = true;
                     }
                 }
                 else
                 {
-                    if (st <= Random.Range(1, 7) && stat <= Event.limit)
+                    if (st <= Random.Range(1, 7))
                     {
                         chance = true;
                     }
@@ -206,6 +211,7 @@ public class ContestantEvents : MonoBehaviour
                 if (Event.allianceEvent == AllianceEventType.Create || Event.allianceEvent == AllianceEventType.Dissolve)
                 {
                     sum = cons.ConvertAll(x => GetLoyalty(x, cons)).Sum();
+                    
                     if(Event.allianceEvent == AllianceEventType.Dissolve)
                     {
                         sum = 30 - sum;
@@ -215,6 +221,19 @@ public class ContestantEvents : MonoBehaviour
                         }
                     } else
                     {
+                        foreach(Contestant num in cons)
+                        {
+                            if(GetLoyalty(num, cons) == 5)
+                            {
+                                sum -= 1;
+                            } else if (GetLoyalty(num, cons) < 5)
+                            {
+                                sum -= 2;
+                            } else if (GetLoyalty(num, cons) > 5)
+                            {
+                                sum += 1;
+                            }
+                        }
                         if (Random.Range(1, 31) <= sum && Random.Range(1, 7) <= stat)
                         {
                             chance = true;
@@ -280,11 +299,25 @@ public class ContestantEvents : MonoBehaviour
         {
             numb = Mathf.Round(statsNeeded.Average());
         }
-        
-        if (numb > 9.9)
+
+        /*if (num.stats.Loyalty < 3)
+        {
+            numb -= 3 - num.stats.Loyalty;
+        } else if(num.stats.Loyalty > 3)
+        {
+            numb += num.stats.Loyalty - 3;
+        }*/
+
+        if (numb > 9)
         {
             numb = 9;
         }
+
+        if (numb < 1)
+        {
+            numb = 1;
+        }
+
         return (int)numb;
     }
     public Contestant PersonalTarget(Contestant main, List<Contestant> tribe)

@@ -89,6 +89,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
@@ -170,6 +171,7 @@ MonoBehaviour:
   MedallionOfPower: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
   idolLimit: 0
   twoParts: 
