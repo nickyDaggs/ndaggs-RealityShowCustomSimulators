@@ -7,7 +7,7 @@ public class SeasonTemplate : ScriptableObject
 {
     //Template used to set up what twists and options will be used in a season.
     public string nameSeason;
-    public List<Team> Tribes;    
+    public List<Team> Tribes = new List<Team>();    
     public float mergeAt;
     public float jury;
     public float final;

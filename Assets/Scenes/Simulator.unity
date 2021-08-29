@@ -1068,7 +1068,7 @@ MonoBehaviour:
     limit: 10
     overall: 0
     stats: 06000000
-  load: 0
+  load: 1
   Tribes:
   - name: 0
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1175,6 +1175,7 @@ MonoBehaviour:
   curReward: 0
   curImm: 0
   all: 0
+  custom: {fileID: 11400000, guid: 3e75197eee2cb7848919d7df108c0f96, type: 2}
   RIExpired: 0
   OCExpired: 0
   e: 0
@@ -1735,7 +1736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1083174856
 RectTransform:
   m_ObjectHideFlags: 0

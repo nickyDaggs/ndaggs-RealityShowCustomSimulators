@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
+  m_Name: CustomSeason
+  m_EditorClassIdentifier: 
+  nameSeason: 
+  Tribes: []
+  mergeAt: 0
+  jury: 0
+  final: 0
+  Episodes: []
+  Tiebreaker: 
+  ReturningPlayers: 
+  MergeTribeColor: {r: 0, g: 0, b: 0, a: 0}
+  MergeTribeName: 
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
+  mergeHiddenAdvantages: []
+  twistHiddenAdvantages: []
+  swaps: []
+  ExileIslandd: 0
+  IslandType: 
+  islandHiddenAdvantages: []
+  RedemptionIsland: 0
+  EdgeOfExtinction: 0
+  Outcasts: 0
+  MedallionOfPower: 0
+  advantages: 0
+  forcedFireMaking: 0
+  idolsInPlay: 0
+  MOPExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
+  Twists:
+    expireAt: 0
+    epsSkipE: 
+    epsSpecialE: 
+    epsSkipRI: 
+    epsSpecialRI: 
+    SpecialEx: []
+    preMergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    MergeEIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    IOI:
+      name: 
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members: []
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    EOEAdvantages: []
+  oneTimeEvents: []

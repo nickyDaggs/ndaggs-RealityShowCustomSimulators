@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
     bool what = false;
     public bool all = false;
     bool placement = false;
+
+    public SeasonTemplate custom;
     [HideInInspector] public bool RIExpired = false, OCExpired = false, e = false, advant = false;
     [HideInInspector] public Contestant lastEOE = null, kidnapped = null;
     [HideInInspector] public Team Outcasts = new Team() {name="The Outcasts", tribeColor = new Color32(143, 0, 254, 1)};
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        eps = currentSeason.Episodes;
+        //eps = currentSeason.Episodes;
         if(h == false)
         {
             TurnOff();
@@ -138,6 +140,7 @@ public class GameManager : MonoBehaviour
     }
     void SetSeason()
     {
+        
         int con = 0;
         List<Contestant> newCast = new List<Contestant>();
         for(int i = 0; i < Tribes.Count; i++)
@@ -169,12 +172,14 @@ public class GameManager : MonoBehaviour
         }
         curTribal = 0;
         currentSeason = Instantiate(baseSeason);
+        
         foreach (GameObject torch in Torches)
         {
             torch.SetActive(false);
         }
         cast = Instantiate(cast);
         sea = Instantiate(seasonTemp);
+        custom = sea;
         Tribes = new List<Team>(sea.Tribes);
         mergeAt = sea.mergeAt; juryAt = sea.jury; finaleAt = sea.final;
         bool oneEv = false;
@@ -3949,6 +3954,10 @@ public class GameManager : MonoBehaviour
                     votedOff.placement = juror + "\n" + vote;
                     jury.Add(votedOff);
                 }
+                if (sea.Outcasts && !RIExpired)
+                {
+                    Outcasts.members.Add(votedOff);
+                }
                 //Debug.Log("juror: " + jury.Count);
             } else
             {
@@ -5692,8 +5701,8 @@ public class GameManager : MonoBehaviour
             {
                 if(!dic.ContainsKey(num))
                 {
-                    num.placement = "Finalist \n" + "0 Votes To Win";
-                    Eliminated.Add(num);
+                    //num.placement = "Finalist \n" + "0 Votes To Win";
+                    //Eliminated.Add(num);
                 }
             }
             foreach (KeyValuePair<Contestant, int> num in dic)
@@ -5706,12 +5715,12 @@ public class GameManager : MonoBehaviour
                 {
                     votesSpread.Add(num.Value);
                 }
-                num.Key.placement = "Finalist \n" + num.Value + " Votes To Win";
+                /*num.Key.placement = "Finalist \n" + num.Value + " Votes To Win";
                 if(num.Value == 1)
                 {
                     num.Key.placement = num.Key.placement.Replace("Votes", "Vote");
-                }
-                Eliminated.Add(num.Key);
+                }*/
+                //Eliminated.Add(num.Key);
             }
             
             float enoughVotes = 0;
@@ -5912,7 +5921,8 @@ public class GameManager : MonoBehaviour
                 {
                     atext = "Since there is a tie, the third place finalist will cast the deciding vote.";
                 }
-
+                dic[con.target] += 1;
+                con.target.inTie = true;
                 List<Contestant> a = new List<Contestant>() {con.target, con};
                 if (cineTribal == true)
                 {
@@ -5939,6 +5949,7 @@ public class GameManager : MonoBehaviour
         {
             List<Contestant> a = new List<Contestant>() { JurorRemoved.target, JurorRemoved };
             List<Contestant> votesRe = new List<Contestant>(votes);
+            votesRe[0].target.inTie = true;
             votesRe.Remove(votesRe[0]);
             dic = new Dictionary<Contestant, int>();
             Winner = votesRe[0];
@@ -6012,6 +6023,32 @@ public class GameManager : MonoBehaviour
         }
         void Winnerr()
         {
+            dic = dic.OrderBy(x => x.Value).ToDictionary(pair => pair.Key, pair => pair.Value);
+            maxValue = dic.Values.Max();
+            float minValue = dic.Values.Min();
+            foreach (Contestant num in MergedTribe.members)
+            {
+                if (!dic.ContainsKey(num))
+                {
+                    num.placement = "Finalist \n" + "0 Votes To Win";
+                    Eliminated.Add(num);
+                }
+            }
+            foreach (KeyValuePair<Contestant, int> num in dic)
+            {
+
+                num.Key.placement = "Finalist \n" + num.Value + " Votes To Win";
+                if(num.Key.inTie /*&& (num.Value == maxValue || num.Value == minValue)*/)
+                {
+                    num.Key.placement = "Finalist \n" + num.Value + "* Votes To Win";
+                } 
+                if (num.Value == 1)
+                {
+                    num.Key.placement = num.Key.placement.Replace("Votes", "Vote");
+                }
+                Eliminated.Add(num.Key);
+            }
+            
             List<Contestant> a = new List<Contestant>() { Winner };
             if (cineTribal == true)
             {
@@ -6897,6 +6934,7 @@ public class GameManager : MonoBehaviour
         {
             team.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingY = (16 * highestLength) + 2;
             team.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingX = 40;
+            team.GetComponent<VerticalLayoutGroup>().padding.top = -100;
         }
         team.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(teamWidth, team.transform.GetChild(1).GetComponent<RectTransform>().sizeDelta.y);
         team.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1f);

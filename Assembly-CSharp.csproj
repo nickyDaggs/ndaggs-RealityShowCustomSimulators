@@ -62,11 +62,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FlexibleColorPicker\ExampleScene\FCP_ExampleScript.cs" />
+    <Compile Include="Assets\FlexibleColorPicker\Scripts\FCP_SpriteMeshEditor.cs" />
+    <Compile Include="Assets\FlexibleColorPicker\Scripts\FlexibleColorPicker.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Advantage.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Cast.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Contestant.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Season.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\SeasonTemplate.cs" />
+    <Compile Include="Assets\Scripts\SeasonMenuManager.cs" />
     <Compile Include="Assets\Scripts\Simulator\ChallengeScript.cs" />
     <Compile Include="Assets\Scripts\Simulator\ContestantEvents.cs" />
     <Compile Include="Assets\Scripts\Simulator\ExileIsland.cs" />
@@ -78,7 +82,6 @@
     <Compile Include="Assets\Scripts\UI\SetupLayout.cs" />
     <Compile Include="Assets\Scripts\UI\UIGroup.cs" />
     <Compile Include="Assets\Scripts\UI\loadingAnimation.cs" />
-    <Compile Include="Assets\SeasonMenuManager.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\Accordion.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\AccordionElement.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\Tweening\FloatTween.cs" />
@@ -275,6 +278,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\unity-ui-extensions\Runtime\Resources\Shaders\UISoftAdditive.shader" />
     <None Include="Assets\unity-ui-extensions\Runtime\Resources\Shaders\UI Particle AddSmooth.shader" />
+    <None Include="Assets\FlexibleColorPicker\Materials\FCP_Gradient.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\unity-ui-extensions\Runtime\Resources\Shaders\UIImageCrop.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

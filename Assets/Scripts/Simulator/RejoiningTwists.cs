@@ -430,7 +430,7 @@ public class RejoiningTwists : MonoBehaviour
             num.target = OC.OrderBy(x => num.goodValue(x)).First();
             num.altVotes = new List<Contestant>();
         }
-        if (GameManager.instance.LosingTribes.Count > 1)
+        if (GameManager.instance.LosingTribes.Count > 1 && GameManager.instance.Outcasts.members.Count > 2)
         {
             for (int i = 0; i < GameManager.instance.LosingTribes.Count - 1; i++)
             {
