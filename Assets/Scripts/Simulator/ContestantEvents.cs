@@ -23,7 +23,13 @@ public class ContestantEvents : MonoBehaviour
     }
     public void DoEvent(ContestantEvent Event, List<Contestant> nums, Alliance alliance, Contestant main, Transform parent)
     {
-        
+        if (GameManager.instance.Episodes[GameManager.instance.curEp].merged)
+        {
+            Debug.Log("Merge");
+        } else
+        {
+            Debug.Log("Pre-Merge");
+        }
         string text = "";
         text = Event.eventText.Replace("Player1", main.nickname);
         switch (Event.type)

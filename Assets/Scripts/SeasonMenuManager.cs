@@ -16,7 +16,7 @@ public class SeasonMenuManager : MonoBehaviour
         public string optionBool;
     }
     
-    public bool cineTribal, absorb;
+    public bool cineTribal, absorb, randomStat;
 
     [Header("Preset Seasons")]
 
@@ -145,10 +145,12 @@ public class SeasonMenuManager : MonoBehaviour
                 if(opt.optionBool == "CT")
                 {
                     cineTribal = true;
-                } else if (opt.optionBool == "absorb")
+                }
+                else if (opt.optionBool == "absorb")
                 {
                     absorb = true;
-                } else if (opt.optionBool == "Custom")
+                }
+                else if (opt.optionBool == "Custom")
                 {
                     foreach (Transform child in tribeSizeParent.transform)
                     {
@@ -179,6 +181,11 @@ public class SeasonMenuManager : MonoBehaviour
                     casts[season] = customCast;
                     
                 }
+                else if(opt.optionBool == "Random")
+                {
+                    randomStat = true;
+                }
+
 
             } else
             {

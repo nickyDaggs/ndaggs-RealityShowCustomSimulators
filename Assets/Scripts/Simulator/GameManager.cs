@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public List<Contestant> Eliminated;
     public float currentContestants;
     float currentContestantsOG;
-    public bool merged, cineTribal, showVL, genderEqual, absorb, idolsInPlay;
+    public bool merged, cineTribal, showVL, genderEqual, absorb, idolsInPlay, randomStat;
     public GameObject Loading;
     public List<EpisodeSetting> Episodes;
     int curEpp = 0;
@@ -140,7 +140,6 @@ public class GameManager : MonoBehaviour
     }
     void SetSeason()
     {
-        
         int con = 0;
         List<Contestant> newCast = new List<Contestant>();
         for(int i = 0; i < Tribes.Count; i++)
@@ -149,7 +148,10 @@ public class GameManager : MonoBehaviour
             {
                 Tribes[i].members[j] = Instantiate(cast.cast[con]);
                 Tribes[i].members[j].votes = 1;
-                challenge.RandomizeStats(Tribes[i].members[j]);
+                if(randomStat)
+                {
+                    challenge.RandomizeStats(Tribes[i].members[j]);
+                }
                 Tribes[i].members[j].stats.Stamina = Tribes[i].members[j].stats.Stamina * 20;
                 newCast.Add(Tribes[i].members[j]);
                 con++;
@@ -907,10 +909,7 @@ public class GameManager : MonoBehaviour
         {
             curEp++;
             curEv = 0;
-            if(curEp > Episodes.Count - 1)
-            {
-                Loading.SetActive(false);
-            }
+            
         }
     }
     void MOPChallenge()
@@ -1928,9 +1927,13 @@ public class GameManager : MonoBehaviour
                     }
                     foreach (Contestant num in tribe)
                     {
+                        if (eventCap < 7)
+                        {
+                            waht = true;
+                        }
                         //&& !Event.type.Contains("Alliance")
                         //bool what = ContestantEvents.Instance.EventChance(Event, null, num);
-                        if (ContestantEvents.Instance.EventChance(Event, new List<Contestant>(), num) == true && Random.Range(0, eventTimes) == 0 && eventCap < 11)
+                        if (ContestantEvents.Instance.EventChance(Event, new List<Contestant>(), num) == true && Random.Range(0, eventTimes) == 0 && eventCap < 7 && waht)
                         {
                             if (!eventt)
                             {
@@ -1944,6 +1947,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case EventType.Relationship:
+                    eventTimes = 50;
                     if (Event.relationshipAffect > 0)
                     {
                         tribe = tribe.OrderBy(x => ChallengeScript.Instance.GetPoints(x, Event.stats)).ToList();
@@ -1957,7 +1961,7 @@ public class GameManager : MonoBehaviour
                     {
                         foreach (Contestant num in tribe)
                         {
-                            if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                            if (eventCap < 7 && Random.Range(0, 5 + eventCap * 2) == 0)
                             {
                                 waht = true;
                             }
@@ -1980,7 +1984,7 @@ public class GameManager : MonoBehaviour
                     {
                         foreach (Contestant num in tribe)
                         {
-                            if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                            if (eventCap < 7 && Random.Range(0, 5 + eventCap) == 0)
                             {
                                 waht = true;
                             }
@@ -2035,7 +2039,7 @@ public class GameManager : MonoBehaviour
                                         }
                                     }
                                 }
-                                if (eventCap < 11 && Random.Range(0, 8 + eventCap) == 0 && newAlliance.members.Count > 1 && eventTimes < 3 && Random.Range(0, Tribes[curT].allianceCount + 1) == 0)
+                                if (eventCap < 6 && Random.Range(0, 8 + eventCap) == 0 && newAlliance.members.Count > 1 && eventTimes < 2 && Random.Range(0, Tribes[curT].allianceCount + 1) == 0)
                                 {
                                     waht = true;
                                 }
@@ -2093,7 +2097,7 @@ public class GameManager : MonoBehaviour
                             {
                                 if(alliance.teams.Contains(Tribes[curT].name))
                                 {
-                                    if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                                    if (eventCap < 7 && Random.Range(0, 5 + eventCap * 2) == 0)
                                     {
                                         waht = true;
                                     }
@@ -2124,7 +2128,7 @@ public class GameManager : MonoBehaviour
                                     bool removed = false;
                                     foreach (Contestant num in alliance.members)
                                     {
-                                        if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                                        if (eventCap < 7 && Random.Range(0, 5 + eventCap * 2) == 0)
                                         {
                                             waht = true;
                                         }
@@ -3183,28 +3187,25 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+
             for (int i = 0; i < Votes.Count; i++)
             {
-
                 if (tie.Count < team.members.Count)
                 {
-                    List<Contestant> tieV = new List<Contestant>(tie);
-                    tieV.Remove(Votes[i].voter);
-                    
-                    if (tieV.Count > 1)
+                    if (!tie.Contains(Votes[i].voter) && team.members.Except(tie).ToList().Contains(Votes[i].voter))
                     {
-                        
-                        Votes[i].voter.target = tie.OrderByDescending(x => Votes[i].voter.value(x)).ToList().First();
-                        /*
-                        Contestant num = tie.Find(x => x.nickname == Votes[i].voter.nickname);
-                        if (tie.Contains(num))
+                        //Debug.Log("a");
+
+                        foreach (Contestant t in tie)
                         {
-                            
-                            Debug.Log(Votes[i].voter == num);
-                            Debug.Log(num + " Target:" + num.target.nickname);
-                            Debug.Log(Votes[i].voter + " Target:" + Votes[i].voter.target.nickname);
-                        }*/
-                        //Votes[i].voter.PersonalTarget(tie);
+                            if (t.nickname == Votes[i].voter.nickname)
+                            {
+                                Contestant a = Votes[i].voter;
+                                
+                                Debug.Log("New:" + a.nickname + " Target:" + a.target);
+                            }
+                        }
+                        Votes[i].voter.target = tie.OrderByDescending(x => Votes[i].voter.value(x)).ToList().First();
                         Contestant rvote = Votes[i].voter.MakeVote(tie, team.members);
                         if (tie.Contains(Votes[i].voter))
                         {
@@ -3222,7 +3223,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-
+                    //Debug.Log("gggg");
                     //Votes[i].voter.PersonalTarget(tie);
                     List<Contestant> tieV = new List<Contestant>(tie);
                     tieV.Remove(Votes[i].voter);
@@ -3290,9 +3291,9 @@ public class GameManager : MonoBehaviour
             
             foreach (Vote num in Votes)
             {
-                if (aa)
+                if (aa && num.revotes.Count > 0)
                 {
-                    if (team.members.Count > tie.Count)
+                    if (team.members.Count > tieNum)
                     {
                         if (team.members.Except(tie).ToList().Contains(num.voter))
                         {
@@ -3311,6 +3312,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    if(!tie.Contains(num.voter) && team.members.Except(tie).ToList().Contains(num.voter))
                     votes.Add(num.vote);
                 }
             }
@@ -5052,8 +5054,14 @@ public class GameManager : MonoBehaviour
         
         foreach (ContestantEvent Event in events)
         {
-            int eventTimes = 50;
+            
             List<Contestant> tribe = new List<Contestant>(MergedTribe.members);
+            int eventTimes = (int)Mathf.Round(tribe.Count/2);
+            if(eventTimes < 5)
+            {
+                eventTimes = 10;
+            }
+            //Debug.Log(tribe.Count);
             bool waht = false;
             
             switch (Event.type)
@@ -5070,9 +5078,13 @@ public class GameManager : MonoBehaviour
                     }
                     foreach (Contestant num in tribe)
                     {
+                        if (eventCap < 7)
+                        {
+                            waht = true;
+                        }
                         //&& !Event.type.Contains("Alliance")
                         //bool what = ContestantEvents.Instance.EventChance(Event, null, num);
-                        if (ContestantEvents.Instance.EventChance(Event, new List<Contestant>(), num) == true && Random.Range(0, eventTimes) == 0 && eventCap < 11)
+                        if (ContestantEvents.Instance.EventChance(Event, new List<Contestant>(), num) == true && Random.Range(0, eventTimes) == 0 && eventCap < 11 && waht)
                         {
                             
                             if (!eventt)
@@ -5113,7 +5125,7 @@ public class GameManager : MonoBehaviour
                         
                         if (Event.overall)
                         {
-                            if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                            if (eventCap < 7 && Random.Range(0, 1 + eventCap) == 0)
                             {
                                 waht = true;
                             }
@@ -5132,7 +5144,7 @@ public class GameManager : MonoBehaviour
                         {
                             foreach (Relationship re in num.Relationships)
                             {
-                                if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                                if (eventCap < 7 && Random.Range(0, 1 + eventCap) == 0)
                                 {
                                     waht = true;
                                 }
@@ -5151,7 +5163,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case EventType.Alliance:
-                    eventTimes = 50;
+                    //eventTimes = 25;
                     switch (Event.allianceEvent)
                     {
                         case AllianceEventType.Create:
@@ -5175,7 +5187,7 @@ public class GameManager : MonoBehaviour
                                     }
                                 }
                                 
-                                if (eventCap < 11 && Random.Range(0, 8 + eventCap) == 0 && newAlliance.members.Count > 1 && eventTimes < 3 && Random.Range(0, MergedTribe.allianceCount + 1 * 2) == 0)
+                                if (eventCap < 7 && Random.Range(0, 8 + eventCap) == 0 && newAlliance.members.Count > 1 && eventTimes < 2 && Random.Range(0, MergedTribe.allianceCount + 1 * 2) == 0)
                                 {
                                     waht = true;
                                 }
@@ -5231,7 +5243,7 @@ public class GameManager : MonoBehaviour
                             List<Alliance> RemoveAlliance = new List<Alliance>();
                             foreach (Alliance alliance in Alliances)
                             {
-                                if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                                if (eventCap < 7 && Random.Range(0, 5 + eventCap * 2) == 0)
                                 {
                                     waht = true;
                                 }
@@ -5259,7 +5271,7 @@ public class GameManager : MonoBehaviour
                                 bool removed = false;
                                 foreach (Contestant num in alliance.members)
                                 {
-                                    if (eventCap < 11 && Random.Range(0, 5 + eventCap) == 0)
+                                    if (eventCap < 7 && Random.Range(0, 5 + eventCap * 2) == 0)
                                     {
                                         waht = true;
                                     }
@@ -5412,7 +5424,7 @@ public class GameManager : MonoBehaviour
             {
                 for (int i = 0; i < 2 - Targets.members.Count; i++)
                 {
-                    List<Contestant> tar = Tribes[curT].members.Except(Targets.members).ToList();
+                    List<Contestant> tar = MergedTribe.members.Except(Targets.members).ToList();
                     Targets.members.Add(tar[Random.Range(0, tar.Count)]);
                 }
             }
@@ -6212,8 +6224,8 @@ public class GameManager : MonoBehaviour
         //Eliminated.Reverse();
         MakeGroup(false, null, "placement", "", "", Eliminated, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
         placement = false;
-
         h = false;
+        Loading.SetActive(false);
     }
     void Statistics()
     {
@@ -6805,6 +6817,7 @@ public class GameManager : MonoBehaviour
         int er = Eliminated.Count;
         if (placement)
         {
+            //team.GetComponent<SetupLayout>()._ContentSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
             if (Eliminated.Count % 9 == 0 && Eliminated.Count / 9 > 2)
             {
                 er = 8;
@@ -6934,12 +6947,19 @@ public class GameManager : MonoBehaviour
         {
             team.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingY = (16 * highestLength) + 2;
             team.GetComponent<UIGroup>().List.GetComponent<FlowLayoutGroup>().SpacingX = 40;
-            team.GetComponent<VerticalLayoutGroup>().padding.top = -100;
+            team.GetComponent<VerticalLayoutGroup>().padding.top = 0;
         }
         team.transform.GetChild(2).GetComponent<RectTransform>().sizeDelta = new Vector2(teamWidth, team.transform.GetChild(1).GetComponent<RectTransform>().sizeDelta.y);
-        team.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 1f);
-        
+        team.GetComponent<RectTransform>().ForceUpdateRectTransforms();
+
+        if(team.GetComponent<RectTransform>().sizeDelta.y < 1 && placement)
+        {
+            team.GetComponent<SetupLayout>()._ContentSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+            team.GetComponent<SetupLayout>()._ContentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        }
+
         team.GetComponent<UIGroup>().allianceText.text = aText;
+        
         team.GetComponent<UIGroup>().eventText.text = eText;
         if(spacing != 0)
         {
