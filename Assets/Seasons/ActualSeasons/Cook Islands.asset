@@ -24,6 +24,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: Manihiki Tribe
     tribeColor: {r: 1, g: 0.94509804, b: 0.019607844, a: 1}
     members:
@@ -34,6 +35,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: Puka Puka Tribe
     tribeColor: {r: 0.25882354, g: 0.8156863, b: 0.17254902, a: 1}
     members:
@@ -44,6 +46,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: Rarotonga Tribe
     tribeColor: {r: 0, g: 0.2784314, b: 0.67058825, a: 1}
     members:
@@ -54,6 +57,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   mergeAt: 9
   jury: 9
   final: 3
@@ -65,6 +69,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
@@ -84,6 +89,7 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Rarotonga Tribe
       tribeColor: {r: 0, g: 0.2784314, b: 0.67058825, a: 1}
       members:
@@ -96,11 +102,12 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 1
     numberSwap: 0
     leaderReason: 
-    pickingRules: altTribes
+    pickingRules: altGender
     exileIsland:
       on: 0
       reason: 
@@ -134,6 +141,7 @@ MonoBehaviour:
   MedallionOfPower: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
   idolLimit: 0
   twoParts: 
@@ -193,6 +201,7 @@ MonoBehaviour:
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     EOEAdvantages: []
   oneTimeEvents:
   - type: MultiTribalReward

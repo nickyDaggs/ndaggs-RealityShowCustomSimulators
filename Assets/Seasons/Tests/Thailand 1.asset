@@ -27,6 +27,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   - name: Sook Jai Tribe
     tribeColor: {r: 0.4, g: 0, b: 0.6, a: 1}
     members:
@@ -40,6 +41,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
   mergeAt: 8
   jury: 7
   final: 2
@@ -93,23 +95,29 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 1, g: 0.84313726, b: 0, a: 1}
   MergeTribeName: Chuay Jai Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 12
-    type: Mutiny
+    type: 6
     newTribes:
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     text: 
     ResizeTribes: 0
     numberSwap: 0
@@ -136,6 +144,7 @@ MonoBehaviour:
   MedallionOfPower: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
   idolLimit: 0
   twoParts: 
@@ -197,5 +206,6 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
     EOEAdvantages: []
   oneTimeEvents: []

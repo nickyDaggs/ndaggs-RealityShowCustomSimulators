@@ -185,6 +185,13 @@ public class OneTimeEvents : MonoBehaviour
                     GameManager.instance.MakeGroup(false, null, num.nickname + " wins immunity!", "", "", r, EpisodeStart.transform.GetChild(0), 0);
                     num.advantages.Add(GameManager.instance.ImmunityNecklace);
                 }
+                GameManager.instance.Tribes = GameManager.instance.LosingTribes;
+
+                int insert = GameManager.instance.Episodes[GameManager.instance.curEp].events.IndexOf("MergeEvents");
+                GameManager.instance.Episodes[GameManager.instance.curEp].events.Insert(insert, "TribeEvents");
+                GameManager.instance.Episodes[GameManager.instance.curEp].events.Remove("MergeEvents");
+
+                
                 GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("TribalCouncil");
                 GameManager.instance.Episodes[GameManager.instance.curEp].events.Add("ShowVotes");
                 break;

@@ -122,6 +122,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Rattata Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -136,7 +137,61 @@ MonoBehaviour:
     options: []
     IOISweetened: 0
   twistHiddenAdvantages: []
-  swaps: []
+  swaps:
+  - on: 0
+    swapAt: 15
+    type: 1
+    newTribes:
+    - name: d
+      tribeColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: f
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    - name: 
+      tribeColor: {r: 0, g: 0, b: 0, a: 1}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+    text: 
+    ResizeTribes: 0
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    exile: 0
+    redIs: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: Exile
   islandHiddenAdvantages: []

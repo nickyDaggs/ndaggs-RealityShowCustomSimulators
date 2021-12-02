@@ -25,10 +25,10 @@ public class ContestantEvents : MonoBehaviour
     {
         if (GameManager.instance.Episodes[GameManager.instance.curEp].merged)
         {
-            Debug.Log("Merge");
+            //Debug.Log("Merge");
         } else
         {
-            Debug.Log("Pre-Merge");
+            //Debug.Log("Pre-Merge");
         }
         string text = "";
         text = Event.eventText.Replace("Player1", main.nickname);
@@ -217,16 +217,19 @@ public class ContestantEvents : MonoBehaviour
                 if (Event.allianceEvent == AllianceEventType.Create || Event.allianceEvent == AllianceEventType.Dissolve)
                 {
                     sum = cons.ConvertAll(x => GetLoyalty(x, cons)).Sum();
+
+                    int overall = 10 * cons.Count;
                     
                     if(Event.allianceEvent == AllianceEventType.Dissolve)
                     {
-                        sum = 30 - sum;
-                        if (Random.Range(1, 31) <= sum)
+                        sum = overall - sum;
+                        if (Random.Range(1, overall + 1) <= sum)
                         {
                             chance = true;
                         }
                     } else
                     {
+                        overall /= 2;
                         foreach(Contestant num in cons)
                         {
                             if(GetLoyalty(num, cons) == 5)
@@ -240,7 +243,7 @@ public class ContestantEvents : MonoBehaviour
                                 sum += 1;
                             }
                         }
-                        if (Random.Range(1, 31) <= sum && Random.Range(1, 7) <= stat)
+                        if (Random.Range(1, overall + 1) <= sum && Random.Range(1, 7) <= stat)
                         {
                             chance = true;
                         }

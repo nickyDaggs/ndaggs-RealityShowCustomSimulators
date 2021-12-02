@@ -75,6 +75,14 @@ public class Swaps : MonoBehaviour
             atext = "Each tribe is asked to pick the " + GameManager.instance.curSwap.numberSwap + " strongest player" + s + " from another tribe.";
         }
         GameManager.instance.MakeGroup(false, null, "", atext, "", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+
+        float limit = TribesDup.Select(x => x.members.Count).ToList().Min();
+
+        if (swapNum > limit)
+        {
+            swapNum = limit;
+        }
+
         for (int i = 0; i < TribesDup.Count; i++)
         {
             for (int j = 0; j < swapNum; j++)
@@ -153,6 +161,7 @@ public class Swaps : MonoBehaviour
         List<List<Contestant>> TribesDup = new List<List<Contestant>>();
         List<Team> NewTribes = new List<Team>(GameManager.instance.curSwap.newTribes);
         
+        
 
         foreach (Team tribe in GameManager.instance.Tribes)
         {
@@ -187,7 +196,15 @@ public class Swaps : MonoBehaviour
                 GameManager.instance.MakeGroup(false, null, "", "", "The idol is not found.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
             }
         }
-        GameManager.instance.MakeGroup(false, null, "", "", "As part of a twist, new tribes are randomly assigned. \n \n There will be " + NewTribes.Count + " tribes.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+
+        if(GameManager.instance.curSwap.ResizeTribes)
+        {
+            GameManager.instance.MakeGroup(false, null, "", "", "As part of a twist, new tribes are randomly assigned. \n \n There will be " + NewTribes.Count + " tribes.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+
+        } else
+        {
+            GameManager.instance.MakeGroup(false, null, "", "", "As part of a twist, new tribes are randomly assigned. \n \n There will be " + TribesDup.Count + " tribes.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+        }
 
         if (GameManager.instance.curSwap.exile == true)
         {
@@ -524,7 +541,10 @@ public class Swaps : MonoBehaviour
                 NewTribes[i].tribeColor = GameManager.instance.Tribes[i].tribeColor;
                 NewTribes[i].name = GameManager.instance.Tribes[i].name;
             }
-            NewTribes[i].hiddenAdvantages = GameManager.instance.Tribes[i].hiddenAdvantages;
+            if(i <= GameManager.instance.Tribes.Count - 1)
+            {
+                NewTribes[i].hiddenAdvantages = GameManager.instance.Tribes[i].hiddenAdvantages;
+            }
         }
         foreach(Team tribe in DupTribes)
         {

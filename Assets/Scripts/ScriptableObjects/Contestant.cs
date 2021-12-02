@@ -167,7 +167,7 @@ public class Contestant : ScriptableObject
         }
         
         voteReason = "They voted based on personal preference.";
-        return target;
+        return targets[Random.Range(0, targets.Count)];
     }
 
     public int value(Contestant num)

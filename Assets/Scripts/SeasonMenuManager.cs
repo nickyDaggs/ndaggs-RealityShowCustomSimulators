@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using SeasonParts;
 using System.Linq;
@@ -23,11 +24,16 @@ public class SeasonMenuManager : MonoBehaviour
     public List<SeasonTemplate> seasons;
     public List<Cast> casts;
     List<Transform> buttons;
+    public List<Button> confirms;
     public GameObject buttonParent;
     public static SeasonMenuManager instance;
     public static SeasonMenuManager Instance { get { return instance; } }
 
     public List<Option> options;
+
+    public List<Dropdown.OptionData> swapOptions;
+    public List<Dropdown.OptionData> premergeRounds;
+    public List<GameObject> swapPrefabs;
 
     public SeasonTemplate curSeason;
     public Cast curCast;
@@ -40,9 +46,15 @@ public class SeasonMenuManager : MonoBehaviour
     bool canSim = false;
     int filledOptions = 0;
 
+
+    public Advantage idol;
+
     public List<GameObject> editorOptions;
+    public GameObject tribeSizePRE;
     public GameObject tribeSizer;
     public GameObject tribeSizeParent;
+    public GameObject swapPrefab;
+    public GameObject swapParent;
     public Button simButton;
     public RectTransform editorParent;
     public GameObject editorTrueParent;
@@ -51,7 +63,13 @@ public class SeasonMenuManager : MonoBehaviour
     public int contestants;
     int mergeLimit = 5;
     int minCon = 0;
-    
+    bool part1 = false;
+    [HideInInspector] public float ogSwapY;
+
+    [HideInInspector] List<string> noPre = new List<string>() { "Mutiny", "Split Tribes (Guatemala)", "Shuffle(Same Tribe Size)" };
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +82,9 @@ public class SeasonMenuManager : MonoBehaviour
         editorOptions[3].GetComponent<Dropdown>().onValueChanged.AddListener(delegate { ChooseReturningPlayers(editorOptions[3].GetComponent<Dropdown>()); }) ;
         editorOptions[4].GetComponent<InputField>().onEndEdit.AddListener(SubmitMergeAmount);
         editorOptions[5].GetComponent<InputField>().onEndEdit.AddListener(SubmitJuryAmount);
+        //editorOptions[7].GetComponent<InputField>().onEndEdit.AddListener(SubmitSwapAmount);
+        //editorOptions[4].GetComponent<InputField>().interactable = false;
+        //editorOptions[5].GetComponent<InputField>().interactable = false;
         customSeason.final = editorOptions[2].GetComponent<Dropdown>().value;
         if (instance != null && instance != this)
         {
@@ -102,7 +123,7 @@ public class SeasonMenuManager : MonoBehaviour
                 contestants = cont.Sum();
 
             }
-
+            /*
             if (contestants < 8)
             {
                 editorOptions[4].GetComponent<InputField>().interactable = false;
@@ -112,7 +133,7 @@ public class SeasonMenuManager : MonoBehaviour
             {
                 editorOptions[4].GetComponent<InputField>().interactable = true;
                 editorOptions[5].GetComponent<InputField>().interactable = true;
-            }
+            }*/
         }
         
     }
@@ -138,6 +159,7 @@ public class SeasonMenuManager : MonoBehaviour
     }
     public void StartSeason(int season)
     {
+        bool custom = false;
         foreach (Option opt in options)
         {
             if (opt.button.GetComponentInChildren<Text>().text.Contains("On") || opt.button.GetComponentInChildren<Text>().text.Contains("Preset"))
@@ -152,6 +174,8 @@ public class SeasonMenuManager : MonoBehaviour
                 }
                 else if (opt.optionBool == "Custom")
                 {
+                    custom = true;
+                    customSeason.Tribes = new List<Team>();
                     foreach (Transform child in tribeSizeParent.transform)
                     {
                         int num = int.Parse(child.GetChild(3).GetComponent<InputField>().text);
@@ -160,6 +184,8 @@ public class SeasonMenuManager : MonoBehaviour
                         //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
                         customSeason.Tribes.Add(tribe);
                     }
+                    CreateSwaps();
+
                     customSeason.MergeTribeName = editorOptions[6].transform.GetChild(1).GetComponent<InputField>().text;
                     customSeason.MergeTribeColor = editorOptions[6].transform.GetChild(4).GetComponent<FlexibleColorPicker>().color;
                     seasons[season] = customSeason;
@@ -184,8 +210,30 @@ public class SeasonMenuManager : MonoBehaviour
                 else if(opt.optionBool == "Random")
                 {
                     randomStat = true;
+                } else if(opt.optionBool == "Idols")
+                {
+                    if(custom == true)
+                    {
+                        foreach (Team tribe in customSeason.Tribes)
+                        {
+                            tribe.hiddenAdvantages = new List<HiddenAdvantage>() { new HiddenAdvantage {name=tribe.name + " Hidden Immunity Idol", advantage=idol, hideAt=0, reHidden=true, hidden=true } };
+                        }
+                        //List<Team> lastTribes = customSeason.Tribes;
+                        //customSeason.swaps = customSeason.swaps.OrderByDescending(x => x.swapAt).ToList();
+                        foreach (TribeSwap swap in customSeason.swaps)
+                        {
+                            if(swap.ResizeTribes)
+                            {
+                                foreach(Team tribe in swap.newTribes)
+                                {
+                                    tribe.hiddenAdvantages = new List<HiddenAdvantage>() { new HiddenAdvantage { name = tribe.name + " Hidden Immunity Idol", advantage = idol, hideAt = 0, reHidden = true, hidden = true } };
+                                }
+                            }
+                        }
+                    }
                 }
 
+                
 
             } else
             {
@@ -268,7 +316,12 @@ public class SeasonMenuManager : MonoBehaviour
 
             }
             if (num - tribeSizeParent.transform.childCount > 0)
+            {
                 editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + 10);
+            }
+            StartCoroutine(ABC());
+
+            
         }
     }
 
@@ -348,6 +401,149 @@ public class SeasonMenuManager : MonoBehaviour
         {
             customSeason.jury = 0;
         }
+    }
+
+    public void AddSwap()
+    {
+        
+        if (SwapsMenu.Instance.CurSwap != null)
+        {
+            string type = SwapsMenu.Instance.swapType.options[SwapsMenu.Instance.swapType.value].text;
+
+            if (SwapsMenu.Instance.types.Contains(type))
+            {
+                float sum = 0;
+                foreach (Transform childd in SwapsMenu.Instance.CurSwap.transform.GetChild(4).GetChild(1))
+                {
+                    int num = int.Parse(childd.GetChild(3).GetComponent<InputField>().text);
+                    sum += num;
+                }
+                int con = int.Parse(SwapsMenu.Instance.swapAt.options[SwapsMenu.Instance.swapAt.value].text);
+                if (con != sum)
+                {
+                    return;
+                }
+            }
+
+            premergeRounds.Remove(SwapsMenu.Instance.swapAt.options[SwapsMenu.Instance.swapAt.value]);
+            SwapsMenu.Instance.swapAt.interactable = false;
+            SwapsMenu.Instance.swapType.interactable = false;
+
+            foreach(InputField inputField in SwapsMenu.Instance.CurSwap.transform.GetChild(4).GetComponentsInChildren<InputField>())
+            {
+                if(inputField.transform.childCount > 0)
+                {
+                    foreach (InputField inputFieldd in inputField.GetComponentsInChildren<InputField>())
+                    {
+                        inputFieldd.interactable = false;
+                    }
+                }
+                inputField.interactable = false;
+            }
+            if (premergeRounds.Count < 2)
+            {
+                editorOptions[7].GetComponent<Button>().interactable = false;
+            }
+            //SwapsMenu.Instance.CurSwap.transform.GetChild(4).GetComponentsInChildren<InputField>().All(x => x.interactable = false);
+        }
+        
+
+        GameObject swap = Instantiate(swapPrefab, swapParent.transform);
+        swap.transform.GetChild(0).GetComponent<Dropdown>().options.Clear();
+        for (int i = (int)customSeason.mergeAt + 1; i < contestants; i++)
+        {
+            swap.transform.GetChild(0).GetComponent<Dropdown>().options.Add(new Dropdown.OptionData {text=i.ToString()});
+            //Debug.Log(i);
+        }
+        swap.transform.GetChild(0).GetComponent<Dropdown>().options = new List<Dropdown.OptionData>(premergeRounds);
+        swap.transform.GetChild(0).GetComponent<Dropdown>().onValueChanged.AddListener(delegate { SwapsMenu.Instance.SubmitSwapAt(swap.transform.GetChild(0).GetComponent<Dropdown>()); });
+        swap.transform.GetChild(1).GetComponent<Dropdown>().onValueChanged.AddListener(delegate { SubmitSwapType(swap.transform.GetChild(1).GetComponent<Dropdown>()); });
+
+        List<Dropdown.OptionData> swapOpt = new List<Dropdown.OptionData>(swapOptions);
+
+        List<Team> t = SwapsMenu.Instance.GetTribesAt(swap.transform.GetChild(0).GetComponent<Dropdown>(), swap.transform.GetChild(1).GetComponent<Dropdown>());
+
+        if (t.Count < 3)
+        {
+            swapOpt.RemoveAt(3);
+            swapOpt.RemoveAt(3);
+        } else
+        {
+            swapOpt.RemoveAt(6);
+        }
+
+        
+
+        /*if (t.Count > 2)
+        {
+            swapOpt.RemoveAt(6);
+        }*/
+        ogSwapY = editorParent.sizeDelta.y;
+        swap.transform.GetChild(1).GetComponent<Dropdown>().options = swapOpt;
+        SwapsMenu.Instance.CurSwap = swap;
+        SwapsMenu.Instance.swapAt = swap.transform.GetChild(0).GetComponent<Dropdown>();
+        SwapsMenu.Instance.swapType = swap.transform.GetChild(1).GetComponent<Dropdown>();
+        SwapsMenu.Instance.parent = swap.GetComponent<LayoutElement>();
+        SwapsMenu.Instance.SubmitSwapAt(swap.transform.GetChild(0).GetComponent<Dropdown>());
+
+        
+
+        StartCoroutine(ABC());
+    }
+
+    public void SubmitSwapType(Dropdown change)
+    {
+        RectTransform parent = change.transform.parent.GetComponent<RectTransform>();
+
+        Dropdown swapAt = parent.transform.GetChild(0).GetComponent<Dropdown>();
+
+        string type = change.options[change.value].text;
+
+        parent.GetComponent<LayoutElement>().preferredHeight = 100;
+        editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, ogSwapY + 100);
+        foreach (Transform child in parent.transform.GetChild(4))
+        {
+            Destroy(child.gameObject);
+        }
+        if(!noPre.Contains(type))
+        {
+            GameObject s = Instantiate(swapPrefabs[change.value], parent.transform.GetChild(4));
+
+            switch (change.captionText.text)
+            {
+                case "Swap":
+                    s.transform.GetChild(1).GetComponent<InputField>().onEndEdit.AddListener(SwapsMenu.Instance.SubmitSwapContestants);
+                    s.transform.GetChild(1).GetComponent<InputField>().text = "1";
+                   parent.GetComponent<LayoutElement>().preferredHeight += 50;
+                    StartCoroutine(ABC());
+                    break;
+                case "Schoolyard Pick":
+                    SwapsMenu.Instance.tribeSizeParent = Instantiate(tribeSizePRE, parent.transform.GetChild(4));
+                    parent.GetComponent<LayoutElement>().preferredHeight += 75;
+                    List<Team> t = SwapsMenu.Instance.GetTribesAt(swapAt, change);
+
+                    SwapsMenu.Instance.SubmitSwapTA(t.Count.ToString());
+                    s.transform.GetChild(0).GetComponent<InputField>().interactable = false;
+                    break;
+                case "Shuffle":
+                    s.transform.GetChild(0).GetComponent<InputField>().onEndEdit.AddListener(SwapsMenu.Instance.SubmitSwapTA);
+                    SwapsMenu.Instance.tribeSizeParent = Instantiate(tribeSizePRE, parent.transform.GetChild(4));
+                    parent.GetComponent<LayoutElement>().preferredHeight += 75;
+                    StartCoroutine(ABC());
+                    break;
+                case "Dissolve Least Members":
+                case "Challenge Dissolve":
+                    SwapsMenu.Instance.tribeSizeParent = Instantiate(tribeSizePRE, parent.transform.GetChild(4));
+                    parent.GetComponent<LayoutElement>().preferredHeight += 75;
+                    List<Team> tt = SwapsMenu.Instance.GetTribesAt(swapAt, change);
+
+                    SwapsMenu.Instance.SubmitSwapTA((tt.Count -1).ToString());
+                    s.transform.GetChild(0).GetComponent<InputField>().interactable = false;
+                    break;
+            }
+            
+        }
+
     }
 
     private void SubmitFinalAmount(Dropdown change)
@@ -456,6 +652,123 @@ public class SeasonMenuManager : MonoBehaviour
         {
             simButton.interactable = false;
         }
+
     }
 
+    void CreateSwaps()
+    {
+        customSeason.swaps = new List<TribeSwap>();
+        foreach (Transform child in swapParent.transform)
+        {
+
+            string type = child.GetChild(1).GetComponent<Dropdown>().options[child.GetChild(1).GetComponent<Dropdown>().value].text;
+
+            TribeSwap swap = new TribeSwap();
+
+            swap.swapAt = int.Parse(child.GetChild(0).GetComponent<Dropdown>().options[child.GetChild(0).GetComponent<Dropdown>().value].text);
+            swap.newTribes = new List<Team>();
+            if (SwapsMenu.Instance.types.Contains(type))
+            {
+                foreach (Transform childd in child.GetChild(4).GetChild(1))
+                {
+                    int num = int.Parse(childd.GetChild(3).GetComponent<InputField>().text);
+
+                    Team tribe = new Team() { name = childd.GetChild(1).GetComponent<InputField>().text, members = new List<Contestant>(new Contestant[int.Parse(childd.GetChild(3).GetComponent<InputField>().text)]), tribeColor = childd.GetChild(4).GetComponent<FlexibleColorPicker>().color };
+                    //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
+                    swap.newTribes.Add(tribe);
+                }
+            }
+            switch (type)
+            {
+                case "Swap":
+                    swap.type = SwapType.RegularSwap;
+                    swap.numberSwap = int.Parse(child.GetChild(4).GetChild(0).GetChild(1).GetComponent<InputField>().text);
+                    break;
+                case "Mutiny":
+                    swap.type = SwapType.Mutiny;
+                    break;
+                case "Schoolyard Pick":
+                    swap.type = SwapType.SchoolyardPick;
+                    swap.pickingRules = "altTribes";
+                    break;
+                case "Shuffle":
+                    swap.type = SwapType.RegularShuffle;
+                    swap.ResizeTribes = true;
+                    break;
+                case "Shuffle(Same Tribe Size)":
+                    swap.type = SwapType.RegularShuffle;
+                    break;
+                case "Split Tribes (Guatemala)":
+                    swap.type = SwapType.SplitTribes;
+                    break;
+                case "Dissolve Least Members":
+                    swap.type = SwapType.DissolveLeastMembers;
+                    break;
+                case "Challenge Dissolve":
+                    swap.type = SwapType.ChallengeDissolve;
+                    break;
+            }
+            customSeason.swaps.Add(swap);
+        }
+    }
+
+    public void Confirm1()
+    {
+        if(contestants > 8)
+        {
+            confirms[0].interactable = false;
+            //editorOptions[0].GetComponent<InputField>().interactable = false;
+            editorOptions[1].GetComponent<InputField>().interactable = false;
+            editorOptions[2].GetComponent<Dropdown>().interactable = false;
+            editorOptions[3].GetComponent<Dropdown>().interactable = false;
+            foreach (InputField input in tribeSizeParent.GetComponentsInChildren<InputField>())
+            {
+                input.interactable = false;
+            }
+            editorOptions[4].GetComponent<InputField>().interactable = true;
+            editorOptions[5].GetComponent<InputField>().interactable = true;
+            confirms[1].interactable = true;
+            foreach (Transform child in tribeSizeParent.transform)
+            {
+                int num = int.Parse(child.GetChild(3).GetComponent<InputField>().text);
+
+                Team tribe = new Team() {members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)])};
+                //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
+                customSeason.Tribes.Add(tribe);
+            }
+            
+        }
+        
+    }
+    public void Confirm2()
+    {
+        if (customSeason.mergeAt != 0 && customSeason.jury != 0)
+        {
+            confirms[1].interactable = false;
+            editorOptions[4].GetComponent<InputField>().interactable = false;
+            editorOptions[5].GetComponent<InputField>().interactable = false;
+            editorOptions[7].GetComponent<Button>().interactable = true;
+            for (int i = (int)customSeason.mergeAt + 1; i < contestants; i++)
+            {
+                premergeRounds.Add(new Dropdown.OptionData { text = i.ToString() });
+                //Debug.Log(i);
+            }
+            if(premergeRounds.Count < 1)
+            {
+                editorOptions[7].GetComponent<Button>().interactable = false;
+            }
+        }
+    }
+
+    IEnumerator ABC()
+    {
+        //returning 0 will make it wait 1 frame
+        editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
+        yield return 0;
+        editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
+        yield return 0;
+        editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
+        yield return 0;
+        editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
+    }
 }

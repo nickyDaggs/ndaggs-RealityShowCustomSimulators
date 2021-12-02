@@ -241,9 +241,9 @@ RectTransform:
   m_Father: {fileID: 873610869}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 385, y: 106}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -250, y: 60}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &235107251
@@ -890,8 +890,8 @@ RectTransform:
   - {fileID: 1300816630}
   - {fileID: 2101983197}
   - {fileID: 1093234435}
-  - {fileID: 1418241839}
   - {fileID: 242322747}
+  - {fileID: 1418241839}
   - {fileID: 986248341}
   - {fileID: 235107250}
   - {fileID: 1083174856}
@@ -940,7 +940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImmunityNecklace: {fileID: 11400000, guid: 4beb5533543b42c47baeb23d1b0d8cdf, type: 2}
   HiddenIdol: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
-  seasonTemp: {fileID: 11400000, guid: d566d7aeeb861a34692dd4b591133499, type: 2}
+  seasonTemp: {fileID: 11400000, guid: e91e49888569d4c4dbe1135e46075bdc, type: 2}
   events:
   - type: 1
     eventText: Player1 rests at camp to restore their energy.
@@ -1104,6 +1104,7 @@ MonoBehaviour:
   genderEqual: 0
   absorb: 1
   idolsInPlay: 0
+  randomStat: 1
   Loading: {fileID: 1083174855}
   Episodes: []
   cast: {fileID: 11400000, guid: ebd72fcaeda3a5046826e545442ee602, type: 2}
@@ -1434,9 +1435,9 @@ RectTransform:
   m_Father: {fileID: 873610869}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -385, y: -106}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 60}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &986248342
@@ -2086,11 +2087,11 @@ RectTransform:
   m_Children:
   - {fileID: 630976684}
   m_Father: {fileID: 873610869}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -385, y: 106}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 250, y: 60}
   m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1418241840
@@ -3156,7 +3157,7 @@ PrefabInstance:
     - target: {fileID: 3548872642175629961, guid: 13d7f0af2ba4aa143a6c65e99c562efd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3548872642175629961, guid: 13d7f0af2ba4aa143a6c65e99c562efd,
         type: 3}

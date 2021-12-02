@@ -36,8 +36,8 @@ public class ChallengeScript : MonoBehaviour
                 sumMembers.Add(GetPoints(num, stats));
                 num.stats.Stamina -= 3;
             }
-            //Get sum of all players in the team
-            sum = sumMembers.Sum();
+            //Get average of all players in the team
+            sum = (int)Mathf.Round((float)sumMembers.Average());
             //+ (float)sumMembers.Average()
             teamSum.Add(tribe, Overall + sum);
             Overall += sum;
