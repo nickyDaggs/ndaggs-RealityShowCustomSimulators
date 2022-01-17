@@ -291,6 +291,7 @@ public class Swaps : MonoBehaviour
                 num.teams.Add(tribe.tribeColor);
             }
         }
+        
     }
     void ChallengeDissolve()
     {
@@ -1420,4 +1421,5 @@ public class Swaps : MonoBehaviour
         }
         GameManager.instance.Tribes = NewTribes; 
     }
+    
 }

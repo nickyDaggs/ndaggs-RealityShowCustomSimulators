@@ -41,6 +41,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Galu Tribe
     tribeColor: {r: 0.50980395, g: 0.23529412, b: 0.5882353, a: 1}
     members:
@@ -68,6 +70,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 12
   jury: 9
   final: 3
@@ -121,6 +125,18 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0, g: 0.4509804, b: 0.7254902, a: 1}
   MergeTribeName: Aiga Tribe
+  ImmunityChallenges: []
+  RewardChallenges:
+  - name: Challenge
+    description: Description
+    rewards:
+    - SendToTribe
+    rewardStamina: 3
+    Groups: []
+    sitout: 0
+    stats: 
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Aiga Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -143,9 +159,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 3
   twoParts: 0c0000000e000000
   threeParts: 
@@ -182,9 +202,15 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MultiTribalReward
     context: 
     round: 6
+    elim: 0
+  - type: FirstImpressions
+    context: Leaders
+    round: 1
     elim: 0

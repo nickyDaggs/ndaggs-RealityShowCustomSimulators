@@ -39,6 +39,13 @@ public class ChallengeScript : MonoBehaviour
             //Get average of all players in the team
             sum = (int)Mathf.Round((float)sumMembers.Average());
             //+ (float)sumMembers.Average()
+            if(GameManager.instance.sea.HavesVsHaveNots)
+            {
+                if(tribe.environment == Environment.Chaotic)
+                {
+                    sum = (int)Mathf.Round((float)sum / 2);
+                }
+            }
             teamSum.Add(tribe, Overall + sum);
             Overall += sum;
             

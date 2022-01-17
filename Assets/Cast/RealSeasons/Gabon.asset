@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Gabon
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 2aa7d4c4f6e028f4f808dfa573302173, type: 2}
+  - {fileID: 11400000, guid: dc70b1e8053903945aeff7ed650a66cf, type: 2}
+  - {fileID: 11400000, guid: ea25f45dbe080c44aa5133835221d04f, type: 2}
+  - {fileID: 11400000, guid: d10fe0a4305228f4598b00e896a69f54, type: 2}
+  - {fileID: 11400000, guid: b8dc5e2e0d8e0a348bcb2554a31302dd, type: 2}
+  - {fileID: 11400000, guid: 6488a178bda4c98428c7ddce5e7b0668, type: 2}
+  - {fileID: 11400000, guid: 4592dc18dc0e2524bacc7cbfd4a38e11, type: 2}
+  - {fileID: 11400000, guid: a3f0d3ffabe295b43910c591c3673098, type: 2}
+  - {fileID: 11400000, guid: f5d86f4b2bf976d45ab611e20b9b3ff7, type: 2}
+  - {fileID: 11400000, guid: 269e37e442b3d64429ec0602d3ca5065, type: 2}
+  - {fileID: 11400000, guid: ef3efe0abf155d9479037a4142937fad, type: 2}
+  - {fileID: 11400000, guid: 7a72b0e50b871754f9c93997973cc289, type: 2}
+  - {fileID: 11400000, guid: cdbf38efd3351624d89fc6458ccbd6ea, type: 2}
+  - {fileID: 11400000, guid: 1102911e703ab264cb37ca049bc14a27, type: 2}
+  - {fileID: 11400000, guid: f1958027e06691f48a0d1e763ad7f676, type: 2}
+  - {fileID: 11400000, guid: 5718106800a79074ab4d6ea97c9dd2df, type: 2}
+  - {fileID: 11400000, guid: 3fc1cbd0ed72b7f48b3a5c728051dd18, type: 2}
+  - {fileID: 11400000, guid: 138e6eeb049bf1f49808767baba565eb, type: 2}

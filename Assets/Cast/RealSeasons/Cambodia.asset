@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Cambodia
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 5feb1373a8ba6e042826db89f75c2c5e, type: 2}
+  - {fileID: 11400000, guid: f110a3e3e5569d14e857d73cace8d567, type: 2}
+  - {fileID: 11400000, guid: d02c985643cb61e4bb4c98e825feeb99, type: 2}
+  - {fileID: 11400000, guid: 37ea4d5f657fc244da566eae4ed6ad0b, type: 2}
+  - {fileID: 11400000, guid: d4b941e8202b5a142823ca2517adf3bf, type: 2}
+  - {fileID: 11400000, guid: ff3bcd5fde6d3e640a8ec8dd23a1634b, type: 2}
+  - {fileID: 11400000, guid: e5afcbdf015af6548b1029512de8e755, type: 2}
+  - {fileID: 11400000, guid: 3fd586262303ea640b20480c2052cca4, type: 2}
+  - {fileID: 11400000, guid: 9bde3029694f5d149adf37aeb5534e42, type: 2}
+  - {fileID: 11400000, guid: 55beed3e85df22c43bad4b02746d1d1b, type: 2}
+  - {fileID: 11400000, guid: 1e4dcd61eb2b1964ba92fbf6ec4b0eb2, type: 2}
+  - {fileID: 11400000, guid: fee69aec6d2810d4e96609ac4c23adff, type: 2}
+  - {fileID: 11400000, guid: d6d4d55993db99348a0c6e08d3758a39, type: 2}
+  - {fileID: 11400000, guid: 750ded075b6cad842bfc65d4a5f85ed5, type: 2}
+  - {fileID: 11400000, guid: b00a4b9890ad9dc4a9b5dff97bf224a8, type: 2}
+  - {fileID: 11400000, guid: a1d61ea956b25dc40ab285d52a99f7aa, type: 2}
+  - {fileID: 11400000, guid: f792bccdb81b1b848921a5bfb0eafc3a, type: 2}
+  - {fileID: 11400000, guid: 7c193db0c0e4a564db918a9f42e71d26, type: 2}
+  - {fileID: 11400000, guid: a6aa24b92d611954098d878a7e1551f9, type: 2}
+  - {fileID: 11400000, guid: 379ae30bc12c3cb49aea7f44a4e86432, type: 2}

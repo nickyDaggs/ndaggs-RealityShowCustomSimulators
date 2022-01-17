@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Cook Islands
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: f386b5f4ee0f618479ebcf2cfe74be28, type: 2}
+  - {fileID: 11400000, guid: 14059a6fb7db014419d8dfddeae0cc07, type: 2}
+  - {fileID: 11400000, guid: 21e60e79b1271764ab141ec19188671b, type: 2}
+  - {fileID: 11400000, guid: cdeeb6f875e1ba34d90f0b65a9f889bc, type: 2}
+  - {fileID: 11400000, guid: 6d618c5c26b9a3645a4477a2841bfe11, type: 2}
+  - {fileID: 11400000, guid: 442b1ab64ff7df64d909d87bbe5698a2, type: 2}
+  - {fileID: 11400000, guid: ceb2965f9c381364cb602192655098e1, type: 2}
+  - {fileID: 11400000, guid: c5a5e525f2dcce648a0101e0fc67f7dd, type: 2}
+  - {fileID: 11400000, guid: 5d6f58926435c1846834b80eb696bff7, type: 2}
+  - {fileID: 11400000, guid: 45afbbaebcffbe148bfe5cde7050fbc1, type: 2}
+  - {fileID: 11400000, guid: a78f98a2588d4634ca04dd9778dae8f7, type: 2}
+  - {fileID: 11400000, guid: ff659fd818fd4e44699053712c3e8212, type: 2}
+  - {fileID: 11400000, guid: 18ec9bc5482aa4745b032ffcbc443383, type: 2}
+  - {fileID: 11400000, guid: 2ffadff877e83de4a8a9e759ff72dca2, type: 2}
+  - {fileID: 11400000, guid: b3e829484b9305343a5c1b8dc3d833c5, type: 2}
+  - {fileID: 11400000, guid: c39667415e6452740b0e88c95a7f9775, type: 2}
+  - {fileID: 11400000, guid: e98c104a2f6c8774cb3c92404588f1af, type: 2}
+  - {fileID: 11400000, guid: b29852a45c8499f4f8a838736a2f0c93, type: 2}
+  - {fileID: 11400000, guid: deb888f43bfdba64ea033104e7855bb8, type: 2}
+  - {fileID: 11400000, guid: 0c845aafa77c70b4b9de870d8e23de96, type: 2}

@@ -919,6 +919,7 @@ GameObject:
   - component: {fileID: 908878652}
   - component: {fileID: 908878653}
   - component: {fileID: 908878654}
+  - component: {fileID: 908878655}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1076,18 +1077,21 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: 0
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
     members: []
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: 0
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
     members: []
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   Alliances: []
   Exiled: []
   mergeAt: 10
@@ -1171,6 +1175,7 @@ MonoBehaviour:
   oneTimeEvents: {fileID: 908878651}
   exileIsland: {fileID: 908878652}
   challenge: {fileID: 908878653}
+  oneWorld: {fileID: 908878655}
   re: 0
   idols: 0
   curReward: 0
@@ -1181,6 +1186,7 @@ MonoBehaviour:
   OCExpired: 0
   e: 0
   advant: 0
+  OW: 0
   lastEOE: {fileID: 0}
   kidnapped: {fileID: 0}
   Outcasts:
@@ -1190,6 +1196,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   jury: []
   RIsland: []
   EOE: []
@@ -1208,6 +1215,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   LosingTribe:
     name: 
     tribeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1215,6 +1223,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   LosingTribes: []
   finalVotes: 
   mergeRound: 0
@@ -1318,6 +1327,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   join: 0
+--- !u!114 &908878655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908878646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b9098a4fdf7c54ea2c65006d9ac522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

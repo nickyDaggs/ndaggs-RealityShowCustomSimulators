@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Africa
+  m_EditorClassIdentifier: 
+  nameS: Africa
+  cast:
+  - {fileID: 11400000, guid: c3b6a15ebd9e4624dbf30a65c9fd11ba, type: 2}
+  - {fileID: 11400000, guid: 6817a61b851120f459b3892c9da0fe9d, type: 2}
+  - {fileID: 11400000, guid: 0bbfdd1448ae5584799d34bea004d0ee, type: 2}
+  - {fileID: 11400000, guid: 81fcabb502b84204891323b3e9bdd0dc, type: 2}
+  - {fileID: 11400000, guid: e71ab938cd5167e41b8ce2d942b333b1, type: 2}
+  - {fileID: 11400000, guid: d3fe1cd7a55eb1044ba9fd3626da0d35, type: 2}
+  - {fileID: 11400000, guid: 75a32fc24fe40ec478039474f90c3951, type: 2}
+  - {fileID: 11400000, guid: f295966422cc37544923be0e5413cb3a, type: 2}
+  - {fileID: 11400000, guid: 66e45685e3571714eaf3c3a6d6e64f40, type: 2}
+  - {fileID: 11400000, guid: 390ab33ba18208a4e87d8be0f2df686a, type: 2}
+  - {fileID: 11400000, guid: 567638e9d7c923145a3fde685583d144, type: 2}
+  - {fileID: 11400000, guid: 8d0d18fdd6d2aee4981ea4c20d6e7d02, type: 2}
+  - {fileID: 11400000, guid: 47eebd6f9f41c2d4eab6d6bea30a0dd3, type: 2}
+  - {fileID: 11400000, guid: 4d8aafa2568c0c94b8b9fc61b3050903, type: 2}
+  - {fileID: 11400000, guid: 1baff9032ac2a7047a6dd4cb4632e45b, type: 2}
+  - {fileID: 11400000, guid: 9743f1eec5c23854fa2a68b465b949ae, type: 2}

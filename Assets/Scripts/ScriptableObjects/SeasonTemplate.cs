@@ -30,10 +30,13 @@ public class SeasonTemplate : ScriptableObject
     public bool EdgeOfExtinction;
     public bool Outcasts;
     public bool MedallionOfPower;
+    public bool OneWorld;
+    public bool HavesVsHaveNots;
     public bool advantages;
     public bool forcedFireMaking;
     public bool idolsInPlay;
     public int MOPExpire;
+    public int OWExpire;
     public int idolLimit;
     public List<int> twoParts;
     public List<int> threeParts;

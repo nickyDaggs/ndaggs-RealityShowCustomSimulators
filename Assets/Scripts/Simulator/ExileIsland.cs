@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SeasonParts;
+using System.Linq;
 
 public class ExileIsland : MonoBehaviour
 {
@@ -551,6 +552,44 @@ public class ExileIsland : MonoBehaviour
                         GameManager.instance.MakeGroup(false, null, "", "There are two urns.\n\nOne contains an idol clue and the option of mutinying to the other tribe.\n\nThe other contains nothing.", correct.nickname + " chooses the bottle with the clue and the options.\n\nTheir tribe is too small to mutiny.", new List<Contestant>() { correct }, ExileEvent.transform.GetChild(0).GetChild(0), 0);
                     }
                 }
+                break;
+            case "Hourglass":
+                Contestant ex = GameManager.instance.Exiled[0];
+                string choice = "It's revealed that " + ex.nickname + " did not smash the hourglass.";
+                GameManager.instance.MergedTribe.members.Add(ex);
+
+                if (Random.Range(0, 5) < ex.stats.Strategic)
+                {
+                    choice = "It's revealed that " + ex.nickname + " smashed the hourglass.";
+                    GameManager.Instance.immune = GameManager.instance.MergedTribe.members.Except(GameManager.instance.immune).ToList();
+                }
+                GameManager.instance.MakeGroup(false, null, "", "", "At Exile, " + ex.nickname + " is given the chance to reverse time by breaking an hourglass." +
+                    "\n\nIf they break the hourglass, the results of the challenge will be reversed, meaning they and the losing team will become safe while the winning team must compete for individual immunity.", new List<Contestant>(), ExileEvent.transform.GetChild(0).GetChild(0), 0);
+                GameObject ImmChall = Instantiate(GameManager.instance.Prefabs[2]);
+                ImmChall.transform.parent = GameManager.instance.Canvas.transform;
+                ImmChall.GetComponent<RectTransform>().offsetMax = new Vector2(0, ExileEvent.GetComponent<RectTransform>().offsetMax.y);
+                ImmChall.GetComponent<RectTransform>().offsetMax = new Vector2(ExileEvent.GetComponent<RectTransform>().offsetMin.x, 0);
+                GameManager.instance.AddGM(ImmChall, false);
+                GameManager.instance.MakeGroup(false, null, ex.nickname + " returns to the tribe.\n\n" + choice, "", "", new List<Contestant>() { ex}, ImmChall.transform.GetChild(0), 0);
+
+
+                Team competing = new Team() { members=GameManager.instance.MergedTribe.members.Except(GameManager.instance.immune).ToList() };
+                if (GameManager.instance.curImm <= GameManager.instance.sea.ImmunityChallenges.Count - 1)
+                {
+                    GameManager.instance.challenge.IndividualChallenge(competing, GameManager.instance.sea.ImmunityChallenges[GameManager.instance.curImm].stats, 1);
+                }
+                else
+                {
+                    GameManager.instance.challenge.IndividualChallenge(competing, new List<StatChoice>() { StatChoice.Physical, StatChoice.Mental, StatChoice.Endurance }, 1);
+                }
+                //immune.Add(MergedTribe.members[ran]);
+                //MergedTribe.members[ran].advantages.Add(ImmunityNecklace);
+
+
+                //lastThing = EpisodeStart;
+
+                List<Contestant> w = new List<Contestant>() { GameManager.instance.immune[GameManager.instance.immune.Count - 1] };
+                GameManager.instance.MakeGroup(false, null, GameManager.instance.immune[GameManager.instance.immune.Count - 1].nickname + " Wins Immunity!", "", "", w, ImmChall.transform.GetChild(0), 20);
                 break;
         }
         if (!GameManager.instance.curExile.skipTribal)

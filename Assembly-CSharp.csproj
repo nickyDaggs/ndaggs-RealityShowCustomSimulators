@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Simulator\ExileIsland.cs" />
     <Compile Include="Assets\Scripts\Simulator\GameManager.cs" />
     <Compile Include="Assets\Scripts\Simulator\OneTimeEvents.cs" />
+    <Compile Include="Assets\Scripts\Simulator\OneWorld.cs" />
     <Compile Include="Assets\Scripts\Simulator\RejoiningTwists.cs" />
     <Compile Include="Assets\Scripts\Simulator\SimulatorParts.cs" />
     <Compile Include="Assets\Scripts\Simulator\Swaps.cs" />

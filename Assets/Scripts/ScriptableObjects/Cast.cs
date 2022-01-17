@@ -6,7 +6,7 @@ public class Cast : ScriptableObject
 {
     //List of contestants that is inputed into a season. Separate from a season itself so you can use the same cast in different templates
     public string nameS;
-    public List<Contestant> cast;
+    public List<Contestant> cast =new List<Contestant>();
     // Start is called before the first frame update
     void Start()
     {

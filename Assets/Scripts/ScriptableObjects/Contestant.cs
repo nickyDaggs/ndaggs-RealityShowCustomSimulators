@@ -114,6 +114,8 @@ public class Contestant : ScriptableObject
         
         target = targets.OrderByDescending(x => value(x)).ToList()[0];
 
+        targetValue = value(target);
+
         List<Alliance> alliances = new List<Alliance>(GameManager.Instance.Alliances);
         alliances = alliances.OrderByDescending(x => ContestantEvents.Instance.GetLoyalty(this, x.members)).ToList();
 
@@ -167,16 +169,27 @@ public class Contestant : ScriptableObject
         }
         
         voteReason = "They voted based on personal preference.";
-        return targets[Random.Range(0, targets.Count)];
+
+        targets = targets.OrderByDescending(x => value(x)).ToList();
+
+        foreach(Contestant targett in targets)
+        {
+            if (Random.Range(1, 101) <= value(targett))
+            {
+                return targett;
+            }
+        }
+        Debug.Log("Target");
+        return target;
     }
 
     public int value(Contestant num)
     {
         int challengeStats = ChallengeScript.Instance.GetPoints(num, new List<StatChoice>() { StatChoice.Endurance, StatChoice.Mental, StatChoice.Physical, StatChoice.Stamina });
-        int v = 0;
+        int v = 50;
         if (GetRelationship(num).Type == RelationshipType.Dislike)
         {
-            v += (int)GetRelationship(num).Status + GetRelationship(num).Extra / 10;
+            v += (int)GetRelationship(num).Status * 10 + GetRelationship(num).Extra;
             if (GetRelationship(num).Status >= RelationshipStatus.Medium)
             {
                 v += 4 - stats.Forgivingness;
@@ -184,7 +197,7 @@ public class Contestant : ScriptableObject
         }
         else if (GetRelationship(num).Type == RelationshipType.Like)
         {
-            v -= 50 - (int)GetRelationship(num).Status + GetRelationship(num).Extra / 10;
+            v -= (int)GetRelationship(num).Status * 10 + GetRelationship(num).Extra;
         }
         else if (GetRelationship(num).Type == RelationshipType.Neutral)
         {
@@ -193,11 +206,11 @@ public class Contestant : ScriptableObject
 
         if (GameManager.Instance.MergedTribe.members.Count < 0)
         {
-            v += 3 - challengeStats;
+            v += (3 - challengeStats) * 10;
         }
         else
         {
-            v += challengeStats - 3;
+            v += (3 - challengeStats) * 10;
         }
 
         return v;

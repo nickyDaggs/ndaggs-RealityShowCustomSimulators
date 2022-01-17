@@ -167,8 +167,8 @@ public class OneTimeEvents : MonoBehaviour
                 int split = (int)Mathf.Round(GameManager.instance.MergedTribe.members.Count / 2);
                 Team MT = new Team();
                 Team MT2 = new Team();
-                MT.members = new List<Contestant>(GameManager.instance.MergedTribe.members); MT.name = GameManager.instance.MergedTribe.name; MT.tribeColor = GameManager.instance.MergedTribe.tribeColor;
-                MT2.name = GameManager.instance.MergedTribe.name; MT2.tribeColor = GameManager.instance.MergedTribe.tribeColor;
+                MT.members = new List<Contestant>(GameManager.instance.MergedTribe.members); MT.name = "Group 1"; MT.tribeColor = GameManager.instance.MergedTribe.tribeColor;
+                MT2.name = "Group 2"; MT2.tribeColor = GameManager.instance.MergedTribe.tribeColor;
                 for(int i = 0; i < split; i++)
                 {
                     Contestant num = MT.members[Random.Range(0, MT.members.Count)];
@@ -225,6 +225,106 @@ public class OneTimeEvents : MonoBehaviour
                         team.name = GameManager.instance.MergedTribe.name;
                     }
                 }
+                GameManager.instance.Tribes = ard.Except(GameManager.instance.LosingTribes).ToList();
+                GameManager.instance.TribeEventss();
+
+                GameManager.instance.Episodes[GameManager.instance.curEp].events.Remove("MergeEvents");
+                break;
+            case "MergeSplit41":
+                int splittt = (int)Mathf.Round(GameManager.instance.MergedTribe.members.Count / 2) - 1;
+                Team MTTT = new Team();
+                Team MTTT2 = new Team();
+                List<Contestant> Exile = new List<Contestant>();
+                MTTT.members = new List<Contestant>(GameManager.instance.MergedTribe.members); MTTT.name = "Team #1"; MTTT.tribeColor = GameManager.instance.MergedTribe.tribeColor;
+                MTTT2.name = "Team #2"; MTTT2.tribeColor = GameManager.instance.MergedTribe.tribeColor;
+                for (int i = 0; i < splittt; i++)
+                {
+                    Contestant num = MTTT.members[Random.Range(0, MTTT.members.Count)];
+                    MTTT2.members.Add(num);
+                    MTTT.members.Remove(num);
+                }
+
+                for (int i = 0; i < 2; i++)
+                {
+                    Contestant num = MTTT.members[Random.Range(0, MTTT.members.Count)];
+                    Exile.Add(num);
+                    MTTT.members.Remove(num);
+                }
+
+                List<Team> ardd = new List<Team>() { MTTT, MTTT2 };
+                GameManager.instance.LosingTribes = new List<Team>() { MTTT, MTTT2 };
+                foreach (Team group in GameManager.instance.LosingTribes)
+                {
+                    GameManager.instance.MakeGroup(false, null, "name", group.name, "", group.members, EpisodeStart.transform.GetChild(0), 15);
+                }
+
+                GameManager.instance.MakeGroup(false, null, "name", "", "Two players will sit out of the challenge.", Exile, EpisodeStart.transform.GetChild(0), 15);
+
+                GameManager.instance.LosingTribes.Remove(GameManager.instance.LosingTribes[Random.Range(0, 2)]);
+                foreach (Team team in ardd)
+                {
+                    if (!GameManager.instance.LosingTribes.Contains(team))
+                    {
+                        GameManager.instance.MakeGroup(false, team, "", "", team.name + " Wins Immunity!\n\nThey can choose to save one of the people who sat out and send the other to exile.", team.members, EpisodeStart.transform.GetChild(0), 0);
+                        GameManager.instance.immune = team.members;
+                        Contestant saved = Exile[Random.Range(0, Exile.Count)];
+                        GameManager.instance.immune.Add(saved);
+                        Exile.Remove(saved);
+                        GameManager.instance.MakeGroup(false, team, "", "", saved.nickname + " is saved.\n\n" + Exile[0].nickname + " is sent to Exile for two days.", new List<Contestant>() { saved }, EpisodeStart.transform.GetChild(0), 0);
+
+
+                        team.name = GameManager.instance.MergedTribe.name;
+                    }
+                    else
+                    {
+                        team.name = GameManager.instance.MergedTribe.name;
+                    }
+                }
+                int insertt = GameManager.instance.Episodes[GameManager.instance.curEp].events.IndexOf("MergeEvents");
+                GameManager.instance.Episodes[GameManager.instance.curEp].events.Insert(insertt, "ExileI");
+
+                GameManager.instance.MergedTribe.members.Remove(Exile[0]);
+                GameManager.instance.Exiled = Exile;
+                GameManager.instance.curExile = new Exile() {exileEvent="Hourglass", skipTribal=false };
+
+                break;
+            case "DoOrDie":
+                List<Contestant> sitOut = new List<Contestant>();
+                List<Contestant> inChallenge = new List<Contestant>(GameManager.instance.MergedTribe.members);
+                foreach(Contestant con in GameManager.instance.MergedTribe.members)
+                {
+                    if(Random.Range(0, 5) == 0 && sitOut.Count < GameManager.instance.MergedTribe.members.Count - 2)
+                    {
+                        sitOut.Add(con);
+                        inChallenge.Remove(con);
+                    }
+                }
+
+                string s = sitOut.Count + " contestant decides to sit out of the challenge.";
+
+                if(sitOut.Count > 1)
+                {
+                    s = sitOut.Count + " contestants decide to sit out of the challenge.";
+                } else if(sitOut.Count == 0)
+                {
+                    s = "None of the contestants decide to sit out of the challenge.";
+                }
+                GameManager.instance.MakeGroup(false, null, "", "The contestants are given the choice to sit out of the challenge and avoid the twist.", s, sitOut, EpisodeStart.transform.GetChild(0), 20);
+
+
+
+                Contestant Loser = inChallenge[Random.Range(0, inChallenge.Count)];
+                inChallenge.Remove(Loser);
+                List<Contestant> U = new List<Contestant>() { Loser };
+                GameManager.instance.MakeGroup(false, null, Loser.nickname + " falls first!\n\nThey must now partake in a game of chance at tribal council to decide whether they will earn safety or be eliminated.", "", "", U, EpisodeStart.transform.GetChild(0), 20);
+                GameManager.instance.DoOrDie = Loser;
+                GameManager.instance.immune.Add(Loser);
+
+                Contestant Winner = inChallenge[Random.Range(0, inChallenge.Count)];
+                U = new List<Contestant>() { Winner };
+                GameManager.instance.MakeGroup(false, null, Winner.nickname + " Wins Immunity!", "", "", U, EpisodeStart.transform.GetChild(0), 20);
+                GameManager.instance.immune.Add(Winner);
+                Winner.advantages.Add(GameManager.instance.ImmunityNecklace);
                 break;
             case "JurorRemoval":
                 Contestant winner = GameManager.instance.MergedTribe.members[Random.Range(0, GameManager.instance.MergedTribe.members.Count)];
@@ -243,6 +343,7 @@ public class OneTimeEvents : MonoBehaviour
                 GameManager.instance.MakeGroup(false, null, "", "", elim.nickname + " is removed from the jury.", new List<Contestant>() { elim}, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
                 elim.placement = elim.placement.Replace("Juror", "<color=red>Juror</color>");
                 break;
+            
         }
 
         GameManager.instance.NextEvent();
@@ -468,13 +569,17 @@ public class OneTimeEvents : MonoBehaviour
         {
             altGender = true;
         }
-        GameObject EpisodeCast = Instantiate(GameManager.instance.Prefabs[0]);
-        EpisodeCast.transform.parent = GameManager.instance.Canvas.transform;
-        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
-        EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
-        EpisodeCast.name = "The Cast";
-        GameManager.instance.AddGM(EpisodeCast, true);
-        GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+        if(GameManager.instance.curEvent.type == "SchoolyardPick")
+        {
+            GameObject EpisodeCast = Instantiate(GameManager.instance.Prefabs[0]);
+            EpisodeCast.transform.parent = GameManager.instance.Canvas.transform;
+            EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
+            EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
+            EpisodeCast.name = "The Cast";
+            GameManager.instance.AddGM(EpisodeCast, true);
+            GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+        }
+        
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
         EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
@@ -697,7 +802,8 @@ public class OneTimeEvents : MonoBehaviour
                         GameManager.instance.currentContestants--;
                     }
                     
-                } else if(GameManager.instance.curEvent.context == "Tocantins")
+                }
+                else if(GameManager.instance.curEvent.context == "Tocantins")
                 {
                     GameManager.instance.MakeGroup(false, null, "", "", "Each tribe selects who they think will be the biggest liability based on first impressions alone.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
                     GameObject EpisodeVote = Instantiate(GameManager.instance.Prefabs[0]);
@@ -784,6 +890,75 @@ public class OneTimeEvents : MonoBehaviour
                         }
                     }
                 }
+                else if(GameManager.instance.curEvent.context == "Leaders")
+                {
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each tribe selects who they think will be the best leader based on first impressions alone.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                    GameObject EpisodeVote = Instantiate(GameManager.instance.Prefabs[0]);
+                    EpisodeVote.transform.parent = GameManager.instance.Canvas.transform;
+                    EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+                    EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+                    EpisodeVote.name = "First Impressions ";
+                    GameManager.instance.AddGM(EpisodeVote, false);
+                    List<Contestant> liabilities = new List<Contestant>();
+                    foreach (Team tribe in GameManager.instance.Tribes)
+                    {
+                        GameManager.instance.MakeGroup(true, tribe, "name", "", "", tribe.members, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+
+                        List<Contestant> votes = new List<Contestant>();
+                        List<Contestant> tie = new List<Contestant>();
+                        foreach (Contestant num in tribe.members)
+                        {
+                            List<Contestant> tribeV = new List<Contestant>(tribe.members);
+                            tribeV.Remove(num);
+                            num.target = tribe.members[Random.Range(0, tribe.members.Count)];
+                            List<Contestant> e = new List<Contestant>() { num.target, num };
+                            GameManager.instance.MakeGroup(false, null, "", "", num.nickname + " votes for " + num.target.nickname, e, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votes.Add(num.target);
+                        }
+                        Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>();
+                        Contestant votedOff = votes[0];
+                        dic.Add(votes[0], 1);
+                        for (int i = 1; i < votes.Count; i++)
+                        {
+                            if (dic.ContainsKey(votes[i]))
+                            {
+                                dic[votes[i]] += 1;
+                                if (dic[votes[i]] > dic[votedOff])
+                                {
+                                    votedOff = votes[i];
+                                }
+                            }
+                            else if (!dic.ContainsKey(votes[i]))
+                            {
+                                dic.Add(votes[i], 1);
+                            }
+                        }
+                        float maxValue = dic.Values.Max();
+                        foreach (KeyValuePair<Contestant, int> num in dic)
+                        {
+                            if (num.Value == maxValue)
+                            {
+                                tie.Add(num.Key);
+                                num.Key.inTie = true;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                        if (tie.Count > 1)
+                        {
+                            GameManager.instance.MakeGroup(false, null, "name", "", "There is a tie for the leader.\n\nRocks will determine who is selected.", tie, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+                            votedOff = tie[Random.Range(0, tie.Count)];
+                        }
+                        liabilities.Add(votedOff);
+                        GameManager.instance.MakeGroup(false, null, "", "", votedOff.nickname + " is chosen as the leader.", new List<Contestant>() { votedOff }, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+
+                        GameManager.instance.MakeGroup(false, null, "name", "", "The leaders will make decisions for their tribes.", liabilities, EpisodeVote.transform.GetChild(0).GetChild(0), 0);
+
+                        GameManager.instance.TribeLeaders = liabilities;
+                    }
+                }
                 break;
             case "MarooningAdvantage":
                 foreach(HiddenAdvantage hid in GameManager.instance.sea.twistHiddenAdvantages)
@@ -814,6 +989,7 @@ public class OneTimeEvents : MonoBehaviour
                     }
                 }
                 break;
+            
         }
         GameManager.instance.NextEvent();
     }
@@ -831,12 +1007,17 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.name = "The Cast";
         GameManager.instance.AddGM(EpisodeCast, false);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+
         GameObject EpisodeImm = Instantiate(GameManager.instance.Prefabs[2]);
         EpisodeImm.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeImm.GetComponent<RectTransform>().offsetMax.y);
         EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeImm.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeImm.name = "Immunity Challenge";
         GameManager.instance.AddGM(EpisodeImm, false);
+
+        GameManager.instance.Tribes = new List<Team>() { new Team { name = "The Cast", tribeColor = Color.white, members = GameManager.instance.cast.cast } };
+        GameManager.instance.TribeEventss();
+
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
         EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
@@ -1052,6 +1233,10 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.name = "The Cast";
         GameManager.instance.AddGM(EpisodeCast, true);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+
+        GameManager.instance.Tribes = new List<Team>() { new Team { name = "The Cast", tribeColor = Color.white, members = GameManager.instance.cast.cast } };
+        GameManager.instance.TribeEventss();
+
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
         EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
@@ -1189,6 +1374,29 @@ public class OneTimeEvents : MonoBehaviour
                 GameManager.instance.genderEqual = true;
             }
         }
+        GameManager.instance.NextEvent();
+    }
+    public void FakeMerge()
+    {
+        GameManager.Instance.OW = true;
+        GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
+        EpisodeStart.transform.parent = GameManager.instance.Canvas.transform;
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
+        EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
+        EpisodeStart.name = "Fake Merge";
+        GameManager.Instance.owStatus = true;
+        Team tribe = new Team() { tribeColor = Color.white };
+
+        for (int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+        {
+            tribe.members.AddRange(GameManager.Instance.Tribes[i].members);
+            //tribe.hiddenAdvantages.Concat(teams[i].hiddenAdvantages);
+        }
+
+        GameManager.Instance.MakeGroup(false, null, "name", "", "The castaways are told they will live on one camp for the rest of the game.\n\nThey assume they have merged.\n\nHowever, this is actually a fake merge.", tribe.members, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+        GameManager.Instance.owStatus = false;
+        GameManager.instance.AddGM(EpisodeStart, true);
+
         GameManager.instance.NextEvent();
     }
 }

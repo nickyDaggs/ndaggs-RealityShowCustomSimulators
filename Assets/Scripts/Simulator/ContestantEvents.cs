@@ -358,7 +358,7 @@ public class ContestantEvents : MonoBehaviour
         }*/
         foreach (Relationship re in num.Relationships)
         {
-            if(tribe.Contains(re.person) && re.person != num)
+            if(tribe.Contains(re.person) && re.person != num && !re.perm)
             {
                 if(re.Type == RelationshipType.Neutral)
                 {

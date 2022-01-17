@@ -27,6 +27,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Tagi Tribe
     tribeColor: {r: 0.9921569, g: 0.4431373, b: 0, a: 1}
     members:
@@ -40,6 +42,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 10
   jury: 7
   final: 2
@@ -103,6 +107,7 @@ MonoBehaviour:
     stats: 00000000
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps: []
@@ -113,9 +118,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 0d000000
   threeParts: 
@@ -176,5 +185,11 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
-  oneTimeEvents: []
+  oneTimeEvents:
+  - type: MergeSplit41
+    context: 
+    round: 7
+    elim: 0

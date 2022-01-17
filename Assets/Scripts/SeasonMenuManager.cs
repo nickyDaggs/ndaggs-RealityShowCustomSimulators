@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -26,10 +27,12 @@ public class SeasonMenuManager : MonoBehaviour
     List<Transform> buttons;
     public List<Button> confirms;
     public GameObject buttonParent;
+    public GameObject backButton;
     public static SeasonMenuManager instance;
     public static SeasonMenuManager Instance { get { return instance; } }
 
     public List<Option> options;
+    public Dropdown Enviro;
 
     public List<Dropdown.OptionData> swapOptions;
     public List<Dropdown.OptionData> premergeRounds;
@@ -56,8 +59,11 @@ public class SeasonMenuManager : MonoBehaviour
     public GameObject swapPrefab;
     public GameObject swapParent;
     public Button simButton;
+    public Button playSimButton;
     public RectTransform editorParent;
     public GameObject editorTrueParent;
+    public GameObject castEditor;
+    public GameObject contestantPrefab;
     float ogY;
     float tribes;
     public int contestants;
@@ -68,7 +74,10 @@ public class SeasonMenuManager : MonoBehaviour
 
     [HideInInspector] List<string> noPre = new List<string>() { "Mutiny", "Split Tribes (Guatemala)", "Shuffle(Same Tribe Size)" };
 
+    List<Contestant> allContestants = new List<Contestant>();
 
+    public List<Dropdown.OptionData> everyContestant;
+    List<Dropdown.OptionData> usedContestants = new List<Dropdown.OptionData>();
 
     // Start is called before the first frame update
     void Start()
@@ -98,9 +107,12 @@ public class SeasonMenuManager : MonoBehaviour
         for (int i = 0; i < buttonParent.transform.childCount; i++)
         {
             int num = i;
-            buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() => StartSeason(num));
+            buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() => PresetCastEdit(num));
             buttonParent.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = seasons[num].nameSeason;
         }
+        allContestants = GetAllInstances<Contestant>().ToList();
+
+        everyContestant = allContestants.ConvertAll(x => new Dropdown.OptionData { text = x.name, image = x.image });
     }
 
     private void Update()
@@ -159,6 +171,15 @@ public class SeasonMenuManager : MonoBehaviour
     }
     public void StartSeason(int season)
     {
+        Cast cust = new Cast();
+        foreach (Dropdown dropdown in castEditor.transform.GetComponentsInChildren<Dropdown>())
+        {
+            cust.cast.Add(allContestants[dropdown.value]);
+        }
+        if (cust.cast.Count != cust.cast.Distinct().Count())
+        {
+            return;
+        }
         bool custom = false;
         foreach (Option opt in options)
         {
@@ -174,13 +195,14 @@ public class SeasonMenuManager : MonoBehaviour
                 }
                 else if (opt.optionBool == "Custom")
                 {
+                    
                     custom = true;
                     customSeason.Tribes = new List<Team>();
                     foreach (Transform child in tribeSizeParent.transform)
                     {
                         int num = int.Parse(child.GetChild(3).GetComponent<InputField>().text);
 
-                        Team tribe = new Team() { name = child.GetChild(1).GetComponent<InputField>().text, members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)]), tribeColor = child.GetChild(4).GetComponent<FlexibleColorPicker>().color };
+                        Team tribe = new Team() { name = child.GetChild(1).GetComponent<InputField>().text, members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)]), tribeColor = child.GetChild(4).GetComponent<FlexibleColorPicker>().color, environment = (Environment)Enviro.value + 1 };
                         //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
                         customSeason.Tribes.Add(tribe);
                     }
@@ -204,13 +226,14 @@ public class SeasonMenuManager : MonoBehaviour
                     {
                         customCast.cast.Remove(customCast.cast[customCast.cast.Count - 1]);
                     }
-                    casts[season] = customCast;
+                    casts[season] = cust;
                     
                 }
                 else if(opt.optionBool == "Random")
                 {
                     randomStat = true;
-                } else if(opt.optionBool == "Idols")
+                }
+                else if(opt.optionBool == "Idols")
                 {
                     if(custom == true)
                     {
@@ -241,7 +264,7 @@ public class SeasonMenuManager : MonoBehaviour
             }
         }
         curSeason = seasons[season];
-        curCast = casts[season];
+        curCast = cust;
         SceneManager.LoadScene(1);
     }
 
@@ -655,6 +678,39 @@ public class SeasonMenuManager : MonoBehaviour
 
     }
 
+    public void CastEditor()
+    {
+        editorTrueParent.SetActive(false);
+        options[2].button.SetActive(false);
+        backButton.SetActive(true);
+        castEditor.transform.parent.gameObject.SetActive(true);
+        for(int i = 0; i < contestants; i++)
+        {
+            GameObject obj = Instantiate(contestantPrefab, castEditor.transform);
+            obj.GetComponentInChildren<Dropdown>().options = everyContestant;
+            obj.GetComponentInChildren<Dropdown>().value = i;
+        } 
+    }
+
+    public void RandomizeCast()
+    {
+        List<Dropdown.OptionData> clone = new List<Dropdown.OptionData>(everyContestant);
+        for (int i = clone.Count - 1; i > 0; i--)
+        {
+            int swapIndex = Random.Range(0, i + 1);
+            Dropdown.OptionData currentCon = clone[i];
+            Dropdown.OptionData conToSwap = clone[swapIndex];
+            clone[i] = conToSwap;
+            clone[swapIndex] = currentCon;
+        }
+        int g = 0;
+        foreach (Dropdown dropdown in castEditor.transform.GetComponentsInChildren<Dropdown>())
+        {
+            dropdown.value = everyContestant.IndexOf(clone[g]);
+            g++;
+        }
+    }
+
     void CreateSwaps()
     {
         customSeason.swaps = new List<TribeSwap>();
@@ -673,7 +729,7 @@ public class SeasonMenuManager : MonoBehaviour
                 {
                     int num = int.Parse(childd.GetChild(3).GetComponent<InputField>().text);
 
-                    Team tribe = new Team() { name = childd.GetChild(1).GetComponent<InputField>().text, members = new List<Contestant>(new Contestant[int.Parse(childd.GetChild(3).GetComponent<InputField>().text)]), tribeColor = childd.GetChild(4).GetComponent<FlexibleColorPicker>().color };
+                    Team tribe = new Team() { name = childd.GetChild(1).GetComponent<InputField>().text, members = new List<Contestant>(new Contestant[int.Parse(childd.GetChild(3).GetComponent<InputField>().text)]), tribeColor = childd.GetChild(4).GetComponent<FlexibleColorPicker>().color, environment=(Environment)Enviro.value };
                     //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
                     swap.newTribes.Add(tribe);
                 }
@@ -709,6 +765,35 @@ public class SeasonMenuManager : MonoBehaviour
                     break;
             }
             customSeason.swaps.Add(swap);
+        }
+    }
+
+    public void PresetCastEdit(int season)
+    {
+        editorTrueParent.SetActive(false);
+        buttonParent.SetActive(false);
+        options[2].button.SetActive(false);
+        backButton.SetActive(true);
+        castEditor.transform.parent.gameObject.SetActive(true);
+        for (int i = 0; i < casts[season].cast.Count; i++)
+        {
+            GameObject obj = Instantiate(contestantPrefab, castEditor.transform);
+            obj.GetComponentInChildren<Dropdown>().options = everyContestant;
+            obj.GetComponentInChildren<Dropdown>().value = allContestants.IndexOf(casts[season].cast[i]);
+        }
+        playSimButton.onClick.AddListener(() => StartSeason(season));
+    }
+
+    public void BackCast()
+    {
+        editorTrueParent.SetActive(false);
+        buttonParent.SetActive(true);
+        options[2].button.SetActive(true);
+        backButton.SetActive(false);
+        castEditor.transform.parent.gameObject.SetActive(false);
+        foreach (Transform child in castEditor.transform)
+        {
+            Destroy(child.gameObject);
         }
     }
 
@@ -770,5 +855,19 @@ public class SeasonMenuManager : MonoBehaviour
         editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
         yield return 0;
         editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
+    }
+
+    public static T[] GetAllInstances<T>() where T : ScriptableObject
+    {
+        string[] guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);  //FindAssets uses tags check documentation for more info
+        T[] a = new T[guids.Length];
+        for (int i = 0; i < guids.Length; i++)         //probably could get optimized 
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            a[i] = AssetDatabase.LoadAssetAtPath<T>(path);
+        }
+
+        return a;
+
     }
 }

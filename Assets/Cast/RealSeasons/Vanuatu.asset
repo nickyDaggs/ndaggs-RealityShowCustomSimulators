@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Vanuatu
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 173d24263d63ea54c95da4351804918f, type: 2}
+  - {fileID: 11400000, guid: b72fd7ce9a8bffa44afac8cd34bd7f1e, type: 2}
+  - {fileID: 11400000, guid: 822aff40955dc49448a479bd45735ef0, type: 2}
+  - {fileID: 11400000, guid: b466cd96663b97448bdaa573ec04a790, type: 2}
+  - {fileID: 11400000, guid: 111b614f758788a4ea3aee280ed0e85a, type: 2}
+  - {fileID: 11400000, guid: 95aa9fce5f9e9d6488d0b9c5d2fa4e6e, type: 2}
+  - {fileID: 11400000, guid: f74675a239974a54183ea21c688a853c, type: 2}
+  - {fileID: 11400000, guid: d49252897ef2dd3428930596529089af, type: 2}
+  - {fileID: 11400000, guid: 89fdaddc45213974b9d47c4a4b296bed, type: 2}
+  - {fileID: 11400000, guid: 2b741e2ba1e4e3042b14e376fb355681, type: 2}
+  - {fileID: 11400000, guid: 110613409cb50ce4294fb7c9b58f2ffe, type: 2}
+  - {fileID: 11400000, guid: 1cbc12c1f384c9043bbe70ea611780cb, type: 2}
+  - {fileID: 11400000, guid: 95085582353b6fd49be29ed6e80c23aa, type: 2}
+  - {fileID: 11400000, guid: f74a73df061d5bd4aadd2b4b521bdc8c, type: 2}
+  - {fileID: 11400000, guid: 1f45882b13919974da772c5dc4932e5a, type: 2}
+  - {fileID: 11400000, guid: 93069400625c78149b1761e5721c398e, type: 2}
+  - {fileID: 11400000, guid: 2ddcc045c114da24e86edddfc7e1110e, type: 2}
+  - {fileID: 11400000, guid: be24896400cd94c4c9a9db6d90954784, type: 2}

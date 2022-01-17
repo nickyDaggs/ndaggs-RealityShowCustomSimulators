@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Palau
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 00dac6cedcbc2f24b8301660cd26d97a, type: 2}
+  - {fileID: 11400000, guid: a77c5595c53d5b7459adcd5472c5fbd4, type: 2}
+  - {fileID: 11400000, guid: e2aa6b14128b8864089142bee8515be2, type: 2}
+  - {fileID: 11400000, guid: 7cd8b57ff9e095d40a2e3ac017fda34e, type: 2}
+  - {fileID: 11400000, guid: 5532c41a2d5a3424e9fb62e3dbd4d40c, type: 2}
+  - {fileID: 11400000, guid: e89c1abbf99bc01459491600231e3af6, type: 2}
+  - {fileID: 11400000, guid: e1ead118892385046b062a097df6b3dc, type: 2}
+  - {fileID: 11400000, guid: 4735124787f119d41aca428c17a57b44, type: 2}
+  - {fileID: 11400000, guid: 465f2ac4ee1d8b64dac80e1d42dc1782, type: 2}
+  - {fileID: 11400000, guid: b8ba340a4a5372344878edefec79d882, type: 2}
+  - {fileID: 11400000, guid: f2d1e0333d9aa4f4b9edb641a4ae7bb4, type: 2}
+  - {fileID: 11400000, guid: e9a67f0e2ef56874891cc9433bf2497a, type: 2}
+  - {fileID: 11400000, guid: 4de76ca318bfdee429742a913c1b1854, type: 2}
+  - {fileID: 11400000, guid: 7a7b31a812beafa4b921f56ba17663e6, type: 2}
+  - {fileID: 11400000, guid: ae844585c25e30143898f7726cd6980c, type: 2}
+  - {fileID: 11400000, guid: cd8839a1730606848b3df8d456ee9162, type: 2}
+  - {fileID: 11400000, guid: 27e0a5a0b04acb844b81e49e6081e3f3, type: 2}
+  - {fileID: 11400000, guid: 300d88562b340cc4e802c8eff7d47626, type: 2}
+  - {fileID: 11400000, guid: 0fa4b5c19fd32f24488082ecbe976437, type: 2}
+  - {fileID: 11400000, guid: c88f7847f3dc7a740b6d1fdb91a58866, type: 2}

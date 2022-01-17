@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Nicaragua
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: d4f03d783f641ec41a8bd0b14d0381f2, type: 2}
+  - {fileID: 11400000, guid: 8c052e88cf81bf94f83003359edefc0c, type: 2}
+  - {fileID: 11400000, guid: 4ac141ad1d9254b41b270a449e86e26a, type: 2}
+  - {fileID: 11400000, guid: d33a1a768518c4b4abe66e467459b6b7, type: 2}
+  - {fileID: 11400000, guid: e18cb9d23d1d0c241b19a367312ba205, type: 2}
+  - {fileID: 11400000, guid: 979a776ce73a2c548a194cd01c08caa6, type: 2}
+  - {fileID: 11400000, guid: 48aa1eb1426452e408af3193f7b1054d, type: 2}
+  - {fileID: 11400000, guid: 8a41e1269e3e53b45a0dc69d60c89a6d, type: 2}
+  - {fileID: 11400000, guid: df8c6bb094b6248429bed6d55308d58b, type: 2}
+  - {fileID: 11400000, guid: c60645ac6d7336e4d9f870fedb8ba1fd, type: 2}
+  - {fileID: 11400000, guid: d373cecdc8619b1478cf77cf05a28874, type: 2}
+  - {fileID: 11400000, guid: cf5399e647d12ce4eb830c08b1f3fc26, type: 2}
+  - {fileID: 11400000, guid: 0b0228d1cb87a2f4d8645c9f67ab0692, type: 2}
+  - {fileID: 11400000, guid: 124930735f4f2ea4c8bc8add2675f7e7, type: 2}
+  - {fileID: 11400000, guid: 54effe059548ef147b2fe3964e4c1cfe, type: 2}
+  - {fileID: 11400000, guid: de98511454b7f36439e3df66693ca996, type: 2}
+  - {fileID: 11400000, guid: df1e5df5260d22b4e86f009262706436, type: 2}
+  - {fileID: 11400000, guid: b665481ae9564984bbf7f9195e1e9955, type: 2}
+  - {fileID: 11400000, guid: 63d1f1bca1f606c40ae5cb759e0e6f2e, type: 2}
+  - {fileID: 11400000, guid: 85a87fd657ed9a54799970d6ce4b6dcf, type: 2}

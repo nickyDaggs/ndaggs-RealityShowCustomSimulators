@@ -40,6 +40,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Salani Tribe
     tribeColor: {r: 0.42352942, g: 0.7411765, b: 0.7137255, a: 1}
     members:
@@ -66,6 +68,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 12
   jury: 9
   final: 3
@@ -122,6 +126,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Tikiano Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -153,6 +158,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -165,6 +172,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -189,9 +198,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 1
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 5
   idolLimit: 3
   twoParts: 
   threeParts: 
@@ -252,5 +265,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

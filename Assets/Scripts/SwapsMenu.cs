@@ -172,6 +172,8 @@ public class SwapsMenu : MonoBehaviour
         //Dropdown swapType = CurSwap.transform.GetChild(1).GetComponent<Dropdown>();
         List<Team> t = GetTribesAt(swapAt, swapType);
 
+        
+
         //Debug.Log(t.Count);
 
         if (t.Count > 2)
@@ -183,7 +185,6 @@ public class SwapsMenu : MonoBehaviour
             float limit = SeasonMenuManager.Instance.contestants - least + 1;
 
             float con = int.Parse(change.options[change.value].text);
-
             if (con < limit && swapType.options.Count == swapOpt.Count)
             {
                 swapOpt.RemoveAt(3);
@@ -222,14 +223,17 @@ public class SwapsMenu : MonoBehaviour
             if (child.childCount > 0)
             {
                 if(child.GetComponentInChildren<Dropdown>() != null)
-                if (types.Contains(type) && !child.GetChild(0).GetComponent<Dropdown>().interactable)
                 {
-                    float prevSwap = int.Parse(child.GetChild(0).GetComponent<Dropdown>().options[child.GetChild(0).GetComponent<Dropdown>().value].text);
-
-                    if(prevSwap > con && (prevSwap < lastSwap || lastSwap == 0))
+                    if (types.Contains(type) && !child.GetChild(0).GetComponent<Dropdown>().interactable)
                     {
+                        
+                        float prevSwap = int.Parse(child.GetChild(0).GetComponent<Dropdown>().options[child.GetChild(0).GetComponent<Dropdown>().value].text);
+
+                        if (prevSwap > con && (prevSwap < lastSwap || lastSwap == 0))
+                        {
+                            previousTribes = child.GetChild(4).GetChild(1);
+                        }
                         lastSwap = prevSwap;
-                        previousTribes = child.GetChild(4).GetChild(1);
                     }
                 }
             }

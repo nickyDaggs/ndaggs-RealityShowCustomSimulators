@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Phillipines
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: dea8a7841a490314da11de2010b388ef, type: 2}
+  - {fileID: 11400000, guid: 81fc40bb2efb4d5488d57be402558681, type: 2}
+  - {fileID: 11400000, guid: b8cc05a265338f54cab4aaf9fda14809, type: 2}
+  - {fileID: 11400000, guid: deb888f43bfdba64ea033104e7855bb8, type: 2}
+  - {fileID: 11400000, guid: 442d48316159fa243aeacb4daf1650f1, type: 2}
+  - {fileID: 11400000, guid: fff221d32f6d58941aeef79449b755c4, type: 2}
+  - {fileID: 11400000, guid: 7db0f2a716dd43a4e9b4049a75d5c128, type: 2}
+  - {fileID: 11400000, guid: f7f1dd0de2c7a6c488ac84fa35cb811f, type: 2}
+  - {fileID: 11400000, guid: 67f9f5f0041262c4fa081f367454df29, type: 2}
+  - {fileID: 11400000, guid: d6656b5d4e724c54b881087347d50466, type: 2}
+  - {fileID: 11400000, guid: b14fe89b80ede704d8712be33dcc294e, type: 2}
+  - {fileID: 11400000, guid: 38cc3f7f12674fc42b1e38de7a7186f5, type: 2}
+  - {fileID: 11400000, guid: 1e4dcd61eb2b1964ba92fbf6ec4b0eb2, type: 2}
+  - {fileID: 11400000, guid: 33507c7aa6275e0488670b9562b48972, type: 2}
+  - {fileID: 11400000, guid: 21e85ea30b717374d9612e96d4cc7fbb, type: 2}
+  - {fileID: 11400000, guid: 5fd679f5d4acdef4b8d40af72a36c874, type: 2}
+  - {fileID: 11400000, guid: 0d60310e72c98d84eb0e9399aee3b977, type: 2}
+  - {fileID: 11400000, guid: 245094d94c4f21e45b02e82ad7bb079e, type: 2}

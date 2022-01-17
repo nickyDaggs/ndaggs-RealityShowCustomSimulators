@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Ghost Island
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: c66046011aa151d4fa4d81e3874445cc, type: 2}
+  - {fileID: 11400000, guid: 14961aeaed9ff8143ba2f03bd791c5a6, type: 2}
+  - {fileID: 11400000, guid: cbcb2c3a1f081df4b926fe47e6181b6a, type: 2}
+  - {fileID: 11400000, guid: 3f49acc5dbd4f8e4bb7e75224bd70743, type: 2}
+  - {fileID: 11400000, guid: ec865b30a90e1ee469b4fc89c7795551, type: 2}
+  - {fileID: 11400000, guid: 44153e0d59ae5514d82e7865f9faca0b, type: 2}
+  - {fileID: 11400000, guid: ae140e10cc93b094d83c38466f292916, type: 2}
+  - {fileID: 11400000, guid: 612bde93c57d7404684dda605774e250, type: 2}
+  - {fileID: 11400000, guid: cd5c596f8001f5444a224dbc8a528e3d, type: 2}
+  - {fileID: 11400000, guid: 76d9a85ee4b0eee4c8a95f0d40b69c50, type: 2}
+  - {fileID: 11400000, guid: ca7036b37b17a1a44ad367f00710c19a, type: 2}
+  - {fileID: 11400000, guid: e1494875be01e08438644c09d595926e, type: 2}
+  - {fileID: 11400000, guid: c486cbf7c66fe2245895611faebf3db2, type: 2}
+  - {fileID: 11400000, guid: ea443e59f6880e242a9cb408ead96e30, type: 2}
+  - {fileID: 11400000, guid: 0e337cc9a6608ab479023ed9ac81cd32, type: 2}
+  - {fileID: 11400000, guid: 444d037c75f0d844da9a1ad70a0c0196, type: 2}
+  - {fileID: 11400000, guid: c668dfb0a2425e54aa5a0d257a87cafa, type: 2}
+  - {fileID: 11400000, guid: 1018fc260e36d6941ad2d5f7f6741ad3, type: 2}
+  - {fileID: 11400000, guid: a400ada8a54d2c04ab1bd0b6d4cad591, type: 2}
+  - {fileID: 11400000, guid: 9f583b8e188e9dd4da0575d0cbb9a74a, type: 2}

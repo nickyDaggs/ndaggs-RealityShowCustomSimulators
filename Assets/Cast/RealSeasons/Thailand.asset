@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Thailand
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: d2b52326b0fc50c4c834e030e8bbdef8, type: 2}
+  - {fileID: 11400000, guid: d77dd55fb477cf1469390f720179bab6, type: 2}
+  - {fileID: 11400000, guid: db199426f9ff30d48a51e76d196aa690, type: 2}
+  - {fileID: 11400000, guid: b40420a113c55db43a94ff1c8163454e, type: 2}
+  - {fileID: 11400000, guid: bde8b8ec758ccbb40aa08eac645c6d93, type: 2}
+  - {fileID: 11400000, guid: c57a08fd3313861418de2bba09ff7877, type: 2}
+  - {fileID: 11400000, guid: 85764e733e430c443805e0bb42958e17, type: 2}
+  - {fileID: 11400000, guid: f8b4f071d739db5498d410c142fc1e35, type: 2}
+  - {fileID: 11400000, guid: 3c956a5d5283c184eb66edc00f948102, type: 2}
+  - {fileID: 11400000, guid: b745da33737260848b7216f583bdb7ab, type: 2}
+  - {fileID: 11400000, guid: 862010d664a7ee649ab281680e43eeec, type: 2}
+  - {fileID: 11400000, guid: 74661986fe100a94684bc59a8e4c717f, type: 2}
+  - {fileID: 11400000, guid: 0c7e6880652d0b54ab6164723bb06ef5, type: 2}
+  - {fileID: 11400000, guid: 15222e766dcae0347b83fc3f6d47c93c, type: 2}
+  - {fileID: 11400000, guid: 3c214c3a8ea580f449358e5182135b9d, type: 2}
+  - {fileID: 11400000, guid: ef98ae59df2961947a835ae92b362e3f, type: 2}

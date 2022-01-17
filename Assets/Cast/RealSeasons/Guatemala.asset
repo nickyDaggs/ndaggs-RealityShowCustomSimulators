@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Guatemala
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 311b21637fc889a4bbd0e8cc0ca330ac, type: 2}
+  - {fileID: 11400000, guid: e9a67f0e2ef56874891cc9433bf2497a, type: 2}
+  - {fileID: 11400000, guid: 4409b46db1344c1488028c638191df03, type: 2}
+  - {fileID: 11400000, guid: deb0001dccfc84346a8edfa707edf0d6, type: 2}
+  - {fileID: 11400000, guid: 6efab1fc4b55d834f890d90a2928cd31, type: 2}
+  - {fileID: 11400000, guid: bc386433e0da55c439a6d3dadb2e87f4, type: 2}
+  - {fileID: 11400000, guid: 977c670a771692f4ea1f76f62eb137ba, type: 2}
+  - {fileID: 11400000, guid: aae272a4d5dc19f4392e8f82c965b57a, type: 2}
+  - {fileID: 11400000, guid: 3e390d00acf3049468166b8329af7b1a, type: 2}
+  - {fileID: 11400000, guid: 79027aebe10e46c4093ca62a7f231136, type: 2}
+  - {fileID: 11400000, guid: 7c00b43a8dc4a9c4291d390d919333c2, type: 2}
+  - {fileID: 11400000, guid: 3d83f966e5fb9004db782a0c54cb0002, type: 2}
+  - {fileID: 11400000, guid: 95b7e6db23fd69541a969a884e4d0644, type: 2}
+  - {fileID: 11400000, guid: 1bb64b577f2672844ba08dbbc02ba408, type: 2}
+  - {fileID: 11400000, guid: b27b4f362f12bdb42af0db383248cb23, type: 2}
+  - {fileID: 11400000, guid: f664a75c85bdd8c4b895f80fb733e6a9, type: 2}
+  - {fileID: 11400000, guid: d3d09758e758fee43896959a48a77964, type: 2}
+  - {fileID: 11400000, guid: 300d88562b340cc4e802c8eff7d47626, type: 2}

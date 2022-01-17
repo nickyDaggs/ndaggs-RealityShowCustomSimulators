@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Micronesia
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 81b22655bf990ce4283ddff7d7843564, type: 2}
+  - {fileID: 11400000, guid: 55902deeaf721f844ae468c09b2a7eeb, type: 2}
+  - {fileID: 11400000, guid: ad131eb1aca3bd04190ba4592e5b871d, type: 2}
+  - {fileID: 11400000, guid: 4b8636ef20c4dc54a971526c0bce8845, type: 2}
+  - {fileID: 11400000, guid: 38e7257dce0030d4a9df6afd2f27f538, type: 2}
+  - {fileID: 11400000, guid: f391c8cae3d38ce44b507a49bf53dbe3, type: 2}
+  - {fileID: 11400000, guid: ee5b5571043771046a369c81e6606bad, type: 2}
+  - {fileID: 11400000, guid: 967e620e6f2415840920e97baef783ce, type: 2}
+  - {fileID: 11400000, guid: f7c59e1d2254799449be7d730585360f, type: 2}
+  - {fileID: 11400000, guid: 67b6819acb6d6064ba7bad4da14bb713, type: 2}
+  - {fileID: 11400000, guid: d822ea95d745a7a4586c5964ec51f976, type: 2}
+  - {fileID: 11400000, guid: 2b741e2ba1e4e3042b14e376fb355681, type: 2}
+  - {fileID: 11400000, guid: e78deeb58294cc746a6939cd4d6dfb1c, type: 2}
+  - {fileID: 11400000, guid: 1cbc12c1f384c9043bbe70ea611780cb, type: 2}
+  - {fileID: 11400000, guid: 0e27ed66efef3a745818a2bc7d73401e, type: 2}
+  - {fileID: 11400000, guid: deb888f43bfdba64ea033104e7855bb8, type: 2}
+  - {fileID: 11400000, guid: 6fa1f07efa0ea024985e059cf55cee49, type: 2}
+  - {fileID: 11400000, guid: 6d618c5c26b9a3645a4477a2841bfe11, type: 2}
+  - {fileID: 11400000, guid: 0c845aafa77c70b4b9de870d8e23de96, type: 2}
+  - {fileID: 11400000, guid: dddb040e88a60d048855250ec925c8e7, type: 2}

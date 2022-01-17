@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Koah Rong
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: c921aa85a08fc194a99fbcbff5d94463, type: 2}
+  - {fileID: 11400000, guid: c3544510297761844be45252872f6806, type: 2}
+  - {fileID: 11400000, guid: 71779ed7f83981b4e8b21205914b134c, type: 2}
+  - {fileID: 11400000, guid: 549526bfb0363074da94291db833cb9b, type: 2}
+  - {fileID: 11400000, guid: a03e212d4aedfb644ad372f4f6c7c6b0, type: 2}
+  - {fileID: 11400000, guid: 4853745e80b694e4799bf906fb7d9b9a, type: 2}
+  - {fileID: 11400000, guid: a0409cdfdc46294448541102565177c5, type: 2}
+  - {fileID: 11400000, guid: f4763d1a595387e47b149d8553bda54a, type: 2}
+  - {fileID: 11400000, guid: c6ac579e79afab74499c721d514f6dd3, type: 2}
+  - {fileID: 11400000, guid: 29c6e976fcb166743b758a6d2c1c63f2, type: 2}
+  - {fileID: 11400000, guid: 700772ae42ad3f64e8f0a206f8cfd9a4, type: 2}
+  - {fileID: 11400000, guid: 5bca4919acad3a9478b30ed6ef98fb29, type: 2}
+  - {fileID: 11400000, guid: 87d4cfe04da6acd4bb3e43aaf2ec35e3, type: 2}
+  - {fileID: 11400000, guid: dfa39ae374e08b94a94479c940f157ad, type: 2}
+  - {fileID: 11400000, guid: eeeada7d5ce411142bd0fcb66160aa4d, type: 2}
+  - {fileID: 11400000, guid: a01ee54d84b22744c9677f89360e1da0, type: 2}
+  - {fileID: 11400000, guid: 511f3089f92d8834fb733123ee15266e, type: 2}
+  - {fileID: 11400000, guid: 1a25434575bded84e9d25c07dfe457f6, type: 2}

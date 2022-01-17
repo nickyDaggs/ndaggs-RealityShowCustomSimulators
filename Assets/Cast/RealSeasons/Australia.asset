@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Australia
+  m_EditorClassIdentifier: 
+  nameS: Australia
+  cast:
+  - {fileID: 11400000, guid: 01ba0c41842676d469147f02ef3557d7, type: 2}
+  - {fileID: 11400000, guid: 2697c16647f76084ba9655d6a83e3214, type: 2}
+  - {fileID: 11400000, guid: 2f064c88c2550b040ab862913f1063d8, type: 2}
+  - {fileID: 11400000, guid: fee69aec6d2810d4e96609ac4c23adff, type: 2}
+  - {fileID: 11400000, guid: e5afcbdf015af6548b1029512de8e755, type: 2}
+  - {fileID: 11400000, guid: 5fd679f5d4acdef4b8d40af72a36c874, type: 2}
+  - {fileID: 11400000, guid: 69817745356036043a64090b8fb8db48, type: 2}
+  - {fileID: 11400000, guid: 6a5ddad6be62d9342926d3439fdedec2, type: 2}
+  - {fileID: 11400000, guid: 9eaa2ebe78b48cf48bb1cc9f83fef202, type: 2}
+  - {fileID: 11400000, guid: 415ce0942b57efd41ada870682a949e6, type: 2}
+  - {fileID: 11400000, guid: 8a51972f1e33001429778015f425f51a, type: 2}
+  - {fileID: 11400000, guid: 223ce6e994455f045ac779b423168e6b, type: 2}
+  - {fileID: 11400000, guid: 4be30879e23cc8348ad0a2380d8432c9, type: 2}
+  - {fileID: 11400000, guid: 07a309af7e79db94c85c958258e23318, type: 2}
+  - {fileID: 11400000, guid: c773d4ae0b404124fb1891982fc44488, type: 2}
+  - {fileID: 11400000, guid: 8847dd7e69b95a54b9e01bb12d01bf78, type: 2}

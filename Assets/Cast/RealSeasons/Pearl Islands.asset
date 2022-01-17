@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: Pearl Islands
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: 150a144a8c3f2b44a9089a7c7206d0a3, type: 2}
+  - {fileID: 11400000, guid: ac0b895ad502f934d81257d52fb8e0e5, type: 2}
+  - {fileID: 11400000, guid: 6fa1f07efa0ea024985e059cf55cee49, type: 2}
+  - {fileID: 11400000, guid: f0bb7dd60a25a03478184aa09d42fc43, type: 2}
+  - {fileID: 11400000, guid: 271c471cb96b3cb46befdeeff0193f87, type: 2}
+  - {fileID: 11400000, guid: f5cefdeb87d106e47bfb6332a17e395a, type: 2}
+  - {fileID: 11400000, guid: ba33eca2ce7c6e2458a4a1bf0ed3f3e1, type: 2}
+  - {fileID: 11400000, guid: e43cad68555efe24f88a3c4c625a2c10, type: 2}
+  - {fileID: 11400000, guid: 5feb1373a8ba6e042826db89f75c2c5e, type: 2}
+  - {fileID: 11400000, guid: 4d37f310f9cfd1c4e81ca1e27cbe1f9b, type: 2}
+  - {fileID: 11400000, guid: 1304495685b7adf48812a3b74ad8b299, type: 2}
+  - {fileID: 11400000, guid: e669ac040be733c4bb986ee1b798226e, type: 2}
+  - {fileID: 11400000, guid: 2d6662fe46f4aea4a98720aef46960ad, type: 2}
+  - {fileID: 11400000, guid: 45be891425a15ff408e87d8072bb3524, type: 2}
+  - {fileID: 11400000, guid: 66fc9ccdf616a9a4e9869bf66bdb6940, type: 2}
+  - {fileID: 11400000, guid: c165f85414ebc424db46fb5bca107b32, type: 2}

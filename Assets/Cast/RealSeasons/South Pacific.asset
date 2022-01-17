@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf2a99cf119fb947890b96557eb9b0a, type: 3}
+  m_Name: South Pacific
+  m_EditorClassIdentifier: 
+  nameS: 
+  cast:
+  - {fileID: 11400000, guid: b8d9f295fa251594f8faf99ae6069330, type: 2}
+  - {fileID: 11400000, guid: f32cdacc4328c114ab4ed7306829a34f, type: 2}
+  - {fileID: 11400000, guid: 046bd8881292f2d42aac104accb9a2d5, type: 2}
+  - {fileID: 11400000, guid: c1562cfbe1d14874db627884060152c6, type: 2}
+  - {fileID: 11400000, guid: 710185c578e52e94cb79a39df3ab9317, type: 2}
+  - {fileID: 11400000, guid: 0307a8b5e7801b14b934f5f4c753db65, type: 2}
+  - {fileID: 11400000, guid: 6d618c5c26b9a3645a4477a2841bfe11, type: 2}
+  - {fileID: 11400000, guid: cade6a75d90d2ba43a8905303f827848, type: 2}
+  - {fileID: 11400000, guid: 401286313619152439a6fe6e58a90ce5, type: 2}
+  - {fileID: 11400000, guid: d6b88b8946a1b084491aa1221d8f7676, type: 2}
+  - {fileID: 11400000, guid: baeb417c1d59a9248abf889a456631ca, type: 2}
+  - {fileID: 11400000, guid: 1fcacef9955655d4680340d0edefbd33, type: 2}
+  - {fileID: 11400000, guid: 5c084c601a42e3246a2a1a76d352f3f1, type: 2}
+  - {fileID: 11400000, guid: bcfeedf590526414c972870e20c4a852, type: 2}
+  - {fileID: 11400000, guid: e7e04c9a67943ec48a52eff5d4626885, type: 2}
+  - {fileID: 11400000, guid: 5ac09923b513e064b9e767091e95ba04, type: 2}
+  - {fileID: 11400000, guid: 1677a3ed18d20184b90d9db81870f00e, type: 2}
+  - {fileID: 11400000, guid: 552bc0e4b3e5f3944ae1f1fbbda5a976, type: 2}

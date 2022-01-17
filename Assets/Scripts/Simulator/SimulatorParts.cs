@@ -9,6 +9,7 @@ public enum SwapType { RegularSwap, RegularShuffle, ChallengeDissolve, DissolveL
 public enum StatChoice { Physical, Endurance, Mental, Stamina, SocialSkills, Temperament, Strategic, Loyalty, Forgivingness, Boldness, Influence, Intuition }
 public enum RelationshipType { Dislike, Neutral, Like }
 public enum RelationshipStatus { Slight, Small, Medium, Strong, Extreme }
+public enum Environment { Peaceful=1, Nice, Normal, Harsh, Chaotic }
 namespace SeasonParts
 {
     //namespace that includes several classes that are used for the simulator
@@ -33,6 +34,7 @@ namespace SeasonParts
         public List<HiddenAdvantage> hiddenAdvantages = new List<HiddenAdvantage>();
         public bool remove;
         public int allianceCount;
+        public Environment environment = Environment.Normal;
         //public List<Alliance> alliances = new List<Alliance>();
     }
     [System.Serializable]
@@ -190,6 +192,7 @@ namespace SeasonParts
         public RelationshipStatus Status;
         public int Extra;
         public int changeChance;
+        public bool perm;
         public override string ToString()
         {
             string type = "";
