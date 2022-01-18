@@ -126,15 +126,7 @@ MonoBehaviour:
   MergeTribeColor: {r: 0, g: 0.4509804, b: 0.7254902, a: 1}
   MergeTribeName: Aiga Tribe
   ImmunityChallenges: []
-  RewardChallenges:
-  - name: Challenge
-    description: Description
-    rewards:
-    - SendToTribe
-    rewardStamina: 3
-    Groups: []
-    sitout: 0
-    stats: 
+  RewardChallenges: []
   rewardSkips: 
   NoRewards: 0
   mergeHiddenAdvantages:

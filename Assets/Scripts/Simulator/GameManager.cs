@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public float mergeAt, finaleAt, juryAt;
     public Button nextButton;
     public Button lastButton;
+    public Dropdown EpisodeList;
     public List<Contestant> immune =  new List<Contestant>();
     
     public List<Contestant> Eliminated;
@@ -43,14 +44,14 @@ public class GameManager : MonoBehaviour
     public SeasonTemplate sea;
     public List<GameObject> Prefabs;
     public GameObject GroupPrefab, ContestantPrefab, imagePrefab, Canvas, Vote, VoteButton, VotedOffCine;
-    GameObject lastThing;
+    public GameObject lastThing;
     GameObject lastVoteOff;
     public List<GameObject> Torches;
     int curVot;
     float tri;
     float jurVotesRemoved;
     public Season baseSeason;
-    Season currentSeason;
+    public Season currentSeason;
     public List<Episode> eps;
     public Material grayScale;
     //Episode epi;
@@ -127,8 +128,10 @@ public class GameManager : MonoBehaviour
     void TurnOff()
     {
         currentContestants = currentContestantsOG;
+
         foreach (Episode epp in currentSeason.Episodes)
         {
+            epp.name = Episodes[currentSeason.Episodes.IndexOf(epp)].name;
             foreach (Page em in epp.events)
             {
                 em.obj.SetActive(false);
@@ -141,6 +144,8 @@ public class GameManager : MonoBehaviour
         curEp = 0;
         curEv = 1;
         currentSeason.Episodes[0].events[0].obj.SetActive(true);
+        lastThing = currentSeason.Episodes[0].events[0].obj;
+        EpisodeList.options = currentSeason.Episodes.ConvertAll(x => new Dropdown.OptionData { text = x.name }).ToList();
         tri = 0;
         Loading.SetActive(false);
         IEnumerator ABC(GameObject game)
@@ -1105,7 +1110,8 @@ public class GameManager : MonoBehaviour
             currentContestants += re;
         }
         currentSeason.Episodes[curEp].events[curEv].obj.SetActive(true);
-        if(currentSeason.Episodes[curEp].events[curEv].obj.name.Contains("Tribal Council") && cineTribal)
+        lastThing = currentSeason.Episodes[curEp].events[curEv].obj;
+        if (currentSeason.Episodes[curEp].events[curEv].obj.name.Contains("Tribal Council") && cineTribal)
         {
             what = true;
             int numb = currentSeason.Episodes[curEp].events.Count - 1;

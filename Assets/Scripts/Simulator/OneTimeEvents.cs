@@ -898,7 +898,7 @@ public class OneTimeEvents : MonoBehaviour
                     EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
                     EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
                     EpisodeVote.name = "First Impressions ";
-                    GameManager.instance.AddGM(EpisodeVote, false);
+                    GameManager.instance.AddGM(EpisodeVote, true);
                     List<Contestant> liabilities = new List<Contestant>();
                     foreach (Team tribe in GameManager.instance.Tribes)
                     {

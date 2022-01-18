@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\UI\SetupLayout.cs" />
     <Compile Include="Assets\Scripts\UI\UIGroup.cs" />
     <Compile Include="Assets\Scripts\UI\loadingAnimation.cs" />
+    <Compile Include="Assets\pageChooseScript.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\Accordion.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\AccordionElement.cs" />
     <Compile Include="Assets\unity-ui-extensions\Runtime\Scripts\Controls\Accordion\Tweening\FloatTween.cs" />
