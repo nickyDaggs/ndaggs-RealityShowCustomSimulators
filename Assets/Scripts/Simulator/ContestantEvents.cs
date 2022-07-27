@@ -229,15 +229,16 @@ public class ContestantEvents : MonoBehaviour
                         }
                     } else
                     {
-                        overall /= 2;
-                        foreach(Contestant num in cons)
+                        
+                        overall = 2 * cons.Count;
+                        foreach (Contestant num in cons)
                         {
                             if(GetLoyalty(num, cons) == 5)
                             {
-                                sum -= 1;
+                                //sum -= 1;
                             } else if (GetLoyalty(num, cons) < 5)
                             {
-                                sum -= 2;
+                                sum -= 1;
                             } else if (GetLoyalty(num, cons) > 5)
                             {
                                 sum += 1;

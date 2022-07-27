@@ -1197,33 +1197,33 @@ MonoBehaviour:
   HiddenIdol: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
   seasonTemp: {fileID: 11400000, guid: e91e49888569d4c4dbe1135e46075bdc, type: 2}
   events:
-  - type: 1
-    eventText: Player1 rests at camp to restore their energy.
+  - type: 2
+    eventText: Alliance forms
     allianceEvent: 0
-    contestants: 0
-    relationshipAffect: 0
-    staminaAffect: 8
-    limit: 35
-    overall: 0
-    stats: 03000000
-  - type: 1
-    eventText: Player1 works hard at camp and becomes tired.
-    allianceEvent: 0
-    contestants: 0
-    relationshipAffect: 0
-    staminaAffect: -7
-    limit: 100
-    overall: 0
-    stats: 03000000
-  - type: 0
-    eventText: Player1 is impressing the rest of the team.
-    allianceEvent: 0
-    contestants: 0
-    relationshipAffect: 8
+    contestants: 2
+    relationshipAffect: 5
     staminaAffect: 0
     limit: 5
-    overall: 1
-    stats: 04000000
+    overall: 0
+    stats: 06000000
+  - type: 2
+    eventText: Alliance dissolves.
+    allianceEvent: 2
+    contestants: 2
+    relationshipAffect: 5
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 03000000
+  - type: 2
+    eventText: Player1 leaves the alliance.
+    allianceEvent: 1
+    contestants: 2
+    relationshipAffect: 5
+    staminaAffect: 0
+    limit: 4
+    overall: 0
+    stats: 07000000
   - type: 0
     eventText: Player1 have a major fight.
     allianceEvent: 0
@@ -1287,42 +1287,42 @@ MonoBehaviour:
     limit: 4
     overall: 0
     stats: 04000000
-  - type: 2
-    eventText: Alliance dissolves.
+  - type: 0
+    eventText: Player1 is impressing the rest of the team.
     allianceEvent: 2
-    contestants: 2
-    relationshipAffect: 5
-    staminaAffect: 0
-    limit: 4
-    overall: 0
-    stats: 
-  - type: 2
-    eventText: Player1 leaves the alliance.
-    allianceEvent: 1
-    contestants: 2
-    relationshipAffect: 5
-    staminaAffect: 0
-    limit: 4
-    overall: 0
-    stats: 07000000
-  - type: 2
-    eventText: Alliance forms
-    allianceEvent: 0
-    contestants: 2
-    relationshipAffect: 5
+    contestants: 0
+    relationshipAffect: 8
     staminaAffect: 0
     limit: 5
+    overall: 1
+    stats: 04000000
+  - type: 1
+    eventText: 'Player1 works hard at camp and becomes tired. '
+    allianceEvent: 1
+    contestants: 0
+    relationshipAffect: 0
+    staminaAffect: -7
+    limit: 100
     overall: 0
-    stats: 06000000
+    stats: 03000000
+  - type: 1
+    eventText: Player1 rests at camp to restore their energy.
+    allianceEvent: 0
+    contestants: 0
+    relationshipAffect: 0
+    staminaAffect: 8
+    limit: 35
+    overall: 0
+    stats: 03000000
   - type: 1
     eventText: Player1 is completely worn out, but is not giving up.
     allianceEvent: 0
-    contestants: 2
-    relationshipAffect: 5
+    contestants: 0
+    relationshipAffect: 0
     staminaAffect: 5
     limit: 10
     overall: 0
-    stats: 06000000
+    stats: 03000000
   load: 1
   Tribes:
   - name: 0
@@ -2485,11 +2485,11 @@ RectTransform:
   m_Father: {fileID: 873610869}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380.94, y: 374.38}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 182.06, y: -19.619995}
   m_SizeDelta: {x: 260, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1167284332
 MonoBehaviour:
   m_ObjectHideFlags: 0

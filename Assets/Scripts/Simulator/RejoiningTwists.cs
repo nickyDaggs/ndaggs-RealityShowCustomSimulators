@@ -368,14 +368,14 @@ public class RejoiningTwists : MonoBehaviour
         while (lastWinner != GameManager.instance.Outcasts)
         {
             int ran = Random.Range(0, Trib.Count);
-            lastWinner = Trib[ran];
+            lastWinner = GameManager.instance.Outcasts;//Trib[ran];
 
             if (Trib.Count > 1)
             {
                 GameManager.instance.MakeGroup(false, null, "name", "", Trib[ran].name + " Wins Immunity!", Trib[ran].members, EpisodeStart.transform.GetChild(0), 20);
             }
-            
-            Trib.Remove(Trib[ran]);
+
+            Trib.Remove(GameManager.instance.Outcasts);//Trib[ran]);
         }
 
         bool oWin = false;

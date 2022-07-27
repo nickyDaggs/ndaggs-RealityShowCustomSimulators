@@ -170,7 +170,7 @@ public class SwapsMenu : MonoBehaviour
     {
         //Dropdown swapAt = CurSwap.transform.GetChild(0).GetComponent<Dropdown>();
         //Dropdown swapType = CurSwap.transform.GetChild(1).GetComponent<Dropdown>();
-        List<Team> t = GetTribesAt(swapAt, swapType);
+        List<Team> t = GetTribesAt(swapAt);
 
         
 
@@ -206,7 +206,7 @@ public class SwapsMenu : MonoBehaviour
         SeasonMenuManager.Instance.SubmitSwapType(swapType);
     }
 
-    public List<Team> GetTribesAt(Dropdown swapAt, Dropdown swapType)
+    public List<Team> GetTribesAt(Dropdown swapAt)
     {
         float con = int.Parse(swapAt.options[swapAt.value].text);
 
@@ -245,8 +245,6 @@ public class SwapsMenu : MonoBehaviour
 
             foreach (Transform child in previousTribes)
             {
-                int num = int.Parse(child.GetChild(3).GetComponent<InputField>().text);
-
                 Team tribe = new Team() { members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)]) };
                 //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
                 swappedTeams.Add(tribe);
@@ -260,7 +258,7 @@ public class SwapsMenu : MonoBehaviour
     public void DeleteSwap()
     {
         SeasonMenuManager.Instance.premergeRounds.Add(swapAt.options[swapAt.value]);
-        editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, SeasonMenuManager.Instance.ogSwapY - 100);
+        editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, editorParent.sizeDelta.y - 150);
         Destroy(CurSwap);
         if (SeasonMenuManager.Instance.swapParent.transform.childCount > 0)
         {

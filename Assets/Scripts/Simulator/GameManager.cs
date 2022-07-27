@@ -116,13 +116,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //eps = currentSeason.Episodes;
-        if(h == false)
-        {
-            TurnOff();
-            h = true;
-            tri = 0;
-            jurt = jury.Count - 1;
-        }
+        
         
     }
     void TurnOff()
@@ -134,10 +128,13 @@ public class GameManager : MonoBehaviour
             epp.name = Episodes[currentSeason.Episodes.IndexOf(epp)].name;
             foreach (Page em in epp.events)
             {
-                em.obj.SetActive(false);
-                if(em.obj.name == "Placements")
+                //em.obj.SetActive(false);
+                StartCoroutine(ABC(em.obj));
+                
+                
+                if (em.obj.name == "Placements")
                 {
-                    StartCoroutine(ABC(em.obj));
+                    
                 }
             }
         }
@@ -147,7 +144,7 @@ public class GameManager : MonoBehaviour
         lastThing = currentSeason.Episodes[0].events[0].obj;
         EpisodeList.options = currentSeason.Episodes.ConvertAll(x => new Dropdown.OptionData { text = x.name }).ToList();
         tri = 0;
-        Loading.SetActive(false);
+        
         IEnumerator ABC(GameObject game)
         {
 
@@ -159,10 +156,15 @@ public class GameManager : MonoBehaviour
             game.SetActive(!game.activeSelf);
             yield return 0;
             game.SetActive(!game.activeSelf);
-
             //code goes here
-
-
+            if(game == currentSeason.Episodes[0].events[0].obj)
+            {
+                currentSeason.Episodes[0].events[0].obj.SetActive(true);
+            }
+            if(game.name == "Placements")
+            {
+                Loading.SetActive(false);
+            }
         }
     }
     void SetSeason()
@@ -325,7 +327,7 @@ public class GameManager : MonoBehaviour
         {
             if (timeEvent.type == "FirstImpressions" && timeEvent.context == "RI")
             {
-                episodeCount-= 2;
+                episodeCount -= 2;
             }
         }
         if (sea.forcedFireMaking)
@@ -598,7 +600,7 @@ public class GameManager : MonoBehaviour
                 {
                     ep.events.Add("EOEStatus");
                 }
-                if (!noRe && !sea.NoRewards)
+                if (!noRe && !sea.NoRewards && ep.Event.type != "MultiTribalReward" && ep.Event.type != "MultiTribalOneImm")
                 {
                     ep.events.Add("TribeReward");
                 }
@@ -1398,6 +1400,7 @@ public class GameManager : MonoBehaviour
         {
             curEpp = currentSeason.Episodes.Count - 1;
         }
+        gm.SetActive(false);
     }
     public void AddVote(List<Contestant> gm, List<Contestant> gmm)
     {
@@ -2114,6 +2117,19 @@ public class GameManager : MonoBehaviour
     }
     void TribeReward()
     {
+        string island = "";
+        if (sea.IslandType == "Ghost")
+        {
+            island = "Ghost Island";
+        }
+        else if (sea.IslandType == "IOI")
+        {
+            island = "Island of the Idols";
+        }
+        else
+        {
+            island = "Exile Island";
+        }
         GameObject EpisodeRe = Instantiate(Prefabs[2]);
         EpisodeRe.transform.parent = Canvas.transform;
         EpisodeRe.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeRe.GetComponent<RectTransform>().offsetMax.y);
@@ -2165,6 +2181,194 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         num.stats.Stamina += Random.Range(10, 21);
+                    }
+                }
+            }
+        }
+        if (curExile.on && curExile.challenge == "Reward" && curExile.reason != "")
+        {
+            if (curExile.reason == "Winner" || curExile.reason == "Loser")
+            {
+                string reason;
+                string reason2;
+                string extra = "";
+                if (curExile.ownTribe)
+                {
+                    List<Team> teams = new List<Team>(Tribes);
+                    if (curExile.reason == "Winner")
+                    {
+                        foreach (Team t in LosingTribes)
+                        {
+                            teams.Remove(t);
+                        }
+                        reason2 = "The winning team can send someone from their tribe to " + island + ".";
+                        reason = " is sent to " + island + " by the winning team.";
+                        if (curExile.both)
+                        {
+                            reason2 = "The winning team can send someone from each tribe to " + island + ".";
+                        }
+                    }
+                    else
+                    {
+                        foreach (Team t in LosingTribes)
+                        {
+                            if (t != LosingTribes[0])
+                            {
+                                teams.Remove(t);
+                            }
+                        }
+                        reason2 = "The losing tribe can send someone from their tribe to " + island + ".";
+                        reason = " is sent to " + island + " by the losing team.";
+                        if (curExile.both)
+                        {
+                            reason2 = "The losing team can send someone from each tribe to " + island + ".";
+                        }
+                        if (curExile.skipTribal)
+                        {
+                            reason2 += "\n\nThis player will not attend tribal council.";
+                            if (curExile.both)
+                            {
+                                extra = "\n\nThis player will not attend tribal council.";
+                            }
+                        }
+                    }
+
+
+                    int rann = Random.Range(0, teams[0].members.Count);
+                    teams[0].members[rann].team = teams[0].name;
+                    if (curExile.both)
+                    {
+                        reason = " from " + teams[0].members[rann].team + "." + extra;
+                        extra = "They choose ";
+                    }
+                    Exiled.Add(teams[0].members[rann]);
+                    List<Contestant> g = new List<Contestant>() { teams[0].members[rann] };
+                    MakeGroup(false, null, "", reason2, extra + teams[0].members[rann].nickname + reason, g, EpisodeRe.transform.GetChild(0), 20);
+                    teams[0].members.Remove(teams[0].members[rann]);
+
+                    teams = new List<Team>(Tribes);
+                    if (curExile.two)
+                    {
+                        extra = "";
+                        if (curExile.reason == "Winner")
+                        {
+                            foreach (Team t in Tribes)
+                            {
+                                if (t != LosingTribes[0])
+                                {
+                                    teams.Remove(t);
+                                }
+                            }
+
+                            reason2 = Exiled[0].nickname + " can send someone from the losing tribe to " + island + ".";
+                            reason = " is sent to " + island + " by " + Exiled[0].nickname;
+
+                            if (curExile.skipTribal)
+                            {
+                                reason2 += "\n\nThis player will not attend tribal council.";
+                                if (curExile.both)
+                                {
+                                    extra = "\n\nThis player will not attend tribal council.";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (Team t in LosingTribes)
+                            {
+                                teams.Remove(t);
+                            }
+                            reason2 = Exiled[0].nickname + " can send someone from the winning tribe to " + island + ".";
+                            reason = " is sent to " + island + " by " + Exiled[0].nickname;
+                        }
+                        int rannn = Random.Range(0, teams[0].members.Count);
+                        teams[0].members[rannn].team = teams[0].name;
+                        if (curExile.both)
+                        {
+                            reason2 = "";
+                            reason = " from " + teams[0].members[rannn].team + "." + extra;
+                            extra = "They choose ";
+                        }
+                        Exiled.Add(teams[0].members[rannn]);
+                        g = new List<Contestant>() { teams[0].members[rannn] };
+                        MakeGroup(false, null, "", reason2, extra + teams[0].members[rannn].nickname + reason, g, EpisodeRe.transform.GetChild(0), 20);
+                        teams[0].members.Remove(teams[0].members[rannn]);
+                    }
+                }
+                else
+                {
+                    List<Team> teams = new List<Team>(Tribes);
+                    if (curExile.reason == "Winner")
+                    {
+                        foreach (Team t in Tribes)
+                        {
+                            if (t != LosingTribes[0])
+                            {
+                                teams.Remove(t);
+                            }
+                        }
+                        reason2 = "The winning team can send someone from the losing tribe to " + island + ".";
+                        reason = " is sent to " + island + " by the winning team.";
+
+                        if (curExile.skipTribal)
+                        {
+                            reason2 += "\n\nThis player will not attend tribal council.";
+                        }
+                    }
+                    else
+                    {
+                        foreach (Team t in LosingTribes)
+                        {
+                            teams.Remove(t);
+                        }
+                        reason2 = "The losing team can send someone from the winning tribe to " + island + ".";
+                        reason = " is sent to " + island + " by the losing team.";
+
+                    }
+                    int rann = Random.Range(0, teams[0].members.Count);
+                    teams[0].members[rann].team = teams[0].name;
+                    Exiled.Add(teams[0].members[rann]);
+
+                    List<Contestant> g = new List<Contestant>() { teams[0].members[rann] };
+                    MakeGroup(false, null, "", reason2, teams[0].members[rann].nickname + reason, g, EpisodeRe.transform.GetChild(0), 20);
+                    teams[0].members.Remove(teams[0].members[rann]);
+                    teams = new List<Team>(Tribes);
+                    if (curExile.two)
+                    {
+                        if (curExile.reason == "Winner")
+                        {
+                            foreach (Team t in LosingTribes)
+                            {
+                                teams.Remove(t);
+                            }
+                            reason2 = Exiled[0].nickname + " can send someone from the winning tribe to exile";
+                            reason = " is sent to " + island + " by " + Exiled[0].nickname;
+                        }
+                        else
+                        {
+                            foreach (Team t in LosingTribes)
+                            {
+                                if (t != LosingTribes[0])
+                                {
+                                    teams.Remove(t);
+                                }
+                            }
+                            reason2 = Exiled[0].nickname + " can send someone from the losing tribe to exile";
+                            reason = " is sent to " + island + " by " + Exiled[0].nickname;
+                            if (curExile.skipTribal)
+                            {
+                                reason2 += "\n\nThis player will not attend tribal council.";
+                            }
+                        }
+
+                        int rannn = Random.Range(0, LosingTribes[LosingTribes.Count - 1].members.Count);
+
+                        LosingTribes[LosingTribes.Count - 1].members[rannn].team = LosingTribes[LosingTribes.Count - 1].name;
+
+                        Exiled.Add(LosingTribes[LosingTribes.Count - 1].members[rannn]);
+                        g = new List<Contestant>() { LosingTribes[LosingTribes.Count - 1].members[rannn] };
+                        MakeGroup(false, null, "", reason2, LosingTribes[LosingTribes.Count - 1].members[rannn].nickname + reason, g, EpisodeRe.transform.GetChild(0), 20);
+                        LosingTribes[LosingTribes.Count - 1].members.Remove(LosingTribes[LosingTribes.Count - 1].members[rannn]);
                     }
                 }
             }
@@ -2229,6 +2433,7 @@ public class GameManager : MonoBehaviour
             }
         }
         curReward++;
+
         LosingTribes = new List<Team>();
         NextEvent();
     }
@@ -4468,6 +4673,7 @@ public class GameManager : MonoBehaviour
     void MergeTribes()
     {
         bool r = false;
+        OW = false;
         Team lso = new Team();
         //lastThing.SetActive(false);
         foreach (Team tribe in Tribes)
@@ -5090,6 +5296,30 @@ public class GameManager : MonoBehaviour
         AddGM(EpisodeStart, true);
         List<Contestant> w = new List<Contestant>() { winner};
         MakeGroup(false, null, winner.nickname + " Wins Reward!", "", "", w, EpisodeStart.transform.GetChild(0), 20);
+        if (curExile.on && curExile.challenge == "Reward")
+        {
+            if (curExile.on && !curSwap.on)
+            {
+                if (curExile.reason == "Winner")
+                {
+                    List<Contestant> mergeT = new List<Contestant>(MergedTribe.members);
+                    foreach (Contestant num in immune)
+                    {
+                        mergeT.Remove(num);
+                    }
+                    int rann = Random.Range(0, mergeT.Count);
+                    mergeT[rann].team = MergedTribe.name;
+                    Exiled.Add(mergeT[rann]);
+                    w = new List<Contestant>() { mergeT[rann] };
+                    MakeGroup(false, null, "", "", mergeT[rann].nickname + " is sent to exile by the reward winner.", w, EpisodeStart.transform.GetChild(0), 20);
+                    MergedTribe.members.Remove(mergeT[rann]);
+                }
+            }
+            else if (curExile.on && curSwap.on)
+            {
+                Exiled[0].team = LosingTribes[LosingTribes.Count - 1].name;
+            }
+        }
         NextEvent();
     }
     void MergeImmunity()
@@ -5820,7 +6050,19 @@ public class GameManager : MonoBehaviour
 
         int eventCap = 0;
 
-        int eventsNum = Random.Range(0, 5);
+        int eventsNum = Random.Range(1, 5);
+        if(eventsNum == 4)
+        {
+            eventsNum += Random.Range(0, 3);
+        }
+        if(merged)
+        {
+            eventsNum = Random.Range(2, 6);
+            if (eventsNum == 5)
+            {
+                eventsNum += Random.Range(0, 2);
+            }
+        }
 
         /*if(OW)
         {
@@ -6003,6 +6245,7 @@ public class GameManager : MonoBehaviour
                                     {
                                         if (!ContestantEvents.Instance.join)
                                         {
+                                            //Debug.Log("ALLIANCE");
                                             AddAlliance.Add(newAlliance);
                                             team.allianceCount++;
                                             if (OW)
@@ -6097,6 +6340,7 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
+
         }
 
         if (!eventt)
@@ -6256,7 +6500,10 @@ public class GameManager : MonoBehaviour
         MakeGroup(false, null, "placement", "", "", Eliminated, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
         placement = false;
         h = false;
-        
+        TurnOff();
+        h = true;
+        tri = 0;
+        jurt = jury.Count - 1;
     }
     void Statistics()
     {
@@ -6801,6 +7048,7 @@ public class GameManager : MonoBehaviour
     }
     void STribeImmunity()
     {
+        //Debug.Log("worked");
         oneTimeEvents.STribeImmunity();
     }
     void ImmVote()

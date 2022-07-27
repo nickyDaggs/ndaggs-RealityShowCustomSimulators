@@ -179,7 +179,7 @@ public class Contestant : ScriptableObject
                 return targett;
             }
         }
-        Debug.Log("Target");
+        //Debug.Log("Target");
         return target;
     }
 

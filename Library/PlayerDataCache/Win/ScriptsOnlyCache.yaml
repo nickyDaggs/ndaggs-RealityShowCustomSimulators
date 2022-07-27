@@ -126,19 +126,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13112}
     - Class: 114
-      Script: {instanceID: 13146}
+      Script: {instanceID: 13148}
     - Class: 114
-      Script: {instanceID: 13234}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13310}
+      Script: {instanceID: 13312}
     - Class: 114
-      Script: {instanceID: 13440}
+      Script: {instanceID: 13442}
     - Class: 114
-      Script: {instanceID: 13512}
+      Script: {instanceID: 13514}
     - Class: 114
-      Script: {instanceID: 13544}
+      Script: {instanceID: 13546}
     - Class: 114
-      Script: {instanceID: 13558}
+      Script: {instanceID: 13560}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -235,21 +235,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13146}
     - Class: 114
-      Script: {instanceID: 13206}
+      Script: {instanceID: 13148}
     - Class: 114
-      Script: {instanceID: 13234}
+      Script: {instanceID: 13208}
     - Class: 114
-      Script: {instanceID: 13238}
+      Script: {instanceID: 13236}
     - Class: 114
-      Script: {instanceID: 13288}
+      Script: {instanceID: 13240}
     - Class: 114
-      Script: {instanceID: 13526}
+      Script: {instanceID: 13290}
     - Class: 114
-      Script: {instanceID: 13544}
+      Script: {instanceID: 13528}
     - Class: 114
-      Script: {instanceID: 13558}
+      Script: {instanceID: 13546}
     - Class: 114
-      Script: {instanceID: 109188}
+      Script: {instanceID: 13560}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1247,6 +1247,12 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: pageChooseScript
+  - hash:
+      serializedVersion: 2
       Hash: 9933df4228d91d662914f55808bc615e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -1563,12 +1569,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: pageChooseScript
   platform: 5
   scenePathNames:
   - Assets/Scenes/SeasonMenu.unity

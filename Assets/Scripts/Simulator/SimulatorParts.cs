@@ -90,12 +90,12 @@ namespace SeasonParts
     {
         public bool on = false;
         public string reason;
-        public bool ownTribe;
+        public bool ownTribe = false;
         public string exileEvent;
         public string challenge;
-        public bool skipTribal;
-        public bool two;
-        public bool both;
+        public bool skipTribal = false;
+        public bool two = false;
+        public bool both = false;
     }
     [System.Serializable]
     public class Twist
@@ -135,6 +135,10 @@ namespace SeasonParts
         public string IOILesson;
         public List<HiddenAdvantage> options;
         public bool IOISweetened;
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
     [System.Serializable]
     public class Vote

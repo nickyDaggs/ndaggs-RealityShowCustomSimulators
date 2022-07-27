@@ -25,6 +25,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Manihiki Tribe
     tribeColor: {r: 1, g: 0.94509804, b: 0.019607844, a: 1}
     members:
@@ -36,6 +37,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Puka Puka Tribe
     tribeColor: {r: 0.25882354, g: 0.8156863, b: 0.17254902, a: 1}
     members:
@@ -47,6 +49,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Rarotonga Tribe
     tribeColor: {r: 0, g: 0.2784314, b: 0.67058825, a: 1}
     members:
@@ -58,6 +61,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   mergeAt: 9
   jury: 9
   final: 3
@@ -90,6 +94,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Rarotonga Tribe
       tribeColor: {r: 0, g: 0.2784314, b: 0.67058825, a: 1}
       members:
@@ -103,6 +108,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -139,10 +145,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
   idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -202,6 +211,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MultiTribalReward

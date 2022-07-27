@@ -17,7 +17,7 @@ MonoBehaviour:
   gender: F
   team: 
   Age: 0
-  image: {fileID: 21300000, guid: f25e0e76e71695047b3b616206fe3cce, type: 3}
+  image: {fileID: 21300000, guid: 7cd6f75fcc5582847bcff0cbc141dc20, type: 3}
   stats:
     Physical: 3
     Endurance: 3
