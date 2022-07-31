@@ -307,6 +307,16 @@ public class GameManager : MonoBehaviour
             if (timeEvent.type.Contains("MultiTribal") || timeEvent.type == "DoubleElim" || timeEvent.type == "MergeSplit")
             {
                 episodeCount--;
+                if(timeEvent.type.Contains("MultiTribal"))
+                {
+                    if(timeEvent.type == "MultiTribalMultiTeam")
+                    {
+                        episodeCount -= (timeEvent.elim);
+                    } else
+                    {
+                        episodeCount -= (timeEvent.elim - 1);
+                    }
+                }
             }
             if(timeEvent.type == "JurorRemoval")
             {
@@ -321,6 +331,7 @@ public class GameManager : MonoBehaviour
         {
             episodeCount++;
         }
+        //Debug.Log(episodeCount);
         int episodeName = 1;
         int part = 1;
         foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
@@ -869,6 +880,7 @@ public class GameManager : MonoBehaviour
             Episodes.Add(ep);
             Episode epi = new Episode();
             currentSeason.Episodes.Add(epi);
+            
             curCon--;
         }
         EpisodeSetting epp = new EpisodeSetting();
@@ -882,6 +894,7 @@ public class GameManager : MonoBehaviour
         epp.events.Add("FanFavorite");
         epp.events.Add("Placements");
         Episodes.Add(epp);
+        
     }
     public void NextEvent()
     {
@@ -3142,6 +3155,11 @@ public class GameManager : MonoBehaviour
             {
                 team.members.Remove(num);
             }
+            
+            if(targets.Count < 2)
+            {
+                targets.Add(targets.Except(immune).ToList()[Random.Range(0, targets.Except(immune).Count())]);
+            }
 
             MakeGroup(false, null, "", "", etext, new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
             bool voted = Voting();
@@ -4354,7 +4372,8 @@ public class GameManager : MonoBehaviour
                 case "ImmunityNecklace":
                     immune.Add(usedOn);
                     immune.Remove(user);
-                    if(targets.Contains(usedOn))
+                    targets.Remove(user);
+                    if (targets.Contains(usedOn))
                     {
                         targets.Remove(usedOn);
                         targets.Add(user);
@@ -4380,6 +4399,7 @@ public class GameManager : MonoBehaviour
                 case "SafetyWithoutPower":
                     immune.Add(user);
                     Exiled.Add(user);
+                    targets.Remove(user);
                     user.team = team.name;
                     evetext += "\n \n" + user.nickname + " leaves tribal council";
                     break;

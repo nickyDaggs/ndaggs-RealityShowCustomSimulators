@@ -77,8 +77,9 @@ public class Contestant : ScriptableObject
                 Debug.Log(this);
             }
         }
-        
+        targets = targets.Except(targets.FindAll(x => x.safety > 0).ToList()).ToList();
         targets = targets.OrderByDescending(x => value(x)).ToList();
+        
         //Debug.Log("Episode:" + GameManager.Instance.curEp+"targetSize:"+ targets.Count+"TribeSize:"+tribe.Count);
         target = targets[0];
         targetValue = value(targets[0]);
@@ -170,6 +171,7 @@ public class Contestant : ScriptableObject
         
         voteReason = "They voted based on personal preference.";
 
+        
         targets = targets.OrderByDescending(x => value(x)).ToList();
 
         foreach(Contestant targett in targets)

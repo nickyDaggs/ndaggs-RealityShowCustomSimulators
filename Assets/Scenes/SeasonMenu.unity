@@ -18663,8 +18663,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Limited to 24 Contestants
 
-    Must have different tribe names for twists
-    to work properly'
+    MUST HAVE DIFFERENT TRIBE NAMES FOR TWISTS
+    TO WORK PROPERLY'
 --- !u!222 &1086006816
 CanvasRenderer:
   m_ObjectHideFlags: 0

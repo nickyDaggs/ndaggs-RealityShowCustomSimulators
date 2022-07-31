@@ -852,7 +852,7 @@ public class SeasonMenuManager : MonoBehaviour
         //OTEs = OTEs.OrderBy(x => x.GetChild(0).GetComponentInChildren<Dropdown>());
         foreach (Transform child in spEvMenu.eventsParent)
         {
-            if(child.GetChild(2).GetComponent<Button>().interactable == false)
+            if (child.GetChild(2).GetComponent<Button>().interactable == false)
             {
                 Dropdown Round = child.GetChild(0).GetComponentInChildren<Dropdown>();
                 Dropdown Events = child.GetChild(1).GetComponentInChildren<Dropdown>();
@@ -869,6 +869,7 @@ public class SeasonMenuManager : MonoBehaviour
                         break;
                     case "Multi-Tribal(One Tribe Immunity)":
                         ev.type = "MultiTribalMultiTeam";
+                        ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponent<Dropdown>()).Count - 1;
                         break;
                     case "Merge Split":
                         ev.type = "MergeSplit";
@@ -882,9 +883,18 @@ public class SeasonMenuManager : MonoBehaviour
                     case "Do Or Die":
                         ev.type = "DoOrDie";
                         break;
+                    case "Joint Tribal":
+                        ev.type = "JointTribal";
+                        ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponent<Dropdown>()).Count - 1;
+                        break;
                 }
-                ev.round = spEvMenu.RoundsClone.IndexOf(Round.options[Round.value]) + 2;
+                if(ev.type != "MultiTribalMultiTeam" && ev.type.Contains("MultiTribal"))
+                {
+                    ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponent<Dropdown>()).Count;
+                }
                 //Debug.Log("Round:" + ev.round);
+                ev.round = spEvMenu.RoundsClone.IndexOf(Round.options[Round.value]) + 2;
+
                 customSeason.oneTimeEvents.Add(ev);
             }
         }
@@ -1151,7 +1161,7 @@ public class SeasonMenuManager : MonoBehaviour
         editorOptions[7].GetComponent<Button>().interactable = false;
         editorOptions[9].GetComponent<Button>().interactable = true;
         spEvMenu.mergeRound = contestants - customSeason.mergeAt;
-        for (int i = contestants - 1; i > 5; i--)
+        for (int i = contestants; i > 5; i--)
         {
             spEvMenu.Rounds.Add(new Dropdown.OptionData { text = i.ToString() });
             //Debug.Log(i);

@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - Contestant
     - ContestantEvents
     - ExileIsland
+    - ExileMenu
     - FCP_SpriteMeshEditor
     - FlexibleColorPicker
     - GameManager
@@ -17,6 +18,7 @@ ScriptsOnlyBuild:
     - SeasonMenuManager
     - SeasonTemplate
     - SetupLayout
+    - SpecialEventMenu
     - Swaps
     - SwapsMenu
     - UIGroup
@@ -79,69 +81,73 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11302}
+      Script: {instanceID: 12016}
     - Class: 114
-      Script: {instanceID: 11304}
+      Script: {instanceID: 12044}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 12208}
     - Class: 114
-      Script: {instanceID: 11308}
+      Script: {instanceID: 12212}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 12258}
     - Class: 114
-      Script: {instanceID: 11312}
+      Script: {instanceID: 12322}
     - Class: 114
-      Script: {instanceID: 11314}
+      Script: {instanceID: 12374}
     - Class: 114
-      Script: {instanceID: 11336}
+      Script: {instanceID: 12394}
     - Class: 114
-      Script: {instanceID: 11366}
+      Script: {instanceID: 12396}
     - Class: 114
-      Script: {instanceID: 11638}
+      Script: {instanceID: 12616}
     - Class: 114
-      Script: {instanceID: 11710}
+      Script: {instanceID: 12636}
     - Class: 114
-      Script: {instanceID: 11712}
+      Script: {instanceID: 12744}
     - Class: 114
-      Script: {instanceID: 11932}
+      Script: {instanceID: 12776}
     - Class: 114
-      Script: {instanceID: 11952}
+      Script: {instanceID: 12946}
     - Class: 114
-      Script: {instanceID: 12062}
+      Script: {instanceID: 12986}
     - Class: 114
-      Script: {instanceID: 12094}
+      Script: {instanceID: 13136}
     - Class: 114
-      Script: {instanceID: 12264}
+      Script: {instanceID: 13250}
     - Class: 114
-      Script: {instanceID: 12308}
+      Script: {instanceID: 13328}
     - Class: 114
-      Script: {instanceID: 12458}
+      Script: {instanceID: 13362}
     - Class: 114
-      Script: {instanceID: 12572}
+      Script: {instanceID: 13476}
     - Class: 114
-      Script: {instanceID: 12830}
+      Script: {instanceID: 13508}
     - Class: 114
-      Script: {instanceID: 12848}
+      Script: {instanceID: 13516}
     - Class: 114
-      Script: {instanceID: 13046}
+      Script: {instanceID: 13534}
     - Class: 114
-      Script: {instanceID: 13154}
+      Script: {instanceID: 13730}
     - Class: 114
-      Script: {instanceID: 13190}
+      Script: {instanceID: 13838}
     - Class: 114
-      Script: {instanceID: 13278}
+      Script: {instanceID: 13874}
     - Class: 114
-      Script: {instanceID: 13356}
+      Script: {instanceID: 13962}
     - Class: 114
-      Script: {instanceID: 13486}
+      Script: {instanceID: 14040}
     - Class: 114
-      Script: {instanceID: 13558}
+      Script: {instanceID: 14170}
     - Class: 114
-      Script: {instanceID: 13590}
+      Script: {instanceID: 14200}
     - Class: 114
-      Script: {instanceID: 13606}
+      Script: {instanceID: 14244}
     - Class: 114
-      Script: {instanceID: 13624}
+      Script: {instanceID: 14276}
+    - Class: 114
+      Script: {instanceID: 14292}
+    - Class: 114
+      Script: {instanceID: 14310}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -184,75 +190,75 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11302}
+      Script: {instanceID: 12016}
     - Class: 114
-      Script: {instanceID: 11304}
+      Script: {instanceID: 12208}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 12212}
     - Class: 114
-      Script: {instanceID: 11308}
+      Script: {instanceID: 12258}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 12374}
     - Class: 114
-      Script: {instanceID: 11312}
+      Script: {instanceID: 12396}
     - Class: 114
-      Script: {instanceID: 11336}
+      Script: {instanceID: 12616}
     - Class: 114
-      Script: {instanceID: 11712}
+      Script: {instanceID: 12636}
     - Class: 114
-      Script: {instanceID: 11932}
+      Script: {instanceID: 12660}
     - Class: 114
-      Script: {instanceID: 11952}
+      Script: {instanceID: 12744}
     - Class: 114
-      Script: {instanceID: 11976}
+      Script: {instanceID: 12986}
     - Class: 114
-      Script: {instanceID: 12062}
+      Script: {instanceID: 13018}
     - Class: 114
-      Script: {instanceID: 12308}
+      Script: {instanceID: 13028}
     - Class: 114
-      Script: {instanceID: 12340}
+      Script: {instanceID: 13068}
     - Class: 114
-      Script: {instanceID: 12350}
-    - Class: 114
-      Script: {instanceID: 12390}
-    - Class: 114
-      Script: {instanceID: 12478}
-    - Class: 114
-      Script: {instanceID: 12572}
-    - Class: 114
-      Script: {instanceID: 12674}
-    - Class: 114
-      Script: {instanceID: 12686}
-    - Class: 114
-      Script: {instanceID: 12830}
-    - Class: 114
-      Script: {instanceID: 12882}
-    - Class: 114
-      Script: {instanceID: 12970}
-    - Class: 114
-      Script: {instanceID: 13088}
-    - Class: 114
-      Script: {instanceID: 13154}
-    - Class: 114
-      Script: {instanceID: 13188}
-    - Class: 114
-      Script: {instanceID: 13190}
+      Script: {instanceID: 13156}
     - Class: 114
       Script: {instanceID: 13250}
     - Class: 114
-      Script: {instanceID: 13278}
+      Script: {instanceID: 13354}
     - Class: 114
-      Script: {instanceID: 13282}
+      Script: {instanceID: 13362}
     - Class: 114
-      Script: {instanceID: 13334}
+      Script: {instanceID: 13368}
     - Class: 114
-      Script: {instanceID: 13572}
+      Script: {instanceID: 13508}
     - Class: 114
-      Script: {instanceID: 13590}
+      Script: {instanceID: 13516}
     - Class: 114
-      Script: {instanceID: 13606}
+      Script: {instanceID: 13568}
     - Class: 114
-      Script: {instanceID: 13624}
+      Script: {instanceID: 13656}
+    - Class: 114
+      Script: {instanceID: 13772}
+    - Class: 114
+      Script: {instanceID: 13838}
+    - Class: 114
+      Script: {instanceID: 13872}
+    - Class: 114
+      Script: {instanceID: 13874}
+    - Class: 114
+      Script: {instanceID: 13934}
+    - Class: 114
+      Script: {instanceID: 13962}
+    - Class: 114
+      Script: {instanceID: 13966}
+    - Class: 114
+      Script: {instanceID: 14018}
+    - Class: 114
+      Script: {instanceID: 14258}
+    - Class: 114
+      Script: {instanceID: 14276}
+    - Class: 114
+      Script: {instanceID: 14292}
+    - Class: 114
+      Script: {instanceID: 14310}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -270,48 +276,6 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
-  - hash:
-      serializedVersion: 2
-      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: VerticalLayoutGroup
-  - hash:
-      serializedVersion: 2
-      Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: ContentSizeFitter
-  - hash:
-      serializedVersion: 2
-      Hash: 499fd23433e68e265d153aa6b95d0047
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Scrollbar
-  - hash:
-      serializedVersion: 2
-      Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Image
-  - hash:
-      serializedVersion: 2
-      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: HorizontalLayoutGroup
-  - hash:
-      serializedVersion: 2
-      Hash: 783f593b9380cf72d0f7ebfd4a0d4bcd
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: InputField
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -416,10 +380,22 @@ ScriptsOnlyBuild:
     className: AutoCompleteComboBox
   - hash:
       serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: UISoftAdditiveEffect
+  - hash:
+      serializedVersion: 2
+      Hash: 499fd23433e68e265d153aa6b95d0047
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Scrollbar
   - hash:
       serializedVersion: 2
       Hash: 6a759a62776cad3a6ac3dba2a92bf459
@@ -444,6 +420,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: UICircle
+  - hash:
+      serializedVersion: 2
+      Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Image
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -510,6 +492,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: PPIViewer
+  - hash:
+      serializedVersion: 2
+      Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: ContentSizeFitter
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1022,6 +1010,12 @@ ScriptsOnlyBuild:
     className: TiltWindow
   - hash:
       serializedVersion: 2
+      Hash: 0c5925ac64323de330e2ed7fd68678b2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExileMenu
+  - hash:
+      serializedVersion: 2
       Hash: 6ec6cc47f0b4d3d7e0f4c5ee0bae2a8a
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
@@ -1044,6 +1038,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: NonDrawingGraphic
+  - hash:
+      serializedVersion: 2
+      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
       Hash: 69896ab75f6d0b5aad1fe23651fdaed8
@@ -1082,6 +1082,12 @@ ScriptsOnlyBuild:
     className: UIFlippable
   - hash:
       serializedVersion: 2
+      Hash: 783f593b9380cf72d0f7ebfd4a0d4bcd
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: InputField
+  - hash:
+      serializedVersion: 2
       Hash: c9a8b80298a116835b51ba1cf9284367
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1092,6 +1098,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: Gradient
+  - hash:
+      serializedVersion: 2
+      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1226,7 +1238,7 @@ ScriptsOnlyBuild:
     className: TileSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 9de6ebdebc37777753da9503fab76cf3
+      Hash: 5b8309b11f0948bb9d1c4d86d5b06658
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SeasonMenuManager
@@ -1460,6 +1472,12 @@ ScriptsOnlyBuild:
     className: ReorderableListDebug
   - hash:
       serializedVersion: 2
+      Hash: a8d70a83784e866493d08807e2b4a23e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SpecialEventMenu
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -1562,6 +1580,12 @@ ScriptsOnlyBuild:
     className: Toggle
   - hash:
       serializedVersion: 2
+      Hash: 8d7cc66bbc12091ea028667ddbf05d92
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: VotingChart
+  - hash:
+      serializedVersion: 2
       Hash: e5ee43ede19111e51b78dbbe3af736a9
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
@@ -1618,4 +1642,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SeasonMenu.unity
   - Assets/Scenes/Simulator.unity
-  playerPath: C:/Users/Nicky DaGGs/Desktop/RSS(Mac).app
+  playerPath: C:/Users/nicky/Downloads/SCS(Mac).app
