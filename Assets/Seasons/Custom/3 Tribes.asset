@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 3 Tribes
   m_EditorClassIdentifier: 
   nameSeason: Survivor:Gaming Island
+  seasonImage: {fileID: 0}
   Tribes:
   - name: Switch Tribe
     tribeColor: {r: 1, g: 0, b: 0, a: 1}
@@ -37,6 +38,7 @@ MonoBehaviour:
       IOISweetened: 0
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Xbox Tribe
     tribeColor: {r: 0.20867634, g: 1, b: 0, a: 1}
     members:
@@ -60,6 +62,7 @@ MonoBehaviour:
       IOISweetened: 0
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Playstation Tribe
     tribeColor: {r: 0, g: 0.19270587, b: 1, a: 1}
     members:
@@ -83,6 +86,7 @@ MonoBehaviour:
       IOISweetened: 0
     remove: 0
     allianceCount: 0
+    environment: 3
   mergeAt: 11
   jury: 7
   final: 2
@@ -138,6 +142,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -150,6 +155,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -174,10 +180,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
   idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -213,6 +222,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: JointTribal

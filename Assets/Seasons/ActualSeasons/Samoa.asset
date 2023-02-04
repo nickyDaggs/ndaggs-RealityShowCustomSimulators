@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Samoa
   m_EditorClassIdentifier: 
   nameSeason: Survivor Samoa
+  seasonImage: {fileID: 21300000, guid: 4f32c76ce01cbff469e758cd92f71882, type: 3}
   Tribes:
   - name: Foa Foa Tribe
     tribeColor: {r: 1, g: 0.88235295, b: 0.019607844, a: 1}
@@ -201,7 +202,7 @@ MonoBehaviour:
   - type: MultiTribalReward
     context: 
     round: 6
-    elim: 0
+    elim: 2
   - type: FirstImpressions
     context: Leaders
     round: 1

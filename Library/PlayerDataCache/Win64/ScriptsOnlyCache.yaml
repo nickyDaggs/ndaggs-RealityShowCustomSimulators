@@ -21,8 +21,10 @@ ScriptsOnlyBuild:
     - SpecialEventMenu
     - Swaps
     - SwapsMenu
+    - TribalScript
     - UIGroup
     - UnityEngine.UI.Extensions.FlowLayoutGroup
+    - WebGLSupport.WebGLInput
     - customConScript
     - loadingAnimation
     - pageChooseScript
@@ -53,6 +55,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.InputField
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Mask
+    - UnityEngine.UI.Outline
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
@@ -81,73 +84,77 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 12016}
+      Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 12044}
+      Script: {instanceID: 11310}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 11312}
     - Class: 114
-      Script: {instanceID: 12212}
+      Script: {instanceID: 11314}
     - Class: 114
-      Script: {instanceID: 12258}
+      Script: {instanceID: 11316}
     - Class: 114
-      Script: {instanceID: 12322}
+      Script: {instanceID: 11318}
     - Class: 114
-      Script: {instanceID: 12374}
+      Script: {instanceID: 11320}
     - Class: 114
-      Script: {instanceID: 12394}
+      Script: {instanceID: 11322}
     - Class: 114
-      Script: {instanceID: 12396}
+      Script: {instanceID: 11344}
     - Class: 114
-      Script: {instanceID: 12616}
+      Script: {instanceID: 11374}
     - Class: 114
-      Script: {instanceID: 12636}
+      Script: {instanceID: 11422}
     - Class: 114
-      Script: {instanceID: 12744}
+      Script: {instanceID: 11650}
     - Class: 114
-      Script: {instanceID: 12776}
+      Script: {instanceID: 11722}
     - Class: 114
-      Script: {instanceID: 12946}
+      Script: {instanceID: 11724}
     - Class: 114
-      Script: {instanceID: 12986}
+      Script: {instanceID: 11946}
     - Class: 114
-      Script: {instanceID: 13136}
+      Script: {instanceID: 11966}
     - Class: 114
-      Script: {instanceID: 13250}
+      Script: {instanceID: 12076}
     - Class: 114
-      Script: {instanceID: 13328}
+      Script: {instanceID: 12108}
     - Class: 114
-      Script: {instanceID: 13362}
+      Script: {instanceID: 12278}
     - Class: 114
-      Script: {instanceID: 13476}
+      Script: {instanceID: 12472}
     - Class: 114
-      Script: {instanceID: 13508}
+      Script: {instanceID: 12662}
     - Class: 114
-      Script: {instanceID: 13516}
+      Script: {instanceID: 12812}
     - Class: 114
-      Script: {instanceID: 13534}
+      Script: {instanceID: 12852}
     - Class: 114
-      Script: {instanceID: 13730}
+      Script: {instanceID: 12870}
     - Class: 114
-      Script: {instanceID: 13838}
+      Script: {instanceID: 13072}
     - Class: 114
-      Script: {instanceID: 13874}
+      Script: {instanceID: 13180}
     - Class: 114
-      Script: {instanceID: 13962}
+      Script: {instanceID: 13216}
     - Class: 114
-      Script: {instanceID: 14040}
+      Script: {instanceID: 13304}
     - Class: 114
-      Script: {instanceID: 14170}
+      Script: {instanceID: 13382}
     - Class: 114
-      Script: {instanceID: 14200}
+      Script: {instanceID: 13512}
     - Class: 114
-      Script: {instanceID: 14244}
+      Script: {instanceID: 13542}
     - Class: 114
-      Script: {instanceID: 14276}
+      Script: {instanceID: 13560}
     - Class: 114
-      Script: {instanceID: 14292}
+      Script: {instanceID: 13586}
     - Class: 114
-      Script: {instanceID: 14310}
+      Script: {instanceID: 13618}
+    - Class: 114
+      Script: {instanceID: 13634}
+    - Class: 114
+      Script: {instanceID: 13654}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -190,75 +197,77 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 12016}
+      Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 11310}
     - Class: 114
-      Script: {instanceID: 12212}
+      Script: {instanceID: 11312}
     - Class: 114
-      Script: {instanceID: 12258}
+      Script: {instanceID: 11314}
     - Class: 114
-      Script: {instanceID: 12374}
+      Script: {instanceID: 11316}
     - Class: 114
-      Script: {instanceID: 12396}
+      Script: {instanceID: 11318}
     - Class: 114
-      Script: {instanceID: 12616}
+      Script: {instanceID: 11320}
     - Class: 114
-      Script: {instanceID: 12636}
+      Script: {instanceID: 11322}
     - Class: 114
-      Script: {instanceID: 12660}
+      Script: {instanceID: 11344}
     - Class: 114
-      Script: {instanceID: 12744}
+      Script: {instanceID: 11724}
     - Class: 114
-      Script: {instanceID: 12986}
+      Script: {instanceID: 11946}
     - Class: 114
-      Script: {instanceID: 13018}
+      Script: {instanceID: 11966}
     - Class: 114
-      Script: {instanceID: 13028}
+      Script: {instanceID: 11990}
     - Class: 114
-      Script: {instanceID: 13068}
+      Script: {instanceID: 12076}
     - Class: 114
-      Script: {instanceID: 13156}
+      Script: {instanceID: 12330}
     - Class: 114
-      Script: {instanceID: 13250}
+      Script: {instanceID: 12354}
     - Class: 114
-      Script: {instanceID: 13354}
+      Script: {instanceID: 12364}
     - Class: 114
-      Script: {instanceID: 13362}
+      Script: {instanceID: 12404}
     - Class: 114
-      Script: {instanceID: 13368}
+      Script: {instanceID: 12492}
     - Class: 114
-      Script: {instanceID: 13508}
+      Script: {instanceID: 12688}
     - Class: 114
-      Script: {instanceID: 13516}
+      Script: {instanceID: 12700}
     - Class: 114
-      Script: {instanceID: 13568}
+      Script: {instanceID: 12852}
     - Class: 114
-      Script: {instanceID: 13656}
+      Script: {instanceID: 12904}
     - Class: 114
-      Script: {instanceID: 13772}
+      Script: {instanceID: 12994}
     - Class: 114
-      Script: {instanceID: 13838}
+      Script: {instanceID: 13114}
     - Class: 114
-      Script: {instanceID: 13872}
+      Script: {instanceID: 13180}
     - Class: 114
-      Script: {instanceID: 13874}
+      Script: {instanceID: 13214}
     - Class: 114
-      Script: {instanceID: 13934}
+      Script: {instanceID: 13216}
     - Class: 114
-      Script: {instanceID: 13962}
+      Script: {instanceID: 13276}
     - Class: 114
-      Script: {instanceID: 13966}
+      Script: {instanceID: 13304}
     - Class: 114
-      Script: {instanceID: 14018}
+      Script: {instanceID: 13308}
     - Class: 114
-      Script: {instanceID: 14258}
+      Script: {instanceID: 13360}
     - Class: 114
-      Script: {instanceID: 14276}
+      Script: {instanceID: 13600}
     - Class: 114
-      Script: {instanceID: 14292}
+      Script: {instanceID: 13618}
     - Class: 114
-      Script: {instanceID: 14310}
+      Script: {instanceID: 13634}
+    - Class: 114
+      Script: {instanceID: 13654}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -276,6 +285,54 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
+  - hash:
+      serializedVersion: 2
+      Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 5f1752ed2092162f016c19510c28a8b9
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: ContentSizeFitter
+  - hash:
+      serializedVersion: 2
+      Hash: 499fd23433e68e265d153aa6b95d0047
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Scrollbar
+  - hash:
+      serializedVersion: 2
+      Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -324,6 +381,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions.ColorPicker
     className: ColorPickerControl
+  - hash:
+      serializedVersion: 2
+      Hash: 46a27c3ac99977c52eed83a18e9e94aa
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: WebGLSupport
+    className: WebGLInput
   - hash:
       serializedVersion: 2
       Hash: 1f6de46a6225b7053f786cd5b60a8dc1
@@ -380,22 +443,10 @@ ScriptsOnlyBuild:
     className: AutoCompleteComboBox
   - hash:
       serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: UISoftAdditiveEffect
-  - hash:
-      serializedVersion: 2
-      Hash: 499fd23433e68e265d153aa6b95d0047
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Scrollbar
   - hash:
       serializedVersion: 2
       Hash: 6a759a62776cad3a6ac3dba2a92bf459
@@ -420,12 +471,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: UICircle
-  - hash:
-      serializedVersion: 2
-      Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Image
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -494,12 +539,6 @@ ScriptsOnlyBuild:
     className: PPIViewer
   - hash:
       serializedVersion: 2
-      Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: ContentSizeFitter
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -512,7 +551,7 @@ ScriptsOnlyBuild:
     className: LayoutElement
   - hash:
       serializedVersion: 2
-      Hash: 7623620d8d54c9fd0caa18a0df605a64
+      Hash: 9bf739e3291ba9372d59dfb19251663c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SeasonTemplate
@@ -632,7 +671,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 1ba9087377b59acc4a6dbd168166bb70
+      Hash: 4402792522ec2c9411c25b65e23de049
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Contestant
@@ -782,10 +821,10 @@ ScriptsOnlyBuild:
     className: TabNavigationHelper
   - hash:
       serializedVersion: 2
-      Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: ScrollRect
+      Hash: 40fab7287cffc6e4114e51345ccef0e4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TribalScript
   - hash:
       serializedVersion: 2
       Hash: b2094546ca2b3f38f928fd55bea1b188
@@ -860,7 +899,7 @@ ScriptsOnlyBuild:
     className: TextPic
   - hash:
       serializedVersion: 2
-      Hash: 860edf74c3ce75fbab0e62696b697317
+      Hash: 8837a191f72c9d19b8c7f6d9b8b66ca9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -980,12 +1019,6 @@ ScriptsOnlyBuild:
     className: UIGridRenderer
   - hash:
       serializedVersion: 2
-      Hash: 5f1752ed2092162f016c19510c28a8b9
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Button
-  - hash:
-      serializedVersion: 2
       Hash: 59527166f60be76e5f83f2c45788300b
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
@@ -1040,16 +1073,16 @@ ScriptsOnlyBuild:
     className: NonDrawingGraphic
   - hash:
       serializedVersion: 2
-      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: VerticalLayoutGroup
-  - hash:
-      serializedVersion: 2
       Hash: 69896ab75f6d0b5aad1fe23651fdaed8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ContestantEvents
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: WebGLSupport
+    className: WebGLInputMobile
   - hash:
       serializedVersion: 2
       Hash: 7bb02911a4e04d0ebc77cfe0d5bdb3d2
@@ -1098,12 +1131,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine.UI.Extensions
     className: Gradient
-  - hash:
-      serializedVersion: 2
-      Hash: 5ad4aa237d47ac2bab17bacb672edf7a
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1238,7 +1265,7 @@ ScriptsOnlyBuild:
     className: TileSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 5b8309b11f0948bb9d1c4d86d5b06658
+      Hash: cbcdf54e744e27d830e9f6a1fd6143c9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SeasonMenuManager
@@ -1642,4 +1669,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SeasonMenu.unity
   - Assets/Scenes/Simulator.unity
-  playerPath: C:/Users/nicky/Downloads/SurvivorCustomSim/ndaggs-RealityShowSimulators.exe
+  playerPath: C:/Users/Nicky DaGGs/Desktop/RealityShowSimulators/ndaggs-RealityShowSimulators.exe

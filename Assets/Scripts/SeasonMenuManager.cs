@@ -56,6 +56,7 @@ public class SeasonMenuManager : MonoBehaviour
     public SpecialEventMenu spEvMenu;
     public ExileMenu ExileMenu;
     public List<GameObject> editorOptions;
+    public List<GameObject> twistOptions;
     public List<GameObject> UIParts;
     public List<GameObject> swapUIOptions;
     public List<GameObject> exileUIOptions;
@@ -72,6 +73,9 @@ public class SeasonMenuManager : MonoBehaviour
     public GameObject editorTrueParent;
     public GameObject castEditor;
     public GameObject contestantPrefab;
+    public Text editorError;
+    public Button menuBackButton;
+    public GameObject castBackCustom;
 
     public Transform PMAdvParent;
     public Transform MAdvParent;
@@ -83,10 +87,12 @@ public class SeasonMenuManager : MonoBehaviour
     float ogY;
     float tribes;
     public int contestants;
+    public int contestantsFull;
     int conLimit = 33;
     int mergeLimit = 5;
     int minCon = 0;
     bool part1 = false;
+    public int customStage = 1;
 
     public List<Advantage> advantages;
 
@@ -111,6 +117,7 @@ public class SeasonMenuManager : MonoBehaviour
         editorOptions[3].GetComponent<Dropdown>().onValueChanged.AddListener(delegate { ChooseReturningPlayers(editorOptions[3].GetComponent<Dropdown>()); }) ;
         editorOptions[4].GetComponent<InputField>().onEndEdit.AddListener(SubmitMergeAmount);
         editorOptions[5].GetComponent<InputField>().onEndEdit.AddListener(SubmitJuryAmount);
+        confirms[0].onClick.AddListener(Confirm1);
         //editorOptions[7].GetComponent<InputField>().onEndEdit.AddListener(SubmitSwapAmount);
         //editorOptions[4].GetComponent<InputField>().interactable = false;
         //editorOptions[5].GetComponent<InputField>().interactable = false;
@@ -128,7 +135,15 @@ public class SeasonMenuManager : MonoBehaviour
         {
             int num = i;
             buttonParent.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() => PresetCastEdit(num));
-            buttonParent.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = seasons[num].nameSeason;
+            if (seasons[num].seasonImage == null)
+            {
+                buttonParent.transform.GetChild(i).GetChild(1).GetComponent<Image>().enabled = false;
+                buttonParent.transform.GetChild(i).GetChild(0).GetComponent<Text>().text = seasons[num].nameSeason;
+            }
+            else
+            {
+                buttonParent.transform.GetChild(i).GetChild(1).GetComponent<Image>().sprite = seasons[num].seasonImage;
+            }
         }
         allContestants = GetAllInstances<Contestant>().ToList();
 
@@ -138,6 +153,8 @@ public class SeasonMenuManager : MonoBehaviour
         curPMAdv.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmPMAdv);
         curMAdv = MAdvParent.GetChild(0).gameObject;
         curMAdv.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmMAdv);
+        //trashpremergeRounds = new List<Dropdown.OptionData> {new Dropdown.OptionData("22"), new Dropdown.OptionData("21"), new Dropdown.OptionData("20"), new Dropdown.OptionData("19"), new Dropdown.OptionData("18") };
+        //spEvMenu.StartSpecial();
     }
 
     private void Update()
@@ -196,12 +213,19 @@ public class SeasonMenuManager : MonoBehaviour
     }
     public void StartSeason(int season)
     {
+        //customSeason = new SeasonTemplate();
+        //customSeason.final = editorOptions[2].GetComponent<Dropdown>().value;
         Cast cust = new Cast();
         foreach (Dropdown dropdown in castEditor.transform.GetComponentsInChildren<Dropdown>())
         {
             if(dropdown.transform.parent.GetComponent<customConScript>().custom)
             {
                 cust.cast.Add(CreateContestant(dropdown.transform.parent.GetComponent<customConScript>()));
+                if(cust.cast[cust.cast.Count - 1].fullname == "" || cust.cast[cust.cast.Count - 1].nickname == "")
+                {
+                    editorError.text = "CONTESTANT NAMES MUST BE FILLED OUT FULLY";
+                    return;
+                }
             } else
             {
                 cust.cast.Add(allContestants[dropdown.value]);
@@ -209,8 +233,10 @@ public class SeasonMenuManager : MonoBehaviour
         }
         if (cust.cast.Count != cust.cast.Distinct().Count())
         {
+            editorError.text = "NO DUPLICATE CONTESTANTS";
             return;
         }
+
         bool custom = false;
         foreach (Option opt in options)
         {
@@ -248,19 +274,15 @@ public class SeasonMenuManager : MonoBehaviour
                         }
                         foreach(HiddenAdvantage hid in tribe.hiddenAdvantages)
                         {
-                            if (hid.advantage.type == "HiddenImmunityIdol")
-                            {
-
-                                hid.name = tribe.name + " Hidden Immunity Idol";
-                            }
+                            hid.name = tribe.name + " " + hid.advantage.nickname;
                         }
                     }
                     
                     
                     CreateSwaps();
                     CreateSpEv();
-                    customSeason.MergeTribeName = editorOptions[6].transform.GetChild(1).GetComponent<InputField>().text;
-                    customSeason.MergeTribeColor = editorOptions[6].transform.GetChild(4).GetComponent<FlexibleColorPicker>().color;
+                    customSeason.MergeTribeName = editorOptions[10].transform.GetChild(1).GetComponent<InputField>().text;
+                    customSeason.MergeTribeColor = editorOptions[10].transform.GetChild(4).GetComponent<FlexibleColorPicker>().color;
                     foreach(HiddenAdvantage hid in customSeason.mergeHiddenAdvantages)
                     {
                         if (hid.advantage.type == "HiddenImmunityIdol")
@@ -325,6 +347,42 @@ public class SeasonMenuManager : MonoBehaviour
                 
             }
         }
+        if(custom)
+        {
+
+            List<string> names = new List<string>();
+            foreach(Team tribe in customSeason.Tribes)
+            {
+                if(!names.Contains(tribe.name))
+                {
+                    names.Add(tribe.name);
+                } else
+                {
+                    editorError.text = "NO DUPLICATE TRIBE NAMES";
+                    return;
+                }
+            }
+            foreach(TribeSwap swap in customSeason.swaps)
+            {
+                if(swap.newTribes.Count > 0)
+                {
+                    names = new List<string>();
+                    foreach (Team tribe in swap.newTribes)
+                    {
+                        if (!names.Contains(tribe.name) || tribe.name == "same" || tribe.name == "Same")
+                        {
+                            names.Add(tribe.name);
+                        }
+                        else
+                        {
+                            editorError.text = "NO DUPLICATE SWAP TRIBE NAMES";
+                            return;
+                        }
+                    }
+                }
+                
+            }
+        }
         curSeason = seasons[season];
         curCast = cust;
         SceneManager.LoadScene(1);
@@ -382,8 +440,8 @@ public class SeasonMenuManager : MonoBehaviour
                     {
                         //ySize += 10;
                     }
-                    editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + ySize);
-                    newY = editorParent.sizeDelta.y;
+                    //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + ySize);
+                    //newY = editorParent.sizeDelta.y;
                 }
             }
 
@@ -405,15 +463,15 @@ public class SeasonMenuManager : MonoBehaviour
                 {
                     float ySize = size.GetComponent<RectTransform>().sizeDelta.y;
 
-                    editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY - ySize);
-                    newY = editorParent.sizeDelta.y;
+                    //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY - ySize);
+                    //newY = editorParent.sizeDelta.y;
                     Destroy(size);
                 }
 
             }
             if (num - tribeSizeParent.transform.childCount > 0)
             {
-                editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + 10);
+                //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + 10);
             }
             StartCoroutine(ABC());
 
@@ -501,8 +559,8 @@ public class SeasonMenuManager : MonoBehaviour
 
     public void AddSwap()
     {
-        ogSwapY = editorParent.sizeDelta.y;
-        Debug.Log(ogSwapY);
+        //ogSwapY = editorParent.sizeDelta.y;
+        //Debug.Log(ogSwapY);
         if (SwapsMenu.Instance.CurSwap != null)
         {
             
@@ -533,7 +591,10 @@ public class SeasonMenuManager : MonoBehaviour
                 {
                     foreach (InputField inputFieldd in inputField.GetComponentsInChildren<InputField>())
                     {
-                        inputFieldd.interactable = false;
+                        if (inputFieldd.gameObject.name != "InputFieldTribe")
+                        {
+                            inputFieldd.interactable = false;
+                        }
                     }
                 }
                 inputField.interactable = false;
@@ -576,8 +637,8 @@ public class SeasonMenuManager : MonoBehaviour
         {
             swapOpt.RemoveAt(6);
         }*/
-        editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, editorParent.sizeDelta.y + 150);
-        ogSwapY = editorParent.sizeDelta.y;
+        //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, editorParent.sizeDelta.y + 150);
+        //ogSwapY = editorParent.sizeDelta.y;
         swap.transform.GetChild(1).GetComponent<Dropdown>().options = swapOpt;
         SwapsMenu.Instance.CurSwap = swap;
         SwapsMenu.Instance.swapAt = swap.transform.GetChild(0).GetComponent<Dropdown>();
@@ -761,11 +822,21 @@ public class SeasonMenuManager : MonoBehaviour
         backButton.SetActive(true);
         //Debug.Log(castEditor.transform.parent.parent.gameObject.name);
         castEditor.transform.parent.parent.gameObject.SetActive(true);
+        castBackCustom.SetActive(true);
+        int curTribe = 0;
+        int curCont = 0;
         for(int i = 0; i < contestants; i++)
         {
             GameObject obj = Instantiate(contestantPrefab, castEditor.transform);
             obj.GetComponentInChildren<Dropdown>().options = everyContestant;
             obj.GetComponentInChildren<Dropdown>().value = i;
+            obj.transform.GetChild(3).GetComponent<Image>().color = customSeason.Tribes[curTribe].tribeColor;
+            curCont++;
+            if(curCont >= customSeason.Tribes[curTribe].members.Count)
+            {
+                curTribe++;
+                curCont = 0;
+            }
         } 
     }
 
@@ -869,7 +940,7 @@ public class SeasonMenuManager : MonoBehaviour
                         break;
                     case "Multi-Tribal(One Tribe Immunity)":
                         ev.type = "MultiTribalMultiTeam";
-                        ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponent<Dropdown>()).Count - 1;
+                        ev.elim = 1;
                         break;
                     case "Merge Split":
                         ev.type = "MergeSplit";
@@ -885,15 +956,15 @@ public class SeasonMenuManager : MonoBehaviour
                         break;
                     case "Joint Tribal":
                         ev.type = "JointTribal";
-                        ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponent<Dropdown>()).Count - 1;
+                        ev.elim = 1;//SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponentInChildren<Dropdown>()).Count - 1;
                         break;
                 }
                 if(ev.type != "MultiTribalMultiTeam" && ev.type.Contains("MultiTribal"))
                 {
-                    ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponent<Dropdown>()).Count;
+                    ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponentInChildren<Dropdown>()).Count;
                 }
                 //Debug.Log("Round:" + ev.round);
-                ev.round = spEvMenu.RoundsClone.IndexOf(Round.options[Round.value]) + 2;
+                ev.round = spEvMenu.RoundsClone.IndexOf(Round.options[Round.value]) + 1;
 
                 customSeason.oneTimeEvents.Add(ev);
             }
@@ -993,12 +1064,25 @@ public class SeasonMenuManager : MonoBehaviour
         buttonParent.SetActive(false);
         options[2].button.SetActive(false);
         backButton.SetActive(true);
+        castBackCustom.gameObject.SetActive(false);
+
         castEditor.transform.parent.parent.gameObject.SetActive(true);
+
+        int curTribe = 0;
+        int curCont = 0;
         for (int i = 0; i < casts[season].cast.Count; i++)
         {
             GameObject obj = Instantiate(contestantPrefab, castEditor.transform);
             obj.GetComponentInChildren<Dropdown>().options = everyContestant;
             obj.GetComponentInChildren<Dropdown>().value = allContestants.IndexOf(casts[season].cast[i]);
+            //seasons[season]
+            obj.transform.GetChild(3).GetComponent<Image>().color = seasons[season].Tribes[curTribe].tribeColor;
+            curCont++;
+            if (curCont >= seasons[season].Tribes[curTribe].members.Count)
+            {
+                curTribe++;
+                curCont = 0;
+            }
         }
         playSimButton.onClick.AddListener(() => StartSeason(season));
     }
@@ -1007,21 +1091,25 @@ public class SeasonMenuManager : MonoBehaviour
     {
         foreach(GameObject obj in editorOptions)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in UIParts)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in swapUIOptions)
         {
             obj.SetActive(!obj.activeSelf);
         }
+        foreach (GameObject obj in twistOptions)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
         swapUIOptions[2].GetComponent<Button>().interactable = !swapUIOptions[2].GetComponent<Button>().interactable;
         swapUIOptions[1].GetComponentInChildren<Button>().interactable = !swapUIOptions[1].GetComponentInChildren<Button>().interactable;
-
+        confirms[0].gameObject.SetActive(!confirms[0].gameObject.activeSelf);
         editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
-
+        menuBackButton.gameObject.SetActive(!menuBackButton.gameObject.activeSelf);
         StartCoroutine(ABC());
     }
 
@@ -1029,18 +1117,24 @@ public class SeasonMenuManager : MonoBehaviour
     {
         foreach (GameObject obj in editorOptions)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in UIParts)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in exileUIOptions)
         {
             obj.SetActive(!obj.activeSelf);
         }
+        foreach (GameObject obj in twistOptions)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
         //swapUIOptions[2].GetComponent<Button>().interactable = !swapUIOptions[2].GetComponent<Button>().interactable;
         //swapUIOptions[1].GetComponentInChildren<Button>().interactable = !swapUIOptions[1].GetComponentInChildren<Button>().interactable;
+        menuBackButton.gameObject.SetActive(!menuBackButton.gameObject.activeSelf);
+        confirms[0].gameObject.SetActive(!confirms[0].gameObject.activeSelf);
 
         editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
 
@@ -1051,40 +1145,49 @@ public class SeasonMenuManager : MonoBehaviour
     {
         foreach (GameObject obj in editorOptions)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in UIParts)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in hidAdvUIOptions)
         {
             obj.SetActive(!obj.activeSelf);
         }
-
+        foreach (GameObject obj in twistOptions)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
+        menuBackButton.gameObject.SetActive(!menuBackButton.gameObject.activeSelf);
         editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
-
+        confirms[0].gameObject.SetActive(!confirms[0].gameObject.activeSelf);
         StartCoroutine(ABC());
     }
 
     public void EnableSpEvent()
     {
-        
+        //confirms[0].gameObject.SetActive(false);
         foreach (GameObject obj in editorOptions)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in UIParts)
         {
-            obj.SetActive(!obj.activeSelf);
+            //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in spEvUIOptions)
         {
             obj.SetActive(!obj.activeSelf);
         }
+        foreach (GameObject obj in twistOptions)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
+        menuBackButton.gameObject.SetActive(!menuBackButton.gameObject.activeSelf);
         //swapUIOptions[2].GetComponent<Button>().interactable = !swapUIOptions[2].GetComponent<Button>().interactable;
         //swapUIOptions[1].GetComponentInChildren<Button>().interactable = !swapUIOptions[1].GetComponentInChildren<Button>().interactable;
-
+        confirms[0].gameObject.SetActive(!confirms[0].gameObject.activeSelf);
         editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
 
         StartCoroutine(ABC());
@@ -1102,32 +1205,53 @@ public class SeasonMenuManager : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+    public void BackCastCustom()
+    {
+        editorTrueParent.SetActive(true);
+        buttonParent.SetActive(false);
+        options[2].button.SetActive(true);
+        backButton.SetActive(false);
+        castEditor.transform.parent.parent.gameObject.SetActive(false);
+        foreach (Transform child in castEditor.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 
     public void Confirm1()
     {
         if(contestants > 8)
         {
-            confirms[0].interactable = false;
+            
             //editorOptions[0].GetComponent<InputField>().interactable = false;
             editorOptions[1].GetComponent<InputField>().interactable = false;
             editorOptions[2].GetComponent<Dropdown>().interactable = false;
             editorOptions[3].GetComponent<Dropdown>().interactable = false;
             foreach (InputField input in tribeSizeParent.GetComponentsInChildren<InputField>())
             {
-                input.interactable = false;
+                if(input.gameObject.name != "InputFieldTribe")
+                {
+                    input.interactable = false;
+                }
             }
+            
             editorOptions[4].GetComponent<InputField>().interactable = true;
             editorOptions[5].GetComponent<InputField>().interactable = true;
-            confirms[1].interactable = true;
+            //confirms[1].interactable = true;
             foreach (Transform child in tribeSizeParent.transform)
             {
                 int num = int.Parse(child.GetChild(3).GetComponent<InputField>().text);
 
-                Team tribe = new Team() {members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)])};
+                Team tribe = new Team() {members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)]), tribeColor = child.GetChild(4).GetComponent<FlexibleColorPicker>().color };
                 //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
                 customSeason.Tribes.Add(tribe);
             }
-            
+            contestantsFull = contestants;
+            customStage++;
+            menuBackButton.interactable = true;
+            confirms[0].onClick.RemoveAllListeners();
+            confirms[0].onClick.AddListener(Confirm2);
+            confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your current choices and be able to edit/add custom swaps and twists.";
         }
         
     }
@@ -1135,13 +1259,29 @@ public class SeasonMenuManager : MonoBehaviour
     {
         if (customSeason.mergeAt != 0 && customSeason.jury != 0)
         {
-            confirms[1].interactable = false;
-            confirms[2].interactable = true;
-            editorOptions[4].GetComponent<InputField>().interactable = false;
-            editorOptions[5].GetComponent<InputField>().interactable = false;
-            editorOptions[7].GetComponent<Button>().interactable = true;
+            //confirms[1].interactable = false;
+            //confirms[2].interactable = true;
+            //editorOptions[1].GetComponent<InputField>().interactable = false;
+            //editorOptions[2].GetComponent<Dropdown>().interactable = false;
+            //editorOptions[3].GetComponent<Dropdown>().interactable = false;
+            //editorOptions[4].GetComponent<InputField>().interactable = false;
+            //editorOptions[5].GetComponent<InputField>().interactable = false;
+            foreach (GameObject opt in UIParts)
+            {
+                if (opt != confirms[0].gameObject)
+                {
+                    opt.SetActive(false);
+                }
+            }
+            twistOptions[0].GetComponent<Button>().interactable = true;
+            foreach (GameObject obj in twistOptions)
+            {
+                obj.SetActive(true);
+                
+            }
+            
             //editorOptions[9].GetComponent<Button>().interactable = true;
-            for (int i = (int)customSeason.mergeAt + 1; i < contestants; i++)
+            for (int i = (int)customSeason.mergeAt + 1; i < contestantsFull; i++)
             {
                 premergeRounds.Add(new Dropdown.OptionData { text = i.ToString() });
                 //Debug.Log(i);
@@ -1151,16 +1291,22 @@ public class SeasonMenuManager : MonoBehaviour
             {
                 editorOptions[7].GetComponent<Button>().interactable = false;
             }
-            
+            customStage++;
+            confirms[0].onClick.RemoveAllListeners();
+            confirms[0].onClick.AddListener(Confirm3);
+            confirms[0].gameObject.SetActive(true);
+            confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your swaps and be able to edit the special events.\nHit the cast button to finish editing twists and set up your cast for the season.";
+            menuBackButton.GetComponentsInChildren<Text>()[1].text = "If you go back, your swaps and custom advantages will be DELETED.";
         }
     }
     public void Confirm3()
     {
-        confirms[2].interactable = false;
-        confirms[3].interactable = true;
-        editorOptions[7].GetComponent<Button>().interactable = false;
-        editorOptions[9].GetComponent<Button>().interactable = true;
+        //confirms[2].interactable = false;
+        //confirms[3].interactable = true;
+        editorOptions[6].GetComponent<Button>().interactable = false;
+        editorOptions[7].GetComponent<Button>().interactable = true;
         spEvMenu.mergeRound = contestants - customSeason.mergeAt;
+        
         for (int i = contestants; i > 5; i--)
         {
             spEvMenu.Rounds.Add(new Dropdown.OptionData { text = i.ToString() });
@@ -1177,19 +1323,120 @@ public class SeasonMenuManager : MonoBehaviour
                 spEvMenu.Rounds.Remove(spEvMenu.Rounds.Find(x => x.text == (swapAt + i).ToString()));
             }
         }
-        
+        customStage++;
         spEvMenu.StartSpecial();
-
+        confirms[0].onClick.RemoveAllListeners();
+        confirms[0].onClick.AddListener(Confirm4);
+        twistOptions[4].GetComponent<Button>().interactable = true;
+        confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your special events and be able to edit the other twists.\nHit the cast button to finish editing twists and set up your cast for the season.";
+        menuBackButton.GetComponentsInChildren<Text>()[1].text = "If you go back, your special events will be DELETED.";
     }
     public void Confirm4()
     {
-        confirms[3].interactable = false;
+        //confirms[3].interactable = false;
+        editorOptions[7].GetComponent<Button>().interactable = false;
         editorOptions[8].GetComponent<Button>().interactable = true;
-        editorOptions[9].GetComponent<Button>().interactable = false;
-        editorOptions[10].GetComponent<Button>().interactable = true;
+        editorOptions[9].GetComponent<Button>().interactable = true;
+        //editorOptions[10].GetComponent<Button>().interactable = true;
         //spEvMenu.mergeRound = contestants - customSeason.mergeAt;
+        confirms[0].interactable = false;
+        confirms[0].GetComponentsInChildren<Text>()[1].text = "Hit the cast button to finish editing twists and set up your cast for the season.";
+        menuBackButton.GetComponentsInChildren<Text>()[1].text = "";
+        customStage++;
+    }
+
+    public void customBack()
+    {
+        customStage--;
+        switch (customStage + 1)
+        {
+            case 2:
+                customSeason.Tribes = new List<Team>();
+                editorOptions[1].GetComponent<InputField>().interactable = true;
+                editorOptions[2].GetComponent<Dropdown>().interactable = true;
+                editorOptions[3].GetComponent<Dropdown>().interactable = true;
+                foreach (InputField input in tribeSizeParent.GetComponentsInChildren<InputField>())
+                {
+                    if (input.gameObject.name != "InputFieldTribe")
+                    {
+                        input.interactable = true;
+                    }
+                }
+
+                editorOptions[4].GetComponent<InputField>().interactable = false;
+                editorOptions[5].GetComponent<InputField>().interactable = false;
+                confirms[0].onClick.RemoveAllListeners();
+                confirms[0].onClick.AddListener(Confirm1);
+                confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your current choices and be able to set the merge and jury size.";
+                menuBackButton.interactable = false;
+                menuBackButton.GetComponentsInChildren<Text>()[1].text = "";
+                break;
+            case 3:
+                premergeRounds = new List<Dropdown.OptionData>();
+                foreach (GameObject opt in UIParts)
+                {
+                    if (opt != confirms[0].gameObject)
+                    {
+                        opt.SetActive(true);
+                    }
+                }
+                twistOptions[0].GetComponent<Button>().interactable = true;
+                foreach (GameObject obj in twistOptions)
+                {
+                    obj.SetActive(false);
+
+                }
+                foreach (Transform child in swapParent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                foreach (Transform child in spEvMenu.eventsParent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                foreach (Transform child in MAdvParent)
+                {
+                    Destroy(child.gameObject);
+                }
+                foreach (Transform child in PMAdvParent)
+                {
+                    Destroy(child.gameObject);
+                }
+                editorOptions[4].GetComponent<InputField>().interactable = true;
+                editorOptions[5].GetComponent<InputField>().interactable = true;
+                confirms[0].onClick.RemoveAllListeners();
+                confirms[0].onClick.AddListener(Confirm2);
+                confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your current choices and be able to edit/add custom swaps and twists.";
+                
+                menuBackButton.GetComponentsInChildren<Text>()[1].text = "";
+                break;
+            case 4:
+                spEvMenu.Rounds = new List<Dropdown.OptionData>();
+                foreach (Transform child in spEvMenu.eventsParent.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+                editorOptions[6].GetComponent<Button>().interactable = true;
+                editorOptions[7].GetComponent<Button>().interactable = false;
+                confirms[0].onClick.RemoveAllListeners();
+                confirms[0].onClick.AddListener(Confirm3);
+                confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your swaps and be able to edit the special events.";
+                menuBackButton.GetComponentsInChildren<Text>()[1].text = "If you go back, your swaps and custom advantages will be DELETED.";
+                break;
+            case 5:
+                menuBackButton.GetComponentsInChildren<Text>()[1].text = "If you go back, your special events will be DELETED.";
+                editorOptions[7].GetComponent<Button>().interactable = true;
+                editorOptions[8].GetComponent<Button>().interactable = false;
+                editorOptions[9].GetComponent<Button>().interactable = false;
+                confirms[0].onClick.RemoveAllListeners();
+                confirms[0].onClick.AddListener(Confirm4);
+                confirms[0].interactable = true;
+                confirms[0].GetComponentsInChildren<Text>()[1].text = "Click confirm to lock in your special events and be able to edit the other twists.\nHit the cast button to finish editing twists and set up your cast for the season.";
+                break;
+        }
         
     }
+
 
     void ConfirmPMAdv()
     {
@@ -1235,6 +1482,24 @@ public class SeasonMenuManager : MonoBehaviour
         editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
         yield return 0;
         editorParent.gameObject.SetActive(!editorParent.gameObject.activeSelf);
+    }
+
+    public void ResetCustom()
+    {
+        confirms[0].interactable = true;
+        //editorOptions[0].GetComponent<InputField>().interactable = false;
+        editorOptions[1].GetComponent<InputField>().interactable = true;
+        editorOptions[2].GetComponent<Dropdown>().interactable = true;
+        editorOptions[3].GetComponent<Dropdown>().interactable = true;
+        foreach (GameObject input in tribeSizeParent.transform)
+        {
+            Destroy(input);
+        }
+        editorOptions[4].GetComponent<InputField>().interactable = false;
+        editorOptions[5].GetComponent<InputField>().interactable = false;
+        confirms[1].interactable = false;
+        confirms[2].interactable = false;
+        editorOptions[7].GetComponent<Button>().interactable = false;
     }
 
     public static T[] GetAllInstances<T>() where T : ScriptableObject

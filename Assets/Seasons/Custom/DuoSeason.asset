@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DuoSeason
   m_EditorClassIdentifier: 
   nameSeason: 
+  seasonImage: {fileID: 0}
   Tribes:
   - name: Duo One
     tribeColor: {r: 0.9245283, g: 0.59607846, b: 0.16470589, a: 1}
@@ -22,6 +23,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Two
     tribeColor: {r: 0.6085977, g: 0.74509805, b: 0.9254902, a: 1}
     members:
@@ -30,6 +32,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Three
     tribeColor: {r: 0.8773585, g: 0.23814216, b: 0.18623178, a: 1}
     members:
@@ -38,6 +41,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Four
     tribeColor: {r: 0.2, g: 1, b: 0.7607843, a: 1}
     members:
@@ -46,6 +50,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Five
     tribeColor: {r: 0, g: 0.59607846, b: 0.16470589, a: 1}
     members:
@@ -54,6 +59,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Six
     tribeColor: {r: 0.5154791, g: 0.22745098, b: 0.6320754, a: 1}
     members:
@@ -62,6 +68,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Seven
     tribeColor: {r: 1, g: 0.87058824, b: 0.5327537, a: 1}
     members:
@@ -70,6 +77,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Duo Eight
     tribeColor: {r: 0.1647059, g: 0.17642175, b: 0.9254902, a: 1}
     members:
@@ -78,6 +86,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   mergeAt: 6
   jury: 7
   final: 2
@@ -105,6 +114,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -113,6 +123,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -121,6 +132,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -129,6 +141,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -137,6 +150,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -145,6 +159,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -169,10 +184,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
   idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -208,6 +226,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: DoubleElim

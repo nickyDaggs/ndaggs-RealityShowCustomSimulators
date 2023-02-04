@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Palau
   m_EditorClassIdentifier: 
   nameSeason: Survivor Palau
+  seasonImage: {fileID: 21300000, guid: 44d98a0f51cd02a43990ab935dbc6ca1, type: 3}
   Tribes:
   - name: Koror Tribe
     tribeColor: {r: 0.49803922, g: 0.27450982, b: 0.17254902, a: 1}
@@ -28,6 +29,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Ulong Tribe
     tribeColor: {r: 0, g: 0.2784314, b: 0.67058825, a: 1}
     members:
@@ -42,6 +45,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 9
   jury: 7
   final: 2
@@ -95,6 +100,10 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.2784314, g: 0.654902, b: 0.16470589, a: 1}
   MergeTribeName: Ngerulmod Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps: []
@@ -105,9 +114,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -168,12 +181,14 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MultiTribalReward
     context: ImmunityVote
     round: 5
-    elim: 0
+    elim: 2
   - type: PalauStart
     context: altGender
     round: 1

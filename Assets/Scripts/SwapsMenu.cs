@@ -116,11 +116,11 @@ public class SwapsMenu : MonoBehaviour
                     float ySize = size.GetComponent<RectTransform>().sizeDelta.y;
                     if (i == num - 1)
                     {
-                        //ySize += 10;
+                        ySize += 10;
                     }
-                    editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + ySize);
+                    //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + ySize);
                     parent.preferredHeight += ySize;
-                    newY = editorParent.sizeDelta.y;
+                    //newY = editorParent.sizeDelta.y;
                 }
             }
 
@@ -142,9 +142,9 @@ public class SwapsMenu : MonoBehaviour
                 {
                     float ySize = size.GetComponent<RectTransform>().sizeDelta.y;
 
-                    editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY - ySize);
+                    //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY - ySize);
                     parent.preferredHeight -= ySize;
-                    newY = editorParent.sizeDelta.y;
+                    //newY = editorParent.sizeDelta.y;
                     Destroy(size);
                 }
                 if(i == tribeSizeParent.transform.childCount - 1)
@@ -158,7 +158,7 @@ public class SwapsMenu : MonoBehaviour
             }
             if (num - tribeSizeParent.transform.childCount > 0)
             {
-                editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + 10);
+                //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, newY + 10);
                 parent.preferredHeight += 10;
             }
             StartCoroutine(ABC());
@@ -224,12 +224,11 @@ public class SwapsMenu : MonoBehaviour
             {
                 if(child.GetComponentInChildren<Dropdown>() != null)
                 {
-                    if (types.Contains(type) && !child.GetChild(0).GetComponent<Dropdown>().interactable)
+                    if (types.Contains(type) && !child.GetChild(0).GetComponent<Dropdown>().interactable || types.Contains(type) && SeasonMenuManager.Instance.spEvMenu.RoundsClone.Count > 0)
                     {
                         
                         float prevSwap = int.Parse(child.GetChild(0).GetComponent<Dropdown>().options[child.GetChild(0).GetComponent<Dropdown>().value].text);
-
-                        if (prevSwap > con && (prevSwap < lastSwap || lastSwap == 0))
+                        if (prevSwap >= con && (prevSwap < lastSwap || lastSwap == 0))
                         {
                             previousTribes = child.GetChild(4).GetChild(1);
                         }
@@ -258,7 +257,7 @@ public class SwapsMenu : MonoBehaviour
     public void DeleteSwap()
     {
         SeasonMenuManager.Instance.premergeRounds.Add(swapAt.options[swapAt.value]);
-        editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, editorParent.sizeDelta.y - 150);
+        //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, editorParent.sizeDelta.y - 150);
         Destroy(CurSwap);
         if (SeasonMenuManager.Instance.swapParent.transform.childCount > 0)
         {

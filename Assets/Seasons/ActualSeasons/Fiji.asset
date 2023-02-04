@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fiji
   m_EditorClassIdentifier: 
   nameSeason: Survivor Fiji
+  seasonImage: {fileID: 21300000, guid: 91349b1c988cf6442b66ebf6e74b4c82, type: 3}
   Tribes:
   - name: Moto Tribe
     tribeColor: {r: 0.49803922, g: 1, b: 0, a: 1}
@@ -231,13 +232,12 @@ MonoBehaviour:
   forcedFireMaking: 0
   idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 1
   twoParts: 
   threeParts: 
   Twists:
     expireAt: 15
-    OWStart: 0
-    OWEnd: 0
     epsSkipE: 0a000000
     epsSpecialE: 0100000002000000
     epsSkipRI: 

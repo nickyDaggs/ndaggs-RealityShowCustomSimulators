@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Africa
   m_EditorClassIdentifier: 
   nameSeason: Survivor Africa
+  seasonImage: {fileID: 21300000, guid: 9f699df64f363ba4e9e3c7b4aeda4d85, type: 3}
   Tribes:
   - name: Boran Tribe
     tribeColor: {r: 1, g: 0.84313726, b: 0, a: 1}
@@ -27,6 +28,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Samburu Tribe
     tribeColor: {r: 1, g: 0, b: 0, a: 1}
     members:
@@ -40,6 +43,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 10
   jury: 7
   final: 2
@@ -93,12 +98,16 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0, g: 0.6509804, b: 0.5764706, a: 1}
   MergeTribeName: Moto Maji Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
   - on: 1
     swapAt: 12
-    type: RegularSwap
+    type: 0
     newTribes: []
     text: Africa
     ResizeTribes: 0
@@ -113,9 +122,10 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     exile: 0
     redIs: 0
-    refreshAdvantages: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: Exile
   islandHiddenAdvantages: []
@@ -123,7 +133,16 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
+  advantages: 0
+  forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -138,6 +157,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -145,6 +165,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     - on: 1
       reason: Winner
       ownTribe: 0
@@ -152,6 +173,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     preMergeEIsland:
       on: 1
       reason: Winner
@@ -160,6 +182,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 1
       reason: Winner
@@ -168,6 +191,7 @@ MonoBehaviour:
       challenge: Immunity
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: Island of The Idols
       tribeColor: {r: 1, g: 1, b: 1, a: 1}
@@ -176,4 +200,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
+    EOEAdvantages: []
   oneTimeEvents: []

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EliSeason
   m_EditorClassIdentifier: 
   nameSeason: 'Survivor: Chaos Island'
+  seasonImage: {fileID: 0}
   Tribes:
   - name: Spongebob Tribe
     tribeColor: {r: 0.94275093, g: 1, b: 0, a: 1}
@@ -30,6 +31,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Patrick Tribe
     tribeColor: {r: 1, g: 0.5176471, b: 0.98039216, a: 1}
     members:
@@ -46,6 +48,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   mergeAt: 19
   jury: 7
   final: 2
@@ -57,6 +60,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -79,9 +83,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -117,6 +125,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MergeSplitFiji

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cagayan
   m_EditorClassIdentifier: 
   nameSeason: Survivor Cagayan
+  seasonImage: {fileID: 21300000, guid: 130d73b732f943e4fb6276127b23f217, type: 3}
   Tribes:
   - name: Aparri Tribe
     tribeColor: {r: 0.98039216, g: 0.57254905, b: 0.23137255, a: 1}
@@ -37,6 +38,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Luzon Tribe
     tribeColor: {r: 0.18039216, g: 0.6862745, b: 0.4745098, a: 1}
     members:
@@ -60,6 +63,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Solana Tribe
     tribeColor: {r: 0.54901963, g: 0.18039216, b: 0.54901963, a: 1}
     members:
@@ -83,6 +88,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 12
   jury: 9
   final: 2
@@ -139,6 +146,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Solarrion Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -182,6 +190,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -194,6 +204,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -218,9 +230,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 4
   twoParts: 
   threeParts: 
@@ -281,5 +297,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

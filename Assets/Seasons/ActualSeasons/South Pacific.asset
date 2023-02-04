@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: South Pacific
   m_EditorClassIdentifier: 
   nameSeason: Survivor South Pacific
+  seasonImage: {fileID: 21300000, guid: a45f4e3f11d24af4f80661bcc6d4648f, type: 3}
   Tribes:
   - name: Savaii Tribe
     tribeColor: {r: 0.6627451, g: 0.1254902, b: 0.15294118, a: 1}
@@ -40,6 +41,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Upolu Tribe
     tribeColor: {r: 0.003921569, g: 0.29411766, b: 0.5882353, a: 1}
     members:
@@ -66,6 +69,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 11
   jury: 9
   final: 3
@@ -119,6 +124,10 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 0.99607843, g: 0.92941177, b: 0.003921569, a: 1}
   MergeTribeName: Te Tuna Tribe
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Te Tuna Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -141,8 +150,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
+  forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 3
   twoParts: 09000000
   threeParts: 
@@ -203,8 +217,11 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
+    EOEAdvantages: []
   oneTimeEvents:
   - type: DoubleElim
     context: Immunity
     round: 12
-    elim: 0
+    elim: 2

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Gabon
   m_EditorClassIdentifier: 
   nameSeason: Survivor Gabon
+  seasonImage: {fileID: 21300000, guid: b92b25661c439804fa74eb436b403872, type: 3}
   Tribes:
   - name: Fang Tribe
     tribeColor: {r: 0.9019608, g: 0.1254902, b: 0.1254902, a: 1}
@@ -28,6 +29,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Kota Tribe
     tribeColor: {r: 0.9607843, g: 1, b: 0.039215688, a: 1}
     members:
@@ -42,6 +45,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 9
   jury: 9
   final: 3
@@ -98,6 +103,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
@@ -117,6 +123,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -129,6 +137,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -160,6 +170,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -170,6 +182,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: FakeFeast
     ResizeTribes: 1
     numberSwap: 0
@@ -206,9 +220,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 2
   twoParts: 
   threeParts: 
@@ -245,6 +263,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: SchoolyardPick
@@ -254,4 +274,4 @@ MonoBehaviour:
   - type: MultiTribalEveryTeamImm
     context: ICGiven
     round: 7
-    elim: 0
+    elim: 2

@@ -1,0 +1,170 @@
+Version 1.1.0 Patch Notes - December 12, 2022:
+Merry Feastivus, everyone!
+
+Content Additions:
+- Introducing... Thymed Events! Thymed Events are a new way to get rewards, engage with events and have a little fun as well!
+   - Thymed Events will usually occur alongside Pinata Party events. 
+   - Thymed Event levels are randomly generated - so you won't be missing out on too much if you can't play! 
+   - Thymed Events are unlocked after Ancient Egypt - Day 10 and can give a variety of rewards.
+- FOUL BALL! The Backyard Brain Bowl event has returned!
+   - New zombie costumes and a new lawn make their way to the game!
+   - New Party levels every day from December 12th -> December 18th.
+   - New Thymed Event will be coming as well!
+- It's the most wonderful time of the yeaaaaar! Feastivus is coming, with lots of goodies in store!
+   - Event lasts from December 19th -> January 5th, 2023.
+   - New Pinata Party levels mixed in with familiar classics!
+   - New special festive skins for your plants!
+   - New Thymed Event stages, with a delicious special treat awaiting you at Level 25!
+   - Our Feastivus Thymed Event will also give players an opportunity to earn one of our Feastivus skins without having to spend coins!
+- A fresh batch of new costumes, including our Feastivus skins.
+   - Included are the winning costumes from our Costume Contest hosted in November! Congratulations to JamesTheSkunk, DeeDeeBee's, JJAM, dragonking, -Nick-, beetsa, Krowzerk, Menk, RainVessel, Nanori, Red, LawfulWaffle, Inbetween Entertainment, TheBluehatPerson, and Discipline for winning the contest and having their costumes added. Check the in-game credits to know which costume idea was submitted by who!
+   - Fear not! Not all costumes we've added are festive! Make sure to play to see what they are!
+
+
+General Additions/Changes:
+- You asked, we delivered! Based on community feedback, we have introduced detailed almanac stats for Plants and Zombies.
+- New Quest Icons for Holiday Mashup and Steam Ages unlock quests with the keys. This is done to better communicate to new players how you access the worlds.
+- Changed unlock text for Holiday Mashup and Steam Ages to note that you access them via Travel Log.
+- Expansion quests will now be available after players beat the first level of the respective world's expansion.
+- Added an almanac entry for the Space Dancer zombie encountered in the Future Crash levels.
+- Adjusted dialogue for Modern Day - Day 19 to properly reflect Escape Root's abilities.
+- Added ability to check update version in settings - look beside a:9.4.1 under Build Version in Settings for the Mod version!
+- Melon-pult has been unbanned from various Last Stand levels.
+- Updated the game credits! Alongside adding credits for all the Costume Contest winners, we've added the newest member to our Art/Animation team to the credits: Andrew ZombycD. Beta Testers who helped with Pinata Party levels are listed under the Special Thanks area of our credits.
+- More events, yet to be revealed. Stay tuned in our Discord server for the latest news - https://discord.gg/ba9rC7QdKb
+
+
+Bug Fixes:
+- Fixed issue where Plant Fooding a Tangle Kelp during the Zombot Sharktronic Sub 2.0 fight could take a health bar off the boss.
+- Fixed issue where Far Future - Day 17 would have a softlock during the first playthrough due to the Magnifying Grass tutorial being impossible to complete.
+- Fixed art centers for the Jurassic Basic zombie and ZCorp basic zombies.
+- Implemented some measures to hopefully tone down crashes caused by the Travel Log.
+- Fixed issues where the Steam Ages levels intended to give Mystery Gift Boxes were not giving them, despite the World Map showing that they should.
+- Melon-pult and Winter Melon were not correctly using their intended stats as described in Penny's Classroom. We have adjusted their damage values to go along with our intended changes to the plants.
+- Renamed Peamix Dev Costume to "MPea3 Shooter" to reduce confusion.
+- Inferno/Iceweed no longer have ear piercing audio. Big thanks to Poss for helping us out here!
+- Fixed Dazey Chain's stall not counting towards certain Daily Quests. This was also done for Stickybomb Rice's stun.
+- Fixed Pea Vine still having the effects for its boost abilities in animation.
+- Fixed issue where Jack O' Lantern would attempt to attack sewers, tar and some other neutral grid items.
+- Fixed issue where Jack O' Lantern would get stuck in its attacking animation when placed on tar.
+- Fixed armored zombies having obnoxious sounds while stepping over tar.
+- Fixed game crash on lower-resolution devices when restarting the Zombot Seasonal Sleigh-er Boss Fight.
+- Fixed Bandit Zombie's arms and head being attracted by Magnet-shroom's Plant Food effect.
+- Fixed massive lag spike when using electric plants against Dark Summoner Zombie.
+- Fixed Glitter-protected Disco Jetpacks becoming super fast and guaranteeing a loss once Disco-tron dies during dance animation.
+- Banned Jalapeno on Holiday Mashup - Day 36 due to ability to cheese Zombie Multimplicity.
+- johnny the stegosaurus has returned to Jurassic Marsh - Day 44. please be nice to him he's my friend
+
+Level Adjustments:
+
+- Adjusted the following levels:
+  - Wild West - Day 30
+  - Far Future - Day 29
+  - Big Wave Beach - Day 40
+  - Jurassic Marsh - Day 29
+  - Modern Day - Day 32 (Pirate Seas variant)
+  - Modern Day - Day 33 (Dark Ages & Big Wave Beach variant)
+  - Modern Day - Day 34 (Neon Mixtape Tour & Jurassic Marsh variant)
+  - Holiday Mashup - Day 45
+
+
+Balance Changes:
+
+- Potato Mine:
+  - Plant Food Duplicates: 2 -> 3
+
+- Snapdragon:
+  - Damage: 30 -> 35
+
+- Apple Mortar:
+  - Damage: 60 -> 65
+  - Plant Food projectiles now inflict a 7 second stun.
+  
+- Iceweed:
+  - Chill Duration: 3 -> 5
+
+- Magnet-shroom:
+  - Can now pull off Scuba Zombie's head.
+  
+- Hypno-shroom:
+  - Sun Cost: 125 -> 75
+  
+- Intensive Carrot:
+  - Now heals revived plant to full HP.
+  
+- Noctarine:
+  - Sun Cost: 150 -> 100
+  - Now plantable on top of other plants.
+  
+- Cattail:
+  - Firing Rate: 1.6/1.8 -> 1.4/1.6
+  - Damage: 20 -> 22
+  - Fixed accidental increase of range in front of Cattail.
+  
+- Fanilla:
+  - Plant Food Stun Duration: 4 -> 7
+
+- Lily of Alchemy:
+  - Recharge: 17.5 -> 12.5
+  
+- Electric Currant:
+  - Health: 200 -> 400
+  
+- Aloe:
+  - Healed HP: 500 -> 750
+  - Now able to heal Explode-O-Nut.
+  
+- Cold Snapdragon:
+  - Damage: 30 -> 35
+  
+- Escape Root:
+  - Sun Cost: 50 -> 25
+  - Damage: 20 -> 3600
+  - Is now edible.
+  - Removed cooldown between swaps.
+
+- Missile Toe:
+  - Plant Food: 10 projectiles now fired, with 3 second delay between each projectile landing.
+  
+- Electric Peashooter:
+  - Sun Cost: 425 -> 475
+  
+- Sling Pea:
+  - Sun Cost: 250 -> 325
+  - Recharge: 20 -> 25
+  - Pea visuals now appear bigger and more powerful.
+  
+- Dartichoke:
+  - Normal Damage: 70 -> 80
+  - Critical Damage: 80 -> 140
+  - Improved priority lists.
+  
+- Shine Vine:
+  - Sun Cost: 100 -> 75
+  - Health: 100 -> 300
+  - Now refreshed at beginning of a level.
+  
+- Gloom Vine:
+  - Recharge: 25 -> 15
+  - Health: 1200 -> 900
+  
+- Zombot Tomorrow-tron 2.0:
+  - Phase 1 HP: 9000 -> 7000
+  - Phase 2 HP: 10000 -> 9000
+  - Phase 3 HP: 12000 -> 10000
+  - All phases: Removed Cone Mechs and replaced with Holo Heads.
+  
+- Egg Stealer Imp:
+  - Eat DPS: 100 -> 200
+  *Developer Note: Jurassic Imps eat good.*
+  
+- Z-Mech:
+  - Health: 3600 -> 5400
+  
+- Zombot Seasonal Sleigh-er:
+  - +1000 health to all phases except Phase 1
+  - All phases should now gradually get more intense, with Zomboss being quicker while he attacks.
+  - Reduced spam of Fire Attack in Halloween Phase.
+  
+
+

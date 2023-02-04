@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cook Islands
   m_EditorClassIdentifier: 
   nameSeason: Survivor Cook Islands
+  seasonImage: {fileID: 21300000, guid: 658f1833a2ec78b41b9330a70f3bbc7f, type: 3}
   Tribes:
   - name: Aitutaki Tribe
     tribeColor: {r: 0.9254902, g: 0, b: 0, a: 1}
@@ -217,8 +218,8 @@ MonoBehaviour:
   - type: MultiTribalReward
     context: TribalKidnap
     round: 6
-    elim: 0
+    elim: 2
   - type: DoubleElim
     context: 
     round: 9
-    elim: 0
+    elim: 2

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Island of the Idols
   m_EditorClassIdentifier: 
   nameSeason: Survivor Island of the Idols
+  seasonImage: {fileID: 21300000, guid: b65844f307ec20043822fa9a1d2b3b67, type: 3}
   Tribes:
   - name: Lairo Tribe
     tribeColor: {r: 0.9529412, g: 0.7647059, b: 0.46666667, a: 1}
@@ -42,6 +43,7 @@ MonoBehaviour:
       IOISweetened: 0
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Vokai Tribe
     tribeColor: {r: 0.8, g: 0.69411767, b: 0.83137256, a: 1}
     members:
@@ -70,6 +72,7 @@ MonoBehaviour:
       IOISweetened: 0
     remove: 0
     allianceCount: 0
+    environment: 3
   mergeAt: 13
   jury: 11
   final: 3
@@ -160,6 +163,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -174,6 +178,7 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -342,10 +347,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 1
   idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 080000000c0000000d000000
   threeParts: 
@@ -407,9 +415,10 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MergeSplit
     context: 
     round: 10
-    elim: 0
+    elim: 2

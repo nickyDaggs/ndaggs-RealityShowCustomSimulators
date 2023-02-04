@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Panama
   m_EditorClassIdentifier: 
   nameSeason: Survivor Panama
+  seasonImage: {fileID: 21300000, guid: e5adfcb3345a2ef408d861ddc73854b9, type: 3}
   Tribes:
   - name: Bayoneta Tribe
     tribeColor: {r: 0, g: 0.64705884, b: 0.98039216, a: 1}
@@ -23,6 +24,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Casaya Tribe
     tribeColor: {r: 0.47058824, g: 0, b: 0.6666667, a: 1}
     members:
@@ -32,6 +35,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: La Mina Tribe
     tribeColor: {r: 1, g: 0.64705884, b: 0, a: 1}
     members:
@@ -41,6 +46,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Viveros Tribe
     tribeColor: {r: 0.14901961, g: 0.972549, b: 0.13725491, a: 1}
     members:
@@ -50,6 +57,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 10
   jury: 7
   final: 2
@@ -61,6 +70,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
@@ -80,6 +90,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: La Mina Tribe
       tribeColor: {r: 1, g: 0.64705884, b: 0, a: 1}
       members:
@@ -92,6 +104,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -128,9 +142,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -181,5 +199,7 @@ MonoBehaviour:
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

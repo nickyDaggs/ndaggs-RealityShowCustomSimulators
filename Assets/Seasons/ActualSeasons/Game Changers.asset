@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Game Changers
   m_EditorClassIdentifier: 
   nameSeason: Survivor Game Changers
+  seasonImage: {fileID: 21300000, guid: 824927512efc88943b0fbe1512873242, type: 3}
   Tribes:
   - name: Mana Tribe
     tribeColor: {r: 0.6627451, g: 0.1254902, b: 0.15294118, a: 1}
@@ -41,6 +42,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Nuku Tribe
     tribeColor: {r: 0.003921569, g: 0.29411766, b: 0.5882353, a: 1}
     members:
@@ -68,6 +71,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 13
   jury: 10
   final: 3
@@ -124,6 +129,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Maku Maku Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -167,6 +173,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -179,6 +187,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -211,6 +221,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -222,6 +234,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Tavua Tribe
       tribeColor: {r: 0, g: 0.72156864, b: 0.24313726, a: 1}
       members:
@@ -245,6 +259,8 @@ MonoBehaviour:
         options: []
         IOISweetened: 0
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -269,9 +285,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 0d000000
   threeParts: 
@@ -332,6 +352,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MarooningAdvantage

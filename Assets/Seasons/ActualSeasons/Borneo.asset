@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Borneo
   m_EditorClassIdentifier: 
   nameSeason: Survivor Borneo
+  seasonImage: {fileID: 21300000, guid: bd38e0af826eea244b51ca5e5a207b46, type: 3}
   Tribes:
   - name: Pagong Tribe
     tribeColor: {r: 0.990566, g: 1, b: 0, a: 1}
@@ -188,8 +189,4 @@ MonoBehaviour:
       allianceCount: 0
       environment: 3
     EOEAdvantages: []
-  oneTimeEvents:
-  - type: MergeSplit41
-    context: 
-    round: 7
-    elim: 0
+  oneTimeEvents: []

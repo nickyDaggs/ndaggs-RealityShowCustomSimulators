@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Kaoh Rong
   m_EditorClassIdentifier: 
   nameSeason: Survivor Koah Rong
+  seasonImage: {fileID: 21300000, guid: 0437a2f4e05b6394f9c101d43345ef8c, type: 3}
   Tribes:
   - name: Chan Loh Tribe
     tribeColor: {r: 0.019607844, g: 0.4862745, b: 0.7529412, a: 1}
@@ -37,6 +38,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: To Tang Tribe
     tribeColor: {r: 0.69411767, g: 0.14117648, b: 0.21568628, a: 1}
     members:
@@ -60,6 +63,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Gondol Tribe
     tribeColor: {r: 0.8156863, g: 0.7176471, b: 0.16078432, a: 1}
     members:
@@ -83,6 +88,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 11
   jury: 8
   final: 3
@@ -139,6 +146,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps:
@@ -157,6 +165,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -168,6 +178,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -192,9 +204,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 1
   twoParts: 
   threeParts: 
@@ -255,6 +271,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: JurorRemoval

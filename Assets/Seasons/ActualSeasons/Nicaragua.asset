@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Nicaragua
   m_EditorClassIdentifier: 
   nameSeason: Survivor Nicaragua
+  seasonImage: {fileID: 21300000, guid: a0278a1cd4bdfcc448991f2d4b55360d, type: 3}
   Tribes:
   - name: Espada Tribe
     tribeColor: {r: 0, g: 0.2, b: 0.6, a: 1}
@@ -41,6 +42,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: La Flor Tribe
     tribeColor: {r: 0.93333334, g: 0.9019608, b: 0, a: 1}
     members:
@@ -68,6 +71,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 12
   jury: 9
   final: 3
@@ -124,6 +129,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Libertad Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -156,6 +162,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -169,6 +177,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -193,9 +203,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 1
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 5
+  OWExpire: 0
   idolLimit: 1
   twoParts: 
   threeParts: 
@@ -256,5 +270,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

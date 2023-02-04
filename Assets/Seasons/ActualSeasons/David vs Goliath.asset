@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: David vs Goliath
   m_EditorClassIdentifier: 
   nameSeason: Survivor David vs Goliath
+  seasonImage: {fileID: 21300000, guid: 55ae02053c917954990e33e304d9d0d7, type: 3}
   Tribes:
   - name: David Tribe
     tribeColor: {r: 0.9882353, g: 0.5647059, b: 0.18039216, a: 1}
@@ -41,6 +42,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Goliath Tribe
     tribeColor: {r: 0.54509807, g: 0.2901961, b: 0.41568628, a: 1}
     members:
@@ -68,6 +71,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 13
   jury: 10
   final: 3
@@ -124,6 +129,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Kalokalo Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -153,6 +159,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Jabeni Tribe
       tribeColor: {r: 0.54509807, g: 0.2901961, b: 0.41568628, a: 1}
       members:
@@ -163,6 +171,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Tiva Tribe
       tribeColor: {r: 0.22352941, g: 0.5019608, b: 0.26666668, a: 1}
       members:
@@ -185,6 +195,8 @@ MonoBehaviour:
         options: []
         IOISweetened: 0
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -221,9 +233,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 1
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 2
   twoParts: 
   threeParts: 
@@ -284,5 +300,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

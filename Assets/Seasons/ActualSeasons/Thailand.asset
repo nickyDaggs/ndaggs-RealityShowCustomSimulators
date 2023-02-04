@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Thailand
   m_EditorClassIdentifier: 
   nameSeason: Survivor Thailand
+  seasonImage: {fileID: 21300000, guid: 45ed5b1f39a10e74eb571e2f52a26181, type: 3}
   Tribes:
   - name: Chuay Gahn Tribe
     tribeColor: {r: 1, g: 0.30980393, b: 0, a: 1}

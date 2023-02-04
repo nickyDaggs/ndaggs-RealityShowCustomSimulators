@@ -21,6 +21,8 @@ public class SpecialEventMenu : MonoBehaviour
     // Start is called before the first frame update
     public void StartSpecial()
     {
+        //Rounds = new List<Dropdown.OptionData> { new Dropdown.OptionData("22"), new Dropdown.OptionData("21"), new Dropdown.OptionData("20"), new Dropdown.OptionData("19"), new Dropdown.OptionData("18") };
+
         RoundsClone = new List<Dropdown.OptionData>(Rounds);
         curEvent = Instantiate(prefabEvent, eventsParent);
         curRound = curEvent.transform.GetChild(0).GetComponentInChildren<Dropdown>();
@@ -30,9 +32,11 @@ public class SpecialEventMenu : MonoBehaviour
         curRound.value = 0;
         curEvent.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(ConfirmEvent);
         ChangeRound(curRound);
+        /*trash*/
+
     }
 
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -46,6 +50,7 @@ public class SpecialEventMenu : MonoBehaviour
         if (con > SeasonMenuManager.Instance.customSeason.mergeAt)
         {
             t = SwapsMenu.Instance.GetTribesAt(curRound);
+            //Debug.Log(t.Count);
         }
         if(curRound.value > 0)
         {

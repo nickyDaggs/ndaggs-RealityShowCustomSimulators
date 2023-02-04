@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TDWT
   m_EditorClassIdentifier: 
   nameSeason: Total Drama World Tour
+  seasonImage: {fileID: 0}
   Tribes:
   - name: Team Victory
     tribeColor: {r: 1, g: 0.74509805, b: 0, a: 1}
@@ -25,6 +26,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Team Amazon
     tribeColor: {r: 0.9716981, g: 0.35292807, b: 0.87917167, a: 1}
     members:
@@ -35,6 +38,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Team Chris Is Really Really Really Really Hot
     tribeColor: {r: 0, g: 0.72156864, b: 1, a: 1}
     members:
@@ -45,6 +50,8 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages: []
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 8
   jury: 7
   final: 2
@@ -53,6 +60,10 @@ MonoBehaviour:
   ReturningPlayers: 
   MergeTribeColor: {r: 1, g: 1, b: 1, a: 1}
   MergeTribeName: Merge
+  ImmunityChallenges: []
+  RewardChallenges: []
+  rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Invincibility Statue
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -75,7 +86,16 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
+  advantages: 0
+  forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
+  idolLimit: 0
+  twoParts: 
+  threeParts: 
   Twists:
     expireAt: 0
     epsSkipE: 
@@ -91,6 +111,7 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     MergeEIsland:
       on: 0
       reason: 
@@ -99,12 +120,16 @@ MonoBehaviour:
       challenge: 
       skipTribal: 0
       two: 0
+      both: 0
     IOI:
       name: 
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members: []
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
+    EOEAdvantages: []
   oneTimeEvents:
   - type: JointTribal
     context: 

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Caramoan
   m_EditorClassIdentifier: 
   nameSeason: Survivor Caramoan
+  seasonImage: {fileID: 21300000, guid: 29b4cc3580f2b264f9cded63997dca58, type: 3}
   Tribes:
   - name: Bikal Tribe
     tribeColor: {r: 0.5176471, g: 0.25490198, b: 0.5176471, a: 1}
@@ -41,6 +42,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Gota Tribe
     tribeColor: {r: 0.92941177, g: 0.45882353, b: 0.15294118, a: 1}
     members:
@@ -68,6 +71,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 12
   jury: 8
   final: 3
@@ -124,6 +129,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Enil Edam Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -155,6 +161,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -167,6 +175,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -191,9 +201,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 3
   twoParts: 0d000000
   threeParts: 
@@ -254,5 +268,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

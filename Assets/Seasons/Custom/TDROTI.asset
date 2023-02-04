@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TDROTI
   m_EditorClassIdentifier: 
   nameSeason: 
+  seasonImage: {fileID: 0}
   Tribes:
   - name: Toxic Rats
     tribeColor: {r: 0.4847916, g: 0.8962264, b: 0.31706125, a: 1}
@@ -27,6 +28,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   - name: Mutant Maggots
     tribeColor: {r: 0.9622642, g: 0.24056605, b: 0.24056605, a: 1}
     members:
@@ -39,6 +41,7 @@ MonoBehaviour:
     hiddenAdvantages: []
     remove: 0
     allianceCount: 0
+    environment: 3
   mergeAt: 6
   jury: 7
   final: 2
@@ -50,6 +53,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps: []
@@ -60,9 +64,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 
   threeParts: 
@@ -98,5 +106,6 @@ MonoBehaviour:
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents: []

@@ -458,26 +458,26 @@ public class RejoiningTwists : MonoBehaviour
                 }
             }
         }
-        GameManager.instance.dic = new Dictionary<Contestant, int>();
+        GameManager.instance.dicVotes = new Dictionary<Contestant, int>();
         //votedOff = votes[0];
-        GameManager.instance.dic.Add(GameManager.instance.votes[0], 1);
+        GameManager.instance.dicVotes.Add(GameManager.instance.votes[0], 1);
         for (int i = 1; i < GameManager.instance.votes.Count; i++)
         {
-            if (GameManager.instance.dic.ContainsKey(GameManager.instance.votes[i]))
+            if (GameManager.instance.dicVotes.ContainsKey(GameManager.instance.votes[i]))
             {
-                GameManager.instance.dic[GameManager.instance.votes[i]] += 1;
+                GameManager.instance.dicVotes[GameManager.instance.votes[i]] += 1;
             }
-            else if (!GameManager.instance.dic.ContainsKey(GameManager.instance.votes[i]))
+            else if (!GameManager.instance.dicVotes.ContainsKey(GameManager.instance.votes[i]))
             {
-                GameManager.instance.dic.Add(GameManager.instance.votes[i], 1);
+                GameManager.instance.dicVotes.Add(GameManager.instance.votes[i], 1);
             }
         }
         GameManager.instance.tie = new List<Contestant>();
-        float maxValuee = GameManager.instance.dic.Values.Max();
+        float maxValuee = GameManager.instance.dicVotes.Values.Max();
         List<float> votesSpread = new List<float>();
         int sec = 0;
 
-        foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dic)
+        foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dicVotes)
         {
             if (num.Value == maxValuee)
             {
@@ -492,8 +492,8 @@ public class RejoiningTwists : MonoBehaviour
                 votesSpread.Add(num.Value);
             }
         }
-        ties.Add(GameManager.instance.tie, GameManager.instance.dic.Values.Max());
-        foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dic)
+        ties.Add(GameManager.instance.tie, GameManager.instance.dicVotes.Values.Max());
+        foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dicVotes)
         {
             bool tieAdded = false;
             foreach (KeyValuePair<List<Contestant>, int> key in ties)
@@ -515,7 +515,7 @@ public class RejoiningTwists : MonoBehaviour
             }
         }
         //Sort votes then generate each vote for UI 
-        GameManager.instance.votesRead = GameManager.instance.votes.OrderBy(go => GameManager.instance.dic[go]).ToList();
+        GameManager.instance.votesRead = GameManager.instance.votes.OrderBy(go => GameManager.instance.dicVotes[go]).ToList();
         GameManager.instance.ShuffleVotes(GameManager.instance.votesRead);
         GameManager.instance.dicVR = new Dictionary<Contestant, int>();
         GameManager.instance.dicVR.Add(GameManager.instance.votesRead[0], 1);
@@ -532,7 +532,7 @@ public class RejoiningTwists : MonoBehaviour
             votesLeft = "";
         }
         List<string> votesSoFar = new List<string>();
-        foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dic)
+        foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dicVotes)
         {
             if (num.Value > 1)
             {
@@ -542,7 +542,7 @@ public class RejoiningTwists : MonoBehaviour
             {
                 votess = " vote ";
             }
-            string v = GameManager.instance.dic[num.Key] + votess + num.Key.nickname;
+            string v = GameManager.instance.dicVotes[num.Key] + votess + num.Key.nickname;
             votesSoFar.Add(v);
         }
         votesSoFar = votesSoFar.OrderByDescending(go => go[0]).ToList();

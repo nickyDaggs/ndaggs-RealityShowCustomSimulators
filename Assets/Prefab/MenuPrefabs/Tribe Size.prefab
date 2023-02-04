@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 7294376460728928649}
   - component: {fileID: 7294376460728928654}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputFieldTribe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

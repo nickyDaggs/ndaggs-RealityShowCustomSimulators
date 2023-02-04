@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Winners At War
   m_EditorClassIdentifier: 
   nameSeason: Survivor Winners At War
+  seasonImage: {fileID: 21300000, guid: 3b9af80523d2b7a4abc5028c76a65709, type: 3}
   Tribes:
   - name: Dakal Tribe
     tribeColor: {r: 0.8509804, g: 0.050980393, b: 0.05490196, a: 1}
@@ -41,6 +42,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Sele Tribe
     tribeColor: {r: 0.17254902, g: 0.39215687, b: 0.8235294, a: 1}
     members:
@@ -68,6 +71,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 12
   jury: 9
   final: 3
@@ -124,6 +129,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Koru Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -153,6 +159,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0.54509807, g: 0.2901961, b: 0.41568628, a: 1}
       members:
@@ -163,6 +171,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Yara Tribe
       tribeColor: {r: 0.015686275, g: 0.5803922, b: 0.31764707, a: 1}
       members:
@@ -185,6 +195,8 @@ MonoBehaviour:
         options: []
         IOISweetened: 0
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -209,9 +221,13 @@ MonoBehaviour:
   EdgeOfExtinction: 1
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 1
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 0
   twoParts: 0d00000001000000
   threeParts: 0e000000
@@ -272,6 +288,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MultiTribalMultiTeam

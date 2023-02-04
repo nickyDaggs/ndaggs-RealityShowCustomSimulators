@@ -8,7 +8,6 @@ public class ExileIsland : MonoBehaviour
 {
     public void DoExile()
     {
-        Debug.Log("worked");
         GameObject ExileEvent = Instantiate(GameManager.instance.Prefabs[0]);
         ExileEvent.transform.parent = GameManager.instance.Canvas.transform;
         ExileEvent.GetComponent<RectTransform>().offsetMax = new Vector2(0, ExileEvent.GetComponent<RectTransform>().offsetMax.y);
@@ -465,7 +464,8 @@ public class ExileIsland : MonoBehaviour
                             if (ran == 1)
                             {
                                 Advantage av = Instantiate(hid.advantage);
-                                av.name = hid.name;
+                                //av.name = hid.name;
+                                av.nickname = hid.name;
                                 if (hid.temp)
                                 {
                                     av.temp = true;

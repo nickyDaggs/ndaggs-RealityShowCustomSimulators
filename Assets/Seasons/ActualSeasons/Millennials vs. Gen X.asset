@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Millennials vs. Gen X
   m_EditorClassIdentifier: 
   nameSeason: Survivor Millennials vs. Gen X
+  seasonImage: {fileID: 21300000, guid: 639f89a78cd4fd84d932fd3fe314d1d0, type: 3}
   Tribes:
   - name: Vanua Tribe
     tribeColor: {r: 0.8784314, g: 0.20784314, b: 0, a: 1}
@@ -41,6 +42,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   - name: Takali Tribe
     tribeColor: {r: 0.28627452, g: 0, b: 0.56078434, a: 1}
     members:
@@ -68,6 +71,8 @@ MonoBehaviour:
       options: []
       IOISweetened: 0
     remove: 0
+    allianceCount: 0
+    environment: 3
   mergeAt: 13
   jury: 10
   final: 3
@@ -124,6 +129,7 @@ MonoBehaviour:
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
+  NoRewards: 0
   mergeHiddenAdvantages:
   - name: Vinaka Tribe Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
@@ -165,6 +171,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Same
       tribeColor: {r: 0, g: 0, b: 0, a: 0}
       members:
@@ -175,6 +183,8 @@ MonoBehaviour:
       - {fileID: 0}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     - name: Ikabula Tribe
       tribeColor: {r: 0.2901961, g: 0.6745098, b: 0.105882354, a: 1}
       members:
@@ -198,6 +208,8 @@ MonoBehaviour:
         options: []
         IOISweetened: 0
       remove: 0
+      allianceCount: 0
+      environment: 3
     text: 
     ResizeTribes: 1
     numberSwap: 0
@@ -222,9 +234,13 @@ MonoBehaviour:
   EdgeOfExtinction: 0
   Outcasts: 0
   MedallionOfPower: 0
+  OneWorld: 0
+  HavesVsHaveNots: 0
   advantages: 0
   forcedFireMaking: 0
+  idolsInPlay: 0
   MOPExpire: 0
+  OWExpire: 0
   idolLimit: 2
   twoParts: 0d000000
   threeParts: 0e000000
@@ -285,6 +301,8 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
       hiddenAdvantages: []
       remove: 0
+      allianceCount: 0
+      environment: 3
     EOEAdvantages: []
   oneTimeEvents:
   - type: MarooningAdvantage

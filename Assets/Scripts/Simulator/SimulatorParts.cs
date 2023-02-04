@@ -135,6 +135,7 @@ namespace SeasonParts
         public string IOILesson;
         public List<HiddenAdvantage> options;
         public bool IOISweetened;
+        public int hiddenChance = 25;
         public object Clone()
         {
             return this.MemberwiseClone();
@@ -239,120 +240,5 @@ namespace SeasonParts
 
 public class SimulatorParts : MonoBehaviour
 {
-    /*
-            if(sea.advantages)
-            {
-                etext = "If there's an advantage you want to play, this is the time to do so.\n\n";
-            }
-            List<Contestant> RRemove = new List<Contestant>();
-            foreach (Contestant num in team.members)
-            {
-                if (num.safety > 0)
-                {
-                    List<Contestant> w = new List<Contestant>() { num };
-                    MakeGroup(false, null, "", "", num.nickname + " has safety from the vote.", w, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
-
-                    immune.Add(num);
-                    num.safety--;
-                }
-                if (num.advantages.Count > 0)
-                {
-                    List<Advantage> remove = new List<Advantage>();
-
-                    foreach (Advantage advantage in num.advantages)
-                    {
-                        string extra = "";
-                        if (currentContestants == advantage.expiresAt || (advantage.length == 1 && advantage.temp))
-                        {
-                            extra = "\n \nThis is the last round to use it.";
-                        }
-                        List<Contestant> w = new List<Contestant>() { num };
-
-                        MakeGroup(false, null, "", "", num.nickname + " has the " + advantage.nickname + extra, w, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
-                        Contestant usedOn = null;
-                        if (advantage.type == "VoteSteal" || advantage.type == "VoteBlocker")
-                        {
-                            List<Contestant> teamV = new List<Contestant>(team.members);
-                            teamV.Remove(num);
-
-                            usedOn = teamV[Random.Range(0, teamV.Count)];
-                        }
-                        bool playable = false;
-                        foreach(int numb in advantage.onlyUsable)
-                        {
-
-                        }
-                        if(advantage.onlyUsable.Count > 0)
-                        {
-                            playable = true;
-                        }
-                        if ((advantage.type == "VoteSteal" || advantage.type == "VoteBlocker" || advantage.type == "SafetyWithoutPower" || advantage.type == "ExtraVote" || advantage.type == "HiddenImmunityIdol" || advantage.type == "PreventiveIdol" || advantage.type == "SuperIdol") && playable && Random.Range(0, 3) == 1)
-                        {
-                            AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
-                            remove.Add(advantage);
-                            if (advantage.type == "SafetyWithoutPower")
-                            {
-                                RRemove.Add(num);
-                            }
-                        }
-                    }
-                    foreach (Advantage advantage in remove)
-                    {
-                        num.advantages.Remove(advantage);
-                    }
-                }
-            }
-            foreach (Contestant num in RRemove)
-            {
-                team.members.Remove(num);
-            }
-            team.members = team.members.OrderBy(x => x.votes).ToList();
-            if(team.members.Count == 1 || team.members[0].votes < team.members[1].votes)
-            {
-                votes = new List<Contestant>();
-                votesRead = new List<Contestant>();
-                votedOff = team.members[0];
-                votes.Add(votedOff);
-                votesRead.Add(votedOff);
-                AddVote(votes, votesRead);
-                vote = "Auto-Elimination";
-                etext = "Sorry, " + votedOff.nickname + ", you're the only castaway who is vulnerable so you're automatically eliminated.";
-                if(team.members[0].votes < team.members[1].votes)
-                {
-                    etext = "Sorry, " + votedOff.nickname + ", you don't have the majority of votes so you're automatically eliminated.";
-                }
-                Eliminate();
-            } else
-            {
-                List<Contestant> teamV = new List<Contestant>(team.members);
-                foreach(Contestant num in immune)
-                {
-                    teamV.Remove(num);
-                }
-                if(teamV.Count == 1)
-                {
-                    votes = new List<Contestant>();
-                    votesRead = new List<Contestant>();
-                    votedOff = team.members[0];
-                    votes.Add(votedOff);
-                    votesRead.Add(votedOff);
-                    AddVote(votes, votesRead);
-                    vote = "Auto-Elimination";
-                    etext = "Sorry, " + votedOff.nickname + ", you're the only castaway vulnerable so you're automatically eliminated.";
-                    Eliminate();
-                } 
-                else
-                {
-                    votes = new List<Contestant>();
-                    votesRead = new List<Contestant>();
-                    //Debug.Log("gg");
-                    etext = "A fire-making challenge will occur since there are only two castaways left.";
-                    MakeGroup(true, team, "name", "", etext, team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
-                    Tiebreaker(team.members, "FireChallenge");
-                    votes.Add(votedOff);
-                    votesRead.Add(votedOff);
-                    AddVote(votes, votesRead);
-                }
-            }
-            */
+    
 }
