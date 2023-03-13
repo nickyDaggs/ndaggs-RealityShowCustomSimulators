@@ -63,7 +63,9 @@ public class TribalScript : MonoBehaviour
 
     public void DoTribal()
     {
+        
         resetValues();
+        
         votedOff = manager.votedOff;
         EpisodeStart = manager.MakePage("Tribal Council", 0, true);
         if (manager.MergedTribe.members.Count < 1)
@@ -110,7 +112,15 @@ public class TribalScript : MonoBehaviour
                 manager.TribeTargeting(team);
             }
             targets = manager.teamTargets.Find(x => x.name == team.name).members;
-
+            if(targets.Contains(votedOff))
+            {
+                targets = targets.Except(immune).ToList();
+                targets.Remove(votedOff);
+                while(targets.Count() < 2)
+                {
+                    targets.Add(team.members.Except(immune).Except(targets).ToList()[Random.Range(0, team.members.Except(immune).Except(targets).ToList().Count())]);
+                }
+            }
 
             etext = "It's time to vote.";
             manager.MakeGroup(true, team, "name", "", "", team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
@@ -511,7 +521,6 @@ public class TribalScript : MonoBehaviour
     void CountVotes()
     {
         string eventext = "";
-
         foreach (Vote num in Votes)
         {
             if (aa && num.revotes.Count > 0)
@@ -1169,13 +1178,16 @@ public class TribalScript : MonoBehaviour
                 if (!tie.Contains(votedOff))
                 {
                     //Debug.Log(votedOff.nickname + " has been eliminated. " + "Drew the purple rock");
+                    
                     manager.Eliminate(vote, conPlacement, EpisodeStart, team);
+
                 }
             }
             else
             {
                 manager.Eliminate(vote, conPlacement, EpisodeStart, team);
             }
+            
         }
         void FireChallenge()
         {

@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject Error;
     public Text errorMessage;
+    Team lastTeamRemoved;
     [HideInInspector] public List<Contestant> TribeLeaders = new List<Contestant>();
 
     public SeasonTemplate custom;
@@ -504,9 +505,13 @@ public class GameManager : MonoBehaviour
                     ep.events.Add("TribeImmunity");
 
                 }
-                if (ep.exileIsland.on)
+                if (ep.exileIsland.on && ep.Event.type == "")
                 {
                     ep.events.Add("ExileI");
+                }
+                else
+                {
+                    ep.exileIsland.on = false;
                 }
                 ep.events.Add("TribeEvents");
                 if (ep.Event.type.Contains("MultiTribal") )
@@ -643,7 +648,7 @@ public class GameManager : MonoBehaviour
                     ep.events.Add("TribeImmunity");
                 }
                 
-                if (ep.exileIsland.on)
+                if (ep.exileIsland.on && ep.Event.type == "")
                 {
                     ep.events.Add("ExileI");
                 }
@@ -728,9 +733,12 @@ public class GameManager : MonoBehaviour
                 {
                     ep.events.Add("MergeImmunity");
                 }
-                if (ep.exileIsland.on)
+                if (ep.exileIsland.on && ep.Event.type == "")
                 {
                     ep.events.Add("ExileI");
+                } else
+                {
+                    ep.exileIsland.on = false;
                 }
                 ep.events.Add("MergeEvents");
                 ep.events.Add("TribalCouncil");
@@ -865,9 +873,13 @@ public class GameManager : MonoBehaviour
                 {
                     ep.events.Add("MergeImmunity");
                 }
-                if (ep.exileIsland.on)
+                if (ep.exileIsland.on && ep.Event.type == "")
                 {
                     ep.events.Add("ExileI");
+                }
+                else
+                {
+                    ep.exileIsland.on = false;
                 }
                 ep.events.Add("MergeEvents");
                 if (ep.Event.type != "JurorRemoval")
@@ -973,7 +985,7 @@ public class GameManager : MonoBehaviour
                         {
                             if (tribe.name == num.team)
                             {
-                                if(Episodes[curEp-1].swap.exile)
+                                if (Episodes[curEp-1].swap.exile)
                                 {
                                     num.teams.Add(tribe.tribeColor);
                                 }
@@ -1077,7 +1089,7 @@ public class GameManager : MonoBehaviour
     {
         votedOff = tribalScript.votedOff;
         string juror = "";
-
+        
         foreach (Advantage advantage in votedOff.advantages)
         {
             foreach (HiddenAdvantage hid in sea.islandHiddenAdvantages)
@@ -1227,6 +1239,7 @@ public class GameManager : MonoBehaviour
 
         if (team.members.Count == 0)
         {
+            lastTeamRemoved = team;
             Tribes.Remove(team);
         }
         List<Contestant> r = new List<Contestant>() { votedOff };
@@ -1617,6 +1630,7 @@ public class GameManager : MonoBehaviour
     }
     public void AddGM(GameObject gm, bool add)
     {
+        
         Page page = new Page();
         page.obj = gm;
         currentSeason.Episodes[curEpp].events.Add(page);
@@ -1748,6 +1762,18 @@ public class GameManager : MonoBehaviour
                     OW = false;
                 }
             }
+        }
+        if(Tribes.Count < 2)
+        {
+            MakeGroup(false, null, "", "", "Since only one tribe is left, that tribe will be split into two new tribes to continue the pre-merge.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+
+            if (Tribes[0].members.Count % 2 != 0)
+            {
+
+            }
+            //List<Team>
+            curSwap = new TribeSwap() {type=SwapType.RegularShuffle }; 
+            swapper.DoSwap(curSwap.type);
         }
         NextEvent();
         
@@ -2015,7 +2041,7 @@ public class GameManager : MonoBehaviour
     public void TribeEventss()
     {
         GameObject EpisodeStatus;
-        if (curT == 0)
+        if (curT == 0 )
         {
             EpisodeStatus = MakePage(Tribes[curT].name + " Status", 0, true);
         }
@@ -2786,16 +2812,20 @@ public class GameManager : MonoBehaviour
         {
             challenge.TribeChallenge(Tribes, sea.ImmunityChallenges[curImm].stats, Tribes.Count - 1);
             rewards = sea.ImmunityChallenges[curImm].rewards;
-        } else
+            
+        }
+        else
         {
             challenge.TribeChallenge(Tribes, new List<StatChoice>() { StatChoice.Physical, StatChoice.Mental, StatChoice.Endurance }, Tribes.Count - 1);
         }
+        
         string reward = "";
         bool switchlose = false;
         foreach (Team tribe in Tribes)
         {
             if (!LosingTribes.Contains(tribe))
             {
+                Debug.Log(tribe.name);
                 if (sea.HavesVsHaveNots)
                 {
                     if(curEp == 0)
@@ -3154,6 +3184,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log(curTTT);
             }
             tribalScript.team = LosingTribes[curTTT];
+            Debug.Log(tribalScript.team.name);
             tribalScript.DoTribal();
             curTTT++;
         }
@@ -3899,6 +3930,13 @@ public class GameManager : MonoBehaviour
     }
     void MergeImmunity()
     {
+        if (immune.Count > 0)
+        {
+            foreach (Contestant num in immune)
+            {
+                num.advantages.Remove(ImmunityNecklace);
+            }
+        }
         immune = new List<Contestant>();
         int ran = Random.Range(0, MergedTribe.members.Count);
         foreach(Contestant num in MergedTribe.members)
@@ -3913,6 +3951,7 @@ public class GameManager : MonoBehaviour
                 num.challengeAdvantage = false;
             }
         }
+
         if (curImm <= sea.ImmunityChallenges.Count - 1)
         {
             challenge.IndividualChallenge(MergedTribe, sea.ImmunityChallenges[curImm].stats, 1);
@@ -3921,6 +3960,7 @@ public class GameManager : MonoBehaviour
         {
             challenge.IndividualChallenge(MergedTribe, new List<StatChoice>() { StatChoice.Physical, StatChoice.Mental, StatChoice.Endurance }, 1);
         }
+        
         //immune.Add(MergedTribe.members[ran]);
         //MergedTribe.members[ran].advantages.Add(ImmunityNecklace);
 

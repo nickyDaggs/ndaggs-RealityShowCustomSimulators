@@ -13,7 +13,6 @@ public enum Environment { Peaceful=1, Nice, Normal, Harsh, Chaotic }
 namespace SeasonParts
 {
     //namespace that includes several classes that are used for the simulator
-    
     [System.Serializable]
     public class Alliance
     {

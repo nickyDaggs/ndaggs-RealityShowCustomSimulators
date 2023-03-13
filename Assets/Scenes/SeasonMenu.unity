@@ -21557,7 +21557,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Limited to 24 Contestants
+  m_Text: 'Limited to 32 Contestants
 
     MUST HAVE DIFFERENT TRIBE NAMES FOR TWISTS
     TO WORK PROPERLY'

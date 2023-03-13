@@ -46,6 +46,7 @@ public class ChallengeScript : MonoBehaviour
                     sum = (int)Mathf.Round((float)sum / 2);
                 }
             }
+            
             teamSum.Add(tribe, Overall + sum);
             Overall += sum;
             
@@ -55,40 +56,26 @@ public class ChallengeScript : MonoBehaviour
         for (int i = 0; i < winner; i++)
         {
             bool found = false;
-            int ran = Random.Range(1, Overall);
-            int rolls = 0;
-            while(!found)
+            int ran = Random.Range(1, Overall + 1);
+            int lastNum = 0;
+            foreach (KeyValuePair<Team, int> tribe in teamSum)
             {
-                
-                int lastNum = 0;
-                foreach (KeyValuePair<Team, int> tribe in teamSum)
-                {
-                    ran = Random.Range(1, Overall);
-                    if (rolls == 0)
-                    {
-                        //Debug.Log(tribe.Value - lastNum);
-                    }
-                    if (!found && Tribes.Contains(tribe.Key))
-                    {
-                        if (lastNum < ran && ran <= tribe.Value)
-                        {
-                            Tribes.Remove(tribe.Key);
 
-                            //Debug.Log("Ran:" + ran);
-                            found = true;
-                        }
-                        lastNum = tribe.Value;
-                        if(rolls > 10)
-                        {
-                            lastNum = 0;
-                            //Debug.Log("ffff");
-                        }
+                if (!found && Tribes.Contains(tribe.Key))
+                {
+                    if (lastNum < ran && ran <= tribe.Value)
+                    {
+
+                        Tribes.Remove(tribe.Key);
+
                     }
+                    lastNum = tribe.Value;
                 }
-                rolls++;
             }
+
         }
         //Debug.Log("End");
+        
         GameManager.instance.LosingTribes = new List<Team>(Tribes);
     }
     public void IndividualChallenge(Team tribe, List<StatChoice> stats, int winner)

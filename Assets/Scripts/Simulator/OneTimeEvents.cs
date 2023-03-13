@@ -1023,7 +1023,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, false);
         List<Contestant> Leaders = new List<Contestant>();
         List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
         if (GameManager.instance.curEvent.context == "FirstLast")

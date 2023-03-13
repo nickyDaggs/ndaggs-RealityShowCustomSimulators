@@ -24,6 +24,8 @@ public class SwapsMenu : MonoBehaviour
     public Dropdown swapAt;
     public Dropdown swapType;
 
+    public Toggle exileSwap;
+
     public Button delSwap;
 
     private void Start()
@@ -86,6 +88,10 @@ public class SwapsMenu : MonoBehaviour
             float contestants = int.Parse(swapAt.options[swapAt.value].text);//GetTribesAt(int.Parse(swapAt.options[swapAt.value].text), swapType.options[swapType.value].text).Select(x => x.members.Count).Sum();
             float sum = 0;
             int num = int.Parse(aa);
+            if(exileSwap.gameObject.activeSelf && exileSwap.isOn)
+            {
+                contestants = contestants - 1;
+            }
 
             if (num == 0)
             {
@@ -256,11 +262,17 @@ public class SwapsMenu : MonoBehaviour
 
     public void DeleteSwap()
     {
-        SeasonMenuManager.Instance.premergeRounds.Add(swapAt.options[swapAt.value]);
+        
         //editorParent.sizeDelta = new Vector2(editorParent.sizeDelta.x, editorParent.sizeDelta.y - 150);
-        Destroy(CurSwap);
+        
         if (SeasonMenuManager.Instance.swapParent.transform.childCount > 0)
         {
+            if (!SeasonMenuManager.Instance.premergeRounds.Contains(swapAt.options[swapAt.value]))
+            {
+                SeasonMenuManager.Instance.premergeRounds.Add(swapAt.options[swapAt.value]);
+                SeasonMenuManager.Instance.premergeRounds = SeasonMenuManager.Instance.premergeRounds.OrderBy(x => int.Parse(x.text)).ToList();
+            }
+            Destroy(CurSwap);
             GameObject swap = SeasonMenuManager.Instance.swapParent.transform.GetChild(SeasonMenuManager.Instance.swapParent.transform.childCount - 1).gameObject;
             /*swap.transform.GetChild(0).GetComponent<Dropdown>().options.Clear();
             for (int i = (int)customSeason.mergeAt + 1; i < contestants; i++)
@@ -291,6 +303,7 @@ public class SwapsMenu : MonoBehaviour
             swapAt = swap.transform.GetChild(0).GetComponent<Dropdown>();
             swapType = swap.transform.GetChild(1).GetComponent<Dropdown>();
             parent = swap.GetComponent<LayoutElement>();
+            exileSwap = swap.transform.GetChild(1).GetComponent<Toggle>();
             //SubmitSwapAt(swap.transform.GetChild(0).GetComponent<Dropdown>());
 
             swapAt.interactable = true;
@@ -307,9 +320,10 @@ public class SwapsMenu : MonoBehaviour
                 }
                 inputField.interactable = true;
             }
-
+            
             StartCoroutine(ABC());
         }
+        
     }
 
     IEnumerator ABC()

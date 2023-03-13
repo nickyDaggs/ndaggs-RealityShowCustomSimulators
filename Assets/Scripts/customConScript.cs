@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using SFB;
 
 public class customConScript : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class customConScript : MonoBehaviour
     public List<GameObject> customs;
     public bool custom = false;
     string path;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,11 +42,18 @@ public class customConScript : MonoBehaviour
 
     public void OpenFile()
     {
-        var paths = StandaloneFileBrowser.OpenFilePanel("Show all images (.png)", "", "png", false);
-        path = string.Join(path, paths);
-        GetComponentsInChildren<InputField>()[0].text = Path.GetFileNameWithoutExtension(path);
-        GetComponentsInChildren<InputField>()[1].text = Path.GetFileNameWithoutExtension(path);
-        StartCoroutine(UploadImage());
+        if(Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            
+        } else
+        {
+            var paths = StandaloneFileBrowser.OpenFilePanel("Show all images (.png)", "", "png", false);
+            path = string.Join(path, paths);
+            GetComponentsInChildren<InputField>()[0].text = Path.GetFileNameWithoutExtension(path);
+            GetComponentsInChildren<InputField>()[1].text = Path.GetFileNameWithoutExtension(path);
+            StartCoroutine(UploadImage());
+        }
+        
     }
 
     IEnumerator UploadImage()

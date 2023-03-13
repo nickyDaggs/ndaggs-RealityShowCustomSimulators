@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Advantage
+    - CanvasSampleOpenFileImage
     - Cast
     - ChallengeScript
     - Contestant
@@ -40,6 +41,9 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEditor.UI.dll:
+    - UnityEditor.UI.ButtonEditor
+    - UnityEditor.UI.ImageEditor
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.EventTrigger
@@ -121,6 +125,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12106}
     - Class: 114
       Script: {instanceID: 12276}
+    - Class: 114
+      Script: {instanceID: 12432}
     - Class: 114
       Script: {instanceID: 12470}
     - Class: 114
@@ -929,7 +935,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: e686f3c1011429b41e0a20f13c16d626
+      Hash: f80bf4c3f5a33a99f7d42045d3c42c3d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CanvasSampleOpenFileImage
@@ -1669,4 +1675,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/SeasonMenu.unity
   - Assets/Scenes/Simulator.unity
-  playerPath: C:/Users/Nicky DaGGs/Desktop/SurvivorCustomSimWeb
+  playerPath: C:/Users/Nicky DaGGs/Desktop/TESTSIM

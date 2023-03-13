@@ -6,10 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using SFB;
-
 [RequireComponent(typeof(Button))]
 public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
-    public RawImage output;
+    public Image output;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
@@ -32,7 +31,7 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
     //
     public void OnPointerDown(PointerEventData eventData) { }
 
-    void Start() {
+    /*void Start() {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
@@ -42,12 +41,12 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
         if (paths.Length > 0) {
             StartCoroutine(OutputRoutine(new System.Uri(paths[0]).AbsoluteUri));
         }
-    }
+    }*/
 #endif
 
     private IEnumerator OutputRoutine(string url) {
         var loader = new WWW(url);
         yield return loader;
-        output.texture = loader.texture;
+        output.sprite = Sprite.Create(loader.texture, new Rect(0, 0, loader.texture.width, loader.texture.height), Vector2.zero);
     }
 }
