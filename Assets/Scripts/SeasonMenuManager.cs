@@ -76,6 +76,7 @@ public class SeasonMenuManager : MonoBehaviour
     public Text editorError;
     public Button menuBackButton;
     public GameObject castBackCustom;
+    public InputField sizeToSet;
 
     public Transform PMAdvParent;
     public Transform MAdvParent;
@@ -448,6 +449,7 @@ public class SeasonMenuManager : MonoBehaviour
             for (int i = 0; i < tribeSizeParent.transform.childCount; i++)
             {
                 GameObject size = tribeSizeParent.transform.GetChild(i).gameObject;
+                size.transform.GetChild(1).GetComponent<InputField>().text = "Tribe " + (i + 1);
                 if (i < num)
                 {
                     size.transform.GetChild(3).GetComponent<InputField>().text = teamSize.ToString();
@@ -1224,6 +1226,24 @@ public class SeasonMenuManager : MonoBehaviour
         editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
 
         StartCoroutine(ABC());
+    }
+
+    public void SetAllSizes()
+    {
+        int setSize = int.Parse(sizeToSet.text);
+        for (int i = 0; i < tribeSizeParent.transform.childCount; i++)
+        {
+            GameObject size = tribeSizeParent.transform.GetChild(i).gameObject;
+            //size.transform.GetChild(1).GetComponent<InputField>().text = "Tribe " + (i + 1);
+            int s = (int)setSize;
+            size.transform.GetChild(3).GetComponent<InputField>().text = setSize.ToString();
+            if (0 > conLimit - setSize * (i + 1))
+            {
+                size.transform.GetChild(3).GetComponent<InputField>().text = (conLimit - setSize * (i + 1)).ToString();
+                s = conLimit - (int)setSize * (i + 1);
+            }
+            
+        }
     }
 
     public void BackCast()
