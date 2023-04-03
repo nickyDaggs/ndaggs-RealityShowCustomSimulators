@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5160c3df1ab8e240aaa9a6b8466770e, type: 3}
   m_Name: Idol Nullifier
   m_EditorClassIdentifier: 
-  nickname: Hidden Immunity Idol
+  nickname: Idol Nullifier
   type: IdolNullifier
   expiresAt: 5
   length: 0

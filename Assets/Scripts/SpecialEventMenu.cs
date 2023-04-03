@@ -18,12 +18,13 @@ public class SpecialEventMenu : MonoBehaviour
     public GameObject prefabEvent;
     [HideInInspector]public float mergeRound;
     public RectTransform editorParent;
+    public Button deleteRound;
     // Start is called before the first frame update
     public void StartSpecial()
     {
         //Rounds = new List<Dropdown.OptionData> { new Dropdown.OptionData("22"), new Dropdown.OptionData("21"), new Dropdown.OptionData("20"), new Dropdown.OptionData("19"), new Dropdown.OptionData("18") };
 
-        RoundsClone = new List<Dropdown.OptionData>(Rounds);
+        
         curEvent = Instantiate(prefabEvent, eventsParent);
         curRound = curEvent.transform.GetChild(0).GetComponentInChildren<Dropdown>();
         curEvents = curEvent.transform.GetChild(1).GetComponentInChildren<Dropdown>();
@@ -40,7 +41,13 @@ public class SpecialEventMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(eventsParent.childCount > 1)
+        {
+            //deleteRound.interactable = true;
+        } else
+        {
+            //deleteRound.interactable = false;
+        }
     }
 
     void ConfirmEvent()
@@ -64,7 +71,7 @@ public class SpecialEventMenu : MonoBehaviour
             case "Multi-Tribal(Reward Only)":
                 for (int i = t.Count - 1; i > 0; i--)
                 {
-                    if (RoundsClone.IndexOf(Rounds[curRound.value]) + 1 != -1)
+                    if (RoundsClone.IndexOf(Rounds[curRound.value]) + 1 < RoundsClone.Count && RoundsClone.IndexOf(Rounds[curRound.value]) + 1 != -1)
                     {
                         RoundsClone.Remove(RoundsClone[RoundsClone.IndexOf(Rounds[curRound.value]) + 1]);
                     }
@@ -87,7 +94,7 @@ public class SpecialEventMenu : MonoBehaviour
             case "Multi-Tribal(One Tribe Immunity)":
                 for (int i = t.Count - 1; i > 0; i--)
                 {
-                    if(RoundsClone.IndexOf(Rounds[curRound.value]) + 1 != -1)
+                    if(RoundsClone.IndexOf(Rounds[curRound.value]) + 1 < RoundsClone.Count && RoundsClone.IndexOf(Rounds[curRound.value]) + 1 != -1)
                     {
                         RoundsClone.Remove(RoundsClone[RoundsClone.IndexOf(Rounds[curRound.value]) + 1]);
                     }
@@ -108,11 +115,21 @@ public class SpecialEventMenu : MonoBehaviour
                 }
                 break;
             case "Merge Split":
-                RoundsClone.Remove(RoundsClone[RoundsClone.IndexOf(Rounds[curRound.value]) + 1]);
-                Rounds.Remove(Rounds[curRound.value]);
+                if (RoundsClone.IndexOf(Rounds[curRound.value]) + 1 < RoundsClone.Count && RoundsClone.IndexOf(Rounds[curRound.value]) + 1 != -1)
+                {
+                    RoundsClone.Remove(RoundsClone[RoundsClone.IndexOf(Rounds[curRound.value]) + 1]);
+                    Debug.Log(RoundsClone.IndexOf(Rounds[curRound.value]));
+                    Rounds.Remove(Rounds[curRound.value]);
+                }
+                
                 break;
         }
-        Rounds.Remove(Rounds[curRound.value]);
+        if(Rounds.Count > 0)
+        {
+            Rounds.Remove(Rounds[curRound.value]);
+            
+        }
+
         curEvent.transform.GetChild(2).GetComponent<Button>().interactable = false;
         curRound.interactable = false;
         curEvents.interactable = false;
@@ -126,6 +143,14 @@ public class SpecialEventMenu : MonoBehaviour
         StartCoroutine(ABC());
 
     }
+
+    public void deleteCurRound()
+    {
+
+        Destroy(eventsParent.GetChild(eventsParent.childCount - 1));
+
+    }
+
     void ChangeRound(Dropdown f)
     {
         //Debug.Log(int.Parse(curRound.options[curRound.value].text));

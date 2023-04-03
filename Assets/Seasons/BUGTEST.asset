@@ -15,15 +15,20 @@ MonoBehaviour:
   nameSeason: Survivorf
   seasonImage: {fileID: 0}
   Tribes:
-  - name: 
-    tribeColor: {r: 0, g: 0, b: 0, a: 0}
-    members: []
+  - name: Tribe One
+    tribeColor: {r: 1, g: 0, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     hiddenAdvantages:
-    - name: 
-      advantage: {fileID: 0}
+    - name: Tribe One Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
       hideAt: 0
-      reHidden: 0
-      hidden: 0
+      reHidden: 1
+      hidden: 1
       linkedToExile: 0
       length: 0
       temp: 0
@@ -31,25 +36,151 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
-      hiddenChance: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
-    environment: 0
-  mergeAt: 0
-  jury: 0
-  final: 0
+    environment: 3
+  - name: Tribe Two
+    tribeColor: {r: 1, g: 0, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Tribe Two Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 1
+      hidden: 1
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+      hiddenChance: 25
+    remove: 0
+    allianceCount: 0
+    environment: 3
+  - name: Tribe Three
+    tribeColor: {r: 1, g: 0, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Tribe Three Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 1
+      hidden: 1
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+      hiddenChance: 25
+    remove: 0
+    allianceCount: 0
+    environment: 3
+  - name: Tribe Four
+    tribeColor: {r: 1, g: 0, b: 0, a: 1}
+    members:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    hiddenAdvantages:
+    - name: Tribe Four Idol
+      advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+      hideAt: 0
+      reHidden: 1
+      hidden: 1
+      linkedToExile: 0
+      length: 0
+      temp: 0
+      giveAway: 0
+      IOILesson: 
+      options: []
+      IOISweetened: 0
+      hiddenChance: 25
+    remove: 0
+    allianceCount: 0
+    environment: 3
+  mergeAt: 12
+  jury: 9
+  final: 2
   Episodes: []
   Tiebreaker: 
   ReturningPlayers: 
-  MergeTribeColor: {r: 0, g: 0, b: 0, a: 0}
-  MergeTribeName: 
+  MergeTribeColor: {r: 0.21226418, g: 1, b: 0.31422123, a: 1}
+  MergeTribeName: Merged Tribe
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
   NoRewards: 0
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
-  swaps: []
+  swaps:
+  - on: 1
+    swapAt: 16
+    type: 1
+    newTribes:
+    - name: same
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+      environment: 3
+    - name: same
+      tribeColor: {r: 0, g: 0, b: 0, a: 0}
+      members:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      hiddenAdvantages: []
+      remove: 0
+      allianceCount: 0
+      environment: 3
+    text: 
+    ResizeTribes: 1
+    numberSwap: 0
+    leaderReason: 
+    pickingRules: 
+    exileIsland:
+      on: 0
+      reason: 
+      ownTribe: 0
+      exileEvent: 
+      challenge: 
+      skipTribal: 0
+      two: 0
+      both: 0
+    exile: 0
+    redIs: 0
+    orderBySize: 0
   ExileIslandd: 0
   IslandType: 
   islandHiddenAdvantages: []
@@ -60,7 +191,7 @@ MonoBehaviour:
   OneWorld: 0
   HavesVsHaveNots: 0
   advantages: 0
-  forcedFireMaking: 0
+  forcedFireMaking: 1
   idolsInPlay: 0
   MOPExpire: 0
   OWExpire: 0
@@ -69,6 +200,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -101,4 +233,8 @@ MonoBehaviour:
       allianceCount: 0
       environment: 3
     EOEAdvantages: []
-  oneTimeEvents: []
+  oneTimeEvents:
+  - type: MergeSplit
+    context: 
+    round: 10
+    elim: 2

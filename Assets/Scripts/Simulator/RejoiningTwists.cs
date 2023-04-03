@@ -493,6 +493,8 @@ public class RejoiningTwists : MonoBehaviour
             }
         }
         ties.Add(GameManager.instance.tie, GameManager.instance.dicVotes.Values.Max());
+        ties.Add(new List<Contestant>(), sec);
+        int secondMax = 0;
         foreach (KeyValuePair<Contestant, int> num in GameManager.instance.dicVotes)
         {
             bool tieAdded = false;
@@ -509,9 +511,9 @@ public class RejoiningTwists : MonoBehaviour
             }
             if (!tieAdded)
             {
-                List<Contestant> newTie = new List<Contestant>();
+                /*List<Contestant> newTie = new List<Contestant>();
                 newTie.Add(num.Key);
-                ties.Add(newTie, num.Value);
+                ties.Add(newTie, num.Value);*/
             }
         }
         //Sort votes then generate each vote for UI 
@@ -547,7 +549,7 @@ public class RejoiningTwists : MonoBehaviour
         }
         votesSoFar = votesSoFar.OrderByDescending(go => go[0]).ToList();
         GameManager.instance.finalVotes = "Final vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".";
-        GameManager.instance.AddVote(GameManager.instance.votes, GameManager.instance.votesRead);
+        GameManager.instance.AddVote(GameManager.instance.votes, GameManager.instance.votesRead, GameManager.instance.finalVotes);
         if (GameManager.instance.cineTribal == true)
         {
 

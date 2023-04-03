@@ -65,8 +65,9 @@ public class TribalScript : MonoBehaviour
     {
         
         resetValues();
-        
+
         votedOff = manager.votedOff;
+        //votedOff = new Contestant();
         EpisodeStart = manager.MakePage("Tribal Council", 0, true);
         if (manager.MergedTribe.members.Count < 1)
         {
@@ -112,15 +113,25 @@ public class TribalScript : MonoBehaviour
                 manager.TribeTargeting(team);
             }
             targets = manager.teamTargets.Find(x => x.name == team.name).members;
-            if(targets.Contains(votedOff))
+            for(int i = 0; i < targets.Count; i++)
             {
-                targets = targets.Except(immune).ToList();
-                targets.Remove(votedOff);
-                while(targets.Count() < 2)
+                if (!team.members.Contains(targets[i]))
                 {
-                    targets.Add(team.members.Except(immune).Except(targets).ToList()[Random.Range(0, team.members.Except(immune).Except(targets).ToList().Count())]);
+                    targets = targets.Except(immune).ToList();
+                    targets.Remove(targets[i]);
+                    Debug.Log("");
+                    
+                    while (targets.Count() < 2)
+                    {
+                        targets.Add(team.members.Except(immune).Except(targets).ToList()[Random.Range(0, team.members.Except(immune).Except(targets).ToList().Count())]);
+                    }
+                    foreach (Contestant mem in team.members)
+                    {
+                        mem.PersonalTarget(targets);
+                    }
                 }
             }
+            
 
             etext = "It's time to vote.";
             manager.MakeGroup(true, team, "name", "", "", team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
@@ -278,7 +289,7 @@ public class TribalScript : MonoBehaviour
             {
                 CountVotes();
 
-                manager.AddVote(votes, votesRead);
+                manager.AddVote(votes, votesRead, finalVotes);
                 tie = new List<Contestant>();
                 if (dic.Count > 0)
                 {
@@ -341,7 +352,7 @@ public class TribalScript : MonoBehaviour
             Tiebreaker(team.members, "FireChallenge");
             votes.Add(votedOff);
             votesRead.Add(votedOff);
-            manager.AddVote(votes, votesRead);
+            manager.AddVote(votes, votesRead, "");
         }
         else if (team.members.Count == 1)
         {
@@ -351,13 +362,13 @@ public class TribalScript : MonoBehaviour
             votedOff = team.members[0];
             votes.Add(votedOff);
             votesRead.Add(votedOff);
-            manager.AddVote(votes, votesRead);
+            manager.AddVote(votes, votesRead,"");
             vote = "Eliminated by Default";
             etext = "Sorry, " + votedOff.nickname + ", you're the only castaway left so you're automatically eliminated.";
             manager.MakeGroup(true, team, "name", "", etext, team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
             manager.Eliminate(vote, conPlacement, EpisodeStart, team);
         }
-        manager.votedOff = votedOff;
+        //manager.votedOff = votedOff;
         manager.Votes = Votes;
     }
 
@@ -1266,7 +1277,7 @@ public class TribalScript : MonoBehaviour
             if (advantage.nickname == hid.name && hid.reHidden && manager.sea.IslandType == "Exile")
             {
                 hid.hidden = true;
-                hid.hiddenChance = 20;
+                hid.hiddenChance = 25;
             }
         }
         foreach (Team tribe in manager.Tribes)
@@ -1505,7 +1516,7 @@ public class TribalScript : MonoBehaviour
         {
             CountVotes();
             //curEpp--;
-            manager.AddVote(votes, votesRead);
+            manager.AddVote(votes, votesRead, finalVotes);
 
             float maxxValue = dic.Values.Max();
             if (tie.Count < tieNum)

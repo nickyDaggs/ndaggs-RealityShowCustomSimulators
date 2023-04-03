@@ -45,6 +45,7 @@ public class Contestant : ScriptableObject
         }
         return new Relationship();
     }
+    public int simID;
 
     public Contestant PersonalTarget(List<Contestant> tribe)
     {

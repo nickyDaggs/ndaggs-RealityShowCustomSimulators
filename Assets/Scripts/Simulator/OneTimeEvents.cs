@@ -443,7 +443,7 @@ public class OneTimeEvents : MonoBehaviour
 
         if (GameManager.instance.cineTribal == true)
         {
-            GameManager.instance.AddVote(votes, votes);
+            GameManager.instance.AddVote(votes, votes, finalVotes);
         }
         else
         {

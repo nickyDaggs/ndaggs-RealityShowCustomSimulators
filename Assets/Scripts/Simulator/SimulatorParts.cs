@@ -34,6 +34,15 @@ namespace SeasonParts
         public bool remove;
         public int allianceCount;
         public Environment environment = Environment.Normal;
+        public string logTeam()
+        {
+            string temp = "";
+            foreach(Contestant num in members)
+            {
+                temp += num + " ";
+            }
+            return temp;
+        }
         //public List<Alliance> alliances = new List<Alliance>();
     }
     [System.Serializable]
@@ -100,6 +109,7 @@ namespace SeasonParts
     public class Twist
     {
         public int expireAt;
+        public string expires;
         public List<int> epsSkipE = new List<int>();
         public List<int> epsSpecialE = new List<int>();
         public List<int> epsSkipRI = new List<int>();
@@ -118,6 +128,8 @@ namespace SeasonParts
         public List<Contestant> VotesRead;
         public List<Contestant> Idols = new List<Contestant>();
         public List<GameObject> VoteObjs = new List<GameObject>();
+        public string elim;
+        public string voteCount;
     }
     [System.Serializable]
     public class HiddenAdvantage

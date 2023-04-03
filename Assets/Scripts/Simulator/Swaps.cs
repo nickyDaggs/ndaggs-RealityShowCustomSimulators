@@ -249,7 +249,6 @@ public class Swaps : MonoBehaviour
             {
                 GameManager.instance.Tribes = GameManager.instance.Tribes.OrderByDescending(x => x.members.Count).ToList();
             }
-
             for (int i = 0; i < NewTribes.Count; i++)
             {
                 if (NewTribes[i].name == "Same" || NewTribes[i].name == "same")
@@ -1420,6 +1419,71 @@ public class Swaps : MonoBehaviour
             }
         }
         GameManager.instance.Tribes = NewTribes; 
+    }
+
+    public void AutoSwap(Team lastTeam, List<Team> NewTribes)
+    {
+        GameObject SwapContext = Instantiate(GameManager.instance.Prefabs[0]);
+        SwapContext.transform.parent = GameManager.instance.Canvas.transform;
+        SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
+        SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
+        GameManager.instance.AddGM(SwapContext, false);
+        List<Contestant> curCast = new List<Contestant>(lastTeam.members);
+        
+
+
+        GameManager.instance.MakeGroup(false, null, "", "", "As part of a twist, new tribes are randomly assigned. \n \n There will be 2 tribes.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
+
+
+        for (int i = curCast.Count - 1; i > 0; i--)
+        {
+            int swapIndex = Random.Range(0, i + 1);
+            Contestant currentCon = curCast[i];
+            Contestant conToSwap = curCast[swapIndex];
+            curCast[i] = conToSwap;
+            curCast[swapIndex] = currentCon;
+        }
+        int con = 0;
+
+
+        for (int i = 0; i < NewTribes.Count; i++)
+        {
+            //Debug.Log(NewTribes[i].members.Count);
+            for (int j = 0; j < NewTribes[i].members.Count; j++)
+            {
+                NewTribes[i].members[j] = curCast[curCast.Count - 1];
+                //Debug.Log(NewTribes[i].members[j].nickname);
+                curCast.Remove(curCast[curCast.Count - 1]);
+                foreach (Alliance alliance in GameManager.instance.Alliances)
+                {
+                    if (alliance.members.Contains(NewTribes[i].members[j]))
+                    {
+                        if (!alliance.teams.Contains(NewTribes[i].name))
+                        {
+                            alliance.teams.Add(NewTribes[i].name);
+                        }
+                    }
+                }
+            }
+        }
+
+        GameManager.instance.Tribes = new List<Team>(NewTribes);
+        foreach (Team tribe in GameManager.instance.Tribes)
+        {
+            foreach (Contestant num in tribe.members)
+            {
+                num.teams.Add(tribe.tribeColor);
+            }
+        }
+
+        GameObject EpisodeStart = GameManager.instance.MakePage("StartOfEpisode", 0, false);
+        for (int i = 0; i < GameManager.instance.Tribes.Count; i++)
+        {
+            //Debug.Log(tribe.name + ":" + string.Join(", ", tribe.members.ConvertAll(i => i.nickname)));
+            GameManager.instance.MakeGroup(true, GameManager.instance.Tribes[i], "name", "", "", GameManager.instance.Tribes[i].members, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+            
+        }
+
     }
     
 }

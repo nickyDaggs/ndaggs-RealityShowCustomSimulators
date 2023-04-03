@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5160c3df1ab8e240aaa9a6b8466770e, type: 3}
   m_Name: Legacy Advantage
   m_EditorClassIdentifier: 
-  nickname: Hidden Immunity Idol
+  nickname: Legacy Advantage
   type: HiddenImmunityIdol
   expiresAt: 6
   length: 0
@@ -22,3 +22,4 @@ MonoBehaviour:
   usedWhen: AfterVotes
   description: 'This can be used when six castaways are remaining. If the holder
     is voted out, they must will the advantage to another player. '
+  otherIdol: {fileID: 0}

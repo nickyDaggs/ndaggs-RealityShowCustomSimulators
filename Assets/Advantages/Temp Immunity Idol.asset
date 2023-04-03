@@ -20,3 +20,5 @@ MonoBehaviour:
   temp: 1
   playOnOthers: 0
   usedWhen: AfterVotes
+  description: 
+  otherIdol: {fileID: 0}

@@ -246,10 +246,12 @@ public class SwapsMenu : MonoBehaviour
 
         if (previousTribes != null)
         {
+            //Debug.Log(previousTribes.name);
             List<Team> swappedTeams = new List<Team>();
 
             foreach (Transform child in previousTribes)
             {
+                
                 Team tribe = new Team() { members = new List<Contestant>(new Contestant[int.Parse(child.GetChild(3).GetComponent<InputField>().text)]) };
                 //Debug.Log("Tribe:" + tribe.name + ColorUtility.ToHtmlStringRGBA(tribe.tribeColor));
                 swappedTeams.Add(tribe);

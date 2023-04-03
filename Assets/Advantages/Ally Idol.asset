@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5160c3df1ab8e240aaa9a6b8466770e, type: 3}
   m_Name: Ally Idol
   m_EditorClassIdentifier: 
-  nickname: Hidden Immunity Idol
+  nickname: Ally Immunity Idol
   type: HiddenImmunityIdol
   expiresAt: 5
   length: 0
@@ -21,3 +21,4 @@ MonoBehaviour:
   playOnOthers: 1
   usedWhen: AfterVotes
   description: 
+  otherIdol: {fileID: 0}

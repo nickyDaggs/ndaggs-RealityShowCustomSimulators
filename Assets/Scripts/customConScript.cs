@@ -10,6 +10,7 @@ using SFB;
 
 public class customConScript : MonoBehaviour
 {
+
     public List<GameObject> presets;
     public List<GameObject> customs;
     public bool custom = false;
@@ -52,6 +53,7 @@ public class customConScript : MonoBehaviour
             GetComponentsInChildren<InputField>()[0].text = Path.GetFileNameWithoutExtension(path);
             GetComponentsInChildren<InputField>()[1].text = Path.GetFileNameWithoutExtension(path);
             StartCoroutine(UploadImage());
+
         }
         
     }
@@ -69,6 +71,14 @@ public class customConScript : MonoBehaviour
             Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
             GetComponentInChildren<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
         }
+        yield return null;
+    }
+
+    // Called from browser
+    public void OnFileUpload(string url)
+    {
+        path = url;
+        StartCoroutine(UploadImage());
     }
 
     public void CustomImage(InputField Input)
