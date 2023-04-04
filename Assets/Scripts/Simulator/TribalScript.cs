@@ -65,8 +65,9 @@ public class TribalScript : MonoBehaviour
     {
         
         resetValues();
-
+        
         votedOff = manager.votedOff;
+        DoOrDie = GameManager.instance.DoOrDie;
         //votedOff = new Contestant();
         EpisodeStart = manager.MakePage("Tribal Council", 0, true);
         if (manager.MergedTribe.members.Count < 1)
@@ -169,8 +170,9 @@ public class TribalScript : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log(manager.curEvent.type);
                     votedOff = DoOrDie;
-                    DoOrDie = null;
+                    manager.DoOrDie = null;
                     vote = "Lost Challenge";
                     manager.Eliminate(vote, conPlacement, EpisodeStart, team);
                     return;

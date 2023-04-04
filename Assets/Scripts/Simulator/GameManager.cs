@@ -1180,7 +1180,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if (curEvent.type == "MergeSplit" || curEvent.type == "MergeSplitFiji")
+        else if (curEvent.type == "MergeSplit" || curEvent.type == "MergeSplitFiji" || curEvent.type == "DoOrDie")
         {
             //Debug.Log(MergedTribe.members.Contains(MergedTribe.members.Find(x => x.simID == votedOff.simID)));
             MergedTribe.members.Remove(MergedTribe.members.Find(x => x.simID == votedOff.simID));
@@ -1190,6 +1190,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log(team.members.Contains(team.members.Find(x => x.simID == votedOff.simID)));
             if (team.members.Contains(team.members.Find(x => x.simID == votedOff.simID)) == false)
             {
+                Debug.Log(votedOff);
                 Debug.Log(team.logTeam());
             }
             //Debug.Log("elim");
