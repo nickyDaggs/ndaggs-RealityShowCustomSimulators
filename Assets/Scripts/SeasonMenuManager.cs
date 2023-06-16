@@ -55,6 +55,7 @@ public class SeasonMenuManager : MonoBehaviour
 
     public SpecialEventMenu spEvMenu;
     public ExileMenu ExileMenu;
+    public statEditorMenu statMenu;
     public List<GameObject> editorOptions;
     public List<GameObject> twistOptions;
     public List<GameObject> UIParts;
@@ -62,6 +63,7 @@ public class SeasonMenuManager : MonoBehaviour
     public List<GameObject> exileUIOptions;
     public List<GameObject> spEvUIOptions;
     public List<GameObject> hidAdvUIOptions;
+    public List<GameObject> GIUIOptions;
     public GameObject tribeSizePRE;
     public GameObject tribeSizer;
     public GameObject tribeSizeParent;
@@ -69,6 +71,7 @@ public class SeasonMenuManager : MonoBehaviour
     public GameObject swapParent;
     public Button simButton;
     public Button playSimButton;
+    public Button playSimButtonStats;
     public RectTransform editorParent;
     public GameObject editorTrueParent;
     public GameObject castEditor;
@@ -78,6 +81,8 @@ public class SeasonMenuManager : MonoBehaviour
     public Button menuBackButton;
     public GameObject castBackCustom;
     public InputField sizeToSet;
+
+    public GameObject statPrefab;
 
     public Transform PMAdvParent;
     public Transform MAdvParent;
@@ -106,6 +111,8 @@ public class SeasonMenuManager : MonoBehaviour
 
     public List<Dropdown.OptionData> everyContestant;
     List<Dropdown.OptionData> usedContestants = new List<Dropdown.OptionData>();
+
+    public Text whatever;
 
     // Start is called before the first frame update
     void Start()
@@ -150,7 +157,7 @@ public class SeasonMenuManager : MonoBehaviour
         allContestants = GetAllInstances<Contestant>().ToList();
 
         everyContestant = allContestants.ConvertAll(x => new Dropdown.OptionData { text = x.name, image = x.image });
-
+        statMenu.StartStats();
         curPMAdv = PMAdvParent.GetChild(0).gameObject;
         curPMAdv.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmPMAdv);
         curMAdv = MAdvParent.GetChild(0).gameObject;
@@ -222,6 +229,7 @@ public class SeasonMenuManager : MonoBehaviour
         {
             if(dropdown.transform.parent.GetComponent<customConScript>().custom)
             {
+                
                 cust.cast.Add(CreateContestant(dropdown.transform.parent.GetComponent<customConScript>()));
                 if(cust.cast[cust.cast.Count - 1].fullname == "" || cust.cast[cust.cast.Count - 1].nickname == "")
                 {
@@ -230,13 +238,32 @@ public class SeasonMenuManager : MonoBehaviour
                 }
             } else
             {
-                cust.cast.Add(allContestants[dropdown.value]);
+                cust.cast.Add(Instantiate(allContestants[dropdown.value]));
             }
         }
         if (cust.cast.Count != cust.cast.Distinct().Count())
         {
             editorError.text = "NO DUPLICATE CONTESTANTS";
             return;
+        }
+
+        if(statMenu.mainStats.activeSelf)
+        {
+            for(int i = 0; i < cust.cast.Count; i++)
+            {
+                cust.cast[i].stats.Physical = statMenu.statParent.GetChild(i).GetChild(1).GetChild(0).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Endurance = statMenu.statParent.GetChild(i).GetChild(1).GetChild(1).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Mental = statMenu.statParent.GetChild(i).GetChild(1).GetChild(2).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Stamina = statMenu.statParent.GetChild(i).GetChild(1).GetChild(3).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.SocialSkills = statMenu.statParent.GetChild(i).GetChild(1).GetChild(4).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Temperament = statMenu.statParent.GetChild(i).GetChild(1).GetChild(5).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Forgivingness = statMenu.statParent.GetChild(i).GetChild(1).GetChild(6).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Boldness = statMenu.statParent.GetChild(i).GetChild(1).GetChild(7).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Strategic = statMenu.statParent.GetChild(i).GetChild(1).GetChild(8).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Loyalty = statMenu.statParent.GetChild(i).GetChild(1).GetChild(9).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Influence = statMenu.statParent.GetChild(i).GetChild(1).GetChild(10).GetComponent<Dropdown>().value + 1;
+                cust.cast[i].stats.Intuition = statMenu.statParent.GetChild(i).GetChild(1).GetChild(11).GetComponent<Dropdown>().value + 1;
+            }
         }
 
         bool custom = false;
@@ -337,11 +364,18 @@ public class SeasonMenuManager : MonoBehaviour
                 {
                     randomStat = true;
                 }
-                else if (opt.optionBool == "Exile")
+                else if (opt.optionBool == "SpecialIsland")
                 {
                     if (custom == true)
                     {
-                        CreateExile();
+                        customSeason.ExileIslandd = true;
+                        if(ExileMenu.islandChoice.value == 0)
+                        {
+                            CreateExile();
+                        } else if(ExileMenu.islandChoice.value == 1)
+                        {
+                            CreateGhost();
+                        }
                     }
                 }
                 else if (opt.optionBool == "Fire")
@@ -398,10 +432,12 @@ public class SeasonMenuManager : MonoBehaviour
         Contestant CreateContestant(customConScript contestant)
         {
             Contestant con = new Contestant();
+            con.stats = new Stats();
             con.fullname = contestant.customs[0].GetComponent<InputField>().text;
             con.nickname = contestant.customs[1].GetComponent<InputField>().text;
             con.image = contestant.gameObject.GetComponentInChildren<Image>().sprite;
             con.gender = contestant.customs[3].GetComponent<Dropdown>().options[contestant.customs[3].GetComponent<Dropdown>().value].text;
+            //Debug.Log(contestant.customs[0].GetComponent<InputField>().text);
             return con;
             
         }
@@ -1039,6 +1075,38 @@ public class SeasonMenuManager : MonoBehaviour
         //Debug.Log(customSeason.Twists.expireAt);
     }
 
+    void CreateGhost()
+    {
+        customSeason.ExileIslandd = true;
+        customSeason.Twists = new Twist();
+        customSeason.Twists.preMergeEIsland = new Exile();
+        customSeason.Twists.preMergeEIsland = ExileMenu.GetPMGhost();
+        customSeason.Twists.MergeEIsland = new Exile();
+        customSeason.Twists.MergeEIsland = ExileMenu.GetMGhost();
+        customSeason.IslandType = "Ghost";
+        customSeason.Twists.expireAt = spEvMenu.RoundsClone.Count + 2;
+        //Debug.Log(customSeason.Twists.expireAt);
+        if (ExileMenu.endAtGI.options[ExileMenu.endAtGI.value].text == "Merge")
+        {
+            customSeason.Twists.expires = "Merge";
+            //customSeason.Twists.expireAt = spEvMenu.RoundsClone.IndexOf(spEvMenu.RoundsClone.Find(x => x.text == (customSeason.mergeAt).ToString())) + 2;
+            //Debug.Log(customSeason.Twists.expireAt);
+        }
+        else
+        {
+            //customSeason.Twists.expireAt = spEvMenu.RoundsClone.Count + 2;
+        }
+        customSeason.islandHiddenAdvantages = new List<HiddenAdvantage>();
+        foreach (Transform child in ExileMenu.GIAdvantageParent)
+        {
+            if (child.GetChild(1).GetComponent<Button>().interactable == false)
+            {
+                customSeason.islandHiddenAdvantages.Add(GenerateAdvGI(child));
+                //Debug.Log("w");
+            }
+        }
+    }
+
     void TribeHidAdvs()
     {
         foreach (Transform child in PMAdvParent)
@@ -1069,13 +1137,38 @@ public class SeasonMenuManager : MonoBehaviour
         if (prefab.GetChild(2).GetComponentInChildren<Dropdown>().options[prefab.GetChild(2).GetComponentInChildren<Dropdown>().value].text == "Yes")
         {
             adv.reHidden = true;
-            Debug.Log("real");
+            //Debug.Log("real");
         } else
         {
             adv.reHidden = false;
         }
         adv.name = adv.advantage.nickname;
         if(adv.advantage.type == "HiddenImmunityIdol")
+        {
+            customSeason.idolLimit++;
+        }
+        return adv;
+    }
+
+    HiddenAdvantage GenerateAdvGI(Transform prefab)
+    {
+        HiddenAdvantage adv = new HiddenAdvantage();
+        adv.advantage = advantages[prefab.GetChild(0).GetComponentInChildren<Dropdown>().value];
+        adv.hidden = true;
+        adv.reHidden = false;
+        /*if (prefab.GetChild(2).GetComponentInChildren<Dropdown>().options[prefab.GetChild(2).GetComponentInChildren<Dropdown>().value].text == "Yes")
+        {
+            adv.reHidden = true;
+            //Debug.Log("real");
+        }
+        else
+        {
+            adv.reHidden = false;
+        }*/
+        adv.hideAt = int.Parse(prefab.GetComponentInChildren<InputField>().text);
+        adv.name = adv.advantage.nickname;
+
+        if (adv.advantage.type == "HiddenImmunityIdol")
         {
             customSeason.idolLimit++;
         }
@@ -1139,6 +1232,7 @@ public class SeasonMenuManager : MonoBehaviour
             
         }
         playSimButton.onClick.AddListener(() => StartSeason(season));
+        playSimButtonStats.onClick.AddListener(() => StartSeason(season));
     }
 
     public void EnableSwaps()
@@ -1178,6 +1272,34 @@ public class SeasonMenuManager : MonoBehaviour
             //obj.SetActive(!obj.activeSelf);
         }
         foreach (GameObject obj in exileUIOptions)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
+        foreach (GameObject obj in twistOptions)
+        {
+            obj.SetActive(!obj.activeSelf);
+        }
+        //swapUIOptions[2].GetComponent<Button>().interactable = !swapUIOptions[2].GetComponent<Button>().interactable;
+        //swapUIOptions[1].GetComponentInChildren<Button>().interactable = !swapUIOptions[1].GetComponentInChildren<Button>().interactable;
+        menuBackButton.gameObject.SetActive(!menuBackButton.gameObject.activeSelf);
+        confirms[0].gameObject.SetActive(!confirms[0].gameObject.activeSelf);
+
+        editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
+
+        StartCoroutine(ABC());
+    }
+
+    public void EnableGhost()
+    {
+        foreach (GameObject obj in editorOptions)
+        {
+            //obj.SetActive(!obj.activeSelf);
+        }
+        foreach (GameObject obj in UIParts)
+        {
+            //obj.SetActive(!obj.activeSelf);
+        }
+        foreach (GameObject obj in GIUIOptions)
         {
             obj.SetActive(!obj.activeSelf);
         }
@@ -1245,6 +1367,44 @@ public class SeasonMenuManager : MonoBehaviour
         editorTrueParent.GetComponent<ScrollRect>().verticalNormalizedPosition = 1;
 
         StartCoroutine(ABC());
+    }
+
+    public void EnableStatEditor()
+    {
+        backButton.SetActive(false);
+        //Debug.Log(castEditor.transform.parent.parent.gameObject.name);
+        castEditor.transform.parent.parent.gameObject.SetActive(false);
+        castBackCustom.SetActive(false);
+        foreach (Dropdown dropdown in castEditor.transform.GetComponentsInChildren<Dropdown>())
+        {
+            GameObject newStat = Instantiate(statPrefab, statMenu.statParent);
+            
+            if (dropdown.transform.parent.GetComponent<customConScript>().custom)
+            {
+                newStat.transform.GetChild(0).GetComponent<Text>().text = dropdown.transform.parent.GetComponent<customConScript>().customs[0].GetComponent<InputField>().text;
+            }
+            else
+            {
+                newStat.transform.GetChild(0).GetComponent<Text>().text = allContestants[dropdown.value].fullname;//dropdown.transform.parent.GetComponent<customConScript>().customs[0].GetComponent<InputField>().text;
+            }
+            int ind = statMenu.statParent.childCount - 1;
+            newStat.transform.GetChild(1).GetChild(12).GetComponent<Button>().onClick.AddListener(delegate { randomizeContestant(ind); });
+
+        }
+        statMenu.mainStats.SetActive(true);
+    }
+
+    public void randomizeContestant(int index)
+    {
+        //Debug.Log(index);
+        for (int i = 0; i < 12; i++)
+        {
+            
+            statMenu.statParent.GetChild(index).GetChild(1).GetChild(i).GetComponent<Dropdown>().value = Random.Range(statMenu.curMin, statMenu.curMax + 1);
+            //Debug.Log(statMenu.statParent.GetChild(index).GetChild(1).GetChild(i).GetComponent<Dropdown>());
+            //Debug.Log(statParent.GetChild(index).GetChild(1).GetChild(i).GetComponent<Dropdown>().value);
+        }
+        //Debug.Log((curMin + 1) + " " + (curMax + 1));
     }
 
     public void SetAllSizes()
@@ -1519,6 +1679,7 @@ public class SeasonMenuManager : MonoBehaviour
         
     }
 
+    
 
     void ConfirmPMAdv()
     {
@@ -1583,6 +1744,8 @@ public class SeasonMenuManager : MonoBehaviour
         confirms[2].interactable = false;
         editorOptions[7].GetComponent<Button>().interactable = false;
     }
+
+    
 
     public static T[] GetAllInstances<T>() where T : ScriptableObject
     {

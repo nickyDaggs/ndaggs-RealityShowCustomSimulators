@@ -133,6 +133,10 @@ public class TribalScript : MonoBehaviour
                 }
             }
             
+            foreach(Contestant tar in targets)
+            {
+                tar.lastTarget = true;
+            }
 
             etext = "It's time to vote.";
             manager.MakeGroup(true, team, "name", "", "", team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
@@ -166,7 +170,7 @@ public class TribalScript : MonoBehaviour
                 if (chosen)
                 {
                     DoOrDie.safety++;
-                    DoOrDie = null;
+                    manager.DoOrDie = null;
                 }
                 else
                 {
@@ -205,30 +209,77 @@ public class TribalScript : MonoBehaviour
                         bool playable = true;
                         manager.MakeGroup(false, null, "", "", num.nickname + " has the " + advantage.nickname + extra, w, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
                         Contestant usedOn = null;
-                        int ran = Random.Range(0, 10);
-                        if (advantage.type == "ImmunityNecklace" || advantage.type == "VoteSteal" || advantage.type == "VoteBlocker")
+                        int ran = 2;
+                        List<Contestant> teamV = new List<Contestant>(team.members);
+                        List<Contestant> targetV = new List<Contestant>(targets);
+                        targetV.Remove(num.target);
+                        targetV.Remove(num);
+                        teamV.Remove(num);
+                        teamV.Remove(num.target);
+                        foreach (Contestant con in immune)
                         {
-                            List<Contestant> teamV = new List<Contestant>(team.members);
-                            teamV.Remove(num);
-                            if (advantage.type == "ImmunityNecklace")
-                            {
-                                foreach (Contestant numm in immune)
-                                {
-                                    teamV.Remove(numm);
-                                }
-                                ran = Random.Range(0, num.stats.Strategic * 100);
-                                if (targets.Contains(usedOn))
-                                    playable = false;
-                            }
+                            if (teamV.Contains(con))
+                                teamV.Remove(con);
+                        }
+                        foreach (Contestant con in Idols)
+                        {
+                            //if (teamV.Contains(con))
+                            //teamV.Remove(con);
+                        }
+                        Contestant other = null;
+                        Contestant otherBad = null;
+                        Contestant otherBold = null;
+                        if (teamV.Count > 0)
+                        {
+                            other = teamV.OrderBy(x => num.goodValue(x)).ToList().First();
+                        }
+                        if (teamV.Count > 0)
+                        {
+                            otherBad = teamV.OrderBy(x => num.value(x)).ToList().First();
+                        }
+                        if (targetV.Count > 0)
+                        {
+                            otherBold = targetV.Except(num.altVotes).OrderBy(x => num.goodValue(x)).ToList().First();
+                        }
 
-                            usedOn = teamV[Random.Range(0, teamV.Count)];
+                        if (advantage.name == "ImmunityNecklace")
+                        {
+                            usedOn = other;
+                        }
+                        if ((advantage.name.Contains("Block") || advantage.name.Contains("Steal")) && otherBad.votes > 0)
+                        {
+                            usedOn = otherBad;
                         }
                         if (advantage.type == "PreventiveIdol")
                         {
                             if (targets.Contains(num))
                                 playable = true;
                         }
-                        if (advantage.usedWhen == "BeforeVote" && playable && (ran == 1 || manager.currentContestants == advantage.expiresAt || advantage.length == 1 || advantage.type == "VoteSacrifice"))
+                        //For advantages before vote(vote steal, extra votes, etc.)
+                        bool played = false;
+                        if(Random.Range(0, 8) < num.stats.Intuition && (targets.Contains(num) || targets.Contains(usedOn)))
+                        {
+                            played = true;
+                        } else
+                        {
+                            if(Random.Range(0, 21 + num.stats.Intuition) == 1)
+                            {
+                                played = true;
+                            }
+                        }
+                        if (advantage.type == "ImmunityNecklace")
+                        {
+                            foreach (Contestant numm in immune)
+                            {
+                                teamV.Remove(numm);
+                            }
+                            ran = Random.Range(0, num.stats.Strategic * 200);
+                            played = false;
+                            if (!targets.Contains(usedOn))
+                                playable = false;
+                        }
+
+                        if (advantage.usedWhen == "BeforeVote" && playable && (played || ran == 1 || manager.currentContestants == advantage.expiresAt || advantage.length == 1 || advantage.type == "VoteSacrifice"))
                         {
                             if (advantage.type == "SafetyWithoutPower")
                             {
@@ -503,7 +554,7 @@ public class TribalScript : MonoBehaviour
                 {
                     alliance.mainTargets.Remove(alliance.mainTargets.Find(x => team.members.Contains(x)));
                     alliance.members = alliance.members.OrderByDescending(x => x.stats.Influence).ToList();
-                    alliance.mainTargets.Add(alliance.members[0].PersonalTarget(targets.Except(alliance.members).ToList()));
+                    alliance.mainTargets.Add(alliance.members[0].PersonalTarget(targets.ToList()));
                 }
             }
         }
@@ -597,34 +648,38 @@ public class TribalScript : MonoBehaviour
         List<Contestant> superIdols = new List<Contestant>();
         foreach (Contestant num in team.members)
         {
+            List<Advantage> remove = new List<Advantage>();
             foreach (Advantage advantage in num.advantages)
             {
-                List<Contestant> w = new List<Contestant>() { num };
-
-                Contestant usedOn = null;
-                List<Contestant> hasIdol = new List<Contestant>();
-                foreach (Contestant con in team.members)
+                if (advantage.usedWhen == "AfterVotes" && advantage.type == "IdolNullifier")
                 {
-                    foreach (Advantage ad in num.advantages)
+
+                    Contestant usedOn = null;
+                    List<Contestant> me = new List<Contestant>() { num };
+                    foreach (Contestant con in team.members)
                     {
-                        if (ad.type == "HiddenImmunityIdol" && con != num)
+                        foreach (Advantage ad in con.advantages)
                         {
-                            hasIdol.Add(con);
+                            if (ad.type == "HiddenImmunityIdol" && con != num)
+                            {
+                                //hasIdol.Add(con);
+                            }
                         }
                     }
-                }
-                if (hasIdol.Count > 0)
-                {
-                    usedOn = hasIdol[Random.Range(0, hasIdol.Count)];
-                }
-                if (advantage.usedWhen == "AfterVotes" && advantage.type == "IdolNullifier" && Random.Range(0, 10) == 0 && hasIdol.Count > 0 && !aa)
-                {
-                    AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                    //Debug.Log("fds");
+
+                    usedOn = targets.Except(me).OrderByDescending(x => num.value(x)).First();
+
+                    if (((Random.Range(0, 8) < num.stats.Intuition && targets.Contains(num)) || Random.Range(0, 21 + num.stats.Intuition) == 1 || manager.currentContestants == advantage.expiresAt)  && usedOn != null && !aa)
+                    {
+                        AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                        remove.Add(advantage);
+                    }
                 }
             }
             if (num.advantages.Count > 0 && !aa)
             {
-                List<Advantage> remove = new List<Advantage>();
+                
 
                 foreach (Advantage advantage in num.advantages)
                 {
@@ -640,39 +695,91 @@ public class TribalScript : MonoBehaviour
                     {
                         superIdols.Add(num);
                     }
-                    if (advantage.name == "Ally Idol" || immune.Contains(num) || Idols.Contains(num))
+                    List<Contestant> teamV = new List<Contestant>(team.members);
+                    List<Contestant> targetV = new List<Contestant>(targets);
+                    targetV.Remove(num.target);
+                    targetV.Remove(num);
+                    teamV.Remove(num);
+                    teamV.Remove(num.target);
+                    foreach (Contestant con in immune)
                     {
-                        List<Contestant> teamV = new List<Contestant>(team.members);
-                        teamV.Remove(num);
-                        foreach (Contestant con in immune)
-                        {
-                            if (teamV.Contains(con))
-                                teamV.Remove(con);
-                        }
-                        foreach (Contestant con in Idols)
-                        {
-                            if (teamV.Contains(con))
-                                teamV.Remove(con);
-                        }
-                        usedOn = teamV.OrderBy(x => num.goodValue(x)).ToList().First();
+                        if (teamV.Contains(con))
+                            teamV.Remove(con);
                     }
-                    int ran = Random.Range(0, 10);
-                    if (tie.Contains(num) && usedOn == null && Random.Range(1, 6) == num.stats.Intuition)
+                    foreach (Contestant con in Idols)
                     {
-                        ran = Random.Range(0, 6 - num.stats.Intuition);
+                        //if (teamV.Contains(con))
+                            //teamV.Remove(con);
+                    }
+                    Contestant other = null;
+                    Contestant otherBold = null;
+                    if (teamV.Count > 0)
+                    {
+                        other = teamV.OrderBy(x => num.goodValue(x)).ToList().First();
+                    }
+                    if (teamV.Count > 0)
+                    {
+                        //otherBad = teamV.OrderBy(x => num.value(x)).ToList().First();
+                    }
+                    if (targetV.Count > 0)
+                    {
+                        otherBold = targetV.Except(num.altVotes).OrderBy(x => num.goodValue(x)).ToList().First();
+                    }
+
+                    int otherRan = Random.Range(0, 8);
+                    if((targets.Contains(other) && Random.Range(0, 8) < num.stats.Intuition) || (targets.Contains(other) && !targets.Contains(num) && Random.Range(1, 6) < num.stats.Intuition))
+                    {
+                        otherRan = Random.Range(0, 5);
+                    }
+                    
+
+                    if (advantage.name == "Ally Idol" || immune.Contains(num) || Idols.Contains(num) && otherRan == 0)
+                    {
+                        usedOn = other;
+                    }
+                    if (Random.Range(0, 8) < num.stats.Boldness)
+                    {
+                        usedOn = otherBold;
+                    }
+                    
+                    int ran = Random.Range(0, 10);
+
+                    //For advantages after vote(mostly all idols)
+                    bool played = false;
+                    if (Random.Range(0, 15) < num.stats.Intuition && (targets.Contains(num) || targets.Contains(usedOn)))
+                    {
+                        played = true;
+                    }
+                    else
+                    {
+                        if(Random.Range(0, 8) < num.stats.Intuition && (votedOff == num || votedOff == usedOn))
+                        {
+                            played = true;
+                        } else
+                        {
+                            if (Random.Range(0, 21 + num.stats.Intuition) == 1)
+                            {
+                                played = true;
+                            }
+                        }
+                    }
+                    if (tie.Contains(num) && usedOn == null && Random.Range(0, 7) < num.stats.Intuition)
+                    {
+                        //ran = Random.Range(0, 6 - num.stats.Intuition);
                     }
                     if (usedOn != null)
                     {
-                        if (tie.Contains(usedOn) && Random.Range(1, 6) == num.stats.Intuition)
-                            ran = Random.Range(0, 6 - num.stats.Intuition);
+                        //if (tie.Contains(usedOn) && Random.Range(1, 6) < num.stats.Intuition && targets.Contains(usedOn))
+                            //ran = Random.Range(0, 6 - num.stats.Intuition);
                     }
-                    if ((immune.Contains(num) || Idols.Contains(num)) && usedOn == null)
+                    if ((immune.Contains(num) || Idols.Contains(num)) && advantage.playOnOthers == false)
                     {
                         playable = false;
                     }
+
                     /*&& ran == 1* && tie.Contains(num)*/
 
-                    if (playable && (ran == 0 || manager.currentContestants == advantage.expiresAt || advantage.length == 1))
+                    if (advantage.type != "IdolNullifier" && playable && (played || manager.currentContestants == advantage.expiresAt || advantage.length == 1))
                     {
                         bool a = false;
                         if (advantage.onlyUsable.Count > 0)
@@ -1100,13 +1207,7 @@ public class TribalScript : MonoBehaviour
                     List<Contestant> w = new List<Contestant>() { num };
 
                     Contestant usedOn = null;
-                    if (advantage.type == "ImmunityNecklace" || advantage.type == "VoteSteal" || advantage.type == "VoteBlocker")
-                    {
-                        List<Contestant> teamV = new List<Contestant>(team.members);
-                        teamV.Remove(num);
-
-                        usedOn = teamV[Random.Range(0, teamV.Count)];
-                    }
+                    
                     if (advantage.usedWhen == "AfterVotesRead")
                     {
                         if (advantage.type == "SuperIdol" && tie.Contains(num))
@@ -1249,6 +1350,7 @@ public class TribalScript : MonoBehaviour
     }
     void AdvantagePlay(Transform obj, Advantage advantage, Contestant user, Contestant usedOn)
     {
+        Debug.Log("played" + " " + advantage.nickname + " " + user.name + " " + (usedOn == null) + " In Episode:" + (GameManager.instance.curEp + 1)  );
         Dictionary<Contestant, int> dic2 = new Dictionary<Contestant, int>(dic);
         List<Contestant> n = new List<Contestant>() { user };
         string evetext = user.nickname + " uses the " + advantage.nickname;
@@ -1258,7 +1360,7 @@ public class TribalScript : MonoBehaviour
             evetext += " on " + usedOn.nickname;
             if (advantage.type == "IdolNullifier")
             {
-                evetext = user.nickname + " secretly uses the " + advantage.nickname + " on " + usedOn.nickname + "\n\nThe first idol played on " + usedOn.nickname + " will be negated.";
+                evetext = user.nickname + " secretly uses the " + advantage.nickname + " on " + usedOn.nickname + "\n\nThe first idol played on " + usedOn.nickname + " will be negated";
             }
             n.Add(usedOn); n.Reverse();
             if (advantage.type != "ImmunityNecklace" && advantage.type != "VoteSteal" && advantage.type != "VoteBlocker")
@@ -1268,10 +1370,11 @@ public class TribalScript : MonoBehaviour
         }
         if (advantage.type == "HiddenImmunityIdol")
         {
-            evetext += "\n\nAny votes cast against " + user.nickname + " will not count.";
+            evetext += "\n\nAny votes cast against " + user.nickname + " will not count";
             if (nullIdols.Contains(user))
             {
-                evetext += "\n\nBecause of the Idol Nullifier, this idol is negated.";
+                Debug.Log("NULLED");
+                evetext += "\n\nBecause of the Idol Nullifier, this idol is negated";
             }
         }
         foreach (HiddenAdvantage hid in manager.sea.islandHiddenAdvantages)
@@ -1419,6 +1522,7 @@ public class TribalScript : MonoBehaviour
             case "HiddenImmunityIdol":
                 if (!nullIdols.Contains(user))
                 {
+                    
                     immune.Add(user);
                     if (dic2.ContainsKey(user))
                     {
@@ -1508,6 +1612,7 @@ public class TribalScript : MonoBehaviour
         bool rev = true;
         if (tie.Count < 1)
         {
+            manager.MakeGroup(false, null, "", "", "There are no valid votes. The vote will now restart, with only those not immune now vulnerable.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
             rev = VoteRestart();
         }
         else

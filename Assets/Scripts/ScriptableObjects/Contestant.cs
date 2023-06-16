@@ -24,7 +24,9 @@ public class Contestant : ScriptableObject
     public string placement;
     [Header("Simulation Only")]
     public Contestant target;
+    //public Contestant vote;
     public int targetValue;
+    public bool lastTarget;
     public List<Contestant> altVotes = new List<Contestant>();
     public List<Contestant> halfIdols = new List<Contestant>();
     public bool inTie;
@@ -207,13 +209,18 @@ public class Contestant : ScriptableObject
             v += Random.Range(0, 4);
         }
 
-        if (GameManager.Instance.MergedTribe.members.Count < 0)
+        if (GameManager.Instance.MergedTribe.members.Count < 0 || Random.Range(0, 8) < stats.Boldness)
         {
             v += (3 - challengeStats) * 10;
         }
         else
         {
             v += (3 - challengeStats) * 10;
+        }
+
+        if(lastTarget)
+        {
+            v = (int)((float)v * .6);
         }
 
         return v;

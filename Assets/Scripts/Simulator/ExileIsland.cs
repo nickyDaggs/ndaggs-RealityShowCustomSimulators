@@ -40,9 +40,9 @@ public class ExileIsland : MonoBehaviour
             bool adv = false;
             foreach (HiddenAdvantage hid in GameManager.instance.sea.islandHiddenAdvantages)
             {
-                if (hid.hideAt == GameManager.instance.curEp + 1)
+                if (hid.hideAt == GameManager.instance.currentContestants)
                 {
-                    int ran = 1;//Random.Range(0, 2);
+                    int ran = Random.Range(0, 7);
                     string nam = hid.name;
                     atext = "There is a secret advantage available.\n\n" + GameManager.instance.Exiled[0].nickname + " can wager their next vote for a chance to win.";
                     if (!adv)
@@ -58,15 +58,15 @@ public class ExileIsland : MonoBehaviour
                             av.temp = true;
                             av.length = 1;
                             atext = GameManager.instance.Exiled[0].nickname + " finds a Temporary Hidden Immunity Idol that's good for one round.\n\nThey can wager their vote to extend it up to 5 extra rounds.";
-                            
-                            if (ran == 1)
+
+                            if (ran < num.stats.Boldness)
                             {
                                 bool b = false;
                                 string loseVote = "";
                                 while(!b)
                                 {
-                                    int ran2 = Random.Range(0, 2);
-                                    if(ran2 == 1)
+                                    int ran2 = Random.Range(0, 7);
+                                    if(ran2 < num.stats.Mental)
                                     {
                                         av.length++;
                                         int Ran = Random.Range(0, 2);
@@ -96,10 +96,10 @@ public class ExileIsland : MonoBehaviour
                             num.advantages.Add(av);
                         } else
                         {
-                            if (ran == 1)
+                            if (ran < num.stats.Boldness)
                             {
-                                int ran2 = Random.Range(0, 2);
-                                if (ran2 == 1)
+                                int ran2 = Random.Range(0, 7);
+                                if (ran2 <= num.stats.Mental)
                                 {
                                     Advantage av = Instantiate(hid.advantage);
                                     av.name = hid.name;
@@ -460,8 +460,12 @@ public class ExileIsland : MonoBehaviour
                         if (hid.hidden)
                         {
                             t = true;
-                            int ran = Random.Range(0, 2);
-                            if (ran == 1)
+                            int ran = Random.Range(0, hid.hiddenChance);
+                            if (hid.advantage.type == "IdolNullifier")
+                            {
+                                ran = Random.Range(0, 2);
+                            }
+                            if (ran < num.stats.Strategic)
                             {
                                 Advantage av = Instantiate(hid.advantage);
                                 //av.name = hid.name;
@@ -514,7 +518,8 @@ public class ExileIsland : MonoBehaviour
                         team = tribe;
                     }
                 }
-                if (Random.Range(0, 1) == 0 && team.members.Count > (GameManager.instance.currentContestants - GameManager.instance.mergeAt))
+                //&& team.members.Count > (GameManager.instance.currentContestants - GameManager.instance.mergeAt)
+                if (Random.Range(0, 7) <= correct.stats.Boldness && team.members.Count > 1)
                 {
                     //Debug.Log("SUS");
                     List<Team> TribesV = new List<Team>(GameManager.instance.Tribes);
@@ -544,7 +549,8 @@ public class ExileIsland : MonoBehaviour
                 }
                 else
                 {
-                    if (team.members.Count > (GameManager.instance.currentContestants - GameManager.instance.mergeAt))
+
+                    if (team.members.Count > 1)
                     {
                         GameManager.instance.MakeGroup(false, null, "", "There are two urns.\n\nOne contains an idol clue and the option of mutinying to the other tribe.\n\nThe other contains nothing.", correct.nickname + " chooses the bottle with the clue and the options.\n\nThey decide not to mutiny.", new List<Contestant>() { correct }, ExileEvent.transform.GetChild(0).GetChild(0), 0);
                     }

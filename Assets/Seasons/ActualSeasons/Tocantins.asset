@@ -31,7 +31,7 @@ MonoBehaviour:
       advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
       hideAt: 0
       reHidden: 0
-      hidden: 0
+      hidden: 1
       linkedToExile: 0
       length: 0
       temp: 0
@@ -39,6 +39,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -57,8 +58,8 @@ MonoBehaviour:
     - name: Timbira Tribe Hidden Immunity Idol
       advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
       hideAt: 0
-      reHidden: 0
-      hidden: 0
+      reHidden: 1
+      hidden: 1
       linkedToExile: 0
       length: 0
       temp: 0
@@ -66,6 +67,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -126,7 +128,20 @@ MonoBehaviour:
   RewardChallenges: []
   rewardSkips: 
   NoRewards: 0
-  mergeHiddenAdvantages: []
+  mergeHiddenAdvantages:
+  - name: Forza Tribe Hidden Immunity Idol
+    advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
+    hideAt: 0
+    reHidden: 0
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+    hiddenChance: 0
   twistHiddenAdvantages: []
   swaps: []
   ExileIslandd: 1
@@ -148,6 +163,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 13
+    expires: 
     epsSkipE: 01000000070000000c000000
     epsSpecialE: 
     epsSkipRI: 

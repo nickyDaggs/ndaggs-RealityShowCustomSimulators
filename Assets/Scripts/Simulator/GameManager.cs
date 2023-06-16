@@ -200,6 +200,7 @@ public class GameManager : MonoBehaviour
                 }
                 Tribes[i].members[j].stats.Stamina = Tribes[i].members[j].stats.Stamina * 20;
                 newCast.Add(Tribes[i].members[j]);
+                //Debug.Log(Tribes[i].members[j].stats.Physical);
                 con++;
             }
         }
@@ -505,6 +506,7 @@ public class GameManager : MonoBehaviour
                 if(ep.Event.type.Contains("MultiTribal") || ep.Event.type.Contains("JointTribal"))
                 {
                     ep.events.Add("STribeImmunity");
+                    ep.exileIsland.on = false;
                 }
                 else
                 {
@@ -652,6 +654,7 @@ public class GameManager : MonoBehaviour
                 if (ep.Event.type.Contains("MultiTribal") || ep.Event.type.Contains("JointTribal"))
                 {
                     ep.events.Add("STribeImmunity");
+                    ep.exileIsland.on = false;
                 }
                 else
                 {
@@ -738,6 +741,7 @@ public class GameManager : MonoBehaviour
                 if (ep.Event.type == "MergeSplit" || ep.Event.type == "MergeSplitFiji" || ep.Event.type == "DoOrDie" || ep.Event.type == "MergeSplit41")
                 {
                     ep.events.Add("STribeImmunity");
+                    ep.exileIsland.on = false;
                 }
                 else
                 {
@@ -873,12 +877,14 @@ public class GameManager : MonoBehaviour
                 }
                 if (ep.Event.type == "MergeSplit" || ep.Event.type == "JurorRemoval" || ep.Event.type == "MergeSplitFiji" || ep.Event.type == "DoOrDie" || ep.Event.type == "MergeSplit41")
                 {
-                    Debug.Log("sdafds");
+                    //Debug.Log("sdafds");
                     ep.events.Add("STribeImmunity");
                     if(ep.Event.type == "JurorRemoval")
                     {
                         curCon++;
                     }
+                    ep.exileIsland.on = false;
+
                 }
                 else
                 {
@@ -911,13 +917,13 @@ public class GameManager : MonoBehaviour
                 }
                 if (ep.Event.type == "ForcedFireMaking")
                 {
-                    ep = new EpisodeSetting();
+                    /*ep = new EpisodeSetting();
                     ep.events.Add("NextEpM");
                     ep.events.Add("MergeStatus");
                     ep.events.Add("MergeImmunity");
                     ep.events.Add("ForcedFireMaking");
                     ep.events.Add("ShowVotes");
-                    oc = true;
+                    oc = true;*/
                 }
             }
             Episodes.Add(ep);
@@ -1194,6 +1200,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log(team.logTeam());
             }
             //Debug.Log("elim");
+            //Debug.Log(team.members.Find(x => x.simID == votedOff.simID));
             team.members.Remove(team.members.Find(x => x.simID == votedOff.simID));
         }
 
@@ -1704,6 +1711,7 @@ public class GameManager : MonoBehaviour
     {
         int num = currentSeason.Episodes[curEpp].events.Count - 1;
         currentSeason.Episodes[curEpp].events[num].Idols = gm;
+
     }
     public void AddFinalVote(GameObject og)
     {
@@ -3223,8 +3231,15 @@ public class GameManager : MonoBehaviour
                 curTTT++;
             } else
             {
-                tribalScript.team = MergedTribe;
-                tribalScript.DoTribal();
+                if (sea.forcedFireMaking && RIExpired == true && MergedTribe.members.Count == 4)
+                {
+                    ForcedFireMaking();
+                } else
+                {
+                    tribalScript.team = MergedTribe;
+                    tribalScript.DoTribal();
+                }
+                
             }
         } else
         {
@@ -3480,7 +3495,7 @@ public class GameManager : MonoBehaviour
                         int ran = Random.Range(0, 2);
                         if (Random.Range(0, hid.hiddenChance) < num.stats.Strategic && Random.Range(0, hid.hiddenChance) < num.stats.Boldness)
                         {
-                            Debug.Log(num.nickname + num.stats.Strategic + " " + num.stats.Boldness + " Episode:" + (curEp + 1));
+                            //Debug.Log(num.nickname + num.stats.Strategic + " " + num.stats.Boldness + " Episode:" + (curEp + 1));
                             //Debug.Log(hid.hiddenChance);
                             Advantage av = Instantiate(hid.advantage);
                             av.nickname = hid.name;
@@ -3656,7 +3671,7 @@ public class GameManager : MonoBehaviour
                         int ran = Random.Range(0, 2);
                         if (Random.Range(0, hid.hiddenChance) < num.stats.Strategic && Random.Range(0, hid.hiddenChance) < num.stats.Boldness)
                         {
-                            Debug.Log(num.nickname + num.stats.Strategic + " " + num.stats.Boldness + " Episode:" + (curEp + 1));
+                            //Debug.Log(num.nickname + num.stats.Strategic + " " + num.stats.Boldness + " Episode:" + (curEp + 1));
                             //Debug.Log(hid.hiddenChance);
                             Advantage av = Instantiate(hid.advantage);
                             av.nickname = hid.name;
@@ -4139,7 +4154,7 @@ public class GameManager : MonoBehaviour
     void WinnerReveal()
     {
         //Debug.Log(curEpp);
-        if (MergedTribe.members.Count > 2)
+        if (MergedTribe.members.Count > sea.final)
         {
             Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
@@ -5020,38 +5035,49 @@ public class GameManager : MonoBehaviour
         Team Targets = new Team(); Targets.name = team.name;
 
         int range = team.members.Max(x => x.stats.Strategic) + 2;
-        foreach (Contestant num in team.members)
+        while(Targets.members.Count < 2)
         {
-            if (team.members.Except(immune).Except(Targets.members).ToList().Count > 1)
+            foreach (Contestant num in team.members)
             {
-                num.PersonalTarget(team.members.Except(immune).Except(Targets.members).ToList());
-            }
-            else
-            {
-                num.PersonalTarget(team.members.Except(immune).ToList());
-            }
-            if (Random.Range(1, range) <= num.stats.Strategic && !Targets.members.Contains(num.target))
-            {
-                if (Targets.members.Count < 2)
+                if (team.members.Except(immune).Except(Targets.members).ToList().Count > 1)
                 {
-                    Targets.members.Add(num.target);
+                    num.PersonalTarget(team.members.Except(immune).Except(Targets.members).ToList());
                 }
                 else
                 {
-                    if (Random.Range(0, Targets.members.Count * 2) == 0)
+                    num.PersonalTarget(team.members.Except(immune).ToList());
+                }
+                if (Random.Range(1, range) <= num.stats.Strategic && !Targets.members.Contains(num.target))
+                {
+                    if (Targets.members.Count < 2)
                     {
+                        //Debug.Log(curEp + num.target.fullname + ": " + num.value(num.target));
                         Targets.members.Add(num.target);
                     }
+                    else
+                    {
+
+                        if (Random.Range(0, Targets.members.Count * 2) == 0)
+                        {
+                            //Debug.Log(curEp + num.target.fullname + ": " + num.value(num.target));
+                            Targets.members.Add(num.target);
+                        }
+                    }
+                }
+                if (Targets.members.Count < 2)
+                {
+                    range--;
+                }
+                else
+                {
+                    range = 7;
                 }
             }
-            if (Targets.members.Count < 2)
-            {
-                range--;
-            }
-            else
-            {
-                range = 7;
-            }
+        }
+        
+        foreach(Contestant num in team.members)
+        {
+            num.lastTarget = false;
         }
 
 

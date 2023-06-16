@@ -25,7 +25,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "Immunity Challenge";
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, false);
         List<Team> Trib = new List<Team>(GameManager.instance.Tribes);
         GameManager.instance.LosingTribes = new List<Team>();
         switch(GameManager.instance.curEvent.type)
@@ -576,8 +576,14 @@ public class OneTimeEvents : MonoBehaviour
             EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
             EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
             EpisodeCast.name = "The Cast";
-            GameManager.instance.AddGM(EpisodeCast, true);
+            GameManager.instance.AddGM(EpisodeCast, false);
             GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
+            int con = 0;
+            for(int i  = 0; i < GameManager.instance.cast.cast.Count; i++)
+            {
+                GameManager.instance.cast.cast[i].simID = con;
+                con++;
+            }
         }
         
         GameObject EpisodeStart = Instantiate(GameManager.instance.Prefabs[0]);
@@ -585,7 +591,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, false);
+        GameManager.instance.AddGM(EpisodeStart, true);
         switch (GameManager.instance.curEvent.type)
         {
             case "SchoolyardPick":
@@ -597,6 +603,7 @@ public class OneTimeEvents : MonoBehaviour
                         Leaders.Add(tribe.members[0]);
                     }
                     GameManager.instance.MakeGroup(false, null, "name", "", "Players are chosen to select tribes.", Leaders, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+
                     int con = 1;
                     int num = 0;
 
@@ -1007,7 +1014,12 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.name = "The Cast";
         GameManager.instance.AddGM(EpisodeCast, false);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
-
+        int conn = 0;
+        for (int i = 0; i < GameManager.instance.cast.cast.Count; i++)
+        {
+            GameManager.instance.cast.cast[i].simID = conn;
+            conn++;
+        }
         GameObject EpisodeImm = Instantiate(GameManager.instance.Prefabs[2]);
         EpisodeImm.transform.parent = GameManager.instance.Canvas.transform;
         EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeImm.GetComponent<RectTransform>().offsetMax.y);
@@ -1231,9 +1243,14 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeCast.name = "The Cast";
-        GameManager.instance.AddGM(EpisodeCast, true);
+        GameManager.instance.AddGM(EpisodeCast, false);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
-
+        int conn = 0;
+        for (int i = 0; i < GameManager.instance.cast.cast.Count; i++)
+        {
+            GameManager.instance.cast.cast[i].simID = conn;
+            conn++;
+        }
         GameManager.instance.Tribes = new List<Team>() { new Team { name = "The Cast", tribeColor = Color.white, members = GameManager.instance.cast.cast } };
         GameManager.instance.TribeEventss();
 

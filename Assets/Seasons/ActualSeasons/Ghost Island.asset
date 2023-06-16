@@ -41,6 +41,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -70,6 +71,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -143,6 +145,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages: []
   swaps:
   - on: 1
@@ -194,6 +197,7 @@ MonoBehaviour:
         IOILesson: 
         options: []
         IOISweetened: 0
+        hiddenChance: 25
       remove: 0
       allianceCount: 0
       environment: 3
@@ -272,7 +276,7 @@ MonoBehaviour:
   islandHiddenAdvantages:
   - name: Legacy Advantage
     advantage: {fileID: 11400000, guid: 30259d796ce80bd4cba046bc7b8e7cd0, type: 2}
-    hideAt: 1
+    hideAt: 20
     reHidden: 0
     hidden: 1
     linkedToExile: 0
@@ -282,9 +286,10 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: Vote Steal
     advantage: {fileID: 11400000, guid: b09ac9f84ce006145848f34558e8e311, type: 2}
-    hideAt: 4
+    hideAt: 17
     reHidden: 0
     hidden: 1
     linkedToExile: 0
@@ -294,6 +299,59 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
+  - name: Extra Vote
+    advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
+    hideAt: 14
+    reHidden: 0
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+    hiddenChance: 25
+  - name: Temporary Immunity Idol
+    advantage: {fileID: 11400000, guid: f04f687ef61804d4691c0aa3501d1521, type: 2}
+    hideAt: 13
+    reHidden: 0
+    hidden: 1
+    linkedToExile: 0
+    length: 1
+    temp: 1
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+    hiddenChance: 25
+  - name: Vote Blocker
+    advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
+    hideAt: 11
+    reHidden: 0
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+    hiddenChance: 25
+  - name: Challenge Advantage
+    advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
+    hideAt: 8
+    reHidden: 0
+    hidden: 1
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: 
+    options: []
+    IOISweetened: 0
+    hiddenChance: 25
   - name: Extra Vote
     advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
     hideAt: 7
@@ -306,54 +364,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
-  - name: Temporary Immunity Idol
-    advantage: {fileID: 11400000, guid: f04f687ef61804d4691c0aa3501d1521, type: 2}
-    hideAt: 8
-    reHidden: 0
-    hidden: 1
-    linkedToExile: 0
-    length: 1
-    temp: 1
-    giveAway: 0
-    IOILesson: 
-    options: []
-    IOISweetened: 0
-  - name: Vote Blocker
-    advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
-    hideAt: 10
-    reHidden: 0
-    hidden: 1
-    linkedToExile: 0
-    length: 0
-    temp: 0
-    giveAway: 0
-    IOILesson: 
-    options: []
-    IOISweetened: 0
-  - name: Challenge Advantage
-    advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
-    hideAt: 12
-    reHidden: 0
-    hidden: 1
-    linkedToExile: 0
-    length: 0
-    temp: 0
-    giveAway: 0
-    IOILesson: 
-    options: []
-    IOISweetened: 0
-  - name: Extra Vote
-    advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
-    hideAt: 13
-    reHidden: 0
-    hidden: 1
-    linkedToExile: 0
-    length: 0
-    temp: 0
-    giveAway: 0
-    IOILesson: 
-    options: []
-    IOISweetened: 0
+    hiddenChance: 25
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
@@ -370,6 +381,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 14
+    expires: 
     epsSkipE: 060000000b000000
     epsSpecialE: 040000000500000007000000
     epsSkipRI: 

@@ -9,7 +9,7 @@ public class Advantage : ScriptableObject
     public string type;
     public int expiresAt;
     public int length;
-    public List<int> onlyUsable;
+    public List<int> onlyUsable = new List<int>();
     public bool temp;
     public bool playOnOthers;
     public string usedWhen;

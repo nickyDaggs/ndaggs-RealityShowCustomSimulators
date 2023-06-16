@@ -17,12 +17,30 @@ public class ExileMenu : MonoBehaviour
     public GameObject AdvantagePrefab;
     public Transform AdvantageParent;
     public RectTransform editorParent;
+
+    public Dropdown islandChoice;
+    public Button islandButton;
+    public Image islandImage;
+
+    public Sprite EIImage;
+    public Sprite GIImage;
+
+    public List<Dropdown> PreMergeGI = new List<Dropdown>();
+    public List<Dropdown> MergeGI = new List<Dropdown>();
+    public Dropdown endAtGI;
+    public GameObject curAdvGI;
+    public GameObject GIAdvantagePrefab;
+    public Transform GIAdvantageParent;
+
     // Start is called before the first frame update
     void Start()
     {
         //skip.onEndEdit.AddListener(skipEnter);
         curAdv = AdvantageParent.GetChild(0).gameObject;
         curAdv.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmAdv);
+
+        curAdvGI = GIAdvantageParent.GetChild(0).gameObject;
+        curAdvGI.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmAdvGI);
     }
 
     // Update is called once per frame
@@ -131,6 +149,107 @@ public class ExileMenu : MonoBehaviour
         StartCoroutine(ABC());
     }
 
+    public Exile GetPMGhost()
+    {
+        Exile exile = new Exile();
+        exile.on = true;
+        if (PreMergeGI[0].options[PreMergeGI[0].value].text == "Winner")
+        {
+            exile.reason = "Winner";
+        }
+        else
+        {
+            exile.reason = "Loser";
+        }
+        if (PreMergeGI[1].options[PreMergeGI[1].value].text == "Reward Challenge")
+        {
+            exile.challenge = "Reward";
+        }
+        else
+        {
+            exile.challenge = "Immunity";
+        }
+        if (PreMergeGI[2].options[PreMergeGI[2].value].text == "Own Tribe")
+        {
+            exile.ownTribe = true;
+        }
+        switch (PreMergeGI[4].options[PreMergeGI[4].value].text)
+        {
+            case "None":
+                exile.exileEvent = "Nothing";
+                break;
+            case "Mutiny Urn":
+                exile.exileEvent = "UrnMutiny";
+                break;
+            case "Safety":
+                exile.exileEvent = "Safety";
+                break;
+        }
+
+        if (PreMergeGI[5].options[PreMergeGI[5].value].text == "Yes")
+        {
+            exile.skipTribal = true;
+        }
+
+
+
+        return exile;
+    }
+    public Exile GetMGhost()
+    {
+        Exile exile = new Exile();
+        exile.on = true;
+        exile.reason = "Winner";
+
+        if (MergeGI[0].options[MergeGI[0].value].text == "Reward Challenge")
+        {
+            exile.challenge = "Reward";
+        }
+        else
+        {
+            exile.challenge = "Immunity";
+        }
+
+        switch (MergeGI[1].options[MergeGI[1].value].text)
+        {
+            case "None":
+                exile.exileEvent = "Nothing";
+                break;
+            case "Safety":
+                exile.exileEvent = "Safety";
+                break;
+        }
+
+        if (MergeGI[2].options[MergeGI[2].value].text == "Yes")
+        {
+            exile.skipTribal = true;
+        }
+
+
+        return exile;
+    }
+
+    void ConfirmAdvGI()
+    {
+        if(int.Parse(curAdvGI.transform.GetChild(2).GetComponentInChildren<InputField>().text) > SeasonMenuManager.instance.contestantsFull)
+        {
+            return;
+        }
+        foreach (Transform child in GIAdvantageParent)
+        {
+            if (child.gameObject.name != curAdvGI.name)
+            {
+                //return;
+            }
+        }
+        curAdvGI.transform.GetChild(1).GetComponent<Button>().interactable = false;
+        curAdvGI.transform.GetChild(0).GetComponentInChildren<Dropdown>().interactable = false;
+        curAdvGI.transform.GetChild(2).GetComponentInChildren<InputField>().interactable = false;
+        curAdvGI = Instantiate(GIAdvantagePrefab, GIAdvantageParent);
+        curAdvGI.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmAdvGI);
+        StartCoroutine(ABC());
+    }
+
 
     public void skipEnter(string real)
     {
@@ -147,6 +266,23 @@ public class ExileMenu : MonoBehaviour
             skipText.text += real + " ";
         }
         real = "";
+    }
+
+    public void ChooseIsland()
+    {
+        if(islandChoice.value == 0)
+        {
+            islandImage.sprite = EIImage;
+            islandButton.GetComponentInChildren<Text>().text = "Exile Island";
+            islandButton.onClick.RemoveAllListeners();
+            islandButton.onClick.AddListener(SeasonMenuManager.instance.EnableExile);
+        } else if(islandChoice.value == 1)
+        {
+            islandImage.sprite = GIImage;
+            islandButton.GetComponentInChildren<Text>().text = "Ghost Island";
+            islandButton.onClick.RemoveAllListeners();
+            islandButton.onClick.AddListener(SeasonMenuManager.instance.EnableGhost);
+        }
     }
 
     IEnumerator ABC()
