@@ -14,7 +14,10 @@ public class customConScript : MonoBehaviour
     public List<GameObject> presets;
     public List<GameObject> customs;
     public bool custom = false;
+    public bool customImage = false;
     string path;
+    string pathCon = "";
+    public string urlCon = "";
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +42,10 @@ public class customConScript : MonoBehaviour
             g.SetActive(!g.activeSelf);
         }
         custom = !custom;
+        if(custom == false)
+        {
+            urlCon = "";
+        }
     }
 
     public void OpenFile()
@@ -98,19 +105,9 @@ public class customConScript : MonoBehaviour
             {
                 Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
                 GetComponentInChildren<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+                urlCon = Url;
             }
-            /*WWW www = new WWW(Url);
-            //Url = "https://upload.wikimedia.org/wikipedia/en/3/34/Jimmy_McGill_BCS_S3.png";
-            yield return www;
-            if (www.error != null)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                Texture2D texture = www.texture;
-                GetComponentInChildren<Image>().sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            }*/
+            
         }
     }
 

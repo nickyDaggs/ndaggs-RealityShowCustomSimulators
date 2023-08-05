@@ -171,6 +171,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -232,5 +233,5 @@ MonoBehaviour:
   oneTimeEvents:
   - type: KidnappingImmunity
     context: 
-    round: 4
+    round: 13
     elim: 0

@@ -18,6 +18,9 @@ MonoBehaviour:
   team: 
   Age: 35
   image: {fileID: 21300000, guid: 0dc6a67ce0c22ca45a4d40b189f20060, type: 3}
+  imageUrl: 
+  imagePath: 
+  season: 42
   stats:
     Physical: 3
     Endurance: 3
@@ -39,6 +42,7 @@ MonoBehaviour:
   placement: 
   target: {fileID: 0}
   targetValue: 0
+  threatLevel: 0
   lastTarget: 0
   altVotes: []
   halfIdols: []
@@ -47,6 +51,7 @@ MonoBehaviour:
   combineIdol: 0
   safety: 0
   votes: 0
+  previousVotes: 0
   IOIEvent: 
   advantages: []
   teams: []

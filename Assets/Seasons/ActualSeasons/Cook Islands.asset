@@ -142,6 +142,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
@@ -158,6 +159,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 14
+    expires: 
     epsSkipE: 0a00000006000000
     epsSpecialE: 010000000200000003000000
     epsSkipRI: 
@@ -217,9 +219,9 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MultiTribalReward
     context: TribalKidnap
-    round: 6
+    round: 15
     elim: 2
   - type: DoubleElim
     context: 
-    round: 9
+    round: 11
     elim: 2

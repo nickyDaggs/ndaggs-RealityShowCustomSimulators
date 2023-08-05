@@ -294,7 +294,7 @@ public class OneWorld : MonoBehaviour
         {
             GameManager.Instance.MakeGroup(false, null, "", "There are no alliances", "", new List<Contestant>(), EpisodeStatus.transform.GetChild(0).GetChild(0), 0);
         }
-        GameManager.Instance.AddGM(EpisodeStatus, true);
+        GameManager.Instance.AddGM(EpisodeStatus, true, 0);
         GameManager.Instance.owStatus = false;
 
     }
@@ -424,7 +424,7 @@ public class OneWorld : MonoBehaviour
                 GameManager.Instance.TribeTargeting(team);
             }
         }
-        GameManager.Instance.AddGM(EpisodeStatus, true);
+        GameManager.Instance.AddGM(EpisodeStatus, true, 0);
         GameManager.Instance.owStatus = false;
 
     }

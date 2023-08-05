@@ -41,6 +41,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -70,6 +71,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -143,6 +145,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages: []
   swaps:
   - on: 1
@@ -194,6 +197,7 @@ MonoBehaviour:
         IOILesson: 
         options: []
         IOISweetened: 0
+        hiddenChance: 25
       remove: 0
       allianceCount: 0
       environment: 3
@@ -233,6 +237,7 @@ MonoBehaviour:
   threeParts: 0e000000
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -294,5 +299,5 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MultiTribalMultiTeam
     context: 
-    round: 7
+    round: 14
     elim: 1

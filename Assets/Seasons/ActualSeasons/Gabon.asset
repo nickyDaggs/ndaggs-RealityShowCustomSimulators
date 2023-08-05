@@ -216,6 +216,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
@@ -232,6 +233,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 13
+    expires: 
     epsSkipE: 010000000b00000007000000
     epsSpecialE: 
     epsSkipRI: 
@@ -269,9 +271,9 @@ MonoBehaviour:
   oneTimeEvents:
   - type: SchoolyardPick
     context: Oldest
-    round: 1
+    round: 18
     elim: 0
   - type: MultiTribalEveryTeamImm
     context: ICGiven
-    round: 7
+    round: 12
     elim: 2

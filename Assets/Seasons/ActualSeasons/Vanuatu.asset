@@ -173,6 +173,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -234,5 +235,5 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MultiTribalOneImm
     context: TribalImmBV
-    round: 3
+    round: 16
     elim: 2

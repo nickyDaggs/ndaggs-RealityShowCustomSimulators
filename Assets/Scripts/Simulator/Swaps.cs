@@ -51,7 +51,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<List<Contestant>> swappedCon = new List<List<Contestant>>();
         List<Team> TribesDup = new List<Team>(GameManager.instance.Tribes);
         float swapNum = GameManager.instance.curSwap.numberSwap;
@@ -156,7 +156,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<Contestant> curCast = new List<Contestant>();
         List<List<Contestant>> TribesDup = new List<List<Contestant>>();
         List<Team> NewTribes = new List<Team>(GameManager.instance.curSwap.newTribes);
@@ -298,7 +298,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<List<Contestant>> swappedCon = new List<List<Contestant>>();
         List<List<Contestant>> TribesDup = new List<List<Contestant>>();
         float swapNum = GameManager.instance.curSwap.numberSwap;
@@ -410,7 +410,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<int> SpaceLeft = new List<int>();
         List<Team> TribesDup = new List<Team>(GameManager.instance.Tribes);
         List<Team> Tie = new List<Team>();
@@ -518,7 +518,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<Contestant> Leaders = new List<Contestant>();
         List<Team> Groups = new List<Team>();
         Groups.Add(new Team()); Groups.Add(new Team());
@@ -841,7 +841,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<Team> TribesDup = new List<Team>(GameManager.instance.Tribes);
         List<Team> NewTribes = new List<Team>();
         List<int> peopleToSwap = new List<int>();
@@ -919,7 +919,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<Contestant> Leaders = new List<Contestant>();
         List<int> curTribe = new List<int>();
         List<int> curMem = new List<int>();
@@ -1138,7 +1138,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<Team> DupTribes = new List<Team>(GameManager.instance.Tribes);
         int mutinyLimit = 0;
         GameManager.instance.MakeGroup(false, null, "", "", "Castaways are given the opportunity to mutiny to the other tribe.", new List<Contestant>(), SwapContext.transform.GetChild(0).GetChild(0), 0);
@@ -1193,7 +1193,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, true);
+        GameManager.instance.AddGM(SwapContext, true, 0);
         List<Team> DupTribes = new List<Team>(GameManager.instance.Tribes);
         List<Team> Genders = new List<Team>() { new Team(), new Team()};
         Team Males = new Team();
@@ -1427,7 +1427,7 @@ public class Swaps : MonoBehaviour
         SwapContext.transform.parent = GameManager.instance.Canvas.transform;
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(0, SwapContext.GetComponent<RectTransform>().offsetMax.y);
         SwapContext.GetComponent<RectTransform>().offsetMax = new Vector2(SwapContext.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(SwapContext, false);
+        GameManager.instance.AddGM(SwapContext, false, 0);
         List<Contestant> curCast = new List<Contestant>(lastTeam.members);
         
 

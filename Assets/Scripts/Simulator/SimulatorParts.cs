@@ -80,9 +80,7 @@ namespace SeasonParts
     {
         public string name;
         public List<Page> events = new List<Page>();
-        public List<List<Contestant>> votes = new List<List<Contestant>>();
-        public List<List<Contestant>> votesReads = new List<List<Contestant>>();
-        public List<GameObject> finalVote = new List<GameObject>();
+        
         //public List<GameObject> mems = new List<GameObject>();
     }
     [System.Serializable]
@@ -124,8 +122,8 @@ namespace SeasonParts
     public class Page
     {
         public GameObject obj;
-        public List<Contestant> Vote;
-        public List<Contestant> VotesRead;
+        public List<Contestant> Vote = new List<Contestant>();
+        public List<Contestant> VotesRead = new List<Contestant>();
         public List<Contestant> Idols = new List<Contestant>();
         public List<GameObject> VoteObjs = new List<GameObject>();
         public string elim;

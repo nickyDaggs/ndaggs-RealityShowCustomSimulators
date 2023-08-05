@@ -18,6 +18,9 @@ MonoBehaviour:
   team: 
   Age: 0
   image: {fileID: 21300000, guid: cb95ecc69c206d54ab682f656eb165c2, type: 3}
+  imageUrl: 
+  imagePath: 
+  season: Island of the Idols
   stats:
     Physical: 3
     Endurance: 3
@@ -39,6 +42,8 @@ MonoBehaviour:
   placement: 
   target: {fileID: 0}
   targetValue: 0
+  threatLevel: 0
+  lastTarget: 0
   altVotes: []
   halfIdols: []
   inTie: 0
@@ -46,6 +51,7 @@ MonoBehaviour:
   combineIdol: 0
   safety: 0
   votes: 0
+  previousVotes: 0
   IOIEvent: 
   advantages: []
   teams: []
@@ -62,3 +68,5 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
+  simID: 0

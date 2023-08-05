@@ -40,6 +40,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -68,6 +69,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -170,6 +172,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages: []
   swaps:
   - on: 1
@@ -238,6 +241,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 15
+    expires: 
     epsSkipE: 0a000000
     epsSpecialE: 0100000002000000
     epsSkipRI: 
@@ -295,5 +299,5 @@ MonoBehaviour:
     elim: 0
   - type: FijiStart
     context: 
-    round: 1
+    round: 19
     elim: 1

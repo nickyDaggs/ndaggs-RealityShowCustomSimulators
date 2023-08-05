@@ -114,6 +114,10 @@ public class SeasonMenuManager : MonoBehaviour
 
     public Text whatever;
 
+    public string json;
+    public Text output;
+    public Text titleLoad;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,6 +170,16 @@ public class SeasonMenuManager : MonoBehaviour
         //spEvMenu.StartSpecial();
     }
 
+    public void Load()
+    {
+        if (output != null && output.text != "")
+        {
+            json = output.text;
+            //Debug.Log(json);
+            SceneManager.LoadScene(2);
+        }
+    }
+
     private void Update()
     {
         //simButton.interactable = canSim;
@@ -198,6 +212,7 @@ public class SeasonMenuManager : MonoBehaviour
                 editorOptions[5].GetComponent<InputField>().interactable = true;
             }*/
         }
+        
         
     }
 
@@ -437,6 +452,7 @@ public class SeasonMenuManager : MonoBehaviour
             con.nickname = contestant.customs[1].GetComponent<InputField>().text;
             con.image = contestant.gameObject.GetComponentInChildren<Image>().sprite;
             con.gender = contestant.customs[3].GetComponent<Dropdown>().options[contestant.customs[3].GetComponent<Dropdown>().value].text;
+            con.imageUrl = contestant.urlCon;
             //Debug.Log(contestant.customs[0].GetComponent<InputField>().text);
             return con;
             
@@ -1009,7 +1025,9 @@ public class SeasonMenuManager : MonoBehaviour
                         break;
                     case "Multi-Tribal(One Tribe Immunity)":
                         ev.type = "MultiTribalMultiTeam";
-                        ev.elim = 1;
+                        //ev.elim = 1;
+                        ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponentInChildren<Dropdown>()).Count - 1;
+
                         break;
                     case "Merge Split":
                         ev.elim = 2;
@@ -1033,8 +1051,16 @@ public class SeasonMenuManager : MonoBehaviour
                 {
                     ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponentInChildren<Dropdown>()).Count;
                 }
+                else
+                {
+                    if(ev.type == "MultiTribalMultiTeam")
+                    {
+                        ev.elim = SwapsMenu.Instance.GetTribesAt(child.GetChild(0).GetComponentInChildren<Dropdown>()).Count - 1;
+                    }
+                }
                 //Debug.Log("Round:" + ev.round);
-                ev.round = spEvMenu.RoundsClone.IndexOf(Round.options[Round.value]) + 1;
+                ev.round = int.Parse(child.GetChild(0).GetComponentInChildren<Dropdown>().options[child.GetChild(0).GetComponentInChildren<Dropdown>().value].text);
+                
                 //customSeason.skip
                 customSeason.oneTimeEvents.Add(ev);
             }

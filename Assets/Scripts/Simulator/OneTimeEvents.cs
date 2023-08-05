@@ -25,7 +25,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "Immunity Challenge";
-        GameManager.instance.AddGM(EpisodeStart, false);
+        GameManager.instance.AddGM(EpisodeStart, false, 2);
         List<Team> Trib = new List<Team>(GameManager.instance.Tribes);
         GameManager.instance.LosingTribes = new List<Team>();
         switch(GameManager.instance.curEvent.type)
@@ -70,7 +70,7 @@ public class OneTimeEvents : MonoBehaviour
                 
                 break;
             case "MultiTribalMultiTeam":
-                for(int i = 0; i < GameManager.instance.curEvent.elim; i++)
+                for(int i = 0; i < 1; i++)
                 {
                     Team win = Trib[Random.Range(0, Trib.Count)];
                     GameManager.instance.MakeGroup(false, null, "name", "", win.name + " Wins Immunity!", win.members, EpisodeStart.transform.GetChild(0), 0);
@@ -100,7 +100,7 @@ public class OneTimeEvents : MonoBehaviour
                 EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeImm.GetComponent<RectTransform>().offsetMax.y);
                 EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeImm.GetComponent<RectTransform>().offsetMin.x, 0);
                 EpisodeImm.name = "Immunity Challenge";
-                GameManager.instance.AddGM(EpisodeImm, false);
+                GameManager.instance.AddGM(EpisodeImm, false, 2);
 
                 GameManager.instance.immune.Add(reWinner.members[Random.Range(0, reWinner.members.Count)]);
 
@@ -335,7 +335,7 @@ public class OneTimeEvents : MonoBehaviour
                 EpisodeTribal.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
                 EpisodeTribal.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
                 EpisodeTribal.name = "Tribal Council";
-                GameManager.instance.AddGM(EpisodeTribal, false);
+                GameManager.instance.AddGM(EpisodeTribal, false, 0);
                 GameManager.instance.MakeGroup(true, GameManager.instance.MergedTribe, "name", "", "No one will be voted out. Instead, one castaway chosen by " + winner.nickname + " will be removed from the jury.", GameManager.instance.MergedTribe.members, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
                 GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.jury, EpisodeTribal.transform.GetChild(0).GetChild(0), 15);
                 Contestant elim = GameManager.instance.jury[Random.Range(0, GameManager.instance.jury.Count)];
@@ -357,7 +357,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.name = "Tribal Council";
         string etext = teamVoting.name + " will vote for one member of " + kid.name + " to have immunity. \n \n It's time to vote. \n \n I'll read the votes.";
         GameManager.instance.MakeGroup(true, kid, "name", "", etext, kid.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, true, 0);
         Contestant Imm = new Contestant();
         foreach(Contestant num in teamVoting.members)
         {
@@ -443,7 +443,7 @@ public class OneTimeEvents : MonoBehaviour
 
         if (GameManager.instance.cineTribal == true)
         {
-            GameManager.instance.AddVote(votes, votes, finalVotes);
+            GameManager.instance.AddVote(votes, votes, finalVotes, "");
         }
         else
         {
@@ -550,7 +550,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         //curEpp--;
-        GameManager.instance.AddGM(EpisodeVote, false);
+        GameManager.instance.AddGM(EpisodeVote, false, 0);
         foreach(Contestant num in teamVoting.members)
         {
             if(num.target != null)
@@ -576,7 +576,7 @@ public class OneTimeEvents : MonoBehaviour
             EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
             EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
             EpisodeCast.name = "The Cast";
-            GameManager.instance.AddGM(EpisodeCast, false);
+            GameManager.instance.AddGM(EpisodeCast, false, 0);
             GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
             int con = 0;
             for(int i  = 0; i < GameManager.instance.cast.cast.Count; i++)
@@ -591,7 +591,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, true, 0);
         switch (GameManager.instance.curEvent.type)
         {
             case "SchoolyardPick":
@@ -752,7 +752,7 @@ public class OneTimeEvents : MonoBehaviour
                         EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
                         EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
                         EpisodeVote.name = "First Impressions ";
-                        GameManager.instance.AddGM(EpisodeVote, false);
+                        GameManager.instance.AddGM(EpisodeVote, false, 0);
                         List<Contestant> votes = new List<Contestant>();
                         List<Contestant> tie = new List<Contestant>();
 
@@ -818,7 +818,7 @@ public class OneTimeEvents : MonoBehaviour
                     EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
                     EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
                     EpisodeVote.name = "First Impressions ";
-                    GameManager.instance.AddGM(EpisodeVote, false);
+                    GameManager.instance.AddGM(EpisodeVote, false, 0);
                     List<Contestant> liabilities = new List<Contestant>();
                     foreach (Team tribe in GameManager.instance.Tribes)
                     {
@@ -905,7 +905,7 @@ public class OneTimeEvents : MonoBehaviour
                     EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
                     EpisodeVote.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
                     EpisodeVote.name = "First Impressions ";
-                    GameManager.instance.AddGM(EpisodeVote, true);
+                    GameManager.instance.AddGM(EpisodeVote, true, 0);
                     List<Contestant> liabilities = new List<Contestant>();
                     foreach (Team tribe in GameManager.instance.Tribes)
                     {
@@ -1012,7 +1012,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeCast.name = "The Cast";
-        GameManager.instance.AddGM(EpisodeCast, false);
+        GameManager.instance.AddGM(EpisodeCast, false, 0);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
         int conn = 0;
         for (int i = 0; i < GameManager.instance.cast.cast.Count; i++)
@@ -1025,7 +1025,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeImm.GetComponent<RectTransform>().offsetMax.y);
         EpisodeImm.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeImm.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeImm.name = "Immunity Challenge";
-        GameManager.instance.AddGM(EpisodeImm, false);
+        GameManager.instance.AddGM(EpisodeImm, false, 2);
 
         GameManager.instance.Tribes = new List<Team>() { new Team { name = "The Cast", tribeColor = Color.white, members = GameManager.instance.cast.cast } };
         GameManager.instance.TribeEventss();
@@ -1035,7 +1035,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, false);
+        GameManager.instance.AddGM(EpisodeStart, false, 0);
         List<Contestant> Leaders = new List<Contestant>();
         List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
         if (GameManager.instance.curEvent.context == "FirstLast")
@@ -1243,7 +1243,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeCast.GetComponent<RectTransform>().offsetMax.y);
         EpisodeCast.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeCast.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeCast.name = "The Cast";
-        GameManager.instance.AddGM(EpisodeCast, false);
+        GameManager.instance.AddGM(EpisodeCast, false, 0);
         GameManager.instance.MakeGroup(false, null, "name", "", "", GameManager.instance.cast.cast, EpisodeCast.transform.GetChild(0).GetChild(0), 0);
         int conn = 0;
         for (int i = 0; i < GameManager.instance.cast.cast.Count; i++)
@@ -1259,7 +1259,7 @@ public class OneTimeEvents : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "The Twist";
-        GameManager.instance.AddGM(EpisodeStart, false);
+        GameManager.instance.AddGM(EpisodeStart, false, 0);
         Contestant Leader = new Contestant();
         List<Contestant> cast = new List<Contestant>(GameManager.instance.cast.cast);
         if (GameManager.instance.curEvent.context == "FirstLast")
@@ -1412,7 +1412,7 @@ public class OneTimeEvents : MonoBehaviour
 
         GameManager.Instance.MakeGroup(false, null, "name", "", "The castaways are told they will live on one camp for the rest of the game.\n\nThey assume they have merged.\n\nHowever, this is actually a fake merge.", tribe.members, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
         GameManager.Instance.owStatus = false;
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, true, 0);
 
         GameManager.instance.NextEvent();
     }

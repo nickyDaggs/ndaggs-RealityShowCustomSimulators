@@ -41,6 +41,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -70,6 +71,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -143,6 +145,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages:
   - name: Legacy Advantage
     advantage: {fileID: 11400000, guid: 30259d796ce80bd4cba046bc7b8e7cd0, type: 2}
@@ -156,6 +159,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   swaps:
   - on: 1
     swapAt: 15
@@ -258,6 +262,7 @@ MonoBehaviour:
         IOILesson: 
         options: []
         IOISweetened: 0
+        hiddenChance: 25
       remove: 0
       allianceCount: 0
       environment: 3
@@ -297,6 +302,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -358,9 +364,9 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MarooningAdvantage
     context: 
-    round: 1
+    round: 20
     elim: 0
   - type: JointTribal
     context: 
-    round: 4
+    round: 17
     elim: 1

@@ -159,6 +159,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -220,9 +221,9 @@ MonoBehaviour:
   oneTimeEvents:
   - type: SchoolyardPick
     context: Oldest
-    round: 1
+    round: 16
     elim: 0
   - type: FakeMerge
     context: Oldest
-    round: 7
+    round: 10
     elim: 0

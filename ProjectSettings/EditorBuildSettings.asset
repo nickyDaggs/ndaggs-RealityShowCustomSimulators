@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Simulator.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/LoadedSave.unity
+    guid: 2e6fc8a5d1e2d074cb9a248a505b26b3
   m_configObjects: {}

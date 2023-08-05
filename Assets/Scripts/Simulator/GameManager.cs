@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿using SeasonParts;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using System.IO;
 using System.Linq;
-using System.Text;
-using SeasonParts;
-using UnityEngine.UI.Extensions;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 public class GameManager : MonoBehaviour
 {
@@ -91,6 +92,7 @@ public class GameManager : MonoBehaviour
     public Text errorMessage;
     Team lastTeamRemoved;
     [HideInInspector] public List<Contestant> TribeLeaders = new List<Contestant>();
+    [HideInInspector] public List<Contestant> Targeters = new List<Contestant>();
 
     public SeasonTemplate custom;
     [HideInInspector] public bool RIExpired = false, OCExpired = false, e = false, advant = false, OW = false;
@@ -106,6 +108,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public string finalVotes;
     [HideInInspector] public float mergeRound = 0;
     [HideInInspector] public HiddenAdvantage EOEGiveAway;
+
+    List<SimLoader.SavedContestant> savedContestants = new List<SimLoader.SavedContestant>(); 
+    List<SimLoader.SavedEpisode> savedEpisodes = new List<SimLoader.SavedEpisode>(); 
+    List<SimLoader.SavedPage> savedPages = new List<SimLoader.SavedPage>();
+
+    public SimLoader.SavedSeason saveThisSeason = new SimLoader.SavedSeason();
 
     // Start is called before the first frame update
     public void Start()
@@ -131,30 +139,66 @@ public class GameManager : MonoBehaviour
     {
         if (type == LogType.Error || type == LogType.Exception)
         {
-            
+
             Error.SetActive(true);
             errorMessage.text = logPrinted + "\n" + stackTrace;
         }
     }
+
+    public void Save()
+    {
+        string json = JsonUtility.ToJson(saveThisSeason);
+
+        File.WriteAllText(Application.dataPath + "/save.txt", json);
+    }
+
     void TurnOff()
     {
         currentContestants = currentContestantsOG;
 
+
         foreach (Episode epp in currentSeason.Episodes)
         {
             epp.name = Episodes[currentSeason.Episodes.IndexOf(epp)].name;
+            SimLoader.SavedEpisode epi = new SimLoader.SavedEpisode() {episodeNum= currentSeason.Episodes.IndexOf(epp), episodeName=epp.name };
+            
             foreach (Page em in epp.events)
             {
                 //em.obj.SetActive(false);
                 StartCoroutine(ABC(em.obj));
-                
-                
-                if (em.obj.name == "Placements")
+            }
+            savedEpisodes.Add(epi);
+        }
+        for (int i = 0; i < savedEpisodes.Count; i++)
+        {
+            foreach(SimLoader.SavedPage page in savedPages)
+            {
+                if(page.episode == savedEpisodes[i].episodeNum)
                 {
-                    
+                    SimLoader.SavedPageTrue saved = new SimLoader.SavedPageTrue();
+                    saved.namePage = currentSeason.Episodes[i].events[page.eventNum].obj.name;
+                    saved.groups = page.groups;
+                    saved.VoteObjs = page.VoteObjs;
+                    saved.episode = page.episode;
+                    saved.elim = currentSeason.Episodes[i].events[page.eventNum].elim;
+                    saved.voteCount = currentSeason.Episodes[i].events[page.eventNum].voteCount;
+                    saved.Votes = currentSeason.Episodes[i].events[page.eventNum].Vote.ConvertAll(x => x.simID);
+                    saved.VotesRead = currentSeason.Episodes[i].events[page.eventNum].VotesRead.ConvertAll(x => x.simID);
+                    saved.Idols = currentSeason.Episodes[i].events[page.eventNum].Idols.ConvertAll(x => x.simID);
+                    saved.type = page.type;
+                    savedEpisodes[i].pages.Add(saved);
                 }
             }
         }
+        //List<SimLoader.SavedEpisode> savedEpis = JsonUtility.FromJson<List<SimLoader.SavedEpisode>>(JsonUtility.ToJson(savedEpisodes));
+        saveThisSeason.episodes = savedEpisodes;
+        saveThisSeason.contestants = savedContestants;
+        saveThisSeason.seasonName = seasonTemp.nameSeason;
+        saveThisSeason.cineTribal = cineTribal;
+        //Debug.Log(JsonUtility.ToJson(saveThisSeason));
+
+        
+
         curEp = 0;
         curEv = 1;
         currentSeason.Episodes[0].events[0].obj.SetActive(true);
@@ -187,7 +231,9 @@ public class GameManager : MonoBehaviour
     {
         int con = 0;
         List<Contestant> newCast = new List<Contestant>();
-        for(int i = 0; i < Tribes.Count; i++)
+        List<Texture> textures = GetAllInstances<Texture>().ToList();
+
+        for (int i = 0; i < Tribes.Count; i++)
         {
             for(int j = 0; j < Tribes[i].members.Count; j++)
             {
@@ -201,6 +247,19 @@ public class GameManager : MonoBehaviour
                 Tribes[i].members[j].stats.Stamina = Tribes[i].members[j].stats.Stamina * 20;
                 newCast.Add(Tribes[i].members[j]);
                 //Debug.Log(Tribes[i].members[j].stats.Physical);
+                SimLoader.SavedContestant contestant = new SimLoader.SavedContestant { id = con, fullname = Tribes[i].members[j].fullname, nickname = Tribes[i].members[j].nickname };
+                if(!textures.Contains(Tribes[i].members[j].image.texture))
+                {
+                    if(Tribes[i].members[j].imageUrl != "")
+                    {
+                        contestant.spriteUrl = Tribes[i].members[j].imageUrl;
+                    } 
+                } else
+                {
+                    contestant.spritePath = Tribes[i].members[j].season + "/" + Tribes[i].members[j].image.texture.name;
+                    //Debug.Log(contestant.spritePath);
+                }
+                savedContestants.Add(contestant);
                 con++;
             }
         }
@@ -328,7 +387,7 @@ public class GameManager : MonoBehaviour
                 //episodeCount--;
                 if (timeEvent.type == "MultiTribalMultiTeam")
                 {
-                    episodeCount -= timeEvent.elim;
+                    episodeCount -= timeEvent.elim - 1;
                 }
                 else
                 {
@@ -374,6 +433,7 @@ public class GameManager : MonoBehaviour
             {
                 timedEvent.round = (int)episodeCount;
             }
+            timedEvent.round = 4;
             sea.oneTimeEvents.Add(timedEvent);
         }    
         float curTeams = sea.Tribes.Count;
@@ -433,6 +493,13 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
+            {
+                if (curCon == timeEvent.round)
+                {
+                    ep.Event = timeEvent;
+                }
+            }
             ep.swap.on = false;
             ep.exileIsland.on = false;
             if (curCon == currentContestants)
@@ -462,13 +529,7 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
-                foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
-                {
-                    if (i + 1 == timeEvent.round)
-                    {
-                        ep.Event = timeEvent;
-                    }
-                }
+                
                 if(ep.Event.type != "")
                 {
                     if(ep.Event.type == "PalauStart")
@@ -526,7 +587,8 @@ public class GameManager : MonoBehaviour
                 {
                     if (ep.Event.type == "MultiTribalMultiTeam")
                     {
-                        curCon -= curTeams - 2;
+                        curCon -= ep.Event.elim - 1;
+                        //Debug.Log(curCon);
                     }
                     else 
                     {
@@ -590,13 +652,6 @@ public class GameManager : MonoBehaviour
                             curTeams = ep.swap.newTribes.Count;
                         }
                         
-                    }
-                }
-                foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
-                {
-                    if (i+1 == timeEvent.round)
-                    {
-                        ep.Event = timeEvent;
                     }
                 }
 
@@ -670,8 +725,9 @@ public class GameManager : MonoBehaviour
                 {
                     if(ep.Event.type == "MultiTribalMultiTeam")
                     {
-                        curCon -= curTeams - 2;
-                    } else
+                        curCon -= ep.Event.elim - 1;
+                    }
+                    else
                     {
                         curCon -= ep.Event.elim - 1;
                     }
@@ -717,13 +773,6 @@ public class GameManager : MonoBehaviour
                             curSE++;
                             ep.exileIsland.on = true;
                         }
-                    }
-                }
-                foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
-                {
-                    if (i + 1 == timeEvent.round)
-                    {
-                        ep.Event = timeEvent;
                     }
                 }
                 ep.events.Add("NextEp");
@@ -809,13 +858,6 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
-                foreach (OneTimeEvent timeEvent in sea.oneTimeEvents)
-                {
-                    if (i + 1 == timeEvent.round)
-                    {
-                        ep.Event = timeEvent;
-                    }
-                }
                 ep.events.Add("NextEpM");
                 if(sea.RedemptionIsland && i + 1 > mergeRound + 1 && curCon == 3)
                 {
@@ -879,10 +921,6 @@ public class GameManager : MonoBehaviour
                 {
                     //Debug.Log("sdafds");
                     ep.events.Add("STribeImmunity");
-                    if(ep.Event.type == "JurorRemoval")
-                    {
-                        curCon++;
-                    }
                     ep.exileIsland.on = false;
 
                 }
@@ -929,7 +967,7 @@ public class GameManager : MonoBehaviour
             Episodes.Add(ep);
             Episode epi = new Episode();
             currentSeason.Episodes.Add(epi);
-            
+
             curCon--;
         }
         EpisodeSetting epp = new EpisodeSetting();
@@ -1105,6 +1143,10 @@ public class GameManager : MonoBehaviour
     public void Eliminate(string vote, string conPlacement, GameObject EpisodeStart, Team team)
     {
         votedOff = tribalScript.votedOff;
+        if(votedOff.lastTarget)
+        {
+            Debug.Log("lmao bitch");
+        }
         //Debug.Log(tribalScript.votedOff + " " + tribalScript.votedOff.simID);
         string juror = "";
         if(MergedTribe.members.Count > 0)
@@ -1174,7 +1216,20 @@ public class GameManager : MonoBehaviour
                 
                 alliance.members.Remove(votedOff);
             }
-        } 
+        }
+        //Debug.Log("Episode " + curEp + " Threat:" + votedOff.threatLevel + " Previous Votes:" + votedOff.previousVotes);
+        foreach (Contestant num in Targeters)
+        {
+            if(num.target == votedOff)
+            {
+                num.threatLevel += 10;
+                //Debug.Log(num.nickname);
+            }
+            if(num.threatLevel > 10)
+            {
+                num.threatLevel -= Random.Range(1, num.stats.SocialSkills);
+            }
+        }
         
         if (curEvent.type == "JointTribal")
         {
@@ -1328,13 +1383,6 @@ public class GameManager : MonoBehaviour
     }
     public void NextGM()
     {
-        if(curEv == 0)
-        {
-            curTribal = 0;
-            curGroup = 0;
-            
-            currentContestants--;
-        }
         if (Vote.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("voteRevealed") || tri > 0)
         {
             Vote.GetComponent<Animator>().SetTrigger("Reveal");
@@ -1371,7 +1419,7 @@ public class GameManager : MonoBehaviour
             VotedOffCine.transform.parent.gameObject.SetActive(false);
             if(currentSeason.Episodes[curEp].events[curEv - 1].obj.name.Contains("Tribal Council"))
             {
-                elimed++;
+                //elimed++;
                 if (currentContestants + 1 - finaleAt <= juryAt)
                 {
                     jurt--;
@@ -1445,7 +1493,6 @@ public class GameManager : MonoBehaviour
                 {
                     dicVR.Add(votesRead[0], 1);
                 }
-
                 for (int i = 1; i < votes.Count; i++)
                 {
                     if (check.ContainsKey(votes[i]))
@@ -1474,21 +1521,7 @@ public class GameManager : MonoBehaviour
 
                     }
                 }
-                int re = 0;
-                if(curTribal < currentSeason.Episodes[curEp].votes.Count - 1)
-                {
-                    foreach (Contestant num in currentSeason.Episodes[curEp].votes[curTribal + 1])
-                    {
-                        if(tie.Contains(num))
-                        {
-                            re++;
-                        }
-                    }
-                    if(re == currentSeason.Episodes[curEp].votes[curTribal + 1].Count)
-                    {
-                        revoteNext = true;
-                    }
-                }
+                
             }
         }
         curEv++;
@@ -1654,32 +1687,20 @@ public class GameManager : MonoBehaviour
 
                         }
                     }
-                    int re = 0;
-                    if (curTribal < currentSeason.Episodes[ep].votes.Count - 1)
-                    {
-                        foreach (Contestant num in currentSeason.Episodes[ep].votes[curTribal + 1])
-                        {
-                            if (tie.Contains(num))
-                            {
-                                re++;
-                            }
-                        }
-                        if (re == currentSeason.Episodes[ep].votes[curTribal + 1].Count)
-                        {
-                            revoteNext = true;
-                        }
-                    }
+                    
                 }
             }
         }
         
     }
-    public void AddGM(GameObject gm, bool add)
+    public void AddGM(GameObject gm, bool add, int type)
     {
-        
         Page page = new Page();
         page.obj = gm;
         currentSeason.Episodes[curEpp].events.Add(page);
+
+        savedPages.Add(new SimLoader.SavedPage { connected = gm, episode = curEpp, eventNum = currentSeason.Episodes[curEpp].events.Count - 1, type=type });
+
         if(add)
         {
             curEvv++;
@@ -1695,16 +1716,17 @@ public class GameManager : MonoBehaviour
         }
         gm.SetActive(false);
     }
-    public void AddVote(List<Contestant> gm, List<Contestant> gmm, string votesCounted)
+    public void AddVote(List<Contestant> gm, List<Contestant> gmm, string votesCounted, string elimin)
     {
         //Debug.Log(curEpp);
         int num = currentSeason.Episodes[curEpp].events.Count - 1;
         
         currentSeason.Episodes[curEpp].events[num].Vote = gm;
         currentSeason.Episodes[curEpp].events[num].VotesRead = gmm;
-        float placement = elimed - 1;
-        string placementt = Oridinal(placement);
-        currentSeason.Episodes[curEpp].events[num].elim = placementt;
+        //float placement = elimed - 1;
+        //string placementt = Oridinal(placement);
+        //Debug.Log(placementt);
+        currentSeason.Episodes[curEpp].events[num].elim = elimin;
         currentSeason.Episodes[curEpp].events[num].voteCount = votesCounted;
     }
     public void AddIdols(List<Contestant> gm)
@@ -1726,6 +1748,8 @@ public class GameManager : MonoBehaviour
     }
     void NextEp()
     {
+        Targeters = new List<Contestant>();
+
         List<Alliance> remove = new List<Alliance>();
         GameObject EpisodeStart = MakePage("StartOfEpisode", 0, true);
         foreach (Team team in Tribes)
@@ -3261,8 +3285,8 @@ public class GameManager : MonoBehaviour
 
     void CineTribals()
     {
-        votesRead = currentSeason.Episodes[curEv].votesReads[curTribal];
-        votes = currentSeason.Episodes[curEv].votes[curTribal];
+        //votesRead = currentSeason.Episodes[curEv].votesReads[curTribal];
+        //votes = currentSeason.Episodes[curEv].votes[curTribal];
         foreach (GameObject torch in Torches)
         {
             torch.SetActive(true);
@@ -3357,6 +3381,7 @@ public class GameManager : MonoBehaviour
     {
         bool r = false;
         OW = false;
+        merged = true;
         Team lso = new Team();
         //lastThing.SetActive(false);
         foreach (Team tribe in Tribes)
@@ -4086,6 +4111,8 @@ public class GameManager : MonoBehaviour
     void NextEpM()
     {
         //lastThing.SetActive(false);
+        Targeters = new List<Contestant>();
+
         List<Alliance> remove = new List<Alliance>();
         GameObject EpisodeStart = MakePage("StartOfEpisode", 0, true);
         idols = 0;
@@ -4172,8 +4199,12 @@ public class GameManager : MonoBehaviour
             int ran = Random.Range(0, MergedTribe.members.Count);
             jury[i].target = MergedTribe.members[ran];
         }
+        foreach(Contestant num in MergedTribe.members)
+        {
+            //Debug.Log("Finalist, Threat:" + num.threatLevel + " Previous Votes:" + num.previousVotes);
+        }
         CountJuryVotes();
-        AddVote(votes, votesRead, finalVotes);
+        AddVote(votes, votesRead, finalVotes, "The winner of " + seasonTemp.nameSeason + " is... ");
         tie = new List<Contestant>();
         float maxValue = dicVotes.Values.Max();
         foreach (KeyValuePair<Contestant, int> num in dicVotes)
@@ -4604,7 +4635,14 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("ff");
         }
-        AddVote(votes, votes, "");
+        string juryPM = "";
+
+        float juryy = jury.Count + 1;
+        juryPM = " and " + Oridinal(juryy) + " member of the jury";
+        float placement = Eliminated.Count + 1;
+        string placementt = "";
+        placementt = Oridinal(placement);
+        AddVote(votes, votes, "Final vote count was 1 vote " + votes[0].nickname, "The " + placementt + " eliminated from " + seasonTemp.nameSeason + juryPM + " is... ");
         
         MakeGroup(true, team, "name", "", "", team.members, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
         if (cineTribal == true)
@@ -4612,15 +4650,7 @@ public class GameManager : MonoBehaviour
             MakeGroup(false, null, "name", "", votes[0].nickname + ", the tribe has spoken", votes, null, 0);
         } else
         {
-            string juryPM = "";
-            if (currentContestants - finaleAt <= juryAt && !sea.RedemptionIsland && !sea.EdgeOfExtinction)
-            {
-                float juryy = jury.Count + 1;
-                juryPM = " and " + Oridinal(juryy) + " member of the jury";
-            }
-            float placement = elimed;
-            string placementt = "";
-            placementt = Oridinal(placement);
+            
             string etext =  votes[0].nickname + ", the tribe has spoken" + "\n" + "Final vote count was 1 vote " + votes[0].nickname;
             MakeGroup(false, null, "name", "The " + placementt + " eliminated from " + seasonTemp.nameSeason + juryPM + " is... ", etext, votes, EpisodeStart.transform.GetChild(0).GetChild(0), 20);
         }
@@ -4661,7 +4691,7 @@ public class GameManager : MonoBehaviour
         Votes = new List<Vote>();
         votedOff = TeamV[Random.Range(0, TeamV.Count)];
         votes = new List<Contestant>() { votedOff };
-        AddVote(votes, votes, "");
+        AddVote(votes, votes, "", "");
 
         MakeGroup(false, null, "", "", immunity.nickname + " must grant safety to one other castaway." + giveUp, new List<Contestant>() { immunity}, EpisodeStart.transform.GetChild(0).GetChild(0), 15);
         if(giveUp == "")
@@ -4705,16 +4735,17 @@ public class GameManager : MonoBehaviour
 
     public void EventsChances(Team team, GameObject Status)
     {
+        //ContestantEvents.Instance.EventsChances(team, Status);
         bool eventt = false;
 
         int eventCap = 0;
 
         int eventsNum = Random.Range(1, 5);
-        if(eventsNum == 4)
+        if (eventsNum == 4)
         {
             eventsNum += Random.Range(0, 3);
         }
-        if(merged)
+        if (merged)
         {
             eventsNum = Random.Range(2, 6);
             if (eventsNum == 5)
@@ -4729,7 +4760,7 @@ public class GameManager : MonoBehaviour
         }*/
 
 
-        if(eventsNum > 0)
+        if (eventsNum > 0)
         {
             foreach (ContestantEvent Event in events)
             {
@@ -5030,6 +5061,8 @@ public class GameManager : MonoBehaviour
             Alliances.Remove(alliance);
         }
     }
+
+
     public void TribeTargeting(Team team)
     {
         Team Targets = new Team(); Targets.name = team.name;
@@ -5053,6 +5086,7 @@ public class GameManager : MonoBehaviour
                     {
                         //Debug.Log(curEp + num.target.fullname + ": " + num.value(num.target));
                         Targets.members.Add(num.target);
+                        Targeters.Add(num);
                     }
                     else
                     {
@@ -5061,6 +5095,7 @@ public class GameManager : MonoBehaviour
                         {
                             //Debug.Log(curEp + num.target.fullname + ": " + num.value(num.target));
                             Targets.members.Add(num.target);
+                            Targeters.Add(num);
                         }
                     }
                 }
@@ -5151,7 +5186,7 @@ public class GameManager : MonoBehaviour
         EpisodeStart.name = "Fan Favorite";
 
 
-        AddGM(EpisodeStart, true);
+        AddGM(EpisodeStart, true, 0);
 
         List<Contestant> a = new List<Contestant>() { fav };
         MakeGroup(false, null, "name", "The fan favorite is...", "", a, EpisodeStart.transform.GetChild(0).GetChild(0), 10);
@@ -5164,7 +5199,7 @@ public class GameManager : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "Placements";
-        AddGM(EpisodeStart, true);
+        AddGM(EpisodeStart, true, 0);
         placement = true;
         //Eliminated.Reverse();
         MakeGroup(false, null, "placement", "", "", Eliminated, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
@@ -5187,7 +5222,7 @@ public class GameManager : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         //curEpp--;
         EpisodeStart.name = "The Votes";
-        AddGM(EpisodeStart, true);
+        AddGM(EpisodeStart, true, 0);
         //curEpp++;
         int d = 0;
         if (LosingTribe == Outcasts)
@@ -5331,8 +5366,12 @@ public class GameManager : MonoBehaviour
     public void VoteReveal()
     {
         what = true;
-        lastVoteOff.SetActive(false);
-        if(votesRead.Count > 1)
+        if(lastVoteOff != null)
+        {
+            lastVoteOff.SetActive(false);
+
+        }
+        if (votesRead.Count > 1)
         {
             if (Vote.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("voteIdle"))
             {
@@ -5364,15 +5403,9 @@ public class GameManager : MonoBehaviour
                 }
                 else if (curVot == 0 && currentContestants == 3)
                 {
-                    string juryPM = "";
-                    if (currentContestants + 1 - finaleAt <= juryAt)
-                    {
-                        float juryy = jury.Count - jurt;
-                        juryPM = " and " + Oridinal(juryy) + " member of the jury";
-                        jurt--;
-                    }
                     
-                    Vote.transform.GetChild(2).GetComponent<Text>().text = "The " + actualElim + " eliminated from " + seasonTemp.nameSeason + juryPM + " is... ";
+                    
+                    Vote.transform.GetChild(2).GetComponent<Text>().text = actualElim;
                     votess = " vote ";
                     votesLeft = "";
                     Vote.transform.GetChild(0).GetComponent<Text>().text = votes[0].nickname;
@@ -5451,26 +5484,14 @@ public class GameManager : MonoBehaviour
                         nextButton.gameObject.SetActive(true);
                         VoteButton.SetActive(false);
 
-                        string juryPM = "";
-                        if (currentContestants + 1 - finaleAt <= juryAt)
-                        {
-                            float juryy = jury.Count - jurt;
-                            juryPM = " and " + Oridinal(juryy) + " member of the jury";
-                            jurt--;
-                        }
+                        
                         float placement = elimed;
                         string placementt = "";
                         placementt = Oridinal(placement);
-                        elimed++;
-                        if (currentContestants == finaleAt)
-                        {
-                            Vote.transform.GetChild(2).GetComponent<Text>().text = "The winner of " + seasonTemp.nameSeason + " is... ";
-                        }
-                        else
-                        {
-                            Vote.transform.GetChild(2).GetComponent<Text>().text = "The " + placementt + " eliminated from " + seasonTemp.nameSeason + juryPM + " is... ";
-                        }
-                        foreach(UIGroup group in VotedOffCine.GetComponentsInChildren<UIGroup>())
+                        //elimed++;
+                        Vote.transform.GetChild(2).GetComponent<Text>().text = actualElim;
+
+                        foreach (UIGroup group in VotedOffCine.GetComponentsInChildren<UIGroup>())
                         {
                             if(group.eventText.text.Contains("returns to the game"))
                             {
@@ -5506,19 +5527,11 @@ public class GameManager : MonoBehaviour
                         nextButton.gameObject.SetActive(true);
                         VoteButton.SetActive(false);
                         VotedOffCine.SetActive(true);
-                        if (e == false && currentContestants != finaleAt)
+                        if (e == false && curEp < currentSeason.Episodes.Count - 1)
                         {
                             string firstline = "There is a tie and a revote. Those in in the tie will not revote, unless no one received votes on the original vote.";
                             string secondline = finalVotes;// "Final vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".";
-                            MakeGroup(false, null, "", "", firstline + "\n" + "\n" + "\n" + secondline, tie, VotedOffCine.transform.GetChild(0), 20);
-                        }
-                        if (currentContestants == finaleAt && tie.Count != finaleAt)
-                        {
-
-                        }
-                        else if (currentContestants == finaleAt && tie.Count == finaleAt)
-                        {
-
+                            //MakeGroup(false, null, "", "", firstline + "\n" + "\n" + "\n" + secondline, tie, VotedOffCine.transform.GetChild(0), 20);
                         }
                         curTribal++;
                         VotedOffCine.transform.parent.gameObject.SetActive(true);
@@ -5532,19 +5545,13 @@ public class GameManager : MonoBehaviour
             nextButton.gameObject.SetActive(true);
             VoteButton.SetActive(false);
 
-            string juryPM = "";
-            if (currentContestants + 1 - finaleAt <= juryAt)
-            {
-                float juryy = jury.Count + 1 - (currentContestants + 1 - finaleAt);
-                juryPM = " and " + Oridinal(juryy) + " member of the jury";
-            }
             float placement = elimed;
             string placementt = "";
             placementt = Oridinal(placement);
-            elimed++;
+            //elimed++;
             Vote.transform.GetChild(0).GetComponent<Text>().text = votes[0].nickname;
             Vote.transform.GetChild(1).GetComponent<Text>().text = "Final vote count was 1 vote " + votes[0].nickname;
-            Vote.transform.GetChild(2).GetComponent<Text>().text = "The " + placementt + " eliminated from " + seasonTemp.nameSeason + juryPM + " is... ";
+            Vote.transform.GetChild(2).GetComponent<Text>().text = actualElim;
             VotedOffCine.transform.parent.gameObject.SetActive(true);
             VotedOffCine.SetActive(true);
             curTribal++;
@@ -5743,11 +5750,16 @@ public class GameManager : MonoBehaviour
     {
         GameObject team = Instantiate(GroupPrefab);
         team.GetComponent<UIGroup>().tribeName.enabled = nameEnabled;
-        if(nameEnabled)
+        SimLoader.GroupObject groupObject = new SimLoader.GroupObject { tNameEnabled = nameEnabled, aText = aText, eText = eText, spacing = spacing, conText = conText };
+
+        if (nameEnabled)
         {
             team.GetComponent<UIGroup>().tribeName.text = teem.name;
             team.GetComponent<UIGroup>().tribeName.color = teem.tribeColor;
-        } else
+            groupObject.teamName = teem.name;
+            groupObject.teamColor = ColorUtility.ToHtmlStringRGB(teem.tribeColor);
+        }
+        else
         {
             team.GetComponent<UIGroup>().tribeName.gameObject.SetActive(false);
         }
@@ -5755,6 +5767,7 @@ public class GameManager : MonoBehaviour
         int er = Eliminated.Count;
         if (placement)
         {
+            groupObject.placement = true;
             //team.GetComponent<SetupLayout>()._ContentSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
             if (Eliminated.Count % 9 == 0 && Eliminated.Count / 9 > 2)
             {
@@ -5824,6 +5837,7 @@ public class GameManager : MonoBehaviour
                     }
                     num.placement = place + "\n" + num.placement;
                     mem.GetComponentInChildren<Text>().text = num.fullname + "\n" + num.placement;
+                    saveThisSeason.placementTexts.Add(num.fullname + "\n" + num.placement);
                 }
                 else 
                 {
@@ -5835,15 +5849,23 @@ public class GameManager : MonoBehaviour
                     if (all && !Tribes[curT].members.Contains(num))
                     {
                         mem.GetComponentInChildren<Image>().material = grayScale;
+                        groupObject.grayCon.Add(true);
+                    } else
+                    {
+                        groupObject.grayCon.Add(false);
                     }
                 }
                 if (all)
                 {
+                    groupObject.all = true;
                     mem.GetComponentInChildren<Text>().text += "\nLoyalty:" + ContestantEvents.Instance.GetLoyalty(num, cons);
+                    groupObject.allLoyalty.Add("\nLoyalty:" + ContestantEvents.Instance.GetLoyalty(num, cons));
                 }
                 mem.transform.parent = team.transform.GetChild(2);
                 if((nameEnabled || all ) && num.teams.Count > 1)
                 {
+                    groupObject.conColors.Add(new SimLoader.ColorsList { colors = num.teams.ConvertAll(x => ColorUtility.ToHtmlStringRGB(x)) });
+
                     mem.transform.GetChild(1).gameObject.SetActive(true);
                     for (int j = 0; j < num.teams.Count - 1; j++)
                     {
@@ -5854,6 +5876,9 @@ public class GameManager : MonoBehaviour
                 }
                 if(owStatus)
                 {
+                    groupObject.conColors.Add(new SimLoader.ColorsList { colors = num.teams.ConvertAll(x => ColorUtility.ToHtmlStringRGB(x)) });
+
+                    groupObject.owStatus = true;
                     mem.transform.GetChild(1).gameObject.SetActive(true);
                     for (int j = 0; j < num.teams.Count; j++)
                     {
@@ -5864,6 +5889,8 @@ public class GameManager : MonoBehaviour
                 }
                 if (placement)
                 {
+                    groupObject.conColors.Add(new SimLoader.ColorsList { colors = num.teams.ConvertAll(x => ColorUtility.ToHtmlStringRGB(x)) });
+
                     mem.transform.GetChild(1).gameObject.SetActive(true);
                     for (int j = 0; j < num.teams.Count; j++)
                     {
@@ -5881,13 +5908,29 @@ public class GameManager : MonoBehaviour
                         mem.GetComponentInChildren<VerticalLayoutGroup>().padding.bottom -= 16 * ee;
                     }
                 }
+                groupObject.cons.Add(num.simID);
             }
         }
         if (ep != null)
         {
             team.transform.parent = ep;
-        } else
+            GameObject real = ep.parent.gameObject;
+            if(real.gameObject.name.Contains("Team"))
+            {
+                real = ep.parent.parent.gameObject;
+            }
+            //Debug.Log(savedPages.Find(x => x.connected == real));
+            if(savedPages.Find(x => x.connected == real) != null)
+            {
+                savedPages.Find(x => x.connected == real).groups.Add(groupObject);
+
+            }
+
+        }
+        else
         {
+            int num = currentSeason.Episodes[curEpp].events.Count - 1;
+            savedPages.Find(x => x.connected == currentSeason.Episodes[curEpp].events[num].obj).VoteObjs.Add(groupObject);
             AddFinalVote(team);
         }
         float teamWidth = ConListWidth(team.transform.GetChild(2).childCount);
@@ -5919,19 +5962,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public GameObject MakePage(string name, int type, bool add)
     {
         GameObject real = Instantiate(Prefabs[type]);
+
         real.transform.parent = Canvas.transform;
         real.GetComponent<RectTransform>().offsetMax = new Vector2(0, real.GetComponent<RectTransform>().offsetMax.y);
         real.GetComponent<RectTransform>().offsetMax = new Vector2(real.GetComponent<RectTransform>().offsetMin.x, 0);
         real.name = name;
-        AddGM(real, add);
+        AddGM(real, add, type);
         return real;
     }
 
     public void ResetSim()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public static T[] GetAllInstances<T>() where T : Texture
+    {
+        object[] guids = Resources.LoadAll("Sprites"); //System.Array.ConvertAll(, typeof(T)), x => x.name); //FindAssets uses tags check documentation for more info
+        T[] a = new T[guids.Length];
+        for (int i = 0; i < guids.Length; i++)         //probably could get optimized 
+        {
+            //string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            a[i] = guids[i] as T;
+        }
+        //a = a.OrderBy(x => int.Parse(new string(x.name.Where(char.IsDigit).ToArray()))).ToArray();
+        //a = Resources.LoadAll("Contestants", typeof(T)) as T[];
+        return a;
+
     }
 }

@@ -14,7 +14,7 @@ public class RejoiningTwists : MonoBehaviour
         RIEvent.transform.parent = GameManager.instance.Canvas.transform;
         RIEvent.GetComponent<RectTransform>().offsetMax = new Vector2(0, RIEvent.GetComponent<RectTransform>().offsetMax.y);
         RIEvent.GetComponent<RectTransform>().offsetMax = new Vector2(RIEvent.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(RIEvent, true);
+        GameManager.instance.AddGM(RIEvent, true, 0);
         List<Contestant> remove = new List<Contestant>();
         if (GameManager.instance.currentContestants == GameManager.instance.mergeAt && !GameManager.instance.RIExpired || GameManager.instance.currentContestants == 4)
         {
@@ -103,7 +103,7 @@ public class RejoiningTwists : MonoBehaviour
         EOEStatus.transform.parent = GameManager.instance.Canvas.transform;
         EOEStatus.GetComponent<RectTransform>().offsetMax = new Vector2(0, EOEStatus.GetComponent<RectTransform>().offsetMax.y);
         EOEStatus.GetComponent<RectTransform>().offsetMax = new Vector2(EOEStatus.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(EOEStatus, true);
+        GameManager.instance.AddGM(EOEStatus, true, 0);
         List<Contestant> remove = new List<Contestant>();
         if (GameManager.instance.EOE[GameManager.instance.EOE.Count - 1] != GameManager.instance.lastEOE)
         {
@@ -246,7 +246,7 @@ public class RejoiningTwists : MonoBehaviour
         EOEStatus.transform.parent = GameManager.instance.Canvas.transform;
         EOEStatus.GetComponent<RectTransform>().offsetMax = new Vector2(0, EOEStatus.GetComponent<RectTransform>().offsetMax.y);
         EOEStatus.GetComponent<RectTransform>().offsetMax = new Vector2(EOEStatus.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(EOEStatus, true);
+        GameManager.instance.AddGM(EOEStatus, true, 0);
         EOEStatus.name = "Return Challenge";
         List<Contestant> remove = new List<Contestant>();
         if (GameManager.instance.EOE[GameManager.instance.EOE.Count - 1] != GameManager.instance.lastEOE)
@@ -404,7 +404,7 @@ public class RejoiningTwists : MonoBehaviour
 
         }
         GameManager.instance.re = GameManager.instance.LosingTribes.Count;
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, true, 0);
         GameManager.instance.NextEvent();
     }
     public void OutcastsTribal()
@@ -417,7 +417,7 @@ public class RejoiningTwists : MonoBehaviour
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(0, EpisodeStart.GetComponent<RectTransform>().offsetMax.y);
         EpisodeStart.GetComponent<RectTransform>().offsetMax = new Vector2(EpisodeStart.GetComponent<RectTransform>().offsetMin.x, 0);
         EpisodeStart.name = "Outcasts Tribal Council";
-        GameManager.instance.AddGM(EpisodeStart, true);
+        GameManager.instance.AddGM(EpisodeStart, true, 0);
         Team OutCasts = new Team();
         OutCasts = GameManager.instance.Outcasts;
         GameManager.instance.LosingTribe = GameManager.instance.Outcasts;
@@ -549,7 +549,7 @@ public class RejoiningTwists : MonoBehaviour
         }
         votesSoFar = votesSoFar.OrderByDescending(go => go[0]).ToList();
         GameManager.instance.finalVotes = "Final vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".";
-        GameManager.instance.AddVote(GameManager.instance.votes, GameManager.instance.votesRead, GameManager.instance.finalVotes);
+        GameManager.instance.AddVote(GameManager.instance.votes, GameManager.instance.votesRead, GameManager.instance.finalVotes, "");
         if (GameManager.instance.cineTribal == true)
         {
 

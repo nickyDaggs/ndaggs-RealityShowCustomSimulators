@@ -40,6 +40,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -68,6 +69,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -141,6 +143,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages: []
   swaps:
   - on: 1
@@ -192,6 +195,7 @@ MonoBehaviour:
         IOILesson: 
         options: []
         IOISweetened: 0
+        hiddenChance: 25
       remove: 0
       allianceCount: 0
       environment: 3
@@ -231,6 +235,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -301,6 +306,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     - name: Extra Vote power
       advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
       hideAt: 5
@@ -313,6 +319,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     - name: Penalize
       advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
       hideAt: 5
@@ -325,6 +332,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     - name: Extra Vote power
       advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
       hideAt: 8
@@ -337,6 +345,7 @@ MonoBehaviour:
       IOILesson: Practice
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     - name: ImmunityAdvantage
       advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
       hideAt: 10
@@ -349,8 +358,9 @@ MonoBehaviour:
       IOILesson: Practice
       options: []
       IOISweetened: 0
+      hiddenChance: 25
   oneTimeEvents:
   - type: JointTribal
     context: 
-    round: 6
+    round: 13
     elim: 1

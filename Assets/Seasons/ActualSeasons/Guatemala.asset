@@ -117,6 +117,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages: []
   swaps:
   - on: 1
@@ -159,6 +160,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -220,5 +222,5 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MultiTribalOneImm
     context: TribalImmAV
-    round: 6
+    round: 13
     elim: 2

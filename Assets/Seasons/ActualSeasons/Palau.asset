@@ -126,6 +126,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -187,9 +188,9 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MultiTribalReward
     context: ImmunityVote
-    round: 5
+    round: 14
     elim: 2
   - type: PalauStart
     context: altGender
-    round: 1
+    round: 18
     elim: 1

@@ -443,5 +443,5 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MergeSplit
     context: 
-    round: 11
+    round: 10
     elim: 2

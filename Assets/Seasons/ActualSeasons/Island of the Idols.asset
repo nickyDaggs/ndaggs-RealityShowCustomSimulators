@@ -41,6 +41,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -70,6 +71,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -143,6 +145,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   twistHiddenAdvantages: []
   swaps:
   - on: 1
@@ -211,6 +214,7 @@ MonoBehaviour:
     IOILesson: Fire-making
     options: []
     IOISweetened: 1
+    hiddenChance: 25
   - name: temporary Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
     hideAt: 2
@@ -223,6 +227,7 @@ MonoBehaviour:
     IOILesson: Paying attention
     options: []
     IOISweetened: 1
+    hiddenChance: 25
   - name: temporary Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
     hideAt: 3
@@ -235,6 +240,7 @@ MonoBehaviour:
     IOILesson: Staying calm under pressure
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: Vote Blocker
     advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
     hideAt: 4
@@ -247,6 +253,7 @@ MonoBehaviour:
     IOILesson: Persuasion
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: Vote Blocker
     advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
     hideAt: 6
@@ -259,6 +266,7 @@ MonoBehaviour:
     IOILesson: Courage
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: Safety Without Power
     advantage: {fileID: 11400000, guid: f3624c845e86944429e40ffc524c819b, type: 2}
     hideAt: 7
@@ -271,6 +279,7 @@ MonoBehaviour:
     IOILesson: Calculating risks
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: LostVote
     advantage: {fileID: 11400000, guid: 917be080713a9ab48947633e777f8bb0, type: 2}
     hideAt: 9
@@ -283,6 +292,7 @@ MonoBehaviour:
     IOILesson: Taking false opportunities
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: temporary Hidden Immunity Idol
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
     hideAt: 11
@@ -295,6 +305,7 @@ MonoBehaviour:
     IOILesson: Situational awareness
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   - name: Options
     advantage: {fileID: 11400000, guid: 5a86d94174f2b0e479d9e260d6b92dcb, type: 2}
     hideAt: 13
@@ -318,6 +329,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     - name: selfless Hidden Immunity Idol
       advantage: {fileID: 11400000, guid: 0a9b0191ae2513842a20a888b13c2ebf, type: 2}
       hideAt: 0
@@ -330,6 +342,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     - name: Idol Nullifier
       advantage: {fileID: 11400000, guid: e6cf6a13487cc6743acd937fb52cee60, type: 2}
       hideAt: 0
@@ -342,7 +355,9 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     IOISweetened: 0
+    hiddenChance: 25
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
@@ -359,6 +374,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 15
+    expires: 
     epsSkipE: 05000000080000000a0000000c0000000e000000
     epsSpecialE: 
     epsSkipRI: 
@@ -420,5 +436,5 @@ MonoBehaviour:
   oneTimeEvents:
   - type: MergeSplit
     context: 
-    round: 10
+    round: 11
     elim: 2

@@ -14,6 +14,9 @@ public class Contestant : ScriptableObject
     public string team;
     public int Age;
     public Sprite image;
+    public string imageUrl;
+    public string imagePath;
+    public string season;
     public Stats stats;
     public List<Relationship> Relationships;
     [Header("Viewable")]
@@ -26,7 +29,8 @@ public class Contestant : ScriptableObject
     public Contestant target;
     //public Contestant vote;
     public int targetValue;
-    public bool lastTarget;
+    public int threatLevel;
+    public bool lastTarget = false;
     public List<Contestant> altVotes = new List<Contestant>();
     public List<Contestant> halfIdols = new List<Contestant>();
     public bool inTie;
@@ -34,6 +38,7 @@ public class Contestant : ScriptableObject
     public bool combineIdol;
     public int safety;
     public int votes;
+    public int previousVotes;
     public string IOIEvent;
     public List<Advantage> advantages;
     public List<Color> teams = new List<Color>();
@@ -51,6 +56,7 @@ public class Contestant : ScriptableObject
 
     public Contestant PersonalTarget(List<Contestant> tribe)
     {
+
         List<float> statsNeeded = new List<float>();
         //List<Contestant> possibleTargets = new List<Contestant>();
         List<Contestant> targets = new List<Contestant>(tribe);
@@ -58,6 +64,8 @@ public class Contestant : ScriptableObject
         {
             //Debug.Log("Targets:" + string.Join(",", targets.Select(x => x.nickname)));
         }
+        targets = targets.Except(targets.FindAll(x => x.safety > 0).ToList()).ToList();
+
         targets.Remove(this);
         foreach (Alliance alliance in GameManager.Instance.Alliances)
         {
@@ -70,17 +78,17 @@ public class Contestant : ScriptableObject
                 }
             }
         }
-        if(targets.Count < 1)
+        
+        if (targets.Count < 1)
         {
             //Debug.Log("fadfssffsasfa");
             targets = new List<Contestant>(tribe);
             targets.Remove(this);
-            if(targets.Count < 1)
+            if (targets.Count < 1)
             {
                 Debug.Log(this);
             }
         }
-        targets = targets.Except(targets.FindAll(x => x.safety > 0).ToList()).ToList();
         targets = targets.OrderByDescending(x => value(x)).ToList();
         
         //Debug.Log("Episode:" + GameManager.Instance.curEp+"targetSize:"+ targets.Count+"TribeSize:"+tribe.Count);
@@ -202,7 +210,13 @@ public class Contestant : ScriptableObject
         }
         else if (GetRelationship(num).Type == RelationshipType.Like)
         {
-            v -= (int)GetRelationship(num).Status * 10 + GetRelationship(num).Extra;
+            int likeScore = (int)GetRelationship(num).Status * 10 + GetRelationship(num).Extra;
+            if (GameManager.Instance.merged)
+            {
+                likeScore = (int)(likeScore * .5);
+            }
+            v -= likeScore;
+            
         }
         else if (GetRelationship(num).Type == RelationshipType.Neutral)
         {
@@ -217,10 +231,16 @@ public class Contestant : ScriptableObject
         {
             v += (3 - challengeStats) * 10;
         }
+        v += num.threatLevel;
 
-        if(lastTarget)
+        if (Random.Range(0, 8) <= num.stats.Boldness || Random.Range(0, 8) <= num.stats.Strategic)
         {
-            v = (int)((float)v * .6);
+            v += (int)(num.threatLevel * .3);
+        }
+
+        if (lastTarget)
+        {
+            v = (int)((float)v * .5);
         }
 
         return v;

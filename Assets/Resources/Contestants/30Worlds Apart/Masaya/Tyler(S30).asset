@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14af33404bb8db44aad7b5ef9d18cdc, type: 3}
   m_Name: Tyler(S30)
   m_EditorClassIdentifier: 
-  fullname: 
-  nickname: 
-  gender: 
+  fullname: Tyler Fredrickson
+  nickname: Tyler
+  gender: M
   team: 
   Age: 0
   image: {fileID: 21300000, guid: b6be74ca93a31bb428ceb939b1c986dc, type: 3}
+  imageUrl: 
+  imagePath: 
+  season: Worlds Apart
   stats:
     Physical: 3
     Endurance: 3
@@ -39,6 +42,8 @@ MonoBehaviour:
   placement: 
   target: {fileID: 0}
   targetValue: 0
+  threatLevel: 0
+  lastTarget: 0
   altVotes: []
   halfIdols: []
   inTie: 0
@@ -46,6 +51,7 @@ MonoBehaviour:
   combineIdol: 0
   safety: 0
   votes: 0
+  previousVotes: 0
   IOIEvent: 
   advantages: []
   teams: []
@@ -62,3 +68,5 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
+  simID: 0

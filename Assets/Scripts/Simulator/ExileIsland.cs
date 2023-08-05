@@ -12,7 +12,7 @@ public class ExileIsland : MonoBehaviour
         ExileEvent.transform.parent = GameManager.instance.Canvas.transform;
         ExileEvent.GetComponent<RectTransform>().offsetMax = new Vector2(0, ExileEvent.GetComponent<RectTransform>().offsetMax.y);
         ExileEvent.GetComponent<RectTransform>().offsetMax = new Vector2(ExileEvent.GetComponent<RectTransform>().offsetMin.x, 0);
-        GameManager.instance.AddGM(ExileEvent, true);
+        GameManager.instance.AddGM(ExileEvent, true, 0);
         string island = "";
         if(GameManager.instance.sea.IslandType == "Ghost")
         {
@@ -576,7 +576,7 @@ public class ExileIsland : MonoBehaviour
                 ImmChall.transform.parent = GameManager.instance.Canvas.transform;
                 ImmChall.GetComponent<RectTransform>().offsetMax = new Vector2(0, ExileEvent.GetComponent<RectTransform>().offsetMax.y);
                 ImmChall.GetComponent<RectTransform>().offsetMax = new Vector2(ExileEvent.GetComponent<RectTransform>().offsetMin.x, 0);
-                GameManager.instance.AddGM(ImmChall, false);
+                GameManager.instance.AddGM(ImmChall, false, 2);
                 GameManager.instance.MakeGroup(false, null, ex.nickname + " returns to the tribe.\n\n" + choice, "", "", new List<Contestant>() { ex}, ImmChall.transform.GetChild(0), 0);
 
 

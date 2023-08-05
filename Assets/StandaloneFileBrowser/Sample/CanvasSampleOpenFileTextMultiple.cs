@@ -57,6 +57,7 @@ public class CanvasSampleOpenFileTextMultiple : MonoBehaviour, IPointerDownHandl
             yield return loader;
             outputText += loader.text;
         }
-        output.text = outputText;
+        //output.text = outputText;
+        SimLoader.Instance.LoadSeason(outputText);
     }
 }

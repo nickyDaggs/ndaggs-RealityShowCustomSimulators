@@ -94,7 +94,7 @@ MonoBehaviour:
   - name: The Reunion
     events: []
     finalVote: []
-  Tiebreaker: 
+  Tiebreaker: Challenge
   ReturningPlayers: 
   MergeTribeColor: {r: 0, g: 0.6509804, b: 0.5764706, a: 1}
   MergeTribeName: Moto Maji Tribe
@@ -145,6 +145,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
