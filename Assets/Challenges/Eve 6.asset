@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Eve 6
+  m_EditorClassIdentifier: 
+  challengeName: EOC
+  description: Prior to the challenge, the tribe will divide themselves into pairs.
+    At the challenge, the pair will crawl through a twisted rope tunnel, one at a
+    time. They will then race to dig up planks from a sandpit, with the last few
+    pairs to do so being eliminated. The remaining pairs will climb to a tower and
+    use their planks to cross a rope bridge; the first two pairs to get across with
+    all their planks will advance to the final stage. The final four contestants
+    will then compete individually in an endurance challenge, with the last person
+    standing being declared the overall winner.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000001000000

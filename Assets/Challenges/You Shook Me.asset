@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: You Shook Me
+  m_EditorClassIdentifier: 
+  challengeName: You Shook Me
+  description: Castaways must stack letter blocks on a wobbly platform to spell out
+    designated words. When returning to their station to collect more blocks, they
+    must first lock in their mechanism. If any blocks fall, they must lock in their
+    mechanism before picking up the fallen blocks, return them to their station,
+    and start over. The first castaway to correctly spell the designated words without
+    any upside-down letters and lock in their mechanism wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0100000002000000

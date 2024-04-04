@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: New Tribe Member
+  m_EditorClassIdentifier: 
+  challengeName: New Tribe Member
+  description: The tribes would have to untie a giant dummy (acting as their "new
+    tribe member"). The tribes must then carry the dummy through an obstacle course.
+    The first tribe to cross the finish line with their dummy wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

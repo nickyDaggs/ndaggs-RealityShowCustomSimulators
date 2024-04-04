@@ -6,7 +6,7 @@ using UnityEngine;
 public enum EventType { Relationship, Stamina, Alliance}
 public enum AllianceEventType { Create, Leave, Dissolve }
 public enum SwapType { RegularSwap, RegularShuffle, ChallengeDissolve, DissolveLeastMembers, SchoolyardPick, SplitTribes, TribeChiefs, Mutiny, CISchoolyardPick }
-public enum StatChoice { Physical, Endurance, Mental, Stamina, SocialSkills, Temperament, Strategic, Loyalty, Forgivingness, Boldness, Influence, Intuition }
+public enum StatChoice { Physical, Endurance, Mental, Stamina, SocialSkills, Temperament, Forgivingness, Boldness, Strategic, Loyalty,  Influence, Intuition }
 public enum RelationshipType { Dislike, Neutral, Like }
 public enum RelationshipStatus { Slight, Small, Medium, Strong, Extreme }
 public enum Environment { Peaceful=1, Nice, Normal, Harsh, Chaotic }
@@ -44,6 +44,23 @@ namespace SeasonParts
             return temp;
         }
         //public List<Alliance> alliances = new List<Alliance>();
+
+        public Team()
+        {
+
+        }
+
+        public Team(SavedWithinSim.SavedTeam savedTeam)
+        {
+            name = savedTeam.teamName;
+            Color newCol;
+            if (ColorUtility.TryParseHtmlString("#" + savedTeam.teamColor, out newCol))
+            {
+                tribeColor = newCol;
+            }
+            //List<string> L = new List<string> ( new string[10] );
+            members = new List<Contestant>(new Contestant[savedTeam.teamSize]);
+        }
     }
     [System.Serializable]
     public class EpisodeSetting
@@ -74,6 +91,26 @@ namespace SeasonParts
         public bool exile;
         public bool redIs;
         public bool orderBySize;
+
+        public TribeSwap()
+        {
+
+        }
+
+        public TribeSwap(SavedWithinSim.SavedSwap swap)
+        {
+            on = swap.on;
+            swapAt = swap.swapAt;
+            type = (SwapType)swap.type;
+            newTribes = swap.newTribes.ConvertAll(x => new Team(x));
+            text = swap.text;
+            ResizeTribes = swap.ResizeTribes;
+            numberSwap = swap.numberSwap;
+            leaderReason = swap.leaderReason;
+            pickingRules = swap.pickingRules;
+            exileIsland = new Exile(swap.exileIsland);
+            exile = swap.exile; redIs = swap.redIs; orderBySize = swap.orderBySize;
+        }
     }
     [System.Serializable]
     public class Episode
@@ -90,6 +127,19 @@ namespace SeasonParts
         public string context = "";
         public int round;
         public int elim;
+
+        public OneTimeEvent()
+        {
+
+        }
+
+        public OneTimeEvent(SavedWithinSim.SavedOneTimeEvent ote)
+        {
+            type = ote.type;
+            context = ote.context;
+            round = ote.round;
+            elim = ote.elim;
+        }
     }
     [System.Serializable]
     public class Exile
@@ -102,6 +152,23 @@ namespace SeasonParts
         public bool skipTribal = false;
         public bool two = false;
         public bool both = false;
+
+        public Exile()
+        {
+
+        }
+
+        public Exile(SavedWithinSim.SavedEPExile exile)
+        {
+            on = exile.on;
+            reason = exile.reason;
+            ownTribe = exile.ownTribe;
+            exileEvent = exile.exileEvent;
+            challenge = exile.challenge;
+            skipTribal = exile.skipTribal;
+            two = exile.two;
+            both = exile.both;
+        }
     }
     [System.Serializable]
     public class Twist
@@ -116,7 +183,31 @@ namespace SeasonParts
         public Exile preMergeEIsland;
         public Exile MergeEIsland;
         public Team IOI;
-        public List<HiddenAdvantage> EOEAdvantages;
+        public List<HiddenAdvantage> EOEAdvantages = new List<HiddenAdvantage>();
+
+        public Twist()
+        {
+
+        }
+
+        public Twist(SavedWithinSim.SavedTwist twists)
+        {
+            expireAt = twists.expireAt;
+            expires = twists.expires;
+            epsSkipE = twists.epsSkipE;
+            epsSpecialE = twists.epsSpecialE;
+            epsSkipRI = twists.epsSkipRI;
+            epsSpecialRI = twists.epsSpecialRI;
+
+            SpecialEx = twists.SpecialEx.ConvertAll(x => new Exile(x));
+            preMergeEIsland = new Exile(twists.preMergeEIsland);
+            MergeEIsland = new Exile(twists.MergeEIsland);
+
+            EOEAdvantages = twists.EOEAdvantages.ConvertAll(x => new HiddenAdvantage(x));
+            IOI = new Team(twists.IOI);
+
+        }
+
     }
     [System.Serializable]
     public class Page
@@ -142,12 +233,50 @@ namespace SeasonParts
         public bool temp;
         public bool giveAway;
         public string IOILesson;
-        public List<HiddenAdvantage> options;
+        public List<HiddenAdvantage> options = new List<HiddenAdvantage>();
         public bool IOISweetened;
         public int hiddenChance = 25;
         public object Clone()
         {
             return this.MemberwiseClone();
+        }
+
+        public HiddenAdvantage()
+        {
+
+        }
+
+        public HiddenAdvantage(SavedWithinSim.SavedHiddenAdvantage adv)
+        {
+            name = adv.name;
+
+            //set advantage
+            Advantage copyAdvantage = new Advantage();
+            copyAdvantage.nickname = adv.advantageType.nickname;
+            copyAdvantage.type = adv.advantageType.type;
+            copyAdvantage.expiresAt = adv.advantageType.expiresAt;
+            copyAdvantage.length = adv.advantageType.length;
+            copyAdvantage.onlyUsable = adv.advantageType.onlyUsable;
+            copyAdvantage.temp = adv.advantageType.temp;
+            copyAdvantage.playOnOthers = adv.advantageType.playOnOthers;
+            copyAdvantage.usedWhen = adv.advantageType.usedWhen;
+            copyAdvantage.description = adv.advantageType.description;
+            copyAdvantage.activate = adv.advantageType.activate;
+            copyAdvantage.activated = adv.advantageType.activated;
+            advantage = copyAdvantage;
+            //set advantage
+
+            hideAt = adv.hideAt;
+            reHidden = adv.reHidden;
+            hidden = adv.hidden;
+            linkedToExile = adv.linkedToExile;
+            length = adv.length;
+            temp = adv.temp;
+            giveAway = adv.giveAway;
+
+            IOILesson = adv.IOILesson;
+            options = adv.options.ConvertAll(x => new HiddenAdvantage(x));
+            IOISweetened = adv.IOISweetened;
         }
     }
     [System.Serializable]
@@ -173,17 +302,6 @@ namespace SeasonParts
         public int Boldness = 3;
         public int Influence = 3;
         public int Intuition = 3;
-    }
-    [System.Serializable]
-    public class Challenge
-    {
-        public string name;
-        public string description;
-        public List<string> rewards = new List<string>();
-        public int rewardStamina;
-        public List<Contestant> Groups = new List<Contestant>();
-        public bool sitout;
-        public List<StatChoice> stats = new List<StatChoice>() { StatChoice.Stamina};
     }
     [System.Serializable]
     public class ContestantEvent

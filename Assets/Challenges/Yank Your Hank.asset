@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Yank Your Hank
+  m_EditorClassIdentifier: 
+  challengeName: Yank Your Hank
+  description: Members from each tribe would race across a series of wooden A-frames
+    carrying three coils of rope. At the end of the course, a few members would use
+    the rope to pull a heavy wooden crate across a ramp and up to the finish platform.
+    The remaining tribe members would then disassemble the crate and use the puzzle
+    pieces to solve a puzzle. The first tribe to solve their puzzle would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

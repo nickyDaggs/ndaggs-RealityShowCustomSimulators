@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Running Down a Dream
+  m_EditorClassIdentifier: 
+  challengeName: Running Down a Dream
+  description: Castaways must toss two balls into an overhead track and navigate
+    through tripwires to catch the ball before it hits the ground. Once both balls
+    have been caught, they must dig their way under a log with their two balls before
+    accomplishing a final task.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

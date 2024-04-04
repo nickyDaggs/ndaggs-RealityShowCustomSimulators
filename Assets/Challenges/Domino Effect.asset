@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Domino Effect
+  m_EditorClassIdentifier: 
+  challengeName: Domino Effect
+  description: Castaways must stack all of their blocks like a line of domino tiles
+    on an angular beam while avoiding tripwires that would topple the blocks that
+    were already stacked. Once all of the blocks have been properly stacked in such
+    a way that they were evenly spaced to topple like dominoes that would reach the
+    end of the beam, the castaway would start a chain reaction which would trigger
+    a mechanism that will release a ball rolling to a bowl, releasing a flag/breaking
+    a tile. The first castaway to raise their flag/break their tile would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Ferryman
+  m_EditorClassIdentifier: 
+  challengeName: Fauxconut Bowling
+  description: Divided into teams, castaways will start on a platform in the water,
+    then swim out to a raft and work together to use a rope to pull themselves and
+    the raft to another platform. From that platform, they climb up a ladder, retrieve
+    a key, and then slide down a pole into the water. They must then race the key
+    to shore. Once a team has all their keys, they will unlock a cage to retrieve
+    a set of colored blocks. The team will then use the blocks to solve the puzzle
+    from Sea Crates. The first team to finish wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

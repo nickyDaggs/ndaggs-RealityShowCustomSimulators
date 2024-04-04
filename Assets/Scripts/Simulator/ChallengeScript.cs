@@ -182,7 +182,7 @@ public class ChallengeScript : MonoBehaviour
         num.stats.Stamina = Random.Range(1, 6);
         num.stats.SocialSkills = Random.Range(1, 6);
         num.stats.Temperament = Random.Range(1, 6);
-        num.stats.Strategic = Random.Range(1, 6);
+        num.stats.Strategic = 5;//Random.Range(1, 6);
         num.stats.Loyalty = Random.Range(1, 6);
         num.stats.Forgivingness = Random.Range(1, 6);
         num.stats.Boldness = Random.Range(1, 6);

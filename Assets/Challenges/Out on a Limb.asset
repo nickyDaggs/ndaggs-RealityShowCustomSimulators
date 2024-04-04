@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Out on a Limb
+  m_EditorClassIdentifier: 
+  challengeName: Out on a Limb
+  description: Castaways must race through a giant course, which branches out into
+    several limbs, to collect items. They must then bring these items back to a central
+    island. Beginning with Cook Islands, castaways would have to collect bags of
+    puzzle pieces, then use the puzzle pieces to solve a puzzle. The first to solve
+    their puzzle wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

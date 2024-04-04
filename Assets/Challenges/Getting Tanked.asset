@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Getting Tanked
+  m_EditorClassIdentifier: 
+  challengeName: Getting Tanked
+  description: Each tribe will arrange a series of gutters to allow water to flow
+    from the top of a tower into a barrel on the ground. The tribe members will hold
+    up the gutters, and the barrel will release a net of puzzle pieces once it is
+    full; the tribe will then solve the puzzle.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

@@ -79,83 +79,39 @@ MonoBehaviour:
   Episodes:
   - name: Episode 1
     events: []
-    finalVote: []
   - name: Episode 2
     events: []
-    finalVote: []
   - name: Episode 3
     events: []
-    finalVote: []
   - name: Episode 4
     events: []
-    finalVote: []
   - name: Episode 5
     events: []
-    finalVote: []
   - name: Episode 6
     events: []
-    finalVote: []
   - name: Episode 7
     events: []
-    finalVote: []
   - name: Episode 8
     events: []
-    finalVote: []
   - name: Episode 9
     events: []
-    finalVote: []
   - name: Episode 10
     events: []
-    finalVote: []
   - name: Episode 11
     events: []
-    finalVote: []
   - name: Episode 12
     events: []
-    finalVote: []
   - name: Finale, Part 1
     events: []
-    finalVote: []
   - name: Finale, Part 2
     events: []
-    finalVote: []
   - name: The Reunion
     events: []
-    finalVote: []
   Tiebreaker: 
   ReturningPlayers: 
   MergeTribeColor: {r: 0.4, g: 0, b: 0.6, a: 1}
   MergeTribeName: Bula Bula Tribe
-  ImmunityChallenges:
-  - name: Name
-    description: Description
-    rewards: []
-    rewardStamina: 0
-    Groups: []
-    sitout: 0
-    stats: 00000000
-  - name: Name
-    description: Description
-    rewards: []
-    rewardStamina: 0
-    Groups: []
-    sitout: 0
-    stats: 00000000
-  - name: Name
-    description: Description
-    rewards: []
-    rewardStamina: 0
-    Groups: []
-    sitout: 0
-    stats: 00000000
-  - name: Name
-    description: Description
-    rewards:
-    - CampSwitch
-    rewardStamina: 0
-    Groups: []
-    sitout: 0
-    stats: 00000000
+  ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 
   NoRewards: 0
@@ -240,10 +196,10 @@ MonoBehaviour:
   twoParts: 
   threeParts: 
   Twists:
-    expireAt: 15
+    expireAt: 5
     expires: 
     epsSkipE: 0a000000
-    epsSpecialE: 0100000002000000
+    epsSpecialE: 13000000120000000f000000
     epsSkipRI: 
     epsSpecialRI: 
     SpecialEx:
@@ -263,12 +219,20 @@ MonoBehaviour:
       skipTribal: 1
       two: 0
       both: 0
+    - on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Immunity
+      skipTribal: 0
+      two: 0
+      both: 0
     preMergeEIsland:
       on: 1
       reason: Winner
       ownTribe: 0
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0
@@ -277,7 +241,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 1
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0

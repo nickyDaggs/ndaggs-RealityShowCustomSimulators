@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Will It Go Round
+  m_EditorClassIdentifier: 
+  challengeName: Will It Go Round
+  description: Using centrifugal force, castaways must keep a ball spinning within
+    a wheel as they stand on individual balance beams. At regular intervals, the
+    castaways will be made to step forward onto narrower parts of the beam. If at
+    any point the ball drops or they fall off their beam, the castaway loses the
+    challenge. The last castaway standing wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0200000001000000

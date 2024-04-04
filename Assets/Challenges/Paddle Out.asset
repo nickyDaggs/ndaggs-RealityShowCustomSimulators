@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Paddle Out
+  m_EditorClassIdentifier: 
+  challengeName: Paddle Out
+  description: Castaways must roll a series of balls down a lane on a wooden board
+    to the end where there are several slots for the balls to land in. The first
+    person or tribe to land all their balls in slots at the same time wins. In the
+    tribal version of this challenge, each tribe must first make their way through
+    a course before reaching the final table maze. Two members then maneuver the
+    balls down the board and land them in all the slots.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0100000002000000

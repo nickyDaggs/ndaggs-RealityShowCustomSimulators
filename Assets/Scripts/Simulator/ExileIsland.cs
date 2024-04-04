@@ -6,6 +6,22 @@ using System.Linq;
 
 public class ExileIsland : MonoBehaviour
 {
+    public Contestant nextIOI;
+    public Advantage SwapIdol;
+    public List<Advantage> NewEraBagsAdvantages;
+
+    public void Start()
+    {
+        for (int i = NewEraBagsAdvantages.Count - 1; i > 0; i--)
+        {
+            int swapIndex = Random.Range(0, i + 1);
+            Advantage currentCon = NewEraBagsAdvantages[i];
+            Advantage conToSwap = NewEraBagsAdvantages[swapIndex];
+            NewEraBagsAdvantages[i] = conToSwap;
+            NewEraBagsAdvantages[swapIndex] = currentCon;
+        }
+    }
+
     public void DoExile()
     {
         GameObject ExileEvent = Instantiate(GameManager.instance.Prefabs[0]);
@@ -13,27 +29,58 @@ public class ExileIsland : MonoBehaviour
         ExileEvent.GetComponent<RectTransform>().offsetMax = new Vector2(0, ExileEvent.GetComponent<RectTransform>().offsetMax.y);
         ExileEvent.GetComponent<RectTransform>().offsetMax = new Vector2(ExileEvent.GetComponent<RectTransform>().offsetMin.x, 0);
         GameManager.instance.AddGM(ExileEvent, true, 0);
+
+        if(GameManager.instance.curExile.reason == "Random" && GameManager.instance.sea.IslandType == "IOI")
+        {
+            GameManager.instance.Exiled = new List<Contestant>();
+            GameManager.instance.Exiled.Add(nextIOI);
+        } 
+
         string island = "";
-        if(GameManager.instance.sea.IslandType == "Ghost")
+        if (GameManager.instance.sea.IslandType == "Ghost")
         {
             island = "Ghost Island.";
-        } else if(GameManager.instance.sea.IslandType == "IOI")
+        } else if (GameManager.instance.sea.IslandType == "IOI")
         {
             island = "Island of the Idols.";
             GameManager.instance.MakeGroup(true, GameManager.instance.sea.Twists.IOI, "name", "", "", GameManager.instance.sea.Twists.IOI.members, ExileEvent.transform.GetChild(0).GetChild(0), 0);
-        } else
+        } 
+        else
         {
             island = "Exile Island.";
         }
-
-        if (GameManager.instance.Exiled.Count == 1)
+        if(GameManager.instance.sea.IslandType != "Journeys" && GameManager.instance.curExile.reason != "Note" && GameManager.instance.curExile.reason != "IOITribeSend" && GameManager.instance.curExile.reason != "RandomSend")
         {
-            GameManager.instance.MakeGroup(false, null, GameManager.instance.Exiled[0].nickname + " is at " + island, "", "", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
-        }
-        else
+            if (GameManager.instance.Exiled.Count == 1)
+            {
+                GameManager.instance.MakeGroup(false, null, GameManager.instance.Exiled[0].nickname + " is at " + island, "", "", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            }
+            else if (GameManager.instance.Exiled.Count > 1 && GameManager.instance.curExile.two)
+            {
+                GameManager.instance.MakeGroup(false, null, "", "", GameManager.instance.Exiled[0].nickname + " and " + GameManager.instance.Exiled[1].nickname + " are at exile island.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            }
+        } else
         {
-            GameManager.instance.MakeGroup(false, null, "", "", GameManager.instance.Exiled[0].nickname + " and " + GameManager.instance.Exiled[1].nickname + " are at exile island.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            //Debug.Log("dsfa");
+            if (GameManager.instance.sea.IslandType == "IOI")
+            {
+                GameManager.instance.Exiled = new List<Contestant>();
+                GameManager.instance.Exiled.Add(GameManager.Instance.MergedTribe.members[Random.Range(0, GameManager.Instance.MergedTribe.members.Count)]);
+            }
+            
+            if (GameManager.instance.curExile.reason == "Note")
+            {
+                GameManager.instance.MakeGroup(false, null, "", "", "There is a hanging note enticing one player to visit the Island of the Idols.\n\n" + GameManager.instance.Exiled[0].nickname + " arrives.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            } else if(GameManager.instance.curExile.reason == "IOITribeSend")
+            {
+                GameManager.instance.MakeGroup(false, null, "", "", "The tribe sends one person to visit the Island of the Idols.\n\n" + GameManager.instance.Exiled[0].nickname + " arrives.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            }
+            else if (GameManager.instance.curExile.reason == "RandomSend")
+            {
+                GameManager.instance.MakeGroup(false, null, "", "", "One person is randomly sent to the Island of the Idols.\n\n" + GameManager.instance.Exiled[0].nickname + " arrives.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            }
         }
+        
         if(GameManager.instance.sea.IslandType == "Ghost")
         {
             string atext = "There is no secret advantage available.";
@@ -414,6 +461,363 @@ public class ExileIsland : MonoBehaviour
                     
                 }
             }
+            if(GameManager.instance.curExile.exileEvent == "ChooseRandom")
+            {
+                GameManager.instance.MakeGroup(false, null, "Before leaving, " + GameManager.instance.Exiled[0].nickname + " must randomly select one player on the other tribe to visit Island of the Idols next.", "", "", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+
+                Team nextTribe = GameManager.instance.Tribes.FindAll(x => x.name != GameManager.instance.Exiled[0].team).ToList()[0];
+                nextIOI = nextTribe.members[Random.Range(0, nextTribe.members.Count)];
+                //"Before leaving, " + GameManager.instance.Exiled[0].nickname + " must randomly select one player on the other tribe to visit Island of the Idols next."
+            }
+        }
+        else if (GameManager.instance.sea.IslandType == "Journeys")
+        {
+
+            if (GameManager.instance.Exiled.Count < 1)
+            {
+                for(int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+                {
+                    GameManager.instance.Exiled.Add(GameManager.Instance.Tribes[i].members[Random.Range(0, GameManager.Instance.Tribes[i].members.Count)]);
+                    if(GameManager.instance.curExile.exileEvent == "SwapIdol")
+                    {
+                        GameManager.instance.Exiled[i].team = GameManager.Instance.Tribes[i].name;
+
+                    }
+                }
+            }
+            if(GameManager.instance.curExile.exileEvent != "PublicRisk")
+            {
+                GameManager.instance.MakeGroup(false, null, "nname", "", "The " + GameManager.instance.Exiled.Count + " chosen players from separate tribes go on a journey together.\n\nAt the end of their journey, they are told to separate to go make a private decision.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            }
+            else
+            {
+                GameManager.instance.MakeGroup(false, null, "nname", "", "The " + GameManager.instance.Exiled.Count + " chosen players from separate tribes go on a journey together.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+            }
+
+            HiddenAdvantage curAdv = new HiddenAdvantage();
+
+            string advJourney = "The advantage for risking a vote will be a/an ";
+
+            int risked = 0;
+
+            switch (GameManager.instance.curExile.exileEvent)
+            {
+                case "Shipwheel":
+                    
+                    foreach (HiddenAdvantage hid in GameManager.instance.sea.islandHiddenAdvantages)
+                    {
+                        if (hid.hideAt == GameManager.instance.currentContestants)
+                        {
+                            int ran = Random.Range(0, 7);
+                            string nam = hid.name;
+                            advJourney += nam + ".";
+                            curAdv = hid;
+                            GameManager.instance.JourneyAdvantage = hid;
+                            //advJorne
+                        }
+                    }
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each of the players are faced with a dilemma: they can choose to 'protect' their vote or 'risk' it for an advantage.\n\nIf they unanimously choose 'protect' then they will all keep their votes and nothing will happen.\n\nIf they unanimously choose to 'risk' then they will all lose their votes for their next tribal council.\n\nIf there is a split in their decisions, then those who chose 'risk' will earn an advantage and keep their vote.\n\n" + advJourney, GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+
+                    for(int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                    {
+                        string decision = "";
+                        if(Random.Range(1, 7) <= GameManager.Instance.Exiled[i].stats.Boldness)
+                        {
+                            decision = " risks their vote.";
+                            GameManager.Instance.Exiled[i].JourneyRisk.Add(curAdv.IOILesson);
+                            GameManager.Instance.Exiled[i].journeyAdv.Add(curAdv);
+                            risked++;
+                        } else
+                        {
+                            decision = " protects their vote.";
+                        }
+                        GameManager.instance.MakeGroup(false, null, "", "", GameManager.Instance.Exiled[i].nickname + decision, new List<Contestant>() { GameManager.Instance.Exiled[i] }, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    }
+                    if(GameManager.Instance.Exiled.Count == risked)
+                    {
+                        
+                        for (int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                        {
+                            GameManager.Instance.Exiled[i].JourneyRisk = new List<string>();
+                            GameManager.Instance.Exiled[i].votes--;
+                            //Debug.Log(GameManager.Instance.Exiled[i].votes);
+                        }
+                    }
+                    for (int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+                    {
+                        for (int j = 0; j < GameManager.Instance.Tribes[i].members.Count; j++)
+                        {
+                            Contestant real = GameManager.Instance.Exiled.Find(x => x.simID == GameManager.Instance.Tribes[i].members[j].simID);
+                            if(real != null)
+                            {
+                                
+                                GameManager.Instance.Tribes[i].members[j] = real;
+                                //Debug.Log(GameManager.Instance.Tribes[i].members[j].votes);
+                            }
+                        }
+                    }
+                    break;
+                case "Tarp":
+                    advJourney = "The advantage would be a/an ";
+
+                    foreach (HiddenAdvantage hid in GameManager.instance.sea.islandHiddenAdvantages)
+                    {
+                        if (hid.hideAt == GameManager.instance.currentContestants)
+                        {
+                            int ran = Random.Range(0, 7);
+                            string nam = hid.name;
+                            advJourney += nam + ".";
+                            curAdv = hid;
+                            GameManager.instance.JourneyAdvantage = hid;
+                            //advJorne
+                        }
+                    }
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each of the players are faced with a dilemma: they can choose to get a tarp for their tribe or risk their vote for an advantage.\n\nIf they unanimously choose to get a tarp then they all of their tribes will earn a tribe.\n\nIf they unanimously choose to risk their vote then they will all lose their votes for their next tribal council.\n\nIf there is a split in their decisions, then those who chose to risk a vote will earn an advantage, while those who chose a tarp get nothing.\n\n" + advJourney, GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    
+
+                    for (int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                    {
+                        string decision = "";
+                        if (Random.Range(1, 7) <= GameManager.Instance.Exiled[i].stats.Boldness)
+                        {
+                            decision = " chooses an advantage.";
+                            GameManager.Instance.Exiled[i].JourneyRisk.Add(curAdv.IOILesson);
+                            GameManager.Instance.Exiled[i].journeyAdv.Add(curAdv);
+                            risked++;
+                        }
+                        else
+                        {
+                            decision = " chooses a tarp for their tribe.";
+                        }
+                        GameManager.instance.MakeGroup(false, null, "", "", GameManager.Instance.Exiled[i].nickname + decision, new List<Contestant>() { GameManager.Instance.Exiled[i] }, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    }
+                    if (GameManager.Instance.Exiled.Count == risked)
+                    {
+                        for (int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                        {
+                            GameManager.Instance.Exiled[i].JourneyRisk = new List<string>();
+                            GameManager.Instance.Exiled[i].votes--;
+                            //Debug.Log(GameManager.Instance.Exiled[i].votes);
+                        }
+                    }
+
+                    for (int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+                    {
+                        for (int j = 0; j < GameManager.Instance.Tribes[i].members.Count; j++)
+                        {
+                            Contestant real = GameManager.Instance.Exiled.Find(x => x.simID == GameManager.Instance.Tribes[i].members[j].simID);
+                            if (real != null)
+                            {
+                                GameManager.Instance.Tribes[i].members[j] = real;
+                                
+                                //Debug.Log(GameManager.Instance.Tribes[i].members[j].votes);
+                            }
+                            if (risked == 0)
+                            {
+                                GameManager.Instance.Tribes[i].members[j].stats.Stamina += 10;
+                            }
+                        }
+                    }
+                    break;
+                case "PublicRisk":
+                    foreach (HiddenAdvantage hid in GameManager.instance.sea.islandHiddenAdvantages)
+                    {
+                        if (hid.hideAt == GameManager.instance.currentContestants)
+                        {
+                            int ran = Random.Range(0, 7);
+                            string nam = hid.name;
+                            advJourney += nam + ".";
+                            curAdv = hid;
+                            GameManager.instance.JourneyAdvantage = hid;
+                            //advJorne
+                        }
+                    }
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each of the players are publicly faced with a dilemma: they can choose to 'protect' their vote or 'risk' it for an advantage.\n\nThere are three bags that correspond to amount of players risking their vote.\n\nIn each bag, there is one token which grants the advantage.\n\nIf a player receives an empty token, they get no advantage and lose their vote." + advJourney, GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+
+                    List<Contestant> riskers = new List<Contestant>();
+
+                    for (int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                    {
+                        string decision = "";
+                        if (Random.Range(1, 7) <= GameManager.Instance.Exiled[i].stats.Boldness)
+                        {
+                            decision = " risks their vote.";
+                            riskers.Add(GameManager.Instance.Exiled[i]);
+                            risked++;
+                        }
+                        else
+                        {
+                            decision = " protects their vote.";
+                        }
+                        GameManager.instance.MakeGroup(false, null, "", "", GameManager.Instance.Exiled[i].nickname + decision, new List<Contestant>() { GameManager.Instance.Exiled[i] }, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    }
+                    int ranWin = Random.Range(0, riskers.Count);
+                    for(int i = 0; i < riskers.Count; i++)
+                    {
+                        if(i == ranWin)
+                        {
+                            riskers[i].JourneyRisk.Add(curAdv.IOILesson);
+                            riskers[i].journeyAdv.Add(curAdv);
+                            Debug.Log(riskers[i].nickname);
+                        } else
+                        {
+                            riskers[i].JourneyRisk = new List<string>();
+                            riskers[i].votes--;
+                        }
+                    }
+
+                    for (int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+                    {
+                        for (int j = 0; j < GameManager.Instance.Tribes[i].members.Count; j++)
+                        {
+                            Contestant real = GameManager.Instance.Exiled.Find(x => x.simID == GameManager.Instance.Tribes[i].members[j].simID);
+                            if (real != null)
+                            {
+
+                                GameManager.Instance.Tribes[i].members[j] = real;
+                                //Debug.Log(GameManager.Instance.Tribes[i].members[j].votes);
+                            }
+                        }
+                    }
+                    break;
+                    //Do this
+                case "ForcedBag":
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each of the players are faced with a bag that contains three packages. Two of the packages will cause them to lose their vote, one of the packages holds an advantage.\n\nThey must draw at least one package.\n\nIf they draw the advantage, they can leave.\n\nIf they lose their vote, they can draw from the bag again to either lose another vote or gain the advantage.\n\nEach player will get a different advantage if they draw one.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    for (int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                    {
+                        string decision = "";
+                        int ran = Random.Range(0, 3);
+                        if(ran == 0)
+                        {
+                            decision = " successfully pulls the advantage!\n\nThey obtain the " + NewEraBagsAdvantages[i].name + ".";
+                            GameManager.Instance.Exiled[i].advantages.Add(NewEraBagsAdvantages[i]);
+                        } else
+                        {
+                            decision = " loses their vote on their first pull.\n\nThey could leave now or try to pull from the bag again.";
+                            GameManager.Instance.Exiled[i].votes--;
+                            if (Random.Range(1, 7) <= GameManager.Instance.Exiled[i].stats.Boldness)
+                            {
+                                ran = Random.Range(0, 2);
+                                if (ran == 0)
+                                {
+                                    decision += "\n\nThey successfully pull the advantage!\n\nThey obtain the " + NewEraBagsAdvantages[i].name + ".";
+                                    GameManager.Instance.Exiled[i].advantages.Add(NewEraBagsAdvantages[i]);
+                                } else
+                                {
+                                    decision += "\n\nThey lose their vote again on their second pull.";
+                                }
+                            } else
+                            {
+                                decision += "\n\nThey choose to leave and return back to their camp.";
+                            }
+                        }
+                        GameManager.instance.MakeGroup(false, null, "", "", GameManager.Instance.Exiled[i].nickname + decision, new List<Contestant>() { GameManager.Instance.Exiled[i] }, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    }
+
+                    for (int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+                    {
+                        for (int j = 0; j < GameManager.Instance.Tribes[i].members.Count; j++)
+                        {
+                            Contestant real = GameManager.Instance.Exiled.Find(x => x.simID == GameManager.Instance.Tribes[i].members[j].simID);
+                            if (real != null)
+                            {
+
+                                GameManager.Instance.Tribes[i].members[j] = real;
+                                //Debug.Log(GameManager.Instance.Tribes[i].members[j].votes);
+                            }
+                        }
+                    }
+                    break;
+                case "IndividualChallenge":
+                    foreach (HiddenAdvantage hid in GameManager.instance.sea.islandHiddenAdvantages)
+                    {
+                        if (hid.hideAt == GameManager.instance.currentContestants)
+                        {
+                            int ran = Random.Range(0, 7);
+                            string nam = hid.name;
+                            advJourney += nam + ".";
+                            curAdv = hid;
+                            GameManager.instance.JourneyAdvantage = hid;
+                            //advJorne
+                        }
+                    }
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each of the players are faced with a dilemma: they can choose to protect their vote by going back to camp or risk their vote for an advantage by playing a challenge.\n\nIf they win the challenge, they receive an advantage.\n\nIf they lose, they lose their vote for the next tribal council.\n\n" + advJourney, GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    for (int i = 0; i < GameManager.Instance.Exiled.Count; i++)
+                    {
+                        string decision = "";
+                        if (Random.Range(1, 7) <= GameManager.Instance.Exiled[i].stats.Boldness)
+                        {
+                            decision = " risks their vote.";
+                            if (Random.Range(1, 7) <= GameManager.Instance.Exiled[i].stats.Mental)
+                            {
+                                GameManager.Instance.Exiled[i].advantages.Add(curAdv.advantage);
+                                decision += "\n\nThey successfully win the challenge and earn the " + curAdv.name;
+                            }
+                            else
+                            {
+                                GameManager.Instance.Exiled[i].votes--;
+                                decision += "\n\nThey lose the challenge and have lost their vote.";
+                            }
+                        }
+                        else
+                        {
+                            decision = " protects their vote and heads back to camp.";
+                        }
+                        GameManager.instance.MakeGroup(false, null, "", "", GameManager.Instance.Exiled[i].nickname + decision, new List<Contestant>() { GameManager.Instance.Exiled[i] }, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    }
+
+                    for (int i = 0; i < GameManager.Instance.Tribes.Count; i++)
+                    {
+                        for (int j = 0; j < GameManager.Instance.Tribes[i].members.Count; j++)
+                        {
+                            Contestant real = GameManager.Instance.Exiled.Find(x => x.simID == GameManager.Instance.Tribes[i].members[j].simID);
+                            if (real != null)
+                            {
+
+                                GameManager.Instance.Tribes[i].members[j] = real;
+                                //Debug.Log(GameManager.Instance.Tribes[i].members[j].votes);
+                            }
+                        }
+                    }
+                    break;
+                case "AmuletDilemma":
+                    break;
+                case "SwapIdol":
+                    GameManager.instance.MakeGroup(false, null, "", "", "Each of the players will now be swapped into a new tribe.\n\nEach of them receive an idol that will only work before tribes are on the same beach.", GameManager.instance.Exiled, ExileEvent.transform.GetChild(0).GetChild(0), 20);
+                    for (int i = 0; i < GameManager.instance.Exiled.Count; i++)
+                    {
+                        Contestant swapped = GameManager.instance.Exiled[i];
+                        swapped.advantages.Add(SwapIdol);
+                        int gam = i + 1;
+                        if (gam > GameManager.instance.Exiled.Count - 1)
+                        {
+                            gam = 0;
+                        }
+                        GameManager.instance.Tribes.Find(x => x.name == swapped.team).members.Remove(swapped);
+                        swapped.team = "";
+                        GameManager.instance.Tribes[gam].members.Add(swapped);
+                        
+                        foreach (Alliance alliance in GameManager.instance.Alliances)
+                        {
+                            if (alliance.members.Contains(swapped))
+                            {
+                                if (!alliance.teams.Contains(GameManager.instance.Tribes[gam].name))
+                                {
+                                    alliance.teams.Add(GameManager.instance.Tribes[gam].name);
+                                }
+                            }
+                        }
+
+                    }
+                    foreach (Team tribe in GameManager.instance.Tribes)
+                    {
+                        foreach (Contestant num in tribe.members)
+                        {
+                            num.teams.Add(tribe.tribeColor);
+                        }
+                    }
+                    break;
+            }
         }
         else
         {
@@ -627,5 +1031,24 @@ public class ExileIsland : MonoBehaviour
             GameManager.instance.Exiled = new List<Contestant>();
         }
         GameManager.instance.NextEvent();
+    }
+
+    public void FuckTravis(Contestant con)
+    {
+        if(con.nickname.Contains("Travis"))
+        {
+            con.stats.Forgivingness = 1;
+            con.stats.Boldness = 1;
+            con.stats.Endurance = 1;
+            con.stats.Physical = 1;
+            con.stats.SocialSkills = 1;
+            con.stats.Intuition = 1;
+            con.stats.Loyalty = 1;
+            con.stats.Mental = 1;
+            con.stats.Temperament = 1;
+            con.stats.Stamina = 1;
+            con.stats.Strategic = 1;
+            con.stats.Influence = 1;
+        }
     }
 }

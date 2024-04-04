@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: A Bit Dinghy
+  m_EditorClassIdentifier: 
+  challengeName: A Bit Dinghy
+  description: One at a time, members of each tribe must swim out to a ramp, where
+    any two members must individually dive to release two buoy puzzle pieces. Once
+    they have their puzzle pieces, they must pull a pontoon to a platform, where
+    they must use the two pieces they collected, and another two pieces on the platform,
+    to build a buoy pyramid puzzle. The first tribe to solve their puzzle wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

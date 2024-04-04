@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Pilfering Pirates
+  m_EditorClassIdentifier: 
+  challengeName: Pilfering Pirates
+  description: A narrow series of bamboo walkways connect four boats, two for each
+    tribe. The tribes race to steal items from the opposing tribe's boats, with the
+    first tribe to steal a given number of items winning the challenge. In a specified
+    "attack zone" in the center of the course, contestants are permitted to physically
+    engage their opponents and push them off the course.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

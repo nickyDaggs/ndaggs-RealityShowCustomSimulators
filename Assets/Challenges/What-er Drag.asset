@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: What-er Drag
+  m_EditorClassIdentifier: 
+  challengeName: What-er Drag
+  description: Castaways must race across a floating bridge to the end of the course
+    while pulling a rope being woven out by a wench. When they reach the end of the
+    course, they would grab either a bag of puzzle strips or clip themselves onto
+    a puzzle piece. The tribe will then pull that person back by cranking the winch
+    (in Philippines the castaways did not use either a floating bridge or a winch).
+    Once all the puzzle pieces are back, tribe members will solve the puzzle.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0200000000000000

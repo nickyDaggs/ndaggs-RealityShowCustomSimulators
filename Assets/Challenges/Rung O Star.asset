@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Rung O Star
+  m_EditorClassIdentifier: 
+  challengeName: Rung O Star
+  description: Starting on a platform in the ocean, the castaways must swim out and
+    retrieve a ladder from the seabed. While their teammates prop up the ladder,
+    one castaway will climb the ladder to retrieve bags from an elevated pole. The
+    team will then race back to shore to complete a final task.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

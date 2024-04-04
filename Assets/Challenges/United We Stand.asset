@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: United We Stand
+  m_EditorClassIdentifier: 
+  challengeName: United We Stand
+  description: 'Played in shallow water, each tribe uses a platform attached to a
+    long pole (sometimes assembled in-challenge as a puzzle component) to transfer
+    members of their tribe from one high platform to another. Once these teammates
+    have reached the final platform, all members of the tribe must climb up to a
+    smaller platform and fit onto the tower with their feet above the highest deck
+    to win the challenge.  '
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

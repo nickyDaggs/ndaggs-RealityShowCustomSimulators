@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Draggin' the Dragon
+  m_EditorClassIdentifier: 
+  challengeName: Draggin' the Dragon
+  description: Tribes must push a cart through an obstacle course. Throughout the
+    course, there are three towers from which tribes must retrieve a key to unlock
+    a chest. Once they have collected all three chests, they must then take the cart
+    apart, slide it through a barricade, put it back together, and make their way
+    to the end. Two tribe members would then use the pieces inside the chest to assemble
+    a giant dragon puzzle. The first tribe to solve their puzzle wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

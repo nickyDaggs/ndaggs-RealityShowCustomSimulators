@@ -15,4 +15,6 @@ public class Advantage : ScriptableObject
     public string usedWhen;
     public string description;
     public Contestant otherIdol;
+    public string activate = "";
+    public bool activated = false;
 }

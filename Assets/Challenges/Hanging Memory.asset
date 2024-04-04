@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Hanging Memory
+  m_EditorClassIdentifier: 
+  challengeName: Hanging Memory
+  description: Played in a series of rounds, the host will show the castaways a list
+    of symbols or colors. When the host has finished, the castaways must show the
+    same symbols/colors that were presented to them in the order that was previously
+    shown. Showing the wrong symbol would result in the castaway being eliminated
+    from the challenge. The last contestant remaining would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 02000000

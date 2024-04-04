@@ -40,9 +40,14 @@ public class Contestant : ScriptableObject
     public int votes;
     public int previousVotes;
     public string IOIEvent;
+    public List<string> JourneyRisk = new List<string>();
     public List<Advantage> advantages;
     public List<Color> teams = new List<Color>();
     public HiddenAdvantage savedAdv;
+    public List<HiddenAdvantage> journeyAdv = new List<HiddenAdvantage>();
+
+    [HideInInspector] public bool playUpgrade = false;
+
     public Relationship GetRelationship(Contestant num)
     {
         foreach (Relationship friend in Relationships)

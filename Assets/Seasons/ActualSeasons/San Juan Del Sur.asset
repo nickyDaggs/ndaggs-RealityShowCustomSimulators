@@ -40,6 +40,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -68,6 +69,7 @@ MonoBehaviour:
       IOILesson: 
       options: []
       IOISweetened: 0
+      hiddenChance: 25
     remove: 0
     allianceCount: 0
     environment: 3
@@ -77,49 +79,34 @@ MonoBehaviour:
   Episodes:
   - name: Episode 1
     events: []
-    finalVote: []
   - name: Episode 2
     events: []
-    finalVote: []
   - name: Episode 3
     events: []
-    finalVote: []
   - name: Episode 4
     events: []
-    finalVote: []
   - name: Episode 5
     events: []
-    finalVote: []
   - name: Episode 6
     events: []
-    finalVote: []
   - name: Episode 7
     events: []
-    finalVote: []
   - name: Episode 8
     events: []
-    finalVote: []
   - name: Episode 9
     events: []
-    finalVote: []
   - name: Episode 10
     events: []
-    finalVote: []
   - name: Episode 11
     events: []
-    finalVote: []
   - name: Episode 12
     events: []
-    finalVote: []
   - name: Finale, Part 1
     events: []
-    finalVote: []
   - name: Finale, Part 2
     events: []
-    finalVote: []
   - name: The Reunion
     events: []
-    finalVote: []
   Tiebreaker: 
   ReturningPlayers: 
   MergeTribeColor: {r: 0.43137255, g: 0.7647059, b: 0.6745098, a: 1}
@@ -195,6 +182,7 @@ MonoBehaviour:
     IOILesson: 
     options: []
     IOISweetened: 0
+    hiddenChance: 25
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
@@ -210,8 +198,9 @@ MonoBehaviour:
   twoParts: 
   threeParts: 
   Twists:
-    expireAt: 15
-    epsSkipE: 0500000007000000
+    expireAt: 4
+    expires: 
+    epsSkipE: 0e0000000c000000
     epsSpecialE: 
     epsSkipRI: 
     epsSpecialRI: 
@@ -221,7 +210,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 0
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 1
       both: 0
@@ -230,7 +219,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 1
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0

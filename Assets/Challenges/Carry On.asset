@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Carry On
+  m_EditorClassIdentifier: 
+  challengeName: Carry On
+  description: Each tribe will have one member attached to a heavy bag of coconuts.
+    The rest of their tribe will help their tethered tribemate navigate through a
+    series of obstacles by carrying their bag of coconuts. On the way to the finish,
+    that tribemate must retrieve a set of rings on a balance beam. Once all four
+    rings are collected, one other castaway will throw the rings and land them on
+    a post.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

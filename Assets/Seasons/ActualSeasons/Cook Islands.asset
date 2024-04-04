@@ -158,10 +158,10 @@ MonoBehaviour:
   twoParts: 
   threeParts: 
   Twists:
-    expireAt: 14
+    expireAt: 5
     expires: 
-    epsSkipE: 0a00000006000000
-    epsSpecialE: 010000000200000003000000
+    epsSkipE: 090000000f000000
+    epsSpecialE: 140000001300000012000000
     epsSkipRI: 
     epsSpecialRI: 
     SpecialEx:
@@ -194,7 +194,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 0
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0

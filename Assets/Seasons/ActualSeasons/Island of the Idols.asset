@@ -81,49 +81,34 @@ MonoBehaviour:
   Episodes:
   - name: Episode 1
     events: []
-    finalVote: []
   - name: Episode 2
     events: []
-    finalVote: []
   - name: Episode 3
     events: []
-    finalVote: []
   - name: Episode 4
     events: []
-    finalVote: []
   - name: Episode 5
     events: []
-    finalVote: []
   - name: Episode 6
     events: []
-    finalVote: []
   - name: Episode 7
     events: []
-    finalVote: []
   - name: Episode 8
     events: []
-    finalVote: []
   - name: Episode 9
     events: []
-    finalVote: []
   - name: Episode 10
     events: []
-    finalVote: []
   - name: Episode 11
     events: []
-    finalVote: []
   - name: Episode 12
     events: []
-    finalVote: []
   - name: Finale, Part 1
     events: []
-    finalVote: []
   - name: Finale, Part 2
     events: []
-    finalVote: []
   - name: The Reunion
     events: []
-    finalVote: []
   Tiebreaker: 
   ReturningPlayers: 
   MergeTribeColor: {r: 0.1882353, g: 0.69803923, b: 0.8235294, a: 1}
@@ -373,43 +358,75 @@ MonoBehaviour:
   twoParts: 080000000c0000000d000000
   threeParts: 
   Twists:
-    expireAt: 15
+    expireAt: 6
     expires: 
-    epsSkipE: 05000000080000000a0000000c0000000e000000
-    epsSpecialE: 
+    epsSkipE: 100000000d0000000b0000000800000006000000
+    epsSpecialE: 14000000110000000f0000000e0000000c0000000900000007000000
     epsSkipRI: 
     epsSpecialRI: 
     SpecialEx:
     - on: 1
       reason: Winner
       ownTribe: 0
-      exileEvent: Nothing
+      exileEvent: ChooseRandom
       challenge: Immunity
       skipTribal: 0
       two: 0
       both: 0
     - on: 1
-      reason: Winner
+      reason: Random
       ownTribe: 0
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Random
       skipTribal: 0
       two: 0
       both: 0
     - on: 1
-      reason: Winner
+      reason: Sitout
+      ownTribe: 0
+      exileEvent: ChooseRandom
+      challenge: Reward
+      skipTribal: 0
+      two: 0
+      both: 0
+    - on: 1
+      reason: Random
       ownTribe: 0
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
+      skipTribal: 0
+      two: 0
+      both: 0
+    - on: 1
+      reason: Note
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Reward
+      skipTribal: 0
+      two: 0
+      both: 0
+    - on: 1
+      reason: IOITribeSend
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Reward
+      skipTribal: 0
+      two: 0
+      both: 0
+    - on: 1
+      reason: RandomSend
+      ownTribe: 0
+      exileEvent: Nothing
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0
     preMergeEIsland:
       on: 1
-      reason: Winner
+      reason: Random
       ownTribe: 0
-      exileEvent: Nothing
-      challenge: Immunity
+      exileEvent: ChooseRandom
+      challenge: Random
       skipTribal: 0
       two: 0
       both: 0
@@ -418,7 +435,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 1
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0
@@ -426,8 +443,8 @@ MonoBehaviour:
       name: Island of The Idols
       tribeColor: {r: 1, g: 1, b: 1, a: 1}
       members:
-      - {fileID: 11400000, guid: e78deeb58294cc746a6939cd4d6dfb1c, type: 2}
-      - {fileID: 11400000, guid: a10b093f6eca14d44aafa148a813709c, type: 2}
+      - {fileID: 11400000, guid: f5cefdeb87d106e47bfb6332a17e395a, type: 2}
+      - {fileID: 11400000, guid: 15bc4323f073b4345bd30127a0ee5b7c, type: 2}
       hiddenAdvantages: []
       remove: 0
       allianceCount: 0

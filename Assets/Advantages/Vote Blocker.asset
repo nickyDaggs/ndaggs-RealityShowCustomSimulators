@@ -18,6 +18,7 @@ MonoBehaviour:
   length: 0
   onlyUsable: 
   temp: 0
-  playOnOthers: 0
+  playOnOthers: 1
   usedWhen: BeforeVote
   description: 'This can be used at one Tribal Council up until the final six. '
+  otherIdol: {fileID: 0}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Puzzle Dig
+  m_EditorClassIdentifier: 
+  challengeName: Puzzle Dig
+  description: Survivors must race out into the sand and use ropes to find the intersection
+    where a bag of puzzle pieces are buried. When they dig up the bag, they would
+    head back to their station and solve the puzzle, revealing the next coordinates.
+    The first person to solve all of their puzzles would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

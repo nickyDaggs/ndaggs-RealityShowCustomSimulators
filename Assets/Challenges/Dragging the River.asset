@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Dragging the River
+  m_EditorClassIdentifier: 
+  challengeName: Dragging the River
+  description: The tribes would race across a series of obstacles on both land and
+    sea while transporting an item before getting to a slingshot at the end of the
+    course. Using the slingshot and the provided ammunition, the tribes would attempt
+    to knock down two targets. The first tribe to knock down both of their targets
+    wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

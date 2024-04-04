@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Rescue Mission
+  m_EditorClassIdentifier: 
+  challengeName: Rescue Mission
+  description: Tree Mail will indicate that each tribe is to construct a stretcher
+    (or similar piece of equipment) using designated supplies. At the challenge,
+    a given number of tribe members will be taken out into the wilderness. The remaining
+    competitors race to find their tribe mate(s) and carry them back to the mat on
+    the stretcher. The first tribe to "rescue" all of their tribe mates wins the
+    challenge.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

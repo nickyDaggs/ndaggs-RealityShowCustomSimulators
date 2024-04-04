@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Lock, Load and Light
+  m_EditorClassIdentifier: 
+  challengeName: Lock, Load and Light
+  description: The tribes must run up and over two sand mounds, assemble a puzzle
+    boat, using unique braces to hold it together, row out to a cauldron, light a
+    torch, row back, remove the braces, and take them to the starting line. Two players
+    will use 16 puzzle pieces to assemble blocks representing compass directions,
+    then the tribe fits the blocks and braces into a climbing wall and climbs up
+    to light a fire bale. The first tribe to do so would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

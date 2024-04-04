@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: End of the Line
+  m_EditorClassIdentifier: 
+  challengeName: End of the Line
+  description: Castaways must sprint along a trail of ropes and find a series of
+    checkpoints. Along the way, they will encounter junctions where, in order to
+    proceed, they must place another carabiner on the other part of the rope then
+    unclip the first. Castaways must cling on to the carabiner at all times. At each
+    checkpoint, there are several ropes that lead to the next checkpoint as well
+    as there several ropes that lead to dead ends. If a castaway encounters a dead
+    end, they must backtrack to their last checkpoint and start over. The first person
+    to reach the end of the trail wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

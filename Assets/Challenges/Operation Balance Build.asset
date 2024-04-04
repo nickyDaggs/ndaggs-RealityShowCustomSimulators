@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Operation Balance Build
+  m_EditorClassIdentifier: 
+  challengeName: Operation Balance Build
+  description: The castaways have to attach a small wooden bowl to a prong at the
+    end of a long pole to maneuver it through a metal structure that sits on a spring.
+    Once they have the piece through the structure, they have to sit it at the top
+    of their stack. The first castaway to stack all their bowls on top each other,
+    or have the most bowls stacked by the end of a specified time limit win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0100000000000000

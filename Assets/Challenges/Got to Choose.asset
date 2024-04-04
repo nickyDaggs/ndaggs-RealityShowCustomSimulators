@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Got to Choose
+  m_EditorClassIdentifier: 
+  challengeName: Got to Choose
+  description: The castaways must race through obstacles to reach a puzzle table.
+    However, along the way the tribes are given the choice to take shortcuts to get
+    to the finish faster. The more shortcuts a tribe takes, the more puzzle pieces
+    that they will have to negotiate for their final puzzle. The first tribe to get
+    through their obstacles and solve the puzzle wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

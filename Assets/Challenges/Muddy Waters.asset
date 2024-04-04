@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Muddy Waters
+  m_EditorClassIdentifier: 
+  challengeName: Muddy Waters
+  description: The contestants are divided into equal teams. One at a time, they
+    race through an obstacle course. They crawl under a low cage (or walk across
+    a series of balance beams), clamber up a steep slope and slide down into a mud
+    pit. They then search for a bag of balls buried in a designated mud pit. Upon
+    retrieving the bag of balls, the contestant crawls under a wooden bar by digging
+    through a pit of rice. Upon reaching the mat, the next teammate may begin the
+    course. Once all teammates have reached the end, the balls must be thrown into
+    a narrow tube about as high as a basketball hoop. The first team to sink all
+    their balls into the tube wins the challenge.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

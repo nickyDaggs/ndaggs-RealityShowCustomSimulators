@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Hold Your Own
+  m_EditorClassIdentifier: 
+  challengeName: Hold Your Own
+  description: While standing or kneeling on a suspended platform, the contestants
+    will hold on to (a percentage of) their body weight, as borne by ropes or a ring.
+    When they can no longer hold on, the platform will give way, and they will plunge
+    into a pool beneath them. The last person left holding on wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 01000000

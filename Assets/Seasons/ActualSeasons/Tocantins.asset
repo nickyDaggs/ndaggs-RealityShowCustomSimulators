@@ -77,49 +77,34 @@ MonoBehaviour:
   Episodes:
   - name: Episode 1
     events: []
-    finalVote: []
   - name: Episode 2
     events: []
-    finalVote: []
   - name: Episode 3
     events: []
-    finalVote: []
   - name: Episode 4
     events: []
-    finalVote: []
   - name: Episode 5
     events: []
-    finalVote: []
   - name: Episode 6
     events: []
-    finalVote: []
   - name: Episode 7
     events: []
-    finalVote: []
   - name: Episode 8
     events: []
-    finalVote: []
   - name: Episode 9
     events: []
-    finalVote: []
   - name: Episode 10
     events: []
-    finalVote: []
   - name: Episode 11
     events: []
-    finalVote: []
   - name: Episode 12
     events: []
-    finalVote: []
   - name: Finale, Part 1
     events: []
-    finalVote: []
   - name: Finale, Part 2
     events: []
-    finalVote: []
   - name: The Reunion
     events: []
-    finalVote: []
   Tiebreaker: 
   ReturningPlayers: 
   MergeTribeColor: {r: 0.3647059, g: 0.80784315, b: 0.3647059, a: 1}
@@ -162,19 +147,27 @@ MonoBehaviour:
   twoParts: 
   threeParts: 
   Twists:
-    expireAt: 13
+    expireAt: 4
     expires: 
-    epsSkipE: 01000000070000000c000000
-    epsSpecialE: 
+    epsSkipE: 100000000a000000
+    epsSpecialE: 0f000000
     epsSkipRI: 
     epsSpecialRI: 
-    SpecialEx: []
+    SpecialEx:
+    - on: 1
+      reason: Winner
+      ownTribe: 0
+      exileEvent: UrnMutiny
+      challenge: Immunity
+      skipTribal: 0
+      two: 1
+      both: 0
     preMergeEIsland:
       on: 1
       reason: Winner
       ownTribe: 0
       exileEvent: UrnMutiny
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 1
       both: 0
@@ -183,7 +176,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 1
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: Reward
       skipTribal: 0
       two: 0
       both: 0

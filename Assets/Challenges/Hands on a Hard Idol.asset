@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Hands on a Hard Idol
+  m_EditorClassIdentifier: 
+  challengeName: Hands on a Hard Idol
+  description: Keeping one hand on the Tribal Immunity Idol at all times, contestants
+    would have to keep their balance while standing on a small log. If at any point
+    a contestant takes their hand off the Idol, falls off the log, or raises their
+    foot, they would be eliminated from the challenge. The final player left holding
+    onto the Idol would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 01000000

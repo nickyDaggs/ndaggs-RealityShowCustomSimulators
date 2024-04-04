@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Ram-Ball On
+  m_EditorClassIdentifier: 
+  challengeName: Ram-Ball On
+  description: Castaways must race to balance a ball on the top of a pole while maneuvering
+    through a series of obstacles. Along the way, they would add another section
+    of the pole, making it harder to balance the ball as they make their way through
+    the course. After they got past the balance beam, they would have to untie knots
+    to get to a table, where they would place the ball on it to retrieve a key, then
+    using the key to unlock a chest of sandbags and shoot the sandbags at a series
+    of bamboo targets. The first castaway to finish wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

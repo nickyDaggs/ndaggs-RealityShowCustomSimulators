@@ -17,16 +17,16 @@ public class SeasonTemplate : ScriptableObject
     public string ReturningPlayers;
     public Color MergeTribeColor;
     public string MergeTribeName;
-    public List<Challenge> ImmunityChallenges;
-    public List<Challenge> RewardChallenges;
-    public List<int> rewardSkips;
+    public List<Challenge> ImmunityChallenges = new List<Challenge>();
+    public List<Challenge> RewardChallenges = new List<Challenge>();
+    public List<int> rewardSkips = new List<int>();
     public bool NoRewards;
-    public List<HiddenAdvantage> mergeHiddenAdvantages;
-    public List<HiddenAdvantage> twistHiddenAdvantages;
+    public List<HiddenAdvantage> mergeHiddenAdvantages = new List<HiddenAdvantage>();
+    public List<HiddenAdvantage> twistHiddenAdvantages = new List<HiddenAdvantage>();
     public List<TribeSwap> swaps;
     public bool ExileIslandd;
     public string IslandType;
-    public List<HiddenAdvantage> islandHiddenAdvantages;
+    public List<HiddenAdvantage> islandHiddenAdvantages = new List<HiddenAdvantage>();
     public bool RedemptionIsland;
     public bool EdgeOfExtinction;
     public bool Outcasts;
@@ -39,10 +39,11 @@ public class SeasonTemplate : ScriptableObject
     public int MOPExpire;
     public int OWExpire;
     public int idolLimit;
-    public List<int> twoParts;
-    public List<int> threeParts;
+    public List<int> twoParts = new List<int>();
+    public List<int> threeParts = new List<int>(); 
     public Twist Twists;
-    public List<OneTimeEvent> oneTimeEvents;
+    public List<OneTimeEvent> oneTimeEvents = new List<OneTimeEvent>();
+    public bool overridden;
     
 
     // Start is called before the first frame update

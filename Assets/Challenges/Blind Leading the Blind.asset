@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Blind Leading the Blind
+  m_EditorClassIdentifier: 
+  challengeName: Blind Leading the Blind
+  description: One castaway from each tribe would work as a caller, directing their
+    blindfolded tribemates in collecting items spread out in a field and returning
+    them to their tribe's designated area. Once all of the items have been gathered,
+    a second portion of the challenge (typically a puzzle) would occur. The first
+    tribe to complete this portion of the challenge would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000040000000a000000

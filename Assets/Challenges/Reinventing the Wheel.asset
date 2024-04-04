@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Reinventing the Wheel
+  m_EditorClassIdentifier: 
+  challengeName: Reinventing the Wheel
+  description: Both teams will race to assemble four puzzle wheels and attach them
+    to a cart, in which two of their tribemates will ride. Pushing the cart through
+    a series of obstacles to a finish platform, the tribes will then disassemble
+    the puzzle wheels and use them to complete a turnstile. Finally, they will wind
+    the turnstile to raise a fire wok, igniting their tribal cauldron. The first
+    tribe to finish wins the challenge.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

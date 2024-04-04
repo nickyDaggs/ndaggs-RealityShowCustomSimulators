@@ -99,49 +99,34 @@ MonoBehaviour:
   Episodes:
   - name: Episode 1
     events: []
-    finalVote: []
   - name: Episode 2
     events: []
-    finalVote: []
   - name: Episode 3
     events: []
-    finalVote: []
   - name: Episode 4
     events: []
-    finalVote: []
   - name: Episode 5
     events: []
-    finalVote: []
   - name: Episode 6
     events: []
-    finalVote: []
   - name: Episode 7
     events: []
-    finalVote: []
   - name: Episode 8
     events: []
-    finalVote: []
   - name: Episode 9
     events: []
-    finalVote: []
   - name: Episode 10
     events: []
-    finalVote: []
   - name: Episode 11
     events: []
-    finalVote: []
   - name: Episode 12
     events: []
-    finalVote: []
   - name: Finale, Part 1
     events: []
-    finalVote: []
   - name: Finale, Part 2
     events: []
-    finalVote: []
   - name: The Reunion
     events: []
-    finalVote: []
   Tiebreaker: 
   ReturningPlayers: 
   MergeTribeColor: {r: 0.9411765, g: 0.105882354, b: 0.18039216, a: 1}
@@ -153,9 +138,61 @@ MonoBehaviour:
   mergeHiddenAdvantages: []
   twistHiddenAdvantages: []
   swaps: []
-  ExileIslandd: 0
-  IslandType: Exile
-  islandHiddenAdvantages: []
+  ExileIslandd: 1
+  IslandType: Journeys
+  islandHiddenAdvantages:
+  - name: Extra Vote
+    advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
+    hideAt: 18
+    reHidden: 0
+    hidden: 0
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: Tribal
+    options: []
+    IOISweetened: 0
+    hiddenChance: 0
+  - name: Extra Vote
+    advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
+    hideAt: 16
+    reHidden: 0
+    hidden: 0
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: Tribal
+    options: []
+    IOISweetened: 0
+    hiddenChance: 0
+  - name: Steal a Vote
+    advantage: {fileID: 11400000, guid: b09ac9f84ce006145848f34558e8e311, type: 2}
+    hideAt: 15
+    reHidden: 0
+    hidden: 0
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: Camp
+    options: []
+    IOISweetened: 0
+    hiddenChance: 0
+  - name: Knowledge Is Power Advantage
+    advantage: {fileID: 11400000, guid: ab52d912beb2cab40919c1040ef02d39, type: 2}
+    hideAt: 13
+    reHidden: 0
+    hidden: 0
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: Camp
+    options: []
+    IOISweetened: 0
+    hiddenChance: 0
   RedemptionIsland: 0
   EdgeOfExtinction: 0
   Outcasts: 0
@@ -171,43 +208,43 @@ MonoBehaviour:
   twoParts: 
   threeParts: 
   Twists:
-    expireAt: 0
+    expireAt: 12
     expires: 
-    epsSkipE: 
-    epsSpecialE: 
+    epsSkipE: 0e000000
+    epsSpecialE: 100000000f0000000d000000
     epsSkipRI: 
     epsSpecialRI: 
     SpecialEx:
     - on: 1
-      reason: Winner
+      reason: Else
       ownTribe: 0
-      exileEvent: Nothing
+      exileEvent: Shipwheel
       challenge: Immunity
+      skipTribal: 0
+      two: 1
+      both: 0
+    - on: 1
+      reason: Random
+      ownTribe: 0
+      exileEvent: Tarp
+      challenge: Random
       skipTribal: 0
       two: 0
       both: 0
     - on: 1
-      reason: Winner
+      reason: Else
       ownTribe: 0
-      exileEvent: Nothing
+      exileEvent: Shipwheel
       challenge: Immunity
       skipTribal: 0
-      two: 0
-      both: 0
-    - on: 1
-      reason: Winner
-      ownTribe: 0
-      exileEvent: Nothing
-      challenge: Immunity
-      skipTribal: 0
-      two: 0
+      two: 1
       both: 0
     preMergeEIsland:
       on: 1
-      reason: Winner
+      reason: Random
       ownTribe: 0
-      exileEvent: Nothing
-      challenge: Immunity
+      exileEvent: Shipwheel
+      challenge: Random
       skipTribal: 0
       two: 0
       both: 0
@@ -216,7 +253,7 @@ MonoBehaviour:
       reason: Winner
       ownTribe: 1
       exileEvent: Nothing
-      challenge: Immunity
+      challenge: 
       skipTribal: 0
       two: 0
       both: 0
@@ -248,3 +285,4 @@ MonoBehaviour:
     context: 
     round: 7
     elim: 0
+  overridden: 0

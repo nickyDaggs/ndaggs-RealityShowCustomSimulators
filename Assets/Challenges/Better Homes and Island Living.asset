@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Better Homes and Island Living
+  m_EditorClassIdentifier: 
+  challengeName: Better Homes and Island Living
+  description: Prior to the challenge, each tribe receives a box containing supplies
+    from Home Depot. Using the supplies provided, each tribe has 24 hours to build
+    a home or a bathroom at their camp. Once the 24 hours are up, a judge will come
+    to each camp and rate the homes or bathrooms on size, strength, and creativity.
+    The tribe with the highest score from the judge would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000004000000

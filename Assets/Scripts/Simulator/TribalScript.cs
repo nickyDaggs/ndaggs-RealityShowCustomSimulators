@@ -36,6 +36,8 @@ public class TribalScript : MonoBehaviour
     public Advantage ImmunityNecklace;
     string eliminated = "";
 
+    List<Advantage> playedAdvantages = new List<Advantage>();
+
     Dictionary<Contestant, int> dic = new Dictionary<Contestant, int>(), dicVR = new Dictionary<Contestant, int>();
     // Start is called before the first frame update
     void Start()
@@ -191,8 +193,26 @@ public class TribalScript : MonoBehaviour
             }
             List<Contestant> RRemove = new List<Contestant>();
 
-            foreach (Contestant num in team.members)
+            for (int i = 0; i < team.members.Count; i++)
             {
+                for(int k = 0; k < team.members[i].JourneyRisk.Count; k++)
+                {
+                    if (team.members[i].JourneyRisk[k] == "Tribal")
+                    {
+                        team.members[i].advantages.Add(team.members[i].journeyAdv[k].advantage);
+                        List<Contestant> n = new List<Contestant>() { team.members[i] };
+                        GameManager.Instance.MakeGroup(false, null, "", "", team.members[i].nickname + " successfully risked their vote to obtain the " + team.members[i].journeyAdv[k].name + ".\n\n" + team.members[i].journeyAdv[k].advantage.description, n, EpisodeStart.transform.GetChild(0).GetChild(0), 10);
+
+                        team.members[i].JourneyRisk.Remove(team.members[i].JourneyRisk[k]);
+                        team.members[i].journeyAdv.Remove(team.members[i].journeyAdv[k]);
+                        k--;
+                    }
+                }
+            }
+
+            for (int i = 0; i < team.members.Count; i++)
+            {
+                Contestant num = team.members[i];
                 if (num.safety > 0)
                 {
                     List<Contestant> w = new List<Contestant>() { num };
@@ -203,14 +223,18 @@ public class TribalScript : MonoBehaviour
                 }
                 if (num.advantages.Count > 0)
                 {
-                    List<Advantage> remove = new List<Advantage>();
                     List<Advantage> Add = new List<Advantage>();
-                    foreach (Advantage advantage in num.advantages)
+                    for (int j = 0; j < num.advantages.Count; j++)
                     {
+                        Advantage advantage = num.advantages[j];
                         string extra = "";
                         if (manager.currentContestants == advantage.expiresAt || (advantage.length == 1 && advantage.temp))
                         {
                             extra = "\n \nThis is the last round to use it.";
+                        }
+                        if(advantage.type.Contains("Premerge"))
+                        {
+                            extra += "\nThis can only be used when the players aren't merged.";
                         }
                         List<Contestant> w = new List<Contestant>() { num };
                         bool playable = true;
@@ -253,9 +277,22 @@ public class TribalScript : MonoBehaviour
                         {
                             usedOn = other;
                         }
-                        if ((advantage.name.Contains("Block") || advantage.name.Contains("Steal")) && otherBad.votes > 0)
+                        if ((advantage.name.Contains("Block") || advantage.name.Contains("Steal") || advantage.type == "KIP") && otherBad.votes > 0)
                         {
+
+                            //testing KIP
+                            if (advantage.type == "KIP")
+                            {
+                                if(teamV.FindAll(x => x.advantages.Count > 0).Count() > 0)
+                                {
+                                    otherBad = teamV.FindAll(x => x.advantages.Count > 0).OrderBy(x => num.value(x)).First();
+                                }
+                            }
+                            //testingKIP
+
                             usedOn = otherBad;
+
+                            //Debug.Log(otherBad);
                         }
                         if (advantage.type == "PreventiveIdol")
                         {
@@ -264,12 +301,15 @@ public class TribalScript : MonoBehaviour
                         }
                         //For advantages before vote(vote steal, extra votes, etc.)
                         bool played = false;
-                        if(Random.Range(0, 8) < num.stats.Intuition && (targets.Contains(num) || targets.Contains(usedOn)))
+
+
+
+                        if (Random.Range(0, 8) < num.stats.Intuition && (targets.Contains(num) || targets.Contains(usedOn)))
                         {
                             played = true;
                         } else
                         {
-                            if(Random.Range(0, 21 + num.stats.Intuition) == 1)
+                            if (Random.Range(0, 21 + num.stats.Intuition) == 1)
                             {
                                 played = true;
                             }
@@ -286,7 +326,12 @@ public class TribalScript : MonoBehaviour
                                 playable = false;
                         }
 
-                        if (advantage.usedWhen == "BeforeVote" && playable && (played || ran == 1 || manager.currentContestants == advantage.expiresAt || advantage.length == 1 || advantage.type == "VoteSacrifice"))
+                        if (advantage.activate != "")
+                        {
+                            playable = false;
+                        }
+
+                        if (usedOn != null && advantage.usedWhen == "BeforeVote" && playable && (played || ran == 1 || manager.currentContestants == advantage.expiresAt || advantage.length == 1 || advantage.type == "VoteSacrifice" || advantage.type.Contains("Upgrade")))
                         {
                             if (advantage.type == "SafetyWithoutPower")
                             {
@@ -294,7 +339,8 @@ public class TribalScript : MonoBehaviour
                                 {
                                     AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
                                     RRemove.Add(num);
-                                    remove.Add(advantage);
+                                    num.advantages.Remove(advantage);
+                                    j--;
                                 }
                             }
                             else if (advantage.type == "VoteSacrifice")
@@ -303,19 +349,57 @@ public class TribalScript : MonoBehaviour
                                 av.expiresAt = 6;
                                 av.nickname = "Extra Vote";
                                 av.type = "ExtraVote";
-                                Add.Add(av);
-                                remove.Add(advantage);
+                                Add.Add(av); 
+                                if(num.votes > 0)
+                                {
+                                    num.votes--;
+                                }
+                                num.advantages.Remove(advantage);
+                                j--;
+                            } 
+                            else
+                            {
+                                
+                                AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                                num.advantages.Remove(advantage);
+                                j--;
+                            }
+                        }
+                        if (advantage.type.Contains("Upgrade") && advantage.activated)
+                        {
+                            manager.MakeGroup(false, null, "", "", num.nickname + " sacrifices their vote to upgrade their idol's power.", w, EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                            num.playUpgrade = false;
+                            if (Random.Range(0, 8) < num.stats.Intuition && !GameManager.Instance.merged && (targets.Contains(num) || targets.Contains(usedOn)))
+                            {
+                                //AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                                num.playUpgrade = true;
                             }
                             else
                             {
-                                AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
-                                remove.Add(advantage);
+                                Advantage av = new Advantage();
+                                av.expiresAt = advantage.expiresAt;
+                                av.nickname = advantage.nickname;
+                                av.temp = false;
+                                av.activated = true;
+                                if (advantage.type == "UpgradeIdol")
+                                {
+                                    av.type = "UpgradePremergeIdol";
+                                }
+                                else
+                                {
+                                    av.type = "HiddenImmunityIdol";
+                                }
+                                Add.Add(av);
+                                if (num.votes > 0)
+                                {
+                                    num.votes--;
+                                }
+
+
+                                num.advantages.Remove(advantage);
+                                j--;
                             }
                         }
-                    }
-                    foreach (Advantage advantage in remove)
-                    {
-                        num.advantages.Remove(advantage);
                     }
                     foreach (Advantage advantage in Add)
                     {
@@ -486,7 +570,7 @@ public class TribalScript : MonoBehaviour
                     if (num.previousVotes >= 5)
                     {
                         num.threatLevel = (int)(num.threatLevel * .2);
-                        Debug.Log(num.nickname);
+                        //Debug.Log(num.nickname);
                     }
                 }
                 
@@ -681,6 +765,195 @@ public class TribalScript : MonoBehaviour
             num.Key.previousVotes += num.Value;
         }
         List<Contestant> superIdols = new List<Contestant>();
+
+        for(int i = 0; i < team.members.Count; i++)
+        {
+            Contestant num = team.members[i];
+            for(int j = 0; j < num.advantages.Count;  j++)
+            {
+                Advantage advantage = num.advantages[j];
+                if (advantage.usedWhen == "AfterVotes" && advantage.type == "IdolNullifier")
+                {
+
+                    Contestant usedOn = null;
+                    List<Contestant> me = new List<Contestant>() { num };
+                    foreach (Contestant con in team.members)
+                    {
+                        foreach (Advantage ad in con.advantages)
+                        {
+                            if (ad.type == "HiddenImmunityIdol" && con != num)
+                            {
+                                //hasIdol.Add(con);
+                            }
+                        }
+                    }
+                    //Debug.Log("fds");
+
+                    usedOn = targets.Except(me).OrderByDescending(x => num.value(x)).First();
+
+                    if (((Random.Range(0, 8) < num.stats.Intuition && targets.Contains(num)) || Random.Range(0, 21 + num.stats.Intuition) == 1 || manager.currentContestants == advantage.expiresAt) && usedOn != null && !aa)
+                    {
+                        AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+
+                        num.advantages.Remove(advantage);
+                        j--;
+                    }
+                }
+            }
+            
+            if (num.advantages.Count > 0 && !aa)
+            {
+                for (int j = 0; j < num.advantages.Count; j++)
+                {
+                    Advantage advantage = num.advantages[j];
+                    List<Contestant> w = new List<Contestant>() { num };
+
+                    Contestant usedOn = null;
+                    bool playable = false;
+                    if (advantage.usedWhen == "AfterVotes")
+                    {
+                        playable = true;
+                    }
+                    if (advantage.type == "SuperIdol")
+                    {
+                        superIdols.Add(num);
+                    }
+                    List<Contestant> teamV = new List<Contestant>(team.members);
+                    List<Contestant> targetV = new List<Contestant>(targets);
+                    targetV.Remove(num.target);
+                    targetV.Remove(num);
+                    teamV.Remove(num);
+                    teamV.Remove(num.target);
+                    foreach (Contestant con in immune)
+                    {
+                        if (teamV.Contains(con))
+                            teamV.Remove(con);
+                    }
+                    foreach (Contestant con in Idols)
+                    {
+                        //if (teamV.Contains(con))
+                        //teamV.Remove(con);
+                    }
+                    Contestant other = null;
+                    Contestant otherBold = null;
+                    if (teamV.Count > 0)
+                    {
+                        other = teamV.OrderBy(x => num.goodValue(x)).ToList().First();
+                    }
+                    if (teamV.Count > 0)
+                    {
+                        //otherBad = teamV.OrderBy(x => num.value(x)).ToList().First();
+                    }
+                    if (targetV.Count > 0)
+                    {
+                        otherBold = targetV.Except(num.altVotes).OrderBy(x => num.goodValue(x)).ToList().First();
+                    }
+
+                    int otherRan = Random.Range(0, 8);
+                    if ((targets.Contains(other) && Random.Range(0, 8) < num.stats.Intuition) || (targets.Contains(other) && !targets.Contains(num) && Random.Range(1, 6) < num.stats.Intuition))
+                    {
+                        otherRan = Random.Range(0, 5);
+                    }
+
+
+                    if (advantage.name == "Ally Idol" || immune.Contains(num) || Idols.Contains(num) && otherRan == 0)
+                    {
+                        usedOn = other;
+                    }
+                    if (Random.Range(0, 8) < num.stats.Boldness)
+                    {
+                        usedOn = otherBold;
+                    }
+
+                    int ran = Random.Range(0, 10);
+
+                    //For advantages after vote(mostly all idols)
+                    bool played = false;
+                    if (Random.Range(0, 15) < num.stats.Intuition && (targets.Contains(num) || targets.Contains(usedOn)))
+                    {
+                        played = true;
+                    }
+                    else
+                    {
+                        if (Random.Range(0, 8) < num.stats.Intuition && (votedOff == num || votedOff == usedOn))
+                        {
+                            played = true;
+                        }
+                        else
+                        {
+                            if (Random.Range(0, 21 + num.stats.Intuition) == 1)
+                            {
+                                played = true;
+                            }
+                        }
+                    }
+                    if (tie.Contains(num) && usedOn == null && Random.Range(0, 7) < num.stats.Intuition)
+                    {
+                        //ran = Random.Range(0, 6 - num.stats.Intuition);
+                    }
+                    if (usedOn != null)
+                    {
+                        //if (tie.Contains(usedOn) && Random.Range(1, 6) < num.stats.Intuition && targets.Contains(usedOn))
+                        //ran = Random.Range(0, 6 - num.stats.Intuition);
+                    }
+                    if ((immune.Contains(num) || Idols.Contains(num)) && advantage.playOnOthers == false)
+                    {
+                        playable = false;
+                    }
+                    else
+                    {
+                        if (immune.Contains(usedOn) || Idols.Contains(usedOn))
+                        {
+                            playable = false;
+                        }
+                    }
+
+                    if((advantage.type == "UpgradeIdol" || advantage.type == "UpgradePremergeIdol") && !num.playUpgrade)
+                    {
+                        Debug.Log("fdsa");
+                        playable = false;
+                    }
+
+                    if (advantage.activate != "" && !advantage.activated)
+                    {
+                        playable = false;
+                    }
+
+                    /*&& ran == 1* && tie.Contains(num)*/
+
+                    if (advantage.type != "IdolNullifier" && playable && (played || manager.currentContestants == advantage.expiresAt || advantage.length == 1))
+                    {
+                        bool a = false;
+                        if (advantage.onlyUsable.Count > 0)
+                        {
+                            foreach (int numb in advantage.onlyUsable)
+                            {
+                                if (manager.currentContestants == numb)
+                                {
+                                    a = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            a = true;
+                        }
+                        if (a)
+                        {
+                            AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                            num.advantages.Remove(advantage);
+                            j--;
+                        }
+                    }
+                }
+                /*foreach (Advantage advantage in remove)
+                {
+
+                    num.advantages.Remove(advantage);
+                }*/
+            }
+        }
+
         foreach (Contestant num in team.members)
         {
             List<Advantage> remove = new List<Advantage>();
@@ -810,9 +1083,25 @@ public class TribalScript : MonoBehaviour
                     if ((immune.Contains(num) || Idols.Contains(num)) && advantage.playOnOthers == false)
                     {
                         playable = false;
+                    } else
+                    {
+                        if(immune.Contains(usedOn) || Idols.Contains(usedOn))
+                        {
+                            playable = false;
+                        }
                     }
 
                     /*&& ran == 1* && tie.Contains(num)*/
+
+                    if(advantage.type.Contains("Premerge") && GameManager.Instance.merged)
+                    {
+                        playable = false;
+                    }
+
+                    if (advantage.activate != "" && !advantage.activated)
+                    {
+                        playable = false;
+                    }
 
                     if (advantage.type != "IdolNullifier" && playable && (played || manager.currentContestants == advantage.expiresAt || advantage.length == 1))
                     {
@@ -1277,6 +1566,13 @@ public class TribalScript : MonoBehaviour
                             {
                                 eventext = "There is a tie and a revote. Those in in the tie will not revote, unless no one received votes on the original vote.\n\n\nFinal vote count was " + string.Join(", ", new List<string>(votesSoFar).ConvertAll(go => go)) + ".";
                             }
+                        } else if (advantage.type == "InheritanceAdvantage" && votedOff.simID != num.simID)
+                        {
+                            if (playedAdvantages.Count > 0 && Random.Range(1, 8) <= num.stats.Strategic)
+                            {
+                                AdvantagePlay(EpisodeStart.transform.GetChild(0).GetChild(0), advantage, num, usedOn);
+                            }
+                            remove.Add(advantage);
                         }
 
                     }
@@ -1438,7 +1734,7 @@ public class TribalScript : MonoBehaviour
                 evetext = user.nickname + " secretly uses the " + advantage.nickname + " on " + usedOn.nickname + "\n\nThe first idol played on " + usedOn.nickname + " will be negated";
             }
             n.Add(usedOn); n.Reverse();
-            if (advantage.type != "ImmunityNecklace" && advantage.type != "VoteSteal" && advantage.type != "VoteBlocker")
+            if (advantage.type != "ImmunityNecklace" && advantage.type != "VoteSteal" && advantage.type != "VoteBlocker" && advantage.type != "KIP")
             {
                 user = usedOn;
             }
@@ -1458,6 +1754,11 @@ public class TribalScript : MonoBehaviour
             {
                 hid.hidden = true;
                 hid.hiddenChance = 25;
+                if (hid.advantage.type.Contains("Upgrade") || hid.advantage.type.Contains("Beads"))
+                {
+                    hid.advantage = Instantiate(hid.advantage);
+                    hid.advantage.type = "HiddenImmunityIdol";
+                }
             }
         }
         foreach (Team tribe in manager.Tribes)
@@ -1468,6 +1769,11 @@ public class TribalScript : MonoBehaviour
                 {
                     hid.hidden = true;
                     hid.hiddenChance = 20;
+                    if (hid.advantage.type.Contains("Upgrade") || hid.advantage.type.Contains("Beads"))
+                    {
+                        hid.advantage = Instantiate(hid.advantage);
+                        hid.advantage.type = "HiddenImmunityIdol";
+                    }
                 }
             }
         }
@@ -1505,6 +1811,35 @@ public class TribalScript : MonoBehaviour
 
         switch (advantage.type)
         {
+            case "InheritanceAdvantage":
+                foreach(Advantage gamer in playedAdvantages)
+                {
+                    user.advantages.Add(gamer);
+                }
+                evetext += "\n \n" + user.nickname + " gains all of the advantage played during this tribal.";
+
+                break;
+            case "KIP":
+                List<Advantage> choices = usedOn.advantages.Except(new List<Advantage>() { ImmunityNecklace }).ToList();
+                if (choices.Count() > 0)
+                {
+                    if(user.stats.Intuition >= Random.Range(1, 7))
+                    {
+                        Advantage advGained = choices[Random.Range(0, choices.Count)];
+                        evetext += "\n\n" + user.nickname + " correctly guesses an advantage that " + usedOn.nickname + " has.\n\n" + "They get " + usedOn.nickname + "'s " + advGained.nickname;
+                        usedOn.advantages.Remove(advGained);
+                        user.advantages.Add(advGained);
+                        Debug.Log("LETs GOO");
+
+                    } else
+                    {
+                        evetext += "\n\n" + user.nickname + " makes an incorrect guess and gets nothing";
+                    }
+                } else
+                {
+                    evetext += "\n\n" + user.nickname + " makes an incorrect guess and gets nothing";
+                }
+                break;
             case "PreventiveIdol":
                 immune.Add(user);
                 targets.Remove(user);
@@ -1594,6 +1929,9 @@ public class TribalScript : MonoBehaviour
             case "IdolNullifier":
                 nullIdols.Add(user);
                 break;
+            case "UpgradeIdol":
+            case "UpgradePremergeIdol":
+            case "PremergeIdol":
             case "HiddenImmunityIdol":
                 if (!nullIdols.Contains(user))
                 {
@@ -1639,6 +1977,12 @@ public class TribalScript : MonoBehaviour
                 }
                 break;
         }
+
+        if(advantage.type != "InheritanceAdvantage")
+        {
+            playedAdvantages.Add(advantage);
+        }
+
         if(cineTribal)
         {
             if(advantage.usedWhen == "AfterVotesRead")
@@ -1707,7 +2051,16 @@ public class TribalScript : MonoBehaviour
         }
         else
         {
-            rev = Revote(tie);
+            if(team.members.Except(tie).All(x => x.votes < 1))
+            {
+                manager.MakeGroup(false, null, "", "", "There is a tie but no one else can vote.", new List<Contestant>(), EpisodeStart.transform.GetChild(0).GetChild(0), 0);
+                rev = false;
+                Tiebreaker(tie, "FireChallenge");
+            }
+            else
+            {
+                rev = Revote(tie);
+            }
         }
         if (rev)
         {

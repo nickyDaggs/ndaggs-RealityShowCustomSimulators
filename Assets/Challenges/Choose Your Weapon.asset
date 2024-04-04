@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Choose Your Weapon
+  m_EditorClassIdentifier: 
+  challengeName: Choose Your Weapon
+  description: The challenge is played in rounds, with the winners of each round
+    moving on to the next. Each round, every contestant will attempt to hit a target
+    using some form of local tribal weapon. The closest contestants to the target
+    advance to the next stage of the challenge, where the process is repeated until
+    one contestant is left standing. In tribes, contestants will instead earn points
+    for their tribe. The tribe would the most number of points at the end of the
+    challenge wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

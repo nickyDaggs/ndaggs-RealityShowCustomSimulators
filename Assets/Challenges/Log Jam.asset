@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Log Jam
+  m_EditorClassIdentifier: 
+  challengeName: Log Jam
+  description: There is a revolving log over a pit of mud or water. All castaways
+    will compete against each other in one-on-one matches. Whoever outlasts their
+    opponents wins. In team and tribal based challenges, the winner earns a point
+    for their team or tribe. The tribe who reaches a certain amount of points win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

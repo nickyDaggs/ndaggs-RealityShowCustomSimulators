@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Might as Well Jump
+  m_EditorClassIdentifier: 
+  challengeName: Might as Well Jump
+  description: The castaways must swim out to a platform with crates that they have
+    to jump off to retrieve a set of keys. After that, the castaways must cross a
+    balance beam to retrieve a second set of keys. Using the sets of keys, the castaways
+    must unlock a turnstile puzzle; where they must roll colored balls into corresponding
+    colored spots. The first castaway to solve the puzzle will win immunity.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Gatecrasher
+  m_EditorClassIdentifier: 
+  challengeName: Gatecrasher
+  description: Each tribe uses a puzzle log to break through two sets of gates; then,
+    they must turn, pull and push the puzzle log to navigate a maze that is worked
+    into the surface of the log. Once the log is cleared from the maze station, the
+    first tribe to hit a gong at the end of the course wins immunity.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

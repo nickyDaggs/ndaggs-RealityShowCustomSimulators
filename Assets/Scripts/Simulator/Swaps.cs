@@ -821,6 +821,7 @@ public class Swaps : MonoBehaviour
         {
             foreach (Contestant num in tribe.members)
             {
+                Debug.Log(tribe.tribeColor);
                 num.teams.Add(tribe.tribeColor);
                 foreach (Alliance alliance in GameManager.instance.Alliances)
                 {

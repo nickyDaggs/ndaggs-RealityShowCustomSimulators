@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: A Bit Tipsy
+  m_EditorClassIdentifier: 
+  challengeName: A Bit Tipsy
+  description: The castaways must hold on to a rope attached to an unbalanced table
+    to keep the table level. They must stack a wooden block on the table and hold
+    on to the rope to keep the block upright. They must then retrieve one of nine
+    wooden blocks from three stations while keeping all the blocks on the table upright.
+    Once the block is retrieved, the castaway would have to stack the block on the
+    table and retrieve the other blocks. Should any of the blocks fall, the castaway
+    would have to return to the table and re-stack the blocks before retrieving any
+    more blocks.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0100000002000000

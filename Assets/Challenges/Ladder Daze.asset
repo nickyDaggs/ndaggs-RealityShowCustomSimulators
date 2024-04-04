@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Ladder Daze
+  m_EditorClassIdentifier: 
+  challengeName: Ladder Daze
+  description: The tribes will race down a ramp and go through an obstacle course
+    where they will make their way to a large wooden crate, which contains a ladder.
+    They may choose to open the crate by unlocking it with keys or untying its knots.
+    Once they have freed their ladder, they must maneuver their ladder through a
+    series of obstacles. Thereafter, one member will climb the ladder to assist in
+    a final task; the first tribe to complete the course wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

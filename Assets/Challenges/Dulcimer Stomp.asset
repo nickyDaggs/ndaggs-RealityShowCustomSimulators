@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Dulcimer Stomp
+  m_EditorClassIdentifier: 
+  challengeName: Dulcimer Stomp
+  description: The teams would begin by unspooling ribbons from a pole to release
+    a key. Once they have the key, they would build a ladder. One person would climb
+    to the top of the ladder and use that key to release a bag of balls. They would
+    then make their way through a net sling to the finish, where they would attempt
+    to land those balls in a series of targets by stomping to release them. The first
+    team to get one ball in each of the five targets wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

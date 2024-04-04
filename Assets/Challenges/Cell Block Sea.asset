@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Cell Block Sea
+  m_EditorClassIdentifier: 
+  challengeName: Cell Block Sea
+  description: Castaways must race out into the water and swim over to their respective
+    tribe's bamboo cage. Once the entire tribe has arrived, each person must climb
+    up and over the cage wall and jump into the water. They must then retrieve a
+    large item and bring it back to shore, where they will complete a final task.
+    The first tribe(s) to finish this final task would win.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

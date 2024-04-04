@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Keel Hauling
+  m_EditorClassIdentifier: 
+  challengeName: Keel Hauling
+  description: The castaways are divided into heats. In the first round, contestants
+    race across a pontoon and dive into the water. Using a rope suspended beneath
+    the platform, they pull themselves, underwater, to the other end. Upon climbing
+    back onto the platform they must jump back in the water and do it again. The
+    first two contestants to complete two laps move on to the final heat. In the
+    final heat, the castaway had to do five laps and upon surfacing, they must transfer
+    a medallion from one side of the platform to another, one key at a time. The
+    first person to transfer all their five keys to the other side of the platform
+    wins immunity. The challenge may use rings instead of keys.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

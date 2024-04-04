@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Mud Pack
+  m_EditorClassIdentifier: 
+  challengeName: Mud Pack
+  description: Under a time limit, tribe members dive into a mud pit and cover their
+    body with as much mud as they can. They then race back and scrape it off into
+    a bucket. They may only transport mud on their torso, and are not allowed to
+    carry it with their arms or hands. The buckets are then weighed, and the castaway
+    with the heaviest bucket wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 00000000

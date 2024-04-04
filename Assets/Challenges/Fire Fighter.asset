@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Fire Fighter
+  m_EditorClassIdentifier: 
+  challengeName: Fire Fighter
+  description: Castaway must retrieve sea water with a bucket and throw to a tribemate.
+    The final tribe member must catch the water itself in another bucket, and use
+    it to fill a jar. The tribes must repeat this until they have enough weight in
+    their jar to lower it to the ground, sending a lit flame up to a fire tower,
+    or allowing them to move on to the next section of the challenge.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Angry Chair
+  m_EditorClassIdentifier: 
+  challengeName: Angry Chair
+  description: One person from each tribe or team will race through a series of obstacles
+    to a chair. The rest of the tribe or team will then lift the chair, allowing
+    that person to retrieve 10 numbered bags. Once they have collected the 10 bags,
+    the next person will go, retrieving the next 10 bags, and so on. Once all 30
+    bags have been collected, the tribe or team must use the 30 letter tiles to solve
+    a word puzzle. The first tribe or team to complete this wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0200000000000000

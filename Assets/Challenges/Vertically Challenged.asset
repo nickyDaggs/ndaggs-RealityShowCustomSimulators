@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Vertically Challenged
+  m_EditorClassIdentifier: 
+  challengeName: Vertically Challenged
+  description: Castaways must race up a series of steps to the top of a tower and
+    retrieve a bag of puzzle pieces/a key. Once retrieved, they would race down a
+    large slide to the bottom of the tower and place their bag/key at their puzzle
+    station, and head back for the next one. Once all the bags/keys were collected,
+    they would use them to build a vertical puzzle. The first person to finish the
+    puzzle wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

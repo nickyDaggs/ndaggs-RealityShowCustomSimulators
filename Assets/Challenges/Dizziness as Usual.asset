@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Dizziness as Usual
+  m_EditorClassIdentifier: 
+  challengeName: Dizziness as Usual
+  description: Each tribe will have one member sitting on a spinning platform. Another
+    member will run out to the platform, grab a rope, and pull the rope back to the
+    start, which will cause the platform to spin. Once the puller has made it back
+    to the start, the castaway on the platform will then run through a series of
+    obstacles to try and get back to the beginning. The first castaway to make it
+    back to the beginning of the course will score a point for their tribe. The first
+    tribe to three points will win reward.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000

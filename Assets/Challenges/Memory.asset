@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Memory
+  m_EditorClassIdentifier: 
+  challengeName: Memory
+  description: Scattered in a challenge arena are numerous pairs of matching objects
+    or symbols hidden under covers. One at a time, contestants will enter the field
+    and uncover two items. If they match, they (or their tribe) score a point. If
+    the items do not match, they are re-covered and the next contestant takes their
+    turn. The first tribe/contestant to score a designated number of points, or the
+    tribe/contestant with the most points when all covers have been unveiled wins
+    the challenge.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 02000000

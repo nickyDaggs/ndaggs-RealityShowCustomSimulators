@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: Pinball Wizard
+  m_EditorClassIdentifier: 
+  challengeName: Pinball Wizard
+  description: Castaways will have to roll a ball up a ramp and into a plinko board.
+    While the ball is rolling down the plinko board, they must solve a puzzle, while
+    keeping an eye on the ball. When the ball is close to the end of the plinko board,
+    the castaways must grab the ball and roll it back up to the top. If a castaway
+    misses catching the ball, they must wait for the ball to roll down to the end
+    of a chute before they can roll the ball back up the ramp and return to solving
+    their puzzle. The first castaway to complete the puzzle wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 02000000

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328df7aeccca3ec49ac21765fcbf35cf, type: 3}
+  m_Name: A Crate Idea
+  m_EditorClassIdentifier: 
+  challengeName: A Crate Idea
+  description: Two castaways from each tribe race out to a giant tribe-colored crate.
+    Once they reach the crate, they must roll it back to their tribe's mat. Upon
+    reaching the tribe mat, the next pair run out to get the next crate. Once all
+    6 crates have been collected, the contestants would stack the crates, solving
+    a puzzle on the side of the crates (spelling out a key word or phrase). Once
+    all the crates have been stacked correctly, the castaways would climb up the
+    crates to a platform. The first tribe to get all tribe members on the platform
+    wins.
+  rewards: []
+  rewardStamina: 10
+  Groups: []
+  sitout: 0
+  stats: 0000000002000000
