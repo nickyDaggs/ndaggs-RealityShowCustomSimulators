@@ -39927,7 +39927,7 @@ MonoBehaviour:
   islandImage: {fileID: 593493035}
   EIImage: {fileID: 21300000, guid: a872d7b812d708c48abdc82999aeb8aa, type: 3}
   GIImage: {fileID: 21300000, guid: 842ea942a8dee7441809847127f499d0, type: 3}
-  JImage: {fileID: 0}
+  JImage: {fileID: 21300000, guid: 0de1b6bff3b6caa45b7330791c12bb5e, type: 3}
   PreMergeGI:
   - {fileID: 912600768}
   - {fileID: 1098939764}
@@ -39945,9 +39945,9 @@ MonoBehaviour:
     type: 3}
   GIAdvantageParent: {fileID: 2098557734}
   RegularJourney: []
-  curJourney: {fileID: 0}
+  curJourney: {fileID: 1436760204}
   JourneyPrefab: {fileID: 0}
-  SpecialJourneyParent: {fileID: 0}
+  SpecialJourneyParent: {fileID: 138428327}
 --- !u!4 &1069871623
 Transform:
   m_ObjectHideFlags: 0
@@ -73999,7 +73999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1990146885
 RectTransform:
   m_ObjectHideFlags: 0
