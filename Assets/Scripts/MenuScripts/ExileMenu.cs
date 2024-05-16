@@ -33,7 +33,7 @@ public class ExileMenu : MonoBehaviour
     public GameObject GIAdvantagePrefab;
     public Transform GIAdvantageParent;
 
-    public List<Dropdown> RegularJourney = new List<Dropdown>();
+    public GameObject RegularJourney;
     public GameObject curJourney;
     public GameObject JourneyPrefab;
     public Transform SpecialJourneyParent;
@@ -47,6 +47,8 @@ public class ExileMenu : MonoBehaviour
 
         curAdvGI = GIAdvantageParent.GetChild(0).gameObject;
         curAdvGI.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmAdvGI);
+        curJourney = SpecialJourneyParent.GetChild(0).gameObject;
+        curJourney.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmJourney);
         //Debug.Log());
         StartCoroutine(WaitBro());
 
@@ -245,11 +247,123 @@ public class ExileMenu : MonoBehaviour
         return exile;
     }
 
-    public Exile GetJourney()
+    public Exile GetJourney(Transform prefab)
     {
         Exile exile = new Exile();
 
 
+        switch(prefab.GetChild(2).GetComponent<Dropdown>().value)
+        {
+            case 0:
+                exile.exileEvent = "Shipwheel";
+                break;
+            case 1:
+                exile.exileEvent = "Tarp";
+                break;
+            case 2:
+                exile.exileEvent = "PublicRisk";
+                break;
+            case 3:
+                exile.exileEvent = "ForcedBag";
+                break;
+            case 4:
+                exile.exileEvent = "IndividualChallenge";
+                break;
+        }
+
+        switch (prefab.GetChild(4).GetComponentInChildren<Dropdown>().value)
+        {
+            case 0:
+                exile.reason = "Else";
+                exile.challenge = "Immunity";
+                exile.two = true;
+                break;
+            case 1:
+                exile.reason = "Else";
+                exile.challenge = "Immunity";
+                exile.two = false;
+                break;
+            case 2:
+                exile.reason = "Random";
+                exile.challenge = "Random";
+                break;
+        }
+
+        
+
+        return exile;
+    }
+
+    public Exile RegJourney(Transform prefab)
+    {
+        Exile exile = new Exile();
+
+
+        switch (prefab.GetChild(0).GetComponent<Dropdown>().value)
+        {
+            case 0:
+                exile.exileEvent = "Shipwheel";
+                break;
+            case 1:
+                exile.exileEvent = "Tarp";
+                break;
+            case 2:
+                exile.exileEvent = "PublicRisk";
+                break;
+            case 3:
+                exile.exileEvent = "ForcedBag";
+                break;
+            case 4:
+                exile.exileEvent = "IndividualChallenge";
+                break;
+        }
+
+        switch (prefab.GetChild(1).GetComponentInChildren<Dropdown>().value)
+        {
+            case 0:
+                exile.reason = "Else";
+                exile.challenge = "Immunity";
+                exile.two = true;
+                break;
+            case 1:
+                exile.reason = "Else";
+                exile.challenge = "Immunity";
+                exile.two = false;
+                break;
+            case 2:
+                exile.reason = "Random";
+                exile.challenge = "Random";
+                break;
+        }
+        int contest = SeasonMenuManager.Instance.contestants;
+        for(int i = contest; contest < SeasonMenuManager.Instance.customSeason.mergeAt; i--)
+        {
+            if(!SeasonMenuManager.Instance.customSeason.Twists.epsSpecialE.Contains(i))
+            {
+                HiddenAdvantage adv = new HiddenAdvantage();
+                adv.advantage = SeasonMenuManager.Instance.advantages[prefab.GetChild(2).GetComponentInChildren<Dropdown>().value];
+                adv.hidden = true;
+                adv.reHidden = false;
+                
+                adv.hideAt = i;
+                adv.name = adv.advantage.nickname;
+
+                if (adv.advantage.type == "HiddenImmunityIdol")
+                {
+                    SeasonMenuManager.Instance.customSeason.idolLimit++;
+                }
+                switch (prefab.GetChild(5).GetComponentInChildren<Dropdown>().value)
+                {
+                    case 0:
+                        adv.IOILesson = "Tribal";
+                        break;
+                    case 1:
+                        adv.IOILesson = "Camp";
+                        break;
+                }
+                SeasonMenuManager.Instance.customSeason.islandHiddenAdvantages.Add(adv);
+            }
+        }
 
         return exile;
     }
@@ -277,10 +391,26 @@ public class ExileMenu : MonoBehaviour
 
     void ConfirmJourney()
     {
-        if (int.Parse(curAdvGI.transform.GetChild(2).GetComponentInChildren<InputField>().text) > SeasonMenuManager.instance.contestantsFull)
+        if (int.Parse(curJourney.transform.GetChild(2).GetComponentInChildren<InputField>().text) > SeasonMenuManager.instance.contestantsFull)
         {
             return;
         }
+        curJourney.transform.GetChild(0).GetComponentInChildren<Dropdown>().interactable = false;
+        curJourney.transform.GetChild(1).GetComponent<Button>().interactable = false;
+        curJourney.transform.GetChild(2).GetComponentInChildren<InputField>().interactable = false;
+        curJourney.transform.GetChild(3).GetComponentInChildren<Dropdown>().interactable = false;
+        curJourney.transform.GetChild(4).GetComponentInChildren<Dropdown>().interactable = false;
+        curJourney.transform.GetChild(5).GetComponentInChildren<Dropdown>().interactable = false;
+        curJourney = Instantiate(JourneyPrefab, SpecialJourneyParent);
+        curJourney.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(ConfirmJourney);
+        curJourney.transform.GetChild(0).GetComponentInChildren<Dropdown>().interactable = true;
+        curJourney.transform.GetChild(1).GetComponent<Button>().interactable = true;
+        curJourney.transform.GetChild(2).GetComponentInChildren<InputField>().interactable = true;
+        curJourney.transform.GetChild(3).GetComponentInChildren<Dropdown>().interactable = true;
+        curJourney.transform.GetChild(4).GetComponentInChildren<Dropdown>().interactable = true;
+        curJourney.transform.GetChild(5).GetComponentInChildren<Dropdown>().interactable = true;
+        Debug.Log("fdafesd");
+        StartCoroutine(ABC());
     }
 
     public void skipEnter(string real)

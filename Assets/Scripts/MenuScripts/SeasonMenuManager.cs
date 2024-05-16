@@ -435,6 +435,9 @@ public class SeasonMenuManager : MonoBehaviour
                         } else if(ExileMenu.islandChoice.value == 1)
                         {
                             CreateGhost();
+                        } else if (ExileMenu.islandChoice.value == 2)
+                        {
+                            CreateJourneys();
                         }
                     }
                 }
@@ -1236,10 +1239,32 @@ public class SeasonMenuManager : MonoBehaviour
         {
             if (child.GetChild(1).GetComponent<Button>().interactable == false)
             {
-                customSeason.islandHiddenAdvantages.Add(GenerateAdvGI(child));
+                customSeason.islandHiddenAdvantages.Add(GenerateAdvGI(child, false));
                 //Debug.Log("w");
             }
         }
+    }
+
+    void CreateJourneys()
+    {
+        customSeason.ExileIslandd = true;
+        customSeason.Twists = new Twist();
+        
+        foreach (Transform child in ExileMenu.SpecialJourneyParent)
+        {
+            customSeason.Twists.epsSpecialE.Add(int.Parse(child.GetComponentInChildren<InputField>().text));
+            Exile spec = new Exile();
+            spec = ExileMenu.GetJourney(child);
+            customSeason.Twists.SpecialEx.Add(spec);
+            if (child.GetChild(1).GetComponent<Button>().interactable == false)
+            {
+                customSeason.islandHiddenAdvantages.Add(GenerateAdvGI(child, true));
+                //Debug.Log("w");
+            }
+        }
+        customSeason.Twists.preMergeEIsland = new Exile();
+        customSeason.Twists.preMergeEIsland = ExileMenu.RegJourney(ExileMenu.RegularJourney.transform);
+        customSeason.Twists.expires = "Merge";
     }
 
     void CreateChallenges()
@@ -1335,7 +1360,7 @@ public class SeasonMenuManager : MonoBehaviour
         return adv;
     }
 
-    HiddenAdvantage GenerateAdvGI(Transform prefab)
+    HiddenAdvantage GenerateAdvGI(Transform prefab, bool journey)
     {
         HiddenAdvantage adv = new HiddenAdvantage();
         adv.advantage = advantages[prefab.GetChild(0).GetComponentInChildren<Dropdown>().value];
@@ -1357,6 +1382,20 @@ public class SeasonMenuManager : MonoBehaviour
         {
             customSeason.idolLimit++;
         }
+
+        if(journey)
+        {
+            switch (prefab.GetChild(5).GetComponentInChildren<Dropdown>().value)
+            {
+                case 0:
+                    adv.IOILesson = "Tribal";
+                    break;
+                case 1:
+                    adv.IOILesson = "Camp";
+                    break;
+            }
+        }
+
         return adv;
     }
 
