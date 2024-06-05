@@ -413,21 +413,27 @@ public class ExileMenu : MonoBehaviour
         StartCoroutine(ABC());
     }
 
-    public void skipEnter(string real)
+    public void skipEnter()
     {
         
-        int num = int.Parse(real);
+        int num = int.Parse(skip.text);
         skipText.text += " ";
-        if(skips.Contains(num) || num == 1)
+        if(skips.Contains(num))
         {
-            skipText.text.Replace(" " + real + " ", "");
+            skips.Remove(num);
+            //skipText.text.Replace(" F" + num + " ", "");
         }
         else
         {
             skips.Add(num);
-            skipText.text += real + " ";
         }
-        real = "";
+
+        skipText.text = "Skipping at:";
+        for(int i = 0; i < skips.Count; i++)
+        {
+            skipText.text += " F" + skips[i] + " ";
+
+        }
     }
 
     public void ChooseIsland()

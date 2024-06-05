@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
-  m_Name: 41
+  m_Name: 42
   m_EditorClassIdentifier: 
-  nameSeason: Survivor 41 (Incomplete)
+  nameSeason: Survivor 42
   seasonImage: {fileID: 21300000, guid: 0d4700bc5d01b7e41a1d60eb95e247e6, type: 3}
   Tribes:
-  - name: Luvu Tribe
-    tribeColor: {r: 0.47843137, g: 0.94509804, b: 1, a: 1}
+  - name: Taku Tribe
+    tribeColor: {r: 0.9843137, g: 0.56078434, b: 0.03137255, a: 1}
     members:
     - {fileID: 0}
     - {fileID: 0}
@@ -25,8 +25,8 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     hiddenAdvantages:
-    - name: Luvu Tribe Hidden Immunity Idol
-      advantage: {fileID: 11400000, guid: d046396878a44344c8dbac9c63171d33, type: 2}
+    - name: Taku Tribe Hidden Immunity Idol
+      advantage: {fileID: 11400000, guid: 7f9053736c41a8a4c9fbeb29ca6709cd, type: 2}
       hideAt: 0
       reHidden: 1
       hidden: 1
@@ -41,8 +41,8 @@ MonoBehaviour:
     remove: 0
     allianceCount: 0
     environment: 3
-  - name: Ua Tribe
-    tribeColor: {r: 0.61960787, g: 0.92941177, b: 0.40392157, a: 1}
+  - name: Ika Tribe
+    tribeColor: {r: 0.02745098, g: 0.58431375, b: 0.90588236, a: 1}
     members:
     - {fileID: 0}
     - {fileID: 0}
@@ -51,8 +51,8 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     hiddenAdvantages:
-    - name: Ua Tribe Hidden Immunity Idol
-      advantage: {fileID: 11400000, guid: d046396878a44344c8dbac9c63171d33, type: 2}
+    - name: Ika Tribe Hidden Immunity Idol
+      advantage: {fileID: 11400000, guid: 7f9053736c41a8a4c9fbeb29ca6709cd, type: 2}
       hideAt: 0
       reHidden: 1
       hidden: 1
@@ -67,8 +67,8 @@ MonoBehaviour:
     remove: 0
     allianceCount: 0
     environment: 3
-  - name: Yase Tribe
-    tribeColor: {r: 1, g: 0.9529412, b: 0.3647059, a: 1}
+  - name: Vati Tribe
+    tribeColor: {r: 0.03137255, g: 0.80784315, b: 0.44313726, a: 1}
     members:
     - {fileID: 0}
     - {fileID: 0}
@@ -78,7 +78,7 @@ MonoBehaviour:
     - {fileID: 0}
     hiddenAdvantages:
     - name: Yase Tribe Hidden Immunity Idol
-      advantage: {fileID: 11400000, guid: d046396878a44344c8dbac9c63171d33, type: 2}
+      advantage: {fileID: 11400000, guid: 7f9053736c41a8a4c9fbeb29ca6709cd, type: 2}
       hideAt: 0
       reHidden: 1
       hidden: 1
@@ -129,8 +129,8 @@ MonoBehaviour:
     events: []
   Tiebreaker: 
   ReturningPlayers: 
-  MergeTribeColor: {r: 0.9411765, g: 0.105882354, b: 0.18039216, a: 1}
-  MergeTribeName: Viakana Tribe
+  MergeTribeColor: {r: 0.7607843, g: 0.42745098, b: 0.7882353, a: 1}
+  MergeTribeName: Kula Kula Tribe
   ImmunityChallenges: []
   RewardChallenges: []
   rewardSkips: 

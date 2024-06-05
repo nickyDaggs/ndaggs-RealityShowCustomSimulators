@@ -439,6 +439,7 @@ public class SeasonMenuManager : MonoBehaviour
                         {
                             CreateJourneys();
                         }
+                        customSeason.Twists.epsSkipE = ExileMenu.skips;
                     }
                 }
                 else if (opt.optionBool == "Fire")
