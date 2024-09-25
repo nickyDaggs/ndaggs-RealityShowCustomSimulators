@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
   m_Name: CustomSeason
   m_EditorClassIdentifier: 
-  nameSeason: 
+  nameSeason: Survivor
+  seasonImage: {fileID: 0}
   Tribes: []
   mergeAt: 0
   jury: 0
@@ -48,6 +49,7 @@ MonoBehaviour:
   threeParts: 
   Twists:
     expireAt: 0
+    expires: 
     epsSkipE: 
     epsSpecialE: 
     epsSkipRI: 
@@ -85,3 +87,4 @@ MonoBehaviour:
     context: 
     round: 0
     elim: 0
+  overridden: 0

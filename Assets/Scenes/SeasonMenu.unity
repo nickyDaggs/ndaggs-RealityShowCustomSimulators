@@ -37233,7 +37233,7 @@ MonoBehaviour:
   GIAdvantagePrefab: {fileID: 5221444561251080206, guid: 2f026a0204c921a4180acd744d05a6e4,
     type: 3}
   GIAdvantageParent: {fileID: 2098557734}
-  RegularJourney: {fileID: 693362270}
+  RegularJourney: {fileID: 150920639}
   curJourney: {fileID: 0}
   JourneyPrefab: {fileID: 1436760204}
   SpecialJourneyParent: {fileID: 138428327}

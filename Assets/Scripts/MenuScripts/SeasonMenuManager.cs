@@ -149,6 +149,7 @@ public class SeasonMenuManager : MonoBehaviour
         //editorOptions[4].GetComponent<InputField>().interactable = false;
         //editorOptions[5].GetComponent<InputField>().interactable = false;
         customSeason.final = editorOptions[2].GetComponent<Dropdown>().value;
+        customSeason.nameSeason = "Survivor";
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -1189,11 +1190,12 @@ public class SeasonMenuManager : MonoBehaviour
         customSeason.Twists.MergeEIsland = new Exile();
         customSeason.Twists.MergeEIsland = ExileMenu.GetMExile();
         customSeason.IslandType = "Exile";
-        customSeason.Twists.expireAt = spEvMenu.RoundsClone.Count + 2;
+        customSeason.Twists.expireAt = (int)customSeason.final + 1;
         //Debug.Log(customSeason.Twists.expireAt);
         if (ExileMenu.endAt.options[ExileMenu.endAt.value].text == "Merge")
         {
             customSeason.Twists.expires = "Merge";
+            customSeason.Twists.expireAt = (int)customSeason.mergeAt;
             //customSeason.Twists.expireAt = spEvMenu.RoundsClone.IndexOf(spEvMenu.RoundsClone.Find(x => x.text == (customSeason.mergeAt).ToString())) + 2;
             //Debug.Log(customSeason.Twists.expireAt);
         } else
@@ -1250,18 +1252,22 @@ public class SeasonMenuManager : MonoBehaviour
     {
         customSeason.ExileIslandd = true;
         customSeason.Twists = new Twist();
-        
+        customSeason.IslandType = "Journeys";
         foreach (Transform child in ExileMenu.SpecialJourneyParent)
         {
-            customSeason.Twists.epsSpecialE.Add(int.Parse(child.GetComponentInChildren<InputField>().text));
-            Exile spec = new Exile();
-            spec = ExileMenu.GetJourney(child);
-            customSeason.Twists.SpecialEx.Add(spec);
-            if (child.GetChild(1).GetComponent<Button>().interactable == false)
+            if(child.GetComponentInChildren<InputField>().text != "")
             {
-                customSeason.islandHiddenAdvantages.Add(GenerateAdvGI(child, true));
-                //Debug.Log("w");
+                customSeason.Twists.epsSpecialE.Add(int.Parse(child.GetComponentInChildren<InputField>().text));
+                Exile spec = new Exile();
+                spec = ExileMenu.GetJourney(child);
+                customSeason.Twists.SpecialEx.Add(spec);
+                if (child.GetChild(1).GetComponent<Button>().interactable == false)
+                {
+                    customSeason.islandHiddenAdvantages.Add(GenerateAdvGI(child, true));
+                    //Debug.Log("w");
+                }
             }
+            
         }
         customSeason.Twists.preMergeEIsland = new Exile();
         customSeason.Twists.preMergeEIsland = ExileMenu.RegJourney(ExileMenu.RegularJourney.transform);

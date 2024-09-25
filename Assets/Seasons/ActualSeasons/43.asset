@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e335bc2cc2842844a11e9df648c2c0b, type: 3}
-  m_Name: 42
+  m_Name: 43
   m_EditorClassIdentifier: 
-  nameSeason: Survivor 42
+  nameSeason: Survivor 43
   seasonImage: {fileID: 21300000, guid: 0d4700bc5d01b7e41a1d60eb95e247e6, type: 3}
   Tribes:
   - name: Taku Tribe
@@ -180,16 +180,29 @@ MonoBehaviour:
     options: []
     IOISweetened: 0
     hiddenChance: 0
-  - name: Extra Vote
-    advantage: {fileID: 11400000, guid: 76b811ce95a4dec4c85fb811620ee8e6, type: 2}
-    hideAt: 16
+  - name: Steal a Vote
+    advantage: {fileID: 11400000, guid: b09ac9f84ce006145848f34558e8e311, type: 2}
+    hideAt: 15
     reHidden: 0
     hidden: 0
     linkedToExile: 0
     length: 0
     temp: 0
     giveAway: 0
-    IOILesson: Tribal
+    IOILesson: Camp
+    options: []
+    IOISweetened: 0
+    hiddenChance: 0
+  - name: Knowledge Is Power Advantage
+    advantage: {fileID: 11400000, guid: ab52d912beb2cab40919c1040ef02d39, type: 2}
+    hideAt: 13
+    reHidden: 0
+    hidden: 0
+    linkedToExile: 0
+    length: 0
+    temp: 0
+    giveAway: 0
+    IOILesson: Camp
     options: []
     IOISweetened: 0
     hiddenChance: 0
@@ -210,25 +223,25 @@ MonoBehaviour:
   Twists:
     expireAt: 12
     expires: 
-    epsSkipE: 110000000f000000
-    epsSpecialE: 0f0000000d000000
+    epsSkipE: 100000000e000000
+    epsSpecialE: 12000000
     epsSkipRI: 
     epsSpecialRI: 
     SpecialEx:
     - on: 1
-      reason: Else
+      reason: Random
       ownTribe: 0
-      exileEvent: Shipwheel
-      challenge: Immunity
+      exileEvent: PublicRisk
+      challenge: Random
       skipTribal: 0
-      two: 1
+      two: 0
       both: 0
     preMergeEIsland:
       on: 1
-      reason: Random
+      reason: Else
       ownTribe: 0
-      exileEvent: Shipwheel
-      challenge: Random
+      exileEvent: PublicRisk
+      challenge: Immunity
       skipTribal: 0
       two: 0
       both: 0
